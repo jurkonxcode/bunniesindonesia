@@ -20,10 +20,10 @@
       "url": "https://www.voaindonesia.com/api/zmgqol-vomx-tpeympp",
       "kategori": "Auto",
       "kategori_bawaan": "Internasional",
-      "izin": false,
+      "izin": true,
       "ringkasan": false,
       "bahasa": "id",
-      "catatan": "Syarat VOA (voanews.com/terms-use-and-privacy-notice): teks buatan VOA sendiri berstatus domain publik, cantumkan VOA sebagai sumber. Materi AFP/AP/Reuters di situsnya TIDAK domain publik. Cari alamat RSS di halaman RSS voaindonesia.com, uji dengan --cek-url, baru ubah izin. Karena hanya judul + tautan ke VOA, risikonya kecil, tetapi putuskan sendiri."
+      "catatan": "Dasar: voanews.com/terms-use-and-privacy-notice, teks buatan VOA berstatus domain publik dengan kredit ke VOA. Hanya judul dan tautan yang disimpan. Diaktifkan 9 Nov 2026. Catatan: berita terbaru di feed ini bertanggal Maret 2025, jadi tidak akan lolos batas umur 72 jam sampai VOA Indonesia menerbitkan lagi."
     },
     {
       "id": "bbc-indonesia",
