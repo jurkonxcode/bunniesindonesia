@@ -12,3 +12,7 @@ async function load(){
     $("status").textContent = "";
   }catch(e){ $("status").textContent = "Gagal memuat data langsung. Menampilkan data contoh."; }
 }
+async function loadQuestions(){            // v12: pertanyaan terbaru untuk beranda; diam-diam dilewati bila v10-tanya-jawab.sql belum dijalankan
+  if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return;
+  try{ questions = await sb("questions?select=id,title,category,answer_count,best_answer_id,created_at&order=created_at.desc&limit=8"); }catch(e){ questions = []; }
+}

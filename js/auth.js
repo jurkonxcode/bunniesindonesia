@@ -89,4 +89,5 @@ function renderAuth(){
     a.innerHTML = `<a class="ghost" href="#" id="signup">Daftar</a><button class="btn green" id="loginTop">Masuk</button>`;
     $("acct").innerHTML = loggedOutCard;
   }
+  $("acct").hidden = !session;
 }

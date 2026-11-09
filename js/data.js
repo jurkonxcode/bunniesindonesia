@@ -58,3 +58,6 @@ const rates = [["USD","15.980","-0,18%",0],["SGD","11.850","+0,10%",1],["EUR","1
 const couriers = ["JNE","J&T","SiCepat","AnterAja","Pos Indonesia","Shopee Express"];
 const holidays = [["Hari Raya Natal","2026-12-25"],["Tahun Baru Masehi","2027-01-01"]];
 const toolRoutes = [[/resi|paket|kurir/i,"tool-resi"],[/sholat|salat|shalat|adzan|azan/i,"tool-sholat"],[/kurs|dolar|dollar|emas|antam/i,"tool-kurs"],[/libur|cuti/i,"tool-libur"]];
+
+/* Tab beranda: [kunci, label]. Bola/Hiburan/Kuliner/Religi/Otomotif menyaring berita menurut kategori. */
+const TABS = [["Semua","Semua"],["Berita","Berita"],["Bola","Bola"],["Hiburan","Hiburan"],["Video","Video"],["Belanja","Belanja"],["Kuliner","Kuliner"],["Religi","Religi"],["Otomotif","Otomotif"],["Tanya","Tanya Jawab"]];

@@ -35,8 +35,8 @@ css/
   tokens.css            warna, bayangan, mode gelap (ubah warna di sini)
   base.css              reset, tipografi, .card, .sh, .btn, .thumb
   header.css            bar ticker + header menempel
-  hero.css              kotak pencarian, tab, tren
-  shortcuts.css         10 shortcut layanan
+  hero.css, shortcuts.css   LAMA, tidak dimuat lagi sejak v12 (aman dihapus)
+  home.css              beranda v12: cari, tab sticky, umpan kartu (dimuat terakhir)
   content.css           berita, panel samping, video, belanja, komunitas, komik, footer
   auth.css              dialog masuk, tombol Simpan, label .demo
   page.css              gaya halaman hukum
@@ -249,3 +249,15 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 - Tombol menu (tiga garis) di header beranda mengarah ke `/layanan`, terlihat juga di HP (menu teks disembunyikan di bawah 1000px).
 
 **Belum ada:** foto asli. Itu baru muncul setelah impor RSS (Tahap A no. 3) mengisi `image_url`. Simpan hanya tautan gambar sumber, jangan salin ke penyimpanan sendiri tanpa izin. Pintasan belum ikut akun (belum sinkron antar perangkat).
+
+## 19. v12: beranda gaya portal (umpan kartu)
+
+**Susunan beranda** (mengacu pola portal besar, identitas tetap Niflax): header (menu, logo, Masuk) → kotak cari besar berlogo `n` + chip + tren → **tab menempel** (Tanya, Resi, Layanan | Semua, Berita, Bola, Hiburan, Video, Belanja, Kuliner, Religi, Otomotif, Tanya Jawab) → strip mini (cuaca, IHSG) → **umpan kartu 2 kolom di HP** (3 di tablet, 4 di desktop) → Alat harian.
+
+- Umpan = berita diselingi pertanyaan Tanya Jawab (nyata), video, produk, dan komunitas (contoh, berlabel). Logikanya di `feedItems()` dalam `js/ui.js`. Tab Bola/Hiburan/Kuliner/Religi/Otomotif menyaring berita menurut kategori.
+- Kartu berita kini **tertaut ke sumber asli** (`news.url`, hanya http/https, `rel="noopener noreferrer nofollow"`), sebelumnya `#`.
+- `renderNews` adalah alias `renderFeed` (dipanggil `auth.js`). Kartu akun `#acct` hanya tampil saat sudah masuk.
+- `loadQuestions()` (`api.js`) memuat 8 pertanyaan terbaru; bila `v10-tanya-jawab.sql` belum dijalankan, dilewati diam-diam.
+- Daftar peringkat kata kunci (`#rank`), kolom samping, dan skor dihapus dari beranda. Tren tetap berputar di bawah kotak cari.
+- **Cache:** semua tag CSS/JS di halaman HTML kini memakai `?v=12`. **Naikkan angkanya di semua file HTML tiap rilis** supaya HP tidak menyajikan CSS/JS lama (penyebab tampilan setengah baru setengah lama di v11). Perintah: `sed -i 's/?v=12/?v=13/g' *.html`.
+- Urutan `<script>` tidak berubah. `css/home.css` harus tetap setelah `responsive.css`.
