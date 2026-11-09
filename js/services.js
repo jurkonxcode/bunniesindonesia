@@ -6,5 +6,5 @@ const GROUPS = [
   {c:"g1", name:"Berita dan info", items:[["berita","Berita","","segera"],["bola","Olahraga","blog?cat=Olahraga"],["hiburan","Hiburan","blog?cat=Hiburan"],["cuaca","Cuaca","./#wx"]]},
   {c:"g3", name:"Video dan belanja", items:[["video","Video","","segera"],["belanja","Belanja","","segera"],["komik","Komik","","segera"]]},
   {c:"g5", name:"Gaya hidup dan perjalanan", items:[["kuliner","Kuliner","blog?cat=Kuliner"],["otomotif","Otomotif","blog?cat=Otomotif"],["religi","Religi","","segera"],["peta","Peta","","segera"],["tiket","Tiket","","segera"]]},
-  {c:"g6", name:"Akun dan Niflax", items:[["tersimpan","Berita tersimpan","./#acct"],["tentang","Tentang","tentang"],["kontak","Kontak","tentang#kontak"],["privasi","Kebijakan privasi","privasi"],["syarat","Syarat layanan","syarat"],["brand","Panduan merek","brand"]]}
+  {c:"g6", name:"Akun dan Niflax", items:[["akun","Akun saya","akun"],["tersimpan","Berita tersimpan","./#acct"],["tentang","Tentang","tentang"],["kontak","Kontak","tentang#kontak"],["privasi","Kebijakan privasi","privasi"],["syarat","Syarat layanan","syarat"],["brand","Panduan merek","brand"]]}
 ];

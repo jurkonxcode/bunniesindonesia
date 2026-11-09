@@ -1,6 +1,6 @@
 /* Login Supabase Auth lewat fetch (tanpa library): Google + kode email, plus Simpan berita. */
 const AUTH_KEY = "niflax.session";
-let session = null, saved = new Set(), onlySaved = false, pendingEmail = "";
+let session = null, saved = new Set(), onlySaved = false, pendingEmail = "", isAdmin = false;
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
 const keep = s => { session = s; try{ s ? localStorage.setItem(AUTH_KEY, JSON.stringify(s)) : localStorage.removeItem(AUTH_KEY); }catch(e){} };
 const pack = d => d && d.access_token ? {access_token:d.access_token, refresh_token:d.refresh_token, expires_at:d.expires_at || Math.floor(Date.now()/1000) + (d.expires_in || 3600), user:d.user} : null;
@@ -38,7 +38,15 @@ async function initAuth(){
     try{ session = JSON.parse(localStorage.getItem(AUTH_KEY)); }catch(e){ session = null; }
   }
   renderAuth();
-  if(session) loadSaved();
+  if(session){ loadSaved(); checkAdmin(); }
+}
+async function checkAdmin(){                 // v26: tampilkan tautan Panel admin hanya untuk admin (keamanan sebenarnya di SQL)
+  try{
+    const t = await token(); if(!t) return;
+    const r = await fetch(SUPABASE_URL + "/rest/v1/rpc/is_admin", {method:"POST", headers:hdr(t), body:"{}"});
+    isAdmin = r.ok && (await r.json()) === true;
+  }catch(e){ isAdmin = false; }
+  renderAuth();
 }
 async function loadSaved(){
   try{ saved = new Set((await authSb("saved_news?select=news_id")).map(x => x.news_id)); }catch(e){}
@@ -66,7 +74,7 @@ async function verifyCode(code){
   $("authMsg").textContent = "Memeriksa…";
   try{
     keep(pack(await authCall("verify", {type:"email", email:pendingEmail, token:code})));
-    $("authDlg").close(); renderAuth(); loadSaved();
+    $("authDlg").close(); renderAuth(); loadSaved(); checkAdmin();
   }catch(e){ $("authMsg").textContent = "Kode salah atau kedaluwarsa."; }
 }
 function googleLogin(){
@@ -74,7 +82,7 @@ function googleLogin(){
 }
 async function logout(){
   const t = session && session.access_token;
-  keep(null); saved = new Set(); onlySaved = false;
+  keep(null); saved = new Set(); onlySaved = false; isAdmin = false;
   if(t) fetch(SUPABASE_URL + "/auth/v1/logout", {method:"POST", headers:hdr(t)}).catch(() => {});
   renderAuth(); renderNews();
 }
@@ -84,7 +92,7 @@ function renderAuth(){
   const a = document.querySelector(".top .actions");
   if(session){
     a.innerHTML = `<span class="who">${myName()}</span><button class="btn" id="logoutTop">Keluar</button>`;
-    $("acct").innerHTML = `<div class="sh"><h2>Halo, ${myName()}</h2></div><p>${saved.size} berita tersimpan.</p><button class="btn green" id="showSaved">${onlySaved ? "Tampilkan semua berita" : "Lihat tersimpan"}</button><div class="links"><a href="#" id="logoutBtn">Keluar</a></div>`;
+    $("acct").innerHTML = `<div class="sh"><h2>Halo, ${myName()}</h2></div><p>${saved.size} berita tersimpan.</p><button class="btn green" id="showSaved">${onlySaved ? "Tampilkan semua berita" : "Lihat tersimpan"}</button><div class="links"><a href="akun">Akun saya</a>${isAdmin ? ` · <a href="admin">Panel admin</a>` : ""} · <a href="#" id="logoutBtn">Keluar</a></div>`;
   }else{
     a.innerHTML = `<a class="ghost" href="#" id="signup">Daftar</a><button class="btn green" id="loginTop">Masuk</button>`;
     $("acct").innerHTML = loggedOutCard;

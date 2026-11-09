@@ -58,7 +58,7 @@ async function showDetail(id){
     if(!p){ $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><p class="sempty">Tulisan tidak ditemukan atau sudah dihapus.</p>`; return; }
     document.title = p.title.slice(0, 60) + " – Niflax";
     const own = session && session.user.id === p.user_id;
-    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(p.category)}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : ""}</article>`;
+    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(p.category)}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>`;
   }catch(e){ $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><p class="sempty">Gagal memuat: ${esc(e.message)}</p>`; }
 }
 async function publish(){
@@ -69,11 +69,21 @@ async function publish(){
     location.href = "blog?id=" + r[0].id;
   }catch(e){ msg.className = "msg err"; msg.textContent = e.message; btn.disabled = false; }
 }
+let repId = 0;
+async function sendReport(){
+  const msg = $("repMsg"); msg.className = "msg"; msg.textContent = "Mengirim…";
+  try{
+    await rest("reports", {method:"POST", headers:{Prefer:"return=minimal"}, body:JSON.stringify({target_type:"post", target_id:repId, reason:$("repReason").value})});
+    msg.textContent = "Terima kasih, laporan diterima."; setTimeout(() => $("repDlg").close(), 900);
+  }catch(e){ msg.className = "msg err"; msg.textContent = /duplicate|unique/i.test(e.message) ? "Kamu sudah melaporkan ini." : e.message; }
+}
 document.addEventListener("click", async e => {
-  const t = e.target.closest("[data-del],[data-c],#loginBtn,#writeBtn,#writeCancel,#more"); if(!t) return;
+  const t = e.target.closest("[data-del],[data-rep],[data-c],#loginBtn,#writeBtn,#writeCancel,#repCancel,#more"); if(!t) return;
   if(t.id === "loginBtn") return googleLogin();
   if(t.id === "writeBtn"){ if(!session){ alert("Masuk dulu untuk menulis."); return googleLogin(); } $("writeMsg").textContent = ""; $("writeForm").querySelector(".green").disabled = false; return $("writeDlg").showModal(); }
   if(t.id === "writeCancel") return $("writeDlg").close();
+  if(t.id === "repCancel") return $("repDlg").close();
+  if(t.dataset.rep){ repId = +t.dataset.rep; $("repMsg").textContent = ""; return $("repDlg").showModal(); }
   if(t.id === "more") return loadList(false);
   if(t.dataset.c){ cat = t.dataset.c; paintCats(); return loadList(true); }
   if(t.dataset.del){
@@ -82,6 +92,7 @@ document.addEventListener("click", async e => {
   }
 });
 $("writeForm").addEventListener("submit", e => { e.preventDefault(); publish(); });
+$("repForm").addEventListener("submit", e => { e.preventDefault(); sendReport(); });
 (async function(){
   $("wCat").innerHTML = CATS.map(c => `<option>${c}</option>`).join("");
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("listView").hidden = false; $("pinfo").textContent = "Supabase belum dikonfigurasi di js/config.js."; return; }

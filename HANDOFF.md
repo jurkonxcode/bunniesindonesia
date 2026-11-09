@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v24, lihat bagian 26).
+Terakhir diperbarui: 9 November 2026 (v26, lihat bagian 28).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -393,3 +393,31 @@ Acuan: screenshot naver.com (mode desktop di HP) dibandingkan dengan beranda Nif
 - Alamat tanpa `.html` (`/tulisan/12`) berfungsi di GitHub Pages; server Python sederhana tidak mengerti ini (lihat bagian 16).
 - Konten baru punya halaman statis paling lambat ~30 menit setelah dibuat. Tautan di beranda sengaja masih mengarah ke halaman dinamis (`blog?id=`, `tanya?id=`) agar tidak 404 pada jeda itu.
 - Belum dikerjakan: canonical dari halaman dinamis ke halaman statis, gambar OG per halaman, sitemap berita (tidak relevan), build bertahap bila konten sudah puluhan ribu.
+
+## 28. v26: admin, moderasi, blokir, hapus akun, unduh data
+**Tujuan:** siap menerima pengguna umum (UU PDP: akses dan penghapusan data) dan punya alat menjaga konten. Domain dan Search Console sengaja belum dikerjakan.
+
+**Berkas baru:** `supabase/v26-moderasi.sql`, `admin.html`, `akun.html`, `js/sesi.js`, `js/admin.js`, `js/akun.js`, `css/admin.css`. **Berubah:** `blog.html` + `js/blog.js` (tombol Laporkan untuk tulisan), `js/auth.js` (tautan Akun saya dan Panel admin di kartu akun), `js/services.js` (item Akun saya), `privasi.html`, `syarat.html`. Cache `?v=26` di semua HTML.
+
+**Wajib dilakukan pemilik (sekali):**
+1. Supabase, SQL Editor: jalankan `supabase/v26-moderasi.sql`. Aman diulang. Syarat: `v10-tanya-jawab.sql` dan `v19-blog.sql` sudah dijalankan.
+2. Masuk ke situs dengan emailmu, lalu jalankan baris terakhir berkas itu (bagian 9) setelah mengganti `GANTI_DENGAN_EMAILMU` dan menghapus tanda `--`. Itu menjadikanmu admin.
+3. Buka `/admin`. Bila muncul "Gagal memeriksa akses", SQL belum jalan.
+
+**Cara kerja:**
+- **Keamanan ada di SQL, bukan di halaman.** Semua fungsi admin (`admin_queue`, `admin_act`, `admin_blocked`, `admin_unblock`, `admin_stats`) memanggil `require_admin()`. Tabel `admins`, `blocked_users`, `mod_log` memakai RLS tanpa policy (tidak terbaca dari browser). Fungsi dicabut dari `anon`, hanya `authenticated`.
+- **Antrean admin (`admin`):** tab Laporan (konten dengan laporan baru), Tersembunyi, Terbaru (semua konten, untuk tinjau proaktif), Diblokir. Tindakan: Sembunyikan, Tampilkan, Abaikan laporan, Hapus, Blokir penulis. Tiap tindakan dicatat di `mod_log`. Admin tidak bisa memblokir admin.
+- **Laporan:** kini mencakup tulisan blog (`target_type = 'post'`). Kolom baru `reports.status` (`baru`/`selesai`) dan `handled_at`. 3 laporan BARU dari 3 pengguna berbeda menyembunyikan konten otomatis; laporan yang sudah ditangani tidak dihitung lagi. Satu pengguna maksimal 30 laporan per hari, dan hanya untuk konten yang ada dan tampil.
+- **Blokir:** trigger `aa_not_blocked` (jalan sebelum `*_prepare`) menolak pertanyaan, jawaban, tulisan, dan laporan dari akun terblokir. Ini penangkal ringan: pengguna terblokir masih bisa menghapus akunnya lalu mendaftar lagi dengan email lain.
+- **Akun saya (`akun`):** ubah nama tampil (`set_display_name`, nama dicadangkan seperti "Admin"/"Niflax" ditolak untuk non-admin; berlaku untuk konten berikutnya, konten lama tidak diubah), unduh data JSON (`export_my_data`, termasuk konten yang sedang disembunyikan), keluar, dan hapus akun (`delete_my_account`, harus mengetik HAPUS). Hapus akun menghapus baris `auth.users`; tulisan, pertanyaan, jawaban, laporan, dan profil ikut terhapus lewat `on delete cascade`. Admin terakhir tidak bisa menghapus akunnya.
+- `admin.html` dan `akun.html` bermeta `noindex` dan tidak masuk sitemap (diuji dengan `build-static.mjs --fixture`).
+- `js/sesi.js` berisi sesi + `rest()` + `rpc()` bersama untuk dua halaman baru. Jangan dimuat bersama `tanya.js`/`blog.js` (nama variabel sama).
+
+**Diuji:** sintaks JS, dan Chromium (Playwright) di 390px dengan Supabase tiruan: gerbang masuk, non-admin, panel admin (daftar, XSS di judul tampil sebagai teks, semua tindakan mengirim payload benar, buka blokir), akun (isi nama, simpan, unduh, hapus hanya aktif setelah mengetik HAPUS, sesi terhapus), Laporkan di blog, tautan di beranda dan Semua layanan. Tanpa error JS dan tanpa overflow horizontal. **SQL belum diuji pada Postgres sungguhan** (tidak tersedia di mesin uji); jalankan lalu uji alurnya sekali: laporkan satu tulisan dari akun kedua, tangani di `/admin`.
+
+**Catatan dan belum dikerjakan:**
+- Konten yang disembunyikan/dihapus hilang dari halaman statis (SEO) pada terbit berikutnya, paling lambat ~30 menit.
+- Kontak masih lewat GitHub Issues (bagian 12). Ganti dengan email sungguhan sebelum pendaftaran dibuka umum.
+- Belum ada: banding atas blokir, notifikasi ke penulis saat kontennya disembunyikan, ekspor `mod_log` ke panel (lihat di Table Editor), laporan untuk komentar (komentar belum ada).
+- Berikutnya (v27): Religi (Al-Qur'an), Peta, direktori wilayah dari data terbuka.
+
