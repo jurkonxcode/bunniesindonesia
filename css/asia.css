@@ -1,0 +1,22 @@
+/* v28: tampilan wedge Indonesia-Asia Timur. Dimuat paling akhir. Warna lewat token. */
+:root{--radius:16px;--shadow:0 1px 2px rgba(15,31,26,.04),0 8px 24px -14px rgba(15,31,26,.16)}
+body{font-feature-settings:"ss01";-webkit-font-smoothing:antialiased}
+.wedge{position:relative;overflow:hidden;margin:6px auto 16px;max-width:760px;padding:24px 20px 22px;border-radius:22px;text-align:center;color:var(--brand-ink);
+  background:radial-gradient(60% 120% at 0% 0%,color-mix(in srgb,var(--brand) 22%,transparent),transparent 70%),radial-gradient(50% 110% at 100% 100%,color-mix(in srgb,#f5a524 24%,transparent),transparent 70%),var(--surface);border:1px solid var(--line)}
+.wedge .pill{display:inline-block;font:600 12px/1 "Instrument Sans",sans-serif;letter-spacing:.04em;padding:6px 12px;border-radius:99px;background:var(--brand);color:#fff}
+.wedge h1{font:800 clamp(21px,5.6vw,32px)/1.18 Sora,sans-serif;margin:12px 0 8px;letter-spacing:-.02em;color:var(--ink)}
+.wedge p{margin:0 auto;max-width:480px;color:var(--muted);font-size:14px;line-height:1.5}
+.wedge .cta{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.wedge .btn{padding:10px 20px;font-size:14px;border-radius:99px;text-decoration:none}
+.wedge .ghost2{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.hs .chips{justify-content:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:2px 12px}
+.hs .chips::-webkit-scrollbar{display:none}
+.hs .chips button{flex:0 0 auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line);transition:border-color .15s,transform .15s}
+.hs .chips button:hover{border-color:var(--brand);transform:translateY(-1px)}
+.box{border-radius:99px;box-shadow:var(--shadow);transition:box-shadow .2s}
+.box:focus-within{box-shadow:0 0 0 4px color-mix(in srgb,var(--brand) 18%,transparent)}
+.pn,.card{border-radius:var(--radius);box-shadow:var(--shadow)}
+.ik .ic{transition:transform .15s}.ik:active .ic{transform:scale(.92)}
+a:focus-visible,button:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 55%,transparent);outline-offset:2px}
+@media(min-width:1000px){.wedge{padding:34px 40px 30px;max-width:860px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

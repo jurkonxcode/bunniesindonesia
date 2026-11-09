@@ -435,3 +435,9 @@ Acuan: pola navigasi naver.com (bilah tab menempel, bilah atas yang ikut muncul/
 - **Detail kecil:** cincin fokus hijau di kotak cari, tombol hapus (x) khusus di input search, `tabular-nums` untuk angka, efek tekan di ikon/panel, tanpa sorotan ketuk, hormati `prefers-reduced-motion`, `text-wrap:balance` di judul.
 - **Diuji** (Chromium, 390px dan 1280px, data tiruan hanya di mesin uji): tanpa overflow horizontal dan tanpa error JS di beranda, blog, tanya, search, akun, layanan, tentang, admin; headroom, TOP, dropdown (isi, saran, hapus), drawer dari "Semua layanan", tab aktif `blog?cat=Kuliner`.
 - **Belum:** `layanan.html`, halaman hukum, dan `admin.html` belum memakai bilah tab (sengaja, bentuknya berbeda). Ikon di dalam tab dan bilah bawah ala aplikasi tidak dibuat.
+
+## 30. v28: wedge Indonesia ↔ Asia Timur + tampilan baru
+- Fokus produk: panduan dan tanya jawab kuliah, kerja, visa, bahasa, budaya, hidup di Korea/Jepang/Asia Timur, ditulis orang Indonesia. Alasan: isi buatan pengguna adalah daya tarik utama Naver, bukan tata letaknya.
+- Kategori baru (Tanya + Blog): Kuliah, Kerja, Visa, Bahasa, Budaya, Hidup di sana. Jalankan `supabase/v28-asia-timur.sql` (ganti email; ubah constraint kategori + 24 pertanyaan awal, tanpa jawaban palsu).
+- Beranda: blok hero wedge, chip cari (KGSP, EPS, visa Jepang, Hangul), baris ikon baru. Gaya baru di `css/asia.css` (dimuat terakhir, `?v=28`).
+- Belum: `tools/build-static.mjs` belum dicek untuk kategori baru; pastikan halaman statis ikut. Isi 200 jawaban nyata sebelum menambah fitur.

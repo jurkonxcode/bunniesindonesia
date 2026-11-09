@@ -1,6 +1,6 @@
 /* Blog pengguna (v19). Mandiri, sesi dari localStorage "niflax.session". Butuh supabase/v19-blog.sql.
    Semua teks dari database lewat esc(). */
-const AUTH_KEY = "niflax.session", PAGE = 15, CATS = ["Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga","Hiburan","Catatan harian"];
+const AUTH_KEY = "niflax.session", PAGE = 15, CATS = ["Kuliah","Kerja","Visa","Bahasa","Budaya","Hidup di sana","Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga","Hiburan","Catatan harian"];
 let session = null, offset = 0, shown = 0;          // `cat` dipakai bersama dari state.js (deklarasi ganda di sini membuat blog.js gagal jalan)
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
 const keep = s => { session = s; try{ s ? localStorage.setItem(AUTH_KEY, JSON.stringify(s)) : localStorage.removeItem(AUTH_KEY); }catch(e){} };

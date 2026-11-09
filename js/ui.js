@@ -31,9 +31,8 @@ function feedItems(){
 }
 function tabList(){ return [["Semua","Semua"], ["Blog","Blog"], ["Tanya","Tanya Jawab"]]; }
 /* Baris ikon layanan (satu baris, bisa digeser). [ikon, nama, tujuan, warna]. "#..." = gulir ke alat. Semua tujuan sudah nyata sejak v24. */
-const SVC = [["tanya","Tanya","tanya","g4"],["blog","Blog","blog","g1"],["sholat","Sholat","#tool-sholat","g2"],["libur","Libur","#tool-libur","g3"],
-  ["teknologi","Teknologi","blog?cat=Teknologi","g4"],["kurs","Ekonomi","blog?cat=Ekonomi","g2"],["kuliner","Kuliner","blog?cat=Kuliner","g3"],["otomotif","Otomotif","blog?cat=Otomotif","g5"],
-  ["bola","Olahraga","blog?cat=Olahraga","g5"],["hiburan","Hiburan","blog?cat=Hiburan","g4"],["menu","Semua","layanan","g6"]];
+const SVC = [["tanya","Tanya","tanya","g4"],["blog","Blog","blog","g1"],["blog","Kuliah","blog?cat=Kuliah","g2"],["kurs","Kerja","blog?cat=Kerja","g3"],["syarat","Visa","blog?cat=Visa","g5"],
+  ["tanya","Bahasa","blog?cat=Bahasa","g4"],["hiburan","Budaya","blog?cat=Budaya","g1"],["peta","Hidup","blog?cat=Hidup di sana","g2"],["sholat","Sholat","#tool-sholat","g3"],["libur","Libur","#tool-libur","g5"],["menu","Semua","layanan","g6"]];
 function renderSvr(){
   $("svr").innerHTML = SVC.map(([id, nm, to, c]) => {
     const body = `${ic(id, c)}<span class="nm">${esc(nm)}</span>`;

@@ -2,7 +2,7 @@
    Sesi dibaca dari localStorage "niflax.session", sama dengan beranda.
    Semua teks dari database lewat esc(). Butuh supabase/v10-tanya-jawab.sql. */
 const AUTH_KEY = "niflax.session", PAGE = 20;
-const CATS = ["Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga"];
+const CATS = ["Kuliah","Kerja","Visa","Bahasa","Budaya","Hidup di sana","Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga"];
 let session = null, offset = 0, shown = 0, qs = "", repTarget = null;
 
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
