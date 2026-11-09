@@ -1,0 +1,2 @@
+@media(max-width:900px){.grid{grid-template-columns:1fr}.short{grid-template-columns:repeat(4,1fr)}nav{display:none}.lead{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.orbit .ring{animation:none}}

@@ -1,0 +1,8 @@
+:root{
+  --bg:#f3f8f5; --surface:#ffffff; --ink:#0c2a22; --muted:#5b7a70; --line:#d9e7e0;
+  --brand:#03c75a; --brand-ink:#022b17; --glow:#7dffc0; --accent:#6c5ce7;
+  --radius:18px; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#06140f; --surface:#0d211a; --ink:#e6f6ee; --muted:#8fb3a5; --line:#1b3a2f; --brand:#1ee27a; --brand-ink:#03140b; --glow:#1ee27a; color-scheme:dark}
+}

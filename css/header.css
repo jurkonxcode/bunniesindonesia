@@ -1,0 +1,9 @@
+/* top bar */
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-weight:800;font-size:26px;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+.logo i{width:30px;height:30px;border-radius:10px;background:var(--brand);display:grid;place-items:center}
+.logo svg{width:18px;height:18px}
+nav{display:flex;gap:6px}
+nav a{padding:8px 14px;border-radius:999px;font-weight:500;font-size:14px;color:var(--muted)}
+nav a:hover,nav a.on{background:var(--surface);color:var(--ink)}
+.btn{background:var(--ink);color:var(--bg);padding:9px 18px;border-radius:999px;font-weight:600;font-size:14px;border:0;cursor:pointer}
