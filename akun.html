@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Akun saya – Niflax</title>
+<title>Akun saya – Bunnies Indonesia</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=28"><link rel="stylesheet" href="css/base.css?v=28"><link rel="stylesheet" href="css/identity.css?v=28"><link rel="stylesheet" href="css/search.css?v=28"><link rel="stylesheet" href="css/tanya.css?v=28"><link rel="stylesheet" href="css/admin.css?v=28">
-<link rel="stylesheet" href="css/nav.css?v=28">
+<link rel="stylesheet" href="css/tokens.css?v=31"><link rel="stylesheet" href="css/base.css?v=31"><link rel="stylesheet" href="css/identity.css?v=31"><link rel="stylesheet" href="css/search.css?v=31"><link rel="stylesheet" href="css/tanya.css?v=31"><link rel="stylesheet" href="css/admin.css?v=31">
+<link rel="stylesheet" href="css/nav.css?v=31"><link rel="stylesheet" href="css/komentar.css?v=31">
 </head><body class="sp">
 <header class="sbar"><div class="swrap">
-  <a class="logo" href="./" aria-label="Niflax, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>niflax</span></a>
+  <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
   <div class="hbar" id="hbar"></div>
 </div>
-<script src="js/nav.js?v=28"></script></header>
+<script src="js/nav.js?v=31"></script></header>
 <main class="swrap">
   <section id="gateView"><p class="sinfo">Memuat…</p></section>
   <section id="akunView" hidden>
@@ -27,8 +27,15 @@
     </div>
 
     <div class="box">
+      <h2>Bias</h2>
+      <p>Pilih member favoritmu. Bias tampil sebagai label di samping komentarmu. Pilihan ini bisa diubah kapan saja.</p>
+      <div class="bias-pick" id="biasPick" role="group" aria-label="Pilih bias"></div>
+      <p class="msg" id="biasMsg" role="status"></p>
+    </div>
+
+    <div class="box">
       <h2>Unduh data saya</h2>
-      <p>Berkas JSON berisi profil, tulisan, pertanyaan, jawaban, dan laporan yang pernah kamu kirim.</p>
+      <p>Berkas JSON berisi profil (termasuk bias), tulisan, pertanyaan, jawaban, dan laporan yang pernah kamu kirim.</p>
       <p class="msg" id="dlMsg" role="status"></p><button class="btn" id="dlBtn" type="button">Unduh data</button>
     </div>
 
@@ -42,15 +49,16 @@
 
     <div class="box warn">
       <h2>Hapus akun</h2>
-      <p>Akun, profil, semua tulisan, pertanyaan, dan jawabanmu dihapus <b>permanen</b> dan tidak bisa dipulihkan. Jawaban di pertanyaan orang lain juga ikut hilang. Berkas lama di halaman statis (SEO) hilang paling lambat sekitar 30 menit.</p>
+      <p>Akun, profil (termasuk bias), semua tulisan, komentar, reaksi, pertanyaan, dan jawabanmu dihapus <b>permanen</b> dan tidak bisa dipulihkan. Jawaban di pertanyaan orang lain juga ikut hilang. Berkas lama di halaman statis (SEO) hilang paling lambat sekitar 30 menit.</p>
       <label for="delIn" class="meta">Ketik <b>HAPUS</b> untuk melanjutkan</label>
       <input id="delIn" autocomplete="off" autocapitalize="characters" aria-label="Ketik HAPUS">
       <p class="msg" id="delMsg" role="status"></p><button class="btn danger" id="delBtn" type="button" disabled>Hapus akun saya</button>
     </div>
   </section>
 </main>
-<script src="js/config.js?v=28"></script>
-<script src="js/state.js?v=28"></script>
-<script src="js/sesi.js?v=28"></script>
-<script src="js/akun.js?v=28"></script>
+<script src="js/config.js?v=31"></script>
+<script src="js/state.js?v=31"></script>
+<script src="js/bias.js?v=31"></script>
+<script src="js/sesi.js?v=31"></script>
+<script src="js/akun.js?v=31"></script>
 </body></html>

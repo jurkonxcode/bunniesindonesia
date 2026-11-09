@@ -9,7 +9,7 @@ function greeting(){
 }
 
 /* ---------- Lokasi (disimpan di perangkat ini saja, tidak dikirim ke server) ---------- */
-const LOC_KEY = "niflax.kota";
+const LOC_KEY = "bunnies.kota";
 const cityObj = i => ({name:CITIES[i][0], lat:CITIES[i][1], lon:CITIES[i][2], off:CITIES[i][3]});
 let loc = cityObj(CITIES.findIndex(c => c[0] === "Jakarta"));
 try{

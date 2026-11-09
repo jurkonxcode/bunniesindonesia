@@ -6,7 +6,7 @@
   let last = null;
 
   function myPins(){                         // pintasan dari halaman Semua layanan (localStorage perangkat ini)
-    try{ const p = JSON.parse(localStorage.getItem("niflax.pins")); return Array.isArray(p) ? p.map(id => flat.find(s => s.id === id && s.href)).filter(Boolean).slice(0, 8) : []; }
+    try{ const p = JSON.parse(localStorage.getItem("bunnies.pins")); return Array.isArray(p) ? p.map(id => flat.find(s => s.id === id && s.href)).filter(Boolean).slice(0, 8) : []; }
     catch(e){ return []; }
   }
   const row = s => s.href
@@ -16,7 +16,7 @@
   function render(){
     const P = myPins();
     body.innerHTML =
-      `<div class="dw-acct">${session ? `<b>Halo, ${myName()}</b><button type="button" class="btn" data-dw="logout">Keluar</button>` : `<b>Masuk ke Niflax</b><button type="button" class="btn green" data-dw="login">Masuk atau daftar</button>`}</div>` +
+      `<div class="dw-acct">${session ? `<b>Halo, ${myName()}</b><button type="button" class="btn" data-dw="logout">Keluar</button>` : `<b>Masuk ke Bunnies Indonesia</b><button type="button" class="btn green" data-dw="login">Masuk atau daftar</button>`}</div>` +
       (P.length ? `<section class="dw-s"><h3>Pintasanmu <b>${P.length}</b></h3><div class="dw-pins">${P.map(s => `<a href="${esc(s.href)}">${ic(s.id, s.c)}<span>${esc(s.name)}</span></a>`).join("")}</div></section>` : "") +
       GROUPS.map(g => `<section class="dw-s"><h3>${esc(g.name)} <b>${g.items.length}</b></h3><div class="dw-g">${g.items.map(i => row({c:g.c, id:i[0], name:i[1], href:i[2], st:i[3] || ""})).join("")}</div></section>`).join("") +
       `<p class="dw-f"><a href="tentang">Tentang</a> · <a href="tentang#kontak">Kontak</a> · <a href="privasi">Privasi</a> · <a href="syarat">Syarat</a></p>`;

@@ -2,7 +2,7 @@
    dan "Tren" (view trending, pencarian sungguhan); saat mengetik tampil saran dari suggest_keywords.
    Bergantung pada: $ dan esc (state.js), trending (api.js, dibaca saat dropdown dibuka), SUPABASE_URL/KEY (config.js). Muat setelah main.js. */
 (() => {
-  const KEY = "niflax.recent";
+  const KEY = "bunnies.recent";
   const get = () => { try{ const r = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(r) ? r.filter(x => typeof x === "string").slice(0, 8) : []; }catch(e){ return []; } };
   const put = a => { try{ a.length ? localStorage.setItem(KEY, JSON.stringify(a)) : localStorage.removeItem(KEY); }catch(e){} };
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-/* Niflax v25: pembuat halaman statis untuk SEO (tanpa dependensi, Node 18+).
+/* Bunnies Indonesia v25: pembuat halaman statis untuk SEO (tanpa dependensi, Node 18+).
    Membaca tabel posts, questions, answers dari Supabase (kunci PUBLIK, hanya baca; RLS sudah menyembunyikan konten status 'hidden'),
    lalu menulis ke dist/: salinan situs + /tulisan/<id>.html + /pertanyaan/<id>.html + arsip.html + sitemap.xml + robots.txt.
    Pemakaian:  node tools/build-static.mjs            (butuh internet; kunci dibaca dari js/config.js atau env)
                node tools/build-static.mjs --fixture contoh.json   (uji tanpa internet: {"posts":[],"questions":[],"answers":[]})
-   Env:  SITE_URL (bawaan https://jurkonxcode.github.io/niflax; isi https://niflax.com setelah domain aktif)
+   Env:  SITE_URL (bawaan https://jurkonxcode.github.io/bunniesindonesia; isi https://bunniesindonesia.com setelah domain aktif)
          SUPABASE_URL, SUPABASE_ANON_KEY (bawaan: dibaca dari js/config.js)
    Teks pengguna SELALU lewat esc(). Tidak ada HTML dari pengguna yang dirender. */
 import fs from "node:fs";
@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "dist");
 const arg = n => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : null; };
-const SITE = (process.env.SITE_URL || "https://jurkonxcode.github.io/niflax").replace(/\/+$/, "");
-const BASE = new URL(SITE).pathname.replace(/\/+$/, "");          // "" bila di domain sendiri, "/niflax" bila di github.io/niflax
+const SITE = (process.env.SITE_URL || "https://jurkonxcode.github.io/bunniesindonesia").replace(/\/+$/, "");
+const BASE = new URL(SITE).pathname.replace(/\/+$/, "");          // "" bila di domain sendiri, "/bunnies" bila di github.io/bunnies
 const MIN_POST = 120;          // tulisan lebih pendek dari ini (huruf) diberi noindex dan tidak masuk sitemap (konten tipis)
 const MAX_URLS = 45000;        // batas aman per berkas sitemap (batas Google 50.000)
 const ARSIP_MAX = 3000;
@@ -61,7 +61,7 @@ async function load(){
 
 /* ---------- kerangka halaman ---------- */
 function shell({ title, desc, path: p, robots, body, ld = [], type = "article" }){
-  const t = esc(title.length > 60 ? cut(title, 58) : title) + " – Niflax";
+  const t = esc(title.length > 60 ? cut(title, 58) : title) + " – Bunnies Indonesia";
   return `<!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${t}</title>
@@ -69,8 +69,8 @@ function shell({ title, desc, path: p, robots, body, ld = [], type = "article" }
 <link rel="canonical" href="${esc(abs(p))}">
 <meta name="robots" content="${robots}">
 <link rel="icon" href="${rel("/assets/brand/favicon.svg")}" type="image/svg+xml">
-<meta name="theme-color" content="#17A862">
-<meta property="og:site_name" content="Niflax"><meta property="og:locale" content="id_ID"><meta property="og:type" content="${type}">
+<meta name="theme-color" content="#2f6fe4">
+<meta property="og:site_name" content="Bunnies Indonesia"><meta property="og:locale" content="id_ID"><meta property="og:type" content="${type}">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(cut(desc, 200))}"><meta property="og:url" content="${esc(abs(p))}">
 <meta property="og:image" content="${esc(abs("/assets/brand/og-image.png"))}"><meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -78,20 +78,20 @@ function shell({ title, desc, path: p, robots, body, ld = [], type = "article" }
 ${ld.map(o => `<script type="application/ld+json">${jld(o)}</script>`).join("\n")}
 </head><body class="page st">
 <header class="st-top"><div class="wrap">
-  <a class="logo" href="${rel("/")}"><img src="${rel("/assets/brand/logo-mark.svg")}" alt="" width="28" height="28">niflax</a>
+  <a class="logo" href="${rel("/")}"><img src="${rel("/assets/brand/logo-mark.svg")}" alt="" width="28" height="28">bunnies</a>
   <form class="st-search" action="${rel("/search")}" role="search"><input type="search" name="q" placeholder="Cari tulisan atau pertanyaan" aria-label="Cari"><button aria-label="Cari">Cari</button></form>
   <nav aria-label="Menu"><a href="${rel("/tanya")}">Tanya Jawab</a><a href="${rel("/blog")}">Blog</a></nav>
 </div></header>
 <main class="wrap st-main">
 ${body}
 </main>
-<footer class="st-foot"><div class="wrap"><a href="${rel("/")}">Beranda</a> · <a href="${rel("/arsip")}">Arsip</a> · <a href="${rel("/tentang")}">Tentang</a> · <a href="${rel("/privasi")}">Privasi</a> · <a href="${rel("/syarat")}">Syarat</a><p>© ${new Date().getFullYear()} Niflax. Tulisan dan pertanyaan dibuat oleh pengguna.</p></div></footer>
+<footer class="st-foot"><div class="wrap"><a href="${rel("/")}">Beranda</a> · <a href="${rel("/arsip")}">Arsip</a> · <a href="${rel("/tentang")}">Tentang</a> · <a href="${rel("/privasi")}">Privasi</a> · <a href="${rel("/syarat")}">Syarat</a><p>© ${new Date().getFullYear()} Bunnies Indonesia. Tulisan dan pertanyaan dibuat oleh pengguna.</p></div></footer>
 </body></html>`;
 }
 const crumbs = items => ({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map(([n, p], i) => ({ "@type": "ListItem", position: i + 1, name: n, item: abs(p) })) });
 const crumbHtml = items => `<nav class="crumb" aria-label="Jejak halaman">${items.map(([n, p], i) => i < items.length - 1 ? `<a href="${rel(p)}">${esc(n)}</a>` : `<span>${esc(n)}</span>`).join(" › ")}</nav>`;
 const person = n => ({ "@type": "Person", name: n || "Pengguna" });
-const ORG = { "@type": "Organization", name: "Niflax", url: abs("/"), logo: { "@type": "ImageObject", url: abs("/assets/brand/icon-512.png") } };
+const ORG = { "@type": "Organization", name: "Bunnies Indonesia", url: abs("/"), logo: { "@type": "ImageObject", url: abs("/assets/brand/icon-512.png") } };
 
 /* ---------- halaman ---------- */
 function pagePost(p, byCat){
@@ -106,7 +106,7 @@ function pagePost(p, byCat){
 <article class="st-art"><span class="kind">${esc(p.category)}</span><h1>${esc(p.title)}</h1>
 <p class="by">${esc(p.author_name || "Pengguna")} · <time datetime="${new Date(p.created_at).toISOString()}">${day(p.created_at)}</time></p>
 <div class="txt">${paras(p.body)}</div></article>
-<div class="st-cta"><b>Punya cerita sendiri?</b><span>Tulis di Blog Niflax, gratis.</span><a class="btn green" href="${rel("/blog")}">Mulai menulis</a></div>
+<div class="st-cta"><b>Punya cerita sendiri?</b><span>Tulis di Blog Bunnies Indonesia, gratis.</span><a class="btn green" href="${rel("/blog")}">Mulai menulis</a></div>
 ${more.length ? `<section class="st-more"><h2>Tulisan lain di ${esc(p.category)}</h2><ul>${more.map(x => `<li><a href="${rel(`/tulisan/${x.id}`)}">${esc(x.title)}</a><span>${esc(x.author_name || "Pengguna")} · ${day(x.created_at)}</span></li>`).join("")}</ul></section>` : ""}`
   });
 }
@@ -128,14 +128,14 @@ ${q.body ? `<div class="txt">${paras(q.body)}</div>` : ""}</article>
 <section class="st-ans"><h2>${ans.length} jawaban</h2>
 ${has ? ordered.map(a => `<div class="ans${a === best ? " best" : ""}" id="j${+a.id}">${a === best ? `<span class="ok">Jawaban terbaik</span>` : ""}<div class="txt">${paras(a.body)}</div><p class="by">${esc(a.author_name || "Pengguna")} · ${day(a.created_at)}</p></div>`).join("\n") : `<p class="empty">Belum ada jawaban.</p>`}
 </section>
-<div class="st-cta"><b>${has ? "Punya jawaban lain?" : "Kamu bisa jawab ini?"}</b><span>Masuk lalu jawab langsung di Niflax.</span><a class="btn green" href="${rel(`/tanya?id=${+q.id}`)}">${has ? "Tambah jawaban" : "Jawab sekarang"}</a></div>
+<div class="st-cta"><b>${has ? "Punya jawaban lain?" : "Kamu bisa jawab ini?"}</b><span>Masuk lalu jawab langsung di Bunnies Indonesia.</span><a class="btn green" href="${rel(`/tanya?id=${+q.id}`)}">${has ? "Tambah jawaban" : "Jawab sekarang"}</a></div>
 ${more.length ? `<section class="st-more"><h2>Pertanyaan lain di ${esc(q.category)}</h2><ul>${more.map(x => `<li><a href="${rel(`/pertanyaan/${x.id}`)}">${esc(x.title)}</a><span>${+x.answer_count || 0} jawaban · ${day(x.created_at)}</span></li>`).join("")}</ul></section>` : ""}`
   });
 }
 function pageArsip(posts, questions){
   const li = (u, t, m) => `<li><a href="${rel(u)}">${esc(t)}</a><span>${m}</span></li>`;
   return shell({
-    title: "Arsip tulisan dan pertanyaan", desc: "Daftar semua tulisan Blog dan pertanyaan Tanya Jawab di Niflax.", path: "/arsip", robots: "index,follow",
+    title: "Arsip tulisan dan pertanyaan", desc: "Daftar semua tulisan Blog dan pertanyaan Tanya Jawab di Bunnies Indonesia.", path: "/arsip", robots: "index,follow",
     body: `<h1>Arsip</h1><p class="by">Semua tulisan dan pertanyaan yang bisa dibaca tanpa masuk.</p>
 <section class="st-more"><h2>Tulisan Blog</h2>${posts.length ? `<ul>${posts.slice(-ARSIP_MAX).reverse().map(p => li(`/tulisan/${p.id}`, p.title, `${esc(p.category)} · ${day(p.created_at)}`)).join("")}</ul>` : `<p class="empty">Belum ada tulisan.</p>`}</section>
 <section class="st-more"><h2>Tanya Jawab</h2>${questions.length ? `<ul>${questions.slice(-ARSIP_MAX).reverse().map(q => li(`/pertanyaan/${q.id}`, q.title, `${esc(q.category)} · ${+q.answer_count || 0} jawaban`)).join("")}</ul>` : `<p class="empty">Belum ada pertanyaan.</p>`}</section>`

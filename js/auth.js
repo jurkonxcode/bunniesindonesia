@@ -1,5 +1,5 @@
 /* Login Supabase Auth lewat fetch (tanpa library): Google + kode email, plus Simpan berita. */
-const AUTH_KEY = "niflax.session";
+const AUTH_KEY = "bunnies.session";
 let session = null, saved = new Set(), onlySaved = false, pendingEmail = "", isAdmin = false;
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
 const keep = s => { session = s; try{ s ? localStorage.setItem(AUTH_KEY, JSON.stringify(s)) : localStorage.removeItem(AUTH_KEY); }catch(e){} };
@@ -87,7 +87,7 @@ async function logout(){
   renderAuth(); renderNews();
 }
 
-const loggedOutCard = `<div class="sh"><h2>Akun Niflax</h2></div><p>Masuk untuk menulis blog, bertanya, dan menjawab.</p><button class="btn green" id="loginBtn">Masuk atau daftar</button><div class="links"><span>Tanpa kata sandi: cukup kode lewat email atau Google.</span></div>`;
+const loggedOutCard = `<div class="sh"><h2>Akun Bunnies Indonesia</h2></div><p>Masuk untuk menulis blog, bertanya, dan menjawab.</p><button class="btn green" id="loginBtn">Masuk atau daftar</button><div class="links"><span>Tanpa kata sandi: cukup kode lewat email atau Google.</span></div>`;
 function renderAuth(){
   const a = document.querySelector(".top .actions");
   if(session){

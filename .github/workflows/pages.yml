@@ -1,6 +1,6 @@
-# Niflax v25: bangun halaman statis (SEO) lalu terbitkan ke GitHub Pages.
+# Bunnies Indonesia v25: bangun halaman statis (SEO) lalu terbitkan ke GitHub Pages.
 # Wajib sekali: repo Settings > Pages > Build and deployment > Source = "GitHub Actions".
-# Opsional: Settings > Secrets and variables > Actions > Variables > SITE_URL = https://niflax.com (setelah domain aktif).
+# Opsional: Settings > Secrets and variables > Actions > Variables > SITE_URL = https://bunniesindonesia.com (setelah domain aktif).
 name: Terbitkan situs
 on:
   push:

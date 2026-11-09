@@ -1,8 +1,8 @@
-.ticker{background:#0b1a14;color:#cfe8dc;font-size:12.5px}
+.ticker{background:#0b1630;color:#cddcf5;font-size:12.5px}
 .ticker .wrap{display:flex;gap:26px;align-items:center;height:36px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
 .ticker b{font-weight:600;margin-right:6px;color:#fff}
-.ticker .up{color:#35d58a}.ticker .down{color:#ff7b80}
-.ticker .date{margin-left:auto;color:#8fb0a2}
+.ticker .up{color:#7fb0ff}.ticker .down{color:#ff7b80}
+.ticker .date{margin-left:auto;color:#93a8cf}
 header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .logo{font-weight:800;font-size:25px;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}

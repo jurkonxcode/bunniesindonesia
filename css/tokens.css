@@ -1,9 +1,9 @@
 :root{
-  --bg:#f3f6f5; --surface:#fff; --ink:#0f1f1a; --muted:#62766e; --line:#e1e9e5;
-  --brand:#17a862; --brand-d:#0f8f52; --brand-ink:#022b17; --accent:#5b4bdb;
-  --up:#0e9f5a; --down:#e5484d; --radius:14px; --glow:#7dffc0;
-  --shadow:0 1px 2px rgba(15,31,26,.05),0 10px 28px -16px rgba(15,31,26,.18);
+  --bg:#f2f6ff; --surface:#fff; --ink:#0f1b33; --muted:#5f6f8c; --line:#dfe7f5;
+  --brand:#2f6fe4; --brand-d:#1f56c2; --brand-ink:#ffffff; --accent:#e0488a;
+  --up:#0e9f5a; --down:#e5484d; --radius:14px; --glow:#a9c8ff;
+  --shadow:0 1px 2px rgba(15,27,51,.05),0 10px 28px -16px rgba(15,27,51,.18);
   color-scheme:light;
 }
-/* Mode gelap dimatikan: Niflax selalu terang, seperti Naver. */
+/* Mode gelap dimatikan: Bunnies Indonesia selalu terang, seperti Naver. */
 

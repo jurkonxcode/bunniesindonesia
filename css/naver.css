@@ -1,5 +1,5 @@
-/* v24: tampilan portal besar (pola susunan Naver, identitas Niflax). Dimuat PALING AKHIR di index.html.
-   Semua warna lewat token. Tidak ada aset Naver: ikon, warna, dan huruf milik Niflax. */
+/* v24: tampilan portal besar (pola susunan Naver, identitas Bunnies Indonesia). Dimuat PALING AKHIR di index.html.
+   Semua warna lewat token. Tidak ada aset Naver: ikon, warna, dan huruf milik Bunnies Indonesia. */
 :root{--bg:#f2f4f6;--line:#e3e8ec;--shadow:none}
 body{font-size:14.5px}
 
@@ -48,7 +48,7 @@ header.top .menu{display:none}
 .pn-tabs>.pn-r{margin-left:auto;padding-left:12px}
 .pn-tabs>.pn-r::before{display:none}
 .pn .mnote{margin:6px 16px 12px;font-size:13px}
-.promo{margin:12px 0;padding:14px 16px;border-radius:10px;background:linear-gradient(100deg,color-mix(in srgb,var(--warm,#f5a524) 20%,var(--surface)),var(--surface) 70%)}
+.promo{margin:12px 0;padding:14px 16px;border-radius:10px;background:linear-gradient(100deg,color-mix(in srgb,var(--warm,#ff7fb0) 20%,var(--surface)),var(--surface) 70%)}
 .promo b{font-size:15.5px}
 .promo .pill{flex:0 0 auto;background:var(--bg);color:var(--ink);font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:999px;white-space:nowrap}
 @media(max-width:999px){.promo{flex-direction:row;align-items:center}.promo span:not(.pill){display:block;margin-top:2px}}

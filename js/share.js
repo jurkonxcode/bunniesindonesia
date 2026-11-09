@@ -1,6 +1,6 @@
 /* v30: tombol Bagikan (WhatsApp, Salin tautan, menu bagikan bawaan HP). Dimuat setelah state.js (butuh esc). */
 function shareBar(title){
-  const url = location.href.split("#")[0], t = String(title || "Niflax").slice(0, 120);
+  const url = location.href.split("#")[0], t = String(title || "Bunnies Indonesia").slice(0, 120);
   const wa = "https://wa.me/?text=" + encodeURIComponent(t + "\n" + url);
   return `<div class="share" data-t="${esc(t)}" data-u="${esc(url)}"><span>Bagikan</span><a class="sb wa" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">WhatsApp</a><button class="sb" type="button" data-copy>Salin tautan</button>${navigator.share ? `<button class="sb" type="button" data-native>Lainnya</button>` : ""}</div>`;
 }

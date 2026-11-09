@@ -1,6 +1,6 @@
 /* Semua layanan (v11). Mandiri: tidak butuh Supabase. Pintasan disimpan di localStorage perangkat ini.
    Tiap item: [id ikon, nama, tujuan, status]. Tanpa tujuan = belum tersedia (ditandai "segera"). */
-const ICONS = "assets/icons/niflax-icons.svg", PIN_KEY = "niflax.pins", MAX = 8;
+const ICONS = "assets/icons/bunnies-icons.svg", PIN_KEY = "bunnies.pins", MAX = 8;
 /* GROUPS dipindah ke js/services.js (v16) */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));

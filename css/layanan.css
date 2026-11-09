@@ -28,7 +28,7 @@ body.ly .swrap{max-width:860px}
 .tg{font-style:normal;font-size:10.5px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-left:2px;white-space:nowrap}
 .pin{flex:0 0 auto;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}
 .pin svg{width:18px;height:18px}
-.pin[aria-pressed=true]{color:#3b2600;background:var(--warm)}
+.pin[aria-pressed=true]{color:#4a0f2a;background:var(--warm)}
 .lmsg{min-height:20px;font-size:13px;color:var(--muted);padding:0 2px}
 .lempty{text-align:center;color:var(--muted);padding:30px 10px}
 @media(max-width:520px){.sg{grid-template-columns:1fr}.pins{grid-template-columns:repeat(4,1fr)}}

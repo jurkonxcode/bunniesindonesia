@@ -15,6 +15,6 @@ button{font:inherit}
 .sh a:hover{color:var(--brand-d)}
 .btn{background:var(--ink);color:var(--bg);padding:9px 18px;border-radius:999px;font-weight:600;font-size:14px;border:0;cursor:pointer}
 .btn.green{background:var(--brand);color:var(--brand-ink)}
-.thumb{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--a,#17a862),var(--b,#5b4bdb))}
+.thumb{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--a,#2f6fe4),var(--b,#5b4bdb))}
 .thumb::before{content:"";position:absolute;width:70%;aspect-ratio:1;right:-15%;top:-20%;border-radius:50%;border:1.5px solid rgba(255,255,255,.45);box-shadow:0 0 0 22px rgba(255,255,255,.07)}
 .section{margin-bottom:28px}

@@ -25,7 +25,7 @@ async function rpc(fn, body){
   if(!r.ok) throw new Error(r.status);
   return r.json();
 }
-/* Cari di konten asli Niflax (Blog + Tanya Jawab). Gagal diam-diam bila tabelnya belum ada. */
+/* Cari di konten asli Bunnies Indonesia (Blog + Tanya Jawab). Gagal diam-diam bila tabelnya belum ada. */
 /* v30: kata dipecah, singkatan/gaul/kata dasar ikut dicari (js/kata.js), hasil diurutkan menurut jumlah kata yang cocok. */
 const low = s => String(s || "").toLowerCase();
 function score(x, nq, phrase){
@@ -53,12 +53,12 @@ function item(r, i){
   const url = safeUrl(r.url), img = safeUrl(r.image_url);
   const bg = img ? `background-image:url('${esc(img)}'),linear-gradient(135deg,var(--a),var(--b));${grad(i)}` : grad(i);
   const meta = [r.source || host(url), r.published_at ? ago(r.published_at) : r.when].filter(Boolean).map(esc).join(" · ");
-  const body = `<div class="thumb" style="${bg}">${img ? "" : `<svg class="art" aria-hidden="true"><use href="assets/icons/niflax-icons.svg#n-${ART[r.kind] || "berita"}"/></svg>`}</div><div class="tx"><span class="kind">${esc(KIND[r.kind] || "")}</span><h3>${mark(r.title)}</h3>${r.snippet ? `<p>${mark(r.snippet)}</p>` : ""}<span class="meta">${meta}</span></div>`;
+  const body = `<div class="thumb" style="${bg}">${img ? "" : `<svg class="art" aria-hidden="true"><use href="assets/icons/bunnies-icons.svg#n-${ART[r.kind] || "berita"}"/></svg>`}</div><div class="tx"><span class="kind">${esc(KIND[r.kind] || "")}</span><h3>${mark(r.title)}</h3>${r.snippet ? `<p>${mark(r.snippet)}</p>` : ""}<span class="meta">${meta}</span></div>`;
   if(r.href) return `<a class="r" href="${esc(r.href)}">${body}</a>`;          // tautan internal (Tanya Jawab)
   return url ? `<a class="r" href="${esc(url)}" target="_blank" rel="noopener noreferrer nofollow">${body}</a>` : `<div class="r">${body}</div>`;
 }
 function empty(title, text, retry){
-  return `<div class="sempty"><svg viewBox="0 0 120 120" fill="none" stroke="#F5A524" stroke-width="3"><ellipse cx="60" cy="32" rx="14" ry="26"/><ellipse cx="60" cy="88" rx="14" ry="26"/><ellipse cx="32" cy="60" rx="26" ry="14"/><ellipse cx="88" cy="60" rx="26" ry="14"/><circle cx="60" cy="60" r="6" fill="#17A862" stroke="none"/></svg><h2>${esc(title)}</h2><p>${esc(text)}</p>${retry ? `<button class="btn green" id="retry">Coba lagi</button>` : ""}</div>`;
+  return `<div class="sempty"><svg viewBox="0 0 120 120" fill="none" stroke="#ff7fb0" stroke-width="3"><ellipse cx="60" cy="32" rx="14" ry="26"/><ellipse cx="60" cy="88" rx="14" ry="26"/><ellipse cx="32" cy="60" rx="26" ry="14"/><ellipse cx="88" cy="60" rx="26" ry="14"/><circle cx="60" cy="60" r="6" fill="#2f6fe4" stroke="none"/></svg><h2>${esc(title)}</h2><p>${esc(text)}</p>${retry ? `<button class="btn green" id="retry">Coba lagi</button>` : ""}</div>`;
 }
 function view(){
   const k = KMAP[T], list = k ? ALL.filter(r => r.kind === k) : ALL;
@@ -74,7 +74,7 @@ function view(){
 }
 async function run(){
   if(Q.length < 2){ $("sres").innerHTML = empty("Mau cari apa?", "Ketik minimal 2 huruf di kotak pencarian."); $("stabs").innerHTML = ""; return; }
-  document.title = Q + " – Niflax";
+  document.title = Q + " – Bunnies Indonesia";
   $("sres").innerHTML = `<p class="sinfo">Mencari…</p>`; offset = 0;
   try{
     if(!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("no config");

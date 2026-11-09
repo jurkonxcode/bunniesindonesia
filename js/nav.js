@@ -51,8 +51,8 @@
     const q = (new URLSearchParams(location.search).get("q") || "").trim().slice(0, 100);
     if(q){
       try{
-        const r = JSON.parse(localStorage.getItem("niflax.recent")); const a = Array.isArray(r) ? r : [];
-        localStorage.setItem("niflax.recent", JSON.stringify([q, ...a.filter(x => x !== q)].slice(0, 8)));
+        const r = JSON.parse(localStorage.getItem("bunnies.recent")); const a = Array.isArray(r) ? r : [];
+        localStorage.setItem("bunnies.recent", JSON.stringify([q, ...a.filter(x => x !== q)].slice(0, 8)));
       }catch(e){}
     }
   }

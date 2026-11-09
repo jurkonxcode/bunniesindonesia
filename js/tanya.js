@@ -1,7 +1,7 @@
 /* Tanya Jawab (v10). Mandiri: tidak memakai auth.js (yang terikat ke beranda).
-   Sesi dibaca dari localStorage "niflax.session", sama dengan beranda.
+   Sesi dibaca dari localStorage "bunnies.session", sama dengan beranda.
    Semua teks dari database lewat esc(). Butuh supabase/v10-tanya-jawab.sql. */
-const AUTH_KEY = "niflax.session", PAGE = 20;
+const AUTH_KEY = "bunnies.session", PAGE = 20;
 const CATS = ["Kuliah","Kerja","Visa","Bahasa","Budaya","Hidup di sana","Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga"];
 let session = null, offset = 0, shown = 0, qs = "", repTarget = null;
 
@@ -82,7 +82,7 @@ async function showDetail(id){
       rest("answers?question_id=eq." + id + "&select=id,body,author_name,user_id,created_at&order=created_at.asc")]);
     const q = qq && qq[0];
     if(!q){ $("detailView").innerHTML = `<a class="back" href="tanya">← Semua pertanyaan</a><p class="sempty">Pertanyaan tidak ditemukan atau sudah dihapus.</p>`; return; }
-    document.title = q.title.slice(0, 60) + " – Niflax";
+    document.title = q.title.slice(0, 60) + " – Bunnies Indonesia";
     const me = session && session.user.id, own = q.user_id === me;
     aa.sort((x, y) => (y.id === q.best_answer_id) - (x.id === q.best_answer_id));
     const act = (t, i, mine) => !session ? "" : mine ? `<button class="lk" data-del="${t}:${i}" type="button">Hapus</button>` : `<button class="lk" data-rep="${t}:${i}" type="button">Laporkan</button>`;

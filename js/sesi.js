@@ -1,6 +1,6 @@
-/* Sesi + REST bersama untuk halaman admin dan akun (v26). Mandiri seperti tanya.js: sesi dibaca dari localStorage "niflax.session".
+/* Sesi + REST bersama untuk halaman admin dan akun (v26). Mandiri seperti tanya.js: sesi dibaca dari localStorage "bunnies.session".
    Muat setelah config.js dan state.js. Tidak dimuat bersama tanya.js/blog.js (nama variabelnya sama). */
-const AUTH_KEY = "niflax.session";
+const AUTH_KEY = "bunnies.session";
 let session = null;
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
 const keep = s => { session = s; try{ s ? localStorage.setItem(AUTH_KEY, JSON.stringify(s)) : localStorage.removeItem(AUTH_KEY); }catch(e){} };

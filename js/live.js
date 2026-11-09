@@ -20,7 +20,7 @@
     const el = box("wx", "Cuaca", esc(loc.name)); if(!el) return;
     try{
       const la = (+loc.lat).toFixed(2), lo = (+loc.lon).toFixed(2);
-      const d = await cached("niflax.wx." + la + "," + lo, `https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=5`);
+      const d = await cached("bunnies.wx." + la + "," + lo, `https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=5`);
       const [t, ic] = WX(d.current.weather_code);
       const days = d.daily.time.map((x, i) => `<div><span>${new Date(x + "T12:00:00").toLocaleDateString("id-ID", {weekday:"short"})}</span><i>${WX(d.daily.weather_code[i])[1]}</i><b>${Math.round(d.daily.temperature_2m_max[i])}°</b><em>${Math.round(d.daily.temperature_2m_min[i])}°</em></div>`).join("");
       el.innerHTML = `<div class="wnow"><span class="big">${ic}</span><b>${Math.round(d.current.temperature_2m)}°C</b><span>${t}</span></div><div class="wdays">${days}</div><button type="button" class="lk" id="wxLoc">Pakai lokasiku</button><p class="src">Sumber: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>`;
@@ -29,14 +29,14 @@
   async function gempa(){
     const el = box("eq", "Gempa terkini", "BMKG"); if(!el) return;
     try{
-      const g = (await cached("niflax.eq", "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json")).Infogempa.gempa;
+      const g = (await cached("bunnies.eq", "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json")).Infogempa.gempa;
       el.innerHTML = `<p class="eqm"><b>M ${esc(g.Magnitude)}</b> · ${esc(g.Wilayah)}</p><p class="mnote">${esc(g.Tanggal)} ${esc(g.Jam)} · kedalaman ${esc(g.Kedalaman)}<br>${esc(g.Potensi || "")}</p><p class="src">Sumber: <a href="https://www.bmkg.go.id/" target="_blank" rel="noopener">BMKG</a></p>`;
     }catch(e){ fail(el); }
   }
   async function kurs(){
     const el = box("fx", "Kurs rupiah", "per hari"); if(!el) return;
     try{
-      const d = await cached("niflax.fx", "https://open.er-api.com/v6/latest/USD"), idr = d.rates.IDR;
+      const d = await cached("bunnies.fx", "https://open.er-api.com/v6/latest/USD"), idr = d.rates.IDR;
       const row = (n, c, k = 1) => d.rates[c] ? `<div><span>${n}</span><b>Rp ${Math.round(idr / d.rates[c] * k).toLocaleString("id-ID")}</b></div>` : "";
       el.innerHTML = `<div class="fxl">${row("100 KRW (won)", "KRW", 100)}${row("100 JPY (yen)", "JPY", 100)}${row("1 USD", "USD")}${row("1 SGD", "SGD")}${row("1 SAR", "SAR")}</div><p class="src">Sumber: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a>. Kurs tengah, bukan kurs jual-beli bank.</p>`;
     }catch(e){ fail(el); }

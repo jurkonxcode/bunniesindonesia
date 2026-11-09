@@ -266,7 +266,7 @@ begin
   if me is null then raise exception 'Masuk dulu untuk melanjutkan.'; end if;
   n := btrim(regexp_replace(coalesce(p_name, ''), '[[:cntrl:]]', '', 'g'));
   if char_length(n) < 2 or char_length(n) > 40 then raise exception 'Nama tampil 2 sampai 40 huruf.'; end if;
-  if lower(n) in ('admin','administrator','moderator','niflax','tim niflax') and not public.is_admin() then
+  if lower(n) in ('admin','administrator','moderator','bunnies','tim bunnies','bunnies indonesia') and not public.is_admin() then
     raise exception 'Nama itu dicadangkan. Pilih nama lain.';
   end if;
   insert into public.profiles (id, display_name) values (me, n)

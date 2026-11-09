@@ -20,7 +20,7 @@ body.sp{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',syst
 .r h3{font-family:Sora,sans-serif;font-size:16px;line-height:1.35;margin:2px 0 4px;overflow-wrap:anywhere}
 .r p{margin:0 0 4px;color:var(--muted);font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .r .meta{font-size:12.5px;color:var(--muted)}
-.r mark{background:color-mix(in srgb,var(--warm,#f5a524) 35%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.r mark{background:color-mix(in srgb,var(--warm,#ff7fb0) 35%,transparent);color:inherit;border-radius:3px;padding:0 1px}
 .r .kind{font-size:12px;font-weight:600;color:var(--brand-d)}
 a.r:hover h3{text-decoration:underline}
 .sempty{text-align:center;padding:40px 10px;color:var(--muted)}

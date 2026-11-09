@@ -57,7 +57,7 @@ header.top.compact .actions{margin-left:0}
 .sbar{z-index:20}
 
 /* ---------- tombol TOP ---------- */
-.totop{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 4px 16px -4px rgba(15,31,26,.28);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
+.totop{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 4px 16px -4px rgba(15,27,51,.28);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
 .totop.on{opacity:1;visibility:visible;transform:none}
 .totop span{font-size:9.5px;font-weight:700;letter-spacing:.04em;line-height:1;margin-top:-2px}
 .totop:hover{border-color:var(--brand);color:var(--brand-d)}
@@ -102,7 +102,7 @@ footer{margin-top:24px;padding:28px 0 24px}
 /* ---------- dropdown kotak cari ---------- */
 .search,.hsearch{position:relative}
 .sgbox{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:35;max-height:min(62vh,440px);overflow-y:auto;overscroll-behavior:contain;text-align:left;
-  background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px -14px rgba(15,31,26,.32);padding:6px 0 8px}
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px -14px rgba(15,27,51,.32);padding:6px 0 8px}
 .sgbox[hidden]{display:none}
 .sgbox ul{margin:0;padding:0}
 .sg-h{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;font-size:12px;color:var(--muted)}

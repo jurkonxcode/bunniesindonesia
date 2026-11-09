@@ -1,5 +1,5 @@
 /* Tampilan beranda gaya portal: umpan kartu bergambar + tab. Semua teks dari database lewat esc(). */
-const ICONS = "assets/icons/niflax-icons.svg";
+const ICONS = "assets/icons/bunnies-icons.svg";
 const ic = (id, c, cls) => `<span class="ic ${c || "g1"} ${cls || ""}"><svg aria-hidden="true"><use href="${ICONS}#n-${id}"/></svg></span>`;
 const art = id => `<svg class="art" aria-hidden="true"><use href="${ICONS}#n-${id}"/></svg>`;
 const sUrl = u => { try{ const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : ""; }catch(e){ return ""; } };
@@ -67,7 +67,7 @@ function renderModules(){
     `<a class="bc" href="blog?id=${+p.id}"><div class="fcv">${cover(p, i)}</div><h3>${esc(p.title)}</h3><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></a>`).join("");
   const qs = questions.slice(0, 6).map(q => `<li><a href="tanya?id=${+q.id}"><span class="tag">${esc(q.category)}</span><span class="qt">${esc(q.title)}</span><em>${+q.answer_count} jawaban</em></a></li>`).join("");
   $("modules").innerHTML =
-    `<a class="promo" href="blog"><div><b>Tulis blog pertamamu di Niflax</b><span>Bagikan cerita, tips, atau pengalamanmu. Cukup masuk dengan Google atau kode email.</span></div><span class="pill">Mulai menulis ›</span></a>` +
+    `<a class="promo" href="blog"><div><b>Tulis blog pertamamu di Bunnies Indonesia</b><span>Bagikan cerita, tips, atau pengalamanmu. Cukup masuk dengan Google atau kode email.</span></div><span class="pill">Mulai menulis ›</span></a>` +
     `<section class="pn stand"><div class="pn-tabs"><b>Jelajah</b><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a><a href="layanan">Layanan</a></div>` +
       `<div class="hline"><b class="hk">Terbaru</b><span class="ht">${first ? `<a href="${first[0]}">${esc(first[1])}</a>` : `<span class="dim">Belum ada tulisan. Jadilah yang pertama.</span>`}</span><span class="hr"><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a></span></div>` +
       `<div class="tiles">${tiles.map(([id, nm, to, c]) => `<a href="${to}"${to[0] === "#" ? ` data-go="${to.slice(1)}"` : ""}>${ic(id, c)}<span>${esc(nm)}</span></a>`).join("")}</div></section>` +

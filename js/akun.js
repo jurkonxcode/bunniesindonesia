@@ -1,4 +1,4 @@
-/* Akun saya (v26): ubah nama tampil, unduh data, keluar, hapus akun. Butuh supabase/v26-moderasi.sql. */
+/* Akun saya (v26): ubah nama tampil, unduh data, keluar, hapus akun. v31: pilih bias. Butuh supabase/v26-moderasi.sql dan v31-komentar-reaksi-bias.sql. */
 function paintHead(){ $("hbar").innerHTML = session ? `<span class="who">${myName()}</span>` : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
 const say = (id, txt, err) => { const m = $(id); m.className = "msg" + (err ? " err" : ""); m.textContent = txt; };
 
@@ -19,7 +19,7 @@ async function download(){
   try{
     const data = await rpc("export_my_data");
     const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:"application/json"}));
-    const a = document.createElement("a"); a.href = url; a.download = "niflax-data-saya.json";
+    const a = document.createElement("a"); a.href = url; a.download = "bunnies-data-saya.json";
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     say("dlMsg", "Selesai. Berkas diunduh.");
   }catch(e){ say("dlMsg", e.message, true); }
@@ -34,11 +34,36 @@ async function removeAccount(){
     keep(null);
     $("akunView").hidden = true; paintHead();
     $("gateView").hidden = false;
-    $("gateView").innerHTML = `<div class="gate"><p><b>Akunmu sudah dihapus.</b> Terima kasih sudah mencoba Niflax.</p><a class="btn green" href="./">Ke beranda</a></div>`;
+    $("gateView").innerHTML = `<div class="gate"><p><b>Akunmu sudah dihapus.</b> Terima kasih sudah mencoba Bunnies Indonesia.</p><a class="btn green" href="./">Ke beranda</a></div>`;
   }catch(e){ say("delMsg", e.message, true); btn.disabled = $("delIn").value.trim() !== "HAPUS"; }
 }
+
+/* ---------- Bias (v31) ---------- */
+let myBias = null;
+function paintBias(){
+  $("biasPick").innerHTML = [...BIAS.map(b => ({id:b.id, nama:b.nama, warna:b.warna})), {id:"none", nama:"Belum pilih", warna:"#5f6f8c"}]
+    .map(b => `<button type="button" data-bias="${b.id}" style="--bc:${b.warna}" aria-pressed="${(myBias || "none") === b.id}">${esc(b.nama)}</button>`).join("");
+}
+async function loadBias(){
+  try{
+    const p = await rest("profiles?id=eq." + encodeURIComponent(session.user.id) + "&select=bias");
+    myBias = p && p[0] && p[0].bias || null;
+  }catch(e){ myBias = null; }
+  paintBias();
+}
+async function saveBias(id){
+  const val = id === "none" ? null : id;
+  const btns = $("biasPick").querySelectorAll("button"); btns.forEach(b => b.disabled = true);
+  say("biasMsg", "Menyimpan…");
+  try{
+    await rpc("set_bias", {p_bias:val}); myBias = val; paintBias(); say("biasMsg", "Tersimpan. Bias tampil di komentarmu berikutnya.");
+  }catch(e){ say("biasMsg", e.message, true); }
+  $("biasPick").querySelectorAll("button").forEach(b => b.disabled = false);
+}
+
 document.addEventListener("click", async e => {
-  const t = e.target.closest("[data-act],#dlBtn,#outBtn,#delBtn"); if(!t) return;
+  const t = e.target.closest("[data-act],[data-bias],#dlBtn,#outBtn,#delBtn"); if(!t) return;
+  if(t.dataset.bias) return saveBias(t.dataset.bias);
   if(t.dataset.act === "login") return googleLogin();
   if(t.id === "dlBtn") return download();
   if(t.id === "outBtn"){ await signOut(); location.href = "./"; return; }
@@ -52,6 +77,6 @@ $("delIn").addEventListener("input", () => { $("delBtn").disabled = $("delIn").v
   if(!session){ $("gateView").innerHTML = gate("Masuk dulu untuk mengelola akunmu."); return; }
   $("gateView").hidden = true; $("akunView").hidden = false;
   $("who").textContent = session.user.email || "";
-  loadName();
+  loadName(); loadBias();
   rpc("is_admin").then(v => { $("adminBox").hidden = v !== true; }).catch(() => {});
 })();
