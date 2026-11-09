@@ -56,6 +56,7 @@ supabase/
   supabase-schema.sql   skema database lengkap
 privasi.html, syarat.html, tentang.html   halaman hukum + kontak
 brand.html              panduan merek
+search.html             halaman hasil pencarian (css/search.css, js/search.js)
 README.md
 HANDOFF.md              dokumen ini
 ```
@@ -97,7 +98,7 @@ Pencarian teks memakai konfigurasi `simple` plus `ILIKE` dan trigram. Belum ada 
 
 ### 4.3 Yang sudah terhubung ke frontend
 - `news` dan `trending`: dibaca saat halaman dibuka (`load()` di `api.js`). Jika gagal, tampil data contoh dan pesan status "Gagal memuat data langsung".
-- Semuanya **belum**: `log_search`, `search_all`, `suggest_keywords`, login, komunitas, simpan berita.
+- v8: `log_search`, `search_all`, `search_news`, `suggest_keywords` dipakai oleh `search.html`. Login dan Simpan terhubung sejak v4. Komunitas belum.
 
 ## 5. Apa yang nyata dan apa yang masih contoh
 
@@ -198,3 +199,21 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 
 - Di layar <=1000px kolom `.grid` memakai `1fr` yang membuat halaman bisa digeser ke samping (overflow ~380px) karena deretan kategori tidak bisa menyusut. Diganti `minmax(0,1fr)` + `min-width:0` di `responsive.css`. Uji ulang dengan Chromium: overflow mobile 0, desktop 0.
 - Waktu pada daftar berita tidak lagi terpotong ke dua baris.
+
+## 15. v8: search.html
+
+- Alamat: `search?q=kata&t=berita|video|belanja|komunitas`. Form di beranda dan tautan kata kunci populer mengarah ke sini.
+- Tab Semua memakai `search_all` (maks 50 hasil, tab lain menyaring di browser). Tab Berita memakai `search_news` dengan tombol Muat lagi (20 per halaman).
+- Autocomplete dari `suggest_keywords` (tertunda 250 ms), pencarian dicatat lewat `log_search`.
+- Keamanan: semua teks lewat `esc()`, URL dan gambar hanya http/https (`safeUrl`), tautan keluar memakai `rel="noopener noreferrer nofollow"`.
+- Bila Supabase belum dikonfigurasi, halaman memakai data contoh. Bila sudah dikonfigurasi tapi gagal, tampil pesan error dengan tombol Coba lagi.
+- Hasil komunitas belum punya halaman tujuan (url null), jadi tampil tanpa tautan sampai halaman komunitas dibuat.
+- Pencarian memakai konfigurasi `simple` (tanpa stemmer), jadi "membaca" tidak otomatis cocok dengan "baca".
+- `search.html` memakai `noindex` agar halaman hasil tidak diindeks Google.
+
+## 16. v9: alamat bersih
+
+- Semua tautan internal tanpa `.html`: `/search`, `/privasi`, `/syarat`, `/tentang`, `/brand` (GitHub Pages menyajikan `nama.html` untuk alamat `/nama`). Nama file tetap `.html`.
+- Server lokal sederhana (`python3 -m http.server`) tidak mengerti ini dan memberi 404. Pakai `npx serve` atau uji di situs yang tayang.
+- Selalu tulis tautan tanpa garis miring di akhir (`/search`, bukan `/search/`): jalur relatif `css/` dan `js/` bergantung pada itu.
+- Jika bermasalah, kembalikan tautan ke `nama.html` lewat satu commit.

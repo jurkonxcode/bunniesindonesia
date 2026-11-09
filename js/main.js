@@ -5,8 +5,8 @@ $("searchForm").addEventListener("submit", e => {
   e.preventDefault();
   const v = $("q").value.trim();
   if(goTool(v)) return;
-  query = v; cat = "Semua"; renderNews();
-  $("berita").scrollIntoView({behavior:"smooth"});
+  const on = $("scope").querySelector("[aria-pressed=true]");
+  location.href = "search?q=" + encodeURIComponent(v) + (on && on.textContent === "Berita" ? "&t=berita" : "");
 });
 document.addEventListener("click", e => {
   const t = e.target.closest("#loginBtn,#loginTop,#signup,#logoutTop,#logoutBtn,#showSaved,#googleBtn,#authClose,[data-save]");

@@ -1,5 +1,5 @@
 /* Data contoh. Berita dan kata kunci populer diambil dari Supabase jika config.js terisi. */
-const PAL = [["#03c75a","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],["#0ea5e9","#5b4bdb"],["#10b981","#84cc16"],["#ef5a6f","#8b5cf6"]];
+const PAL = [["#17a862","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],["#0ea5e9","#5b4bdb"],["#10b981","#84cc16"],["#ef5a6f","#8b5cf6"]];
 
 const demoNews = [
   {title:"Pusat data hijau pertama di Asia Tenggara mulai beroperasi",summary:"Fasilitas baru memakai energi surya dan pendinginan air laut untuk menekan emisi karbon.",category:"Teknologi",source:"Niflax Tekno",time:"12 menit lalu"},

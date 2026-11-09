@@ -37,7 +37,7 @@ function renderStatic(){
 
 function renderTrend(){
   const mv = ["u","n","d","u","n","u","d","n"], lb = {u:"naik",d:"turun",n:"–"};
-  $("rank").innerHTML = trending.slice(0, 8).map((k, i) => `<li><i>${i + 1}</i><a href="#">${esc(k)}</a><em class="${mv[i]}">${lb[mv[i]]}</em></li>`).join("");
+  $("rank").innerHTML = trending.slice(0, 8).map((k, i) => `<li><i>${i + 1}</i><a href="search?q=${encodeURIComponent(k)}">${esc(k)}</a><em class="${mv[i]}">${lb[mv[i]]}</em></li>`).join("");
 }
 
 let ti = 0;
