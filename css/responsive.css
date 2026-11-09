@@ -1,5 +1,6 @@
 @media(max-width:1000px){
-  .grid,.two{grid-template-columns:1fr}
+  .grid,.two{grid-template-columns:minmax(0,1fr)}
+  main,aside,.grid>*{min-width:0}
   .vgrid,.pgrid{grid-template-columns:repeat(2,1fr)}
   .cgrid{grid-template-columns:repeat(3,1fr)}
   .menu,.actions .ghost{display:none}

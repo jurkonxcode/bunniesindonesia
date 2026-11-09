@@ -193,3 +193,8 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 - Palet baru: Hijau Daun `#17A862`, Kunyit `#F5A524`, Hutan `#0F2A1E`, Krem `#FFF8EC`. `--brand` di `css/tokens.css` digeser dari `#03c75a` karena identik dengan hijau Naver.
 - Gambar OG memakai URL github.io. Ganti ke domain asli setelah dibeli.
 - Daftarkan merek ke DJKI setelah cek ketersediaan nama.
+
+## 14. v7: perbaikan layout mobile
+
+- Di layar <=1000px kolom `.grid` memakai `1fr` yang membuat halaman bisa digeser ke samping (overflow ~380px) karena deretan kategori tidak bisa menyusut. Diganti `minmax(0,1fr)` + `min-width:0` di `responsive.css`. Uji ulang dengan Chromium: overflow mobile 0, desktop 0.
+- Waktu pada daftar berita tidak lagi terpotong ke dua baris.

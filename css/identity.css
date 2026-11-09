@@ -27,3 +27,4 @@
 .tool.flash{animation:flash 1.4s ease-out}
 @keyframes flash{0%{box-shadow:0 0 0 0 var(--warm)}30%{box-shadow:0 0 0 6px var(--warm)}100%{box-shadow:0 0 0 0 transparent}}
 @media(prefers-reduced-motion:reduce){.tool.flash{animation:none}}
+.rows .meta{white-space:nowrap;margin-left:10px}
