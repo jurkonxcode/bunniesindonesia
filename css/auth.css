@@ -9,3 +9,6 @@
 #authMsg{min-height:18px;font-size:13px;color:var(--muted);margin:4px 0 0}
 .save{border:1px solid var(--line,#ccc);background:transparent;color:inherit;border-radius:999px;padding:2px 10px;font-size:12px;cursor:pointer;margin-left:6px}
 .save[aria-pressed="true"]{background:var(--warm);border-color:var(--warm);color:#2a1a00}
+.demo{font-style:normal;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+#authDlg .legal{font-size:12px;margin:6px 0}
+#authDlg .legal a{text-decoration:underline}

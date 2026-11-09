@@ -38,7 +38,8 @@ css/
   hero.css              kotak pencarian, tab, tren
   shortcuts.css         10 shortcut layanan
   content.css           berita, panel samping, video, belanja, komunitas, komik, footer
-  auth.css              dialog masuk, tombol Simpan
+  auth.css              dialog masuk, tombol Simpan, label .demo
+  page.css              gaya halaman hukum
   identity.css          kawung, chip, alat harian, promo
   responsive.css        breakpoint 1000px dan 640px
 js/
@@ -53,6 +54,7 @@ js/
 assets/                 gambar, ikon, font lokal (masih kosong)
 supabase/
   supabase-schema.sql   skema database lengkap
+privasi.html, syarat.html, tentang.html   halaman hukum + kontak
 README.md
 HANDOFF.md              dokumen ini
 ```
@@ -177,3 +179,9 @@ Pengaturan wajib di dashboard Supabase:
 3. Authentication, Email Templates, Magic Link: sertakan `{{ .Token }}` agar email memuat kode 6 digit.
 
 Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP sendiri.
+
+## 12. v5: pembersihan
+
+- Dibuat `privasi.html`, `syarat.html`, `tentang.html` (kontak sementara lewat GitHub Issues). **Sebelum publik: ganti dengan email kontak sungguhan dan buat fitur hapus akun.** Teks hukum adalah draf, belum ditinjau ahli hukum.
+- Bagian data contoh diberi label `contoh` (kelas `.demo`). Hapus label saat data nyata terpasang.
+- Tab pencarian Gambar/Video/Komunitas disembunyikan sampai `search.html` jadi. Footer dibersihkan dari link tanpa tujuan.

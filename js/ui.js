@@ -23,7 +23,7 @@ function renderNews(){
 }
 
 function renderStatic(){
-  $("ticker").innerHTML = ticker.map(t => `<span><b>${t[0]}</b>${t[1]} <span class="${t[3] ? "up" : "down"}">${t[2]}</span></span>`).join("") +
+  $("ticker").innerHTML = `<span><em class="demo">contoh</em></span>` + ticker.map(t => `<span><b>${t[0]}</b>${t[1]} <span class="${t[3] ? "up" : "down"}">${t[2]}</span></span>`).join("") +
     `<span class="date" id="clocks"></span>`;
   $("short").innerHTML = shortcuts.map(s => `<a href="${s[2]}"${s[3] ? ` data-cat="${s[3]}"` : ""}><span><svg viewBox="0 0 24 24"><path d="${s[1]}"/></svg></span>${s[0]}</a>`).join("");
   $("chips").innerHTML = quick.map(c => `<button type="button">${esc(c)}</button>`).join("");

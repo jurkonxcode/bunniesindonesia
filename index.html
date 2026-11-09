@@ -22,7 +22,7 @@
 <header class="top"><div class="wrap">
   <a class="logo" href="./"><i><svg viewBox="0 0 24 24" fill="none" stroke="#022b17" stroke-width="3" stroke-linecap="round"><path d="M6 19V5l12 14V5"/></svg></i>niflax</a>
   <nav class="menu" aria-label="Menu utama">
-    <a class="on" href="#">Beranda</a><a href="#berita">Berita</a><a href="#video">Video</a><a href="#belanja">Belanja</a><a href="#komunitas">Komunitas</a><a href="#alat">Alat</a>
+    <a class="on" href="./">Beranda</a><a href="#berita">Berita</a><a href="#video">Video</a><a href="#belanja">Belanja</a><a href="#komunitas">Komunitas</a><a href="#alat">Alat</a>
   </nav>
   <div class="actions"><a class="ghost" href="#" id="signup">Daftar</a><button class="btn green" id="loginTop">Masuk</button></div>
 </div></header>
@@ -42,7 +42,7 @@
       <input id="q" type="search" placeholder="Cari berita, video, atau topik" autocomplete="off" aria-label="Kata kunci pencarian">
       <button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
     </div></form>
-    <div class="tabs" id="scope"><button aria-pressed="true">Semua</button><button aria-pressed="false">Berita</button><button aria-pressed="false">Gambar</button><button aria-pressed="false">Video</button><button aria-pressed="false">Komunitas</button></div>
+    <div class="tabs" id="scope"><button aria-pressed="true">Semua</button><button aria-pressed="false">Berita</button></div>
     <div class="chips" id="chips" aria-label="Pencarian cepat"></div>
     <div class="trend"><b>Tren</b><span id="trendText"></span></div>
   </section>
@@ -61,11 +61,11 @@
       <section class="card login" id="acct">
         <div class="sh"><h2>Akun Niflax</h2></div>
         <p>Masuk untuk menyimpan berita, berkomentar, dan bergabung ke komunitas.</p>
-        <button class="btn green" id="loginBtn">Masuk dengan email</button>
-        <div class="links"><a href="#">Daftar baru</a><a href="#">Lupa kata sandi</a></div>
+        <button class="btn green" id="loginBtn">Masuk atau daftar</button>
+        <div class="links"><span>Tanpa kata sandi: cukup kode lewat email atau Google.</span></div>
       </section>
       <section class="card">
-        <div class="sh"><h2>Cuaca</h2><small>Jakarta</small></div>
+        <div class="sh"><h2>Cuaca <em class="demo">contoh</em></h2><small>Jakarta</small></div>
         <div class="wx">
           <svg viewBox="0 0 64 64" fill="none" stroke="var(--brand-d)" stroke-width="3" stroke-linecap="round"><circle cx="24" cy="26" r="9"/><path d="M24 8v4M8 26h4M12 14l3 3M36 14l-3 3"/><path d="M26 50h24a8 8 0 0 0 0-16 11 11 0 0 0-21 3 7 7 0 0 0-3 13z" fill="var(--surface)"/></svg>
           <div><big>31°</big><div class="meta">Cerah berawan · Terasa 36°</div></div>
@@ -73,29 +73,28 @@
         <div class="wxrow"><div><b>32°</b>Siang</div><div><b>29°</b>Sore</div><div><b>26°</b>Malam</div><div><b>40%</b>Hujan</div></div>
       </section>
       <section class="card"><div class="sh"><h2>Kata kunci populer</h2></div><ol class="rank" id="rank"></ol></section>
-      <section class="card"><div class="sh"><h2>Skor pertandingan</h2><a href="#">Semua</a></div><ul class="score" id="score"></ul></section>
+      <section class="card"><div class="sh"><h2>Skor pertandingan <em class="demo">contoh</em></h2><a href="#">Semua</a></div><ul class="score" id="score"></ul></section>
     </aside>
   </div>
 
-  <section class="section" id="video"><div class="sh"><h2>Video pilihan</h2><a href="#">Lihat semua</a></div><div class="vgrid" id="videos"></div></section>
+  <section class="section" id="video"><div class="sh"><h2>Video pilihan <em class="demo">contoh</em></h2><a href="#">Lihat semua</a></div><div class="vgrid" id="videos"></div></section>
 
   <div class="two section">
-    <section id="belanja" class="card"><div class="sh"><h2>Belanja hari ini</h2><a href="#">Lihat semua</a></div><div class="promo" id="promo" hidden></div><div class="pgrid" id="products"></div></section>
-    <section id="komunitas" class="card"><div class="sh"><h2>Komunitas populer</h2><a href="#">Jelajahi</a></div><ul class="clist" id="communities"></ul></section>
+    <section id="belanja" class="card"><div class="sh"><h2>Belanja hari ini <em class="demo">contoh</em></h2><a href="#">Lihat semua</a></div><div class="promo" id="promo" hidden></div><div class="pgrid" id="products"></div></section>
+    <section id="komunitas" class="card"><div class="sh"><h2>Komunitas populer <em class="demo">contoh</em></h2><a href="#">Jelajahi</a></div><ul class="clist" id="communities"></ul></section>
   </div>
 
-  <section class="section" id="komik"><div class="sh"><h2>Komik populer minggu ini</h2><a href="#">Lihat semua</a></div><div class="cgrid" id="comics"></div></section>
+  <section class="section" id="komik"><div class="sh"><h2>Komik populer minggu ini <em class="demo">contoh</em></h2><a href="#">Lihat semua</a></div><div class="cgrid" id="comics"></div></section>
 </div>
 
 <footer><div class="wrap">
   <div class="fcols">
     <div><a class="logo" href="./">niflax</a><p>Portal pencarian dan konten untuk pengguna Indonesia.</p></div>
     <div><h5>Layanan</h5><ul><li><a href="#berita">Berita</a></li><li><a href="#video">Video</a></li><li><a href="#belanja">Belanja</a></li><li><a href="#alat">Alat</a></li></ul></div>
-    <div><h5>Komunitas</h5><ul><li><a href="#komunitas">Forum</a></li><li><a href="#">Blog</a></li><li><a href="#">Panduan pengguna</a></li></ul></div>
-    <div><h5>Bisnis</h5><ul><li><a href="#">Pasang iklan</a></li><li><a href="#">Jadi mitra</a></li><li><a href="#">API</a></li></ul></div>
-    <div><h5>Perusahaan</h5><ul><li><a href="#">Tentang</a></li><li><a href="#">Karier</a></li><li><a href="#">Kontak</a></li></ul></div>
+    <div><h5>Komunitas</h5><ul><li><a href="#komunitas">Forum</a></li></ul></div>
+    <div><h5>Niflax</h5><ul><li><a href="tentang.html">Tentang</a></li><li><a href="tentang.html#kontak">Kontak</a></li><li><a href="privasi.html">Kebijakan privasi</a></li><li><a href="syarat.html">Syarat layanan</a></li></ul></div>
   </div>
-  <div class="fbot"><span>© 2026 Niflax. Seluruh hak dilindungi.</span><span>Kebijakan privasi · Syarat layanan · Pusat bantuan</span></div>
+  <div class="fbot"><span>© 2026 Niflax. Seluruh hak dilindungi.</span><span><a href="privasi.html">Kebijakan privasi</a> · <a href="syarat.html">Syarat layanan</a></span></div>
 </div></footer>
 
 <dialog id="authDlg"><h2>Masuk ke Niflax</h2>
@@ -103,6 +102,7 @@
 <button class="btn alt" id="googleBtn" type="button">Lanjut dengan Google</button>
 <form id="emailForm"><input id="emailIn" type="email" placeholder="email@kamu.com" autocomplete="email" required><button class="btn green">Kirim kode ke email</button></form></div>
 <div id="authStep2" hidden><form id="codeForm"><input id="codeIn" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kode dari email" required><button class="btn green">Masuk</button></form></div>
+<p class="legal">Dengan masuk, kamu setuju dengan <a href="syarat.html">Syarat Layanan</a> dan <a href="privasi.html">Kebijakan Privasi</a>.</p>
 <p id="authMsg" role="status"></p><button class="btn alt" id="authClose" type="button">Tutup</button></dialog>
 <script src="js/config.js"></script>
 <script src="js/data.js"></script>
