@@ -1,0 +1,6 @@
+/* v30: tombol Bagikan. Warna lewat token agar ikut mode gelap. */
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 4px}
+.share span{font-size:13px;color:var(--muted);margin-right:2px}
+.sb{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:600 13px/1 inherit;font-family:inherit;text-decoration:none;cursor:pointer}
+.sb.wa{background:#128c7e;border-color:#128c7e;color:#fff}
+.sb:focus-visible{outline:2px solid var(--brand);outline-offset:2px}

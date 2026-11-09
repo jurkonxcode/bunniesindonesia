@@ -58,7 +58,7 @@ async function showDetail(id){
     if(!p){ $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><p class="sempty">Tulisan tidak ditemukan atau sudah dihapus.</p>`; return; }
     document.title = p.title.slice(0, 60) + " – Niflax";
     const own = session && session.user.id === p.user_id;
-    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(p.category)}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>`;
+    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(p.category)}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>${shareBar(p.title)}`;
   }catch(e){ $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><p class="sempty">Gagal memuat: ${esc(e.message)}</p>`; }
 }
 async function publish(){

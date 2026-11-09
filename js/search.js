@@ -16,7 +16,7 @@ function ago(d){
   return m < 60 ? m + " menit lalu" : m < 1440 ? Math.round(m / 60) + " jam lalu" : m < 43200 ? Math.round(m / 1440) + " hari lalu" : new Date(d).toLocaleDateString("id-ID", {day:"numeric", month:"short", year:"numeric"});
 }
 function mark(text){                                  // sorot kata kunci, aman dari XSS
-  const terms = Q.split(/\s+/).filter(w => w.length >= 2).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const terms = normalizeQuery(Q).flat.filter(w => w.length >= 2).sort((a, b) => b.length - a.length).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   if(!terms.length) return esc(text);
   return String(text ?? "").split(new RegExp("(" + terms.join("|") + ")", "i")).map((p, i) => i % 2 ? `<mark>${esc(p)}</mark>` : esc(p)).join("");
 }
@@ -26,14 +26,24 @@ async function rpc(fn, body){
   return r.json();
 }
 /* Cari di konten asli Niflax (Blog + Tanya Jawab). Gagal diam-diam bila tabelnya belum ada. */
+/* v30: kata dipecah, singkatan/gaul/kata dasar ikut dicari (js/kata.js), hasil diurutkan menurut jumlah kata yang cocok. */
+const low = s => String(s || "").toLowerCase();
+function score(x, nq, phrase){
+  const t = low(x.title), b = low(x.body); let sc = 0;
+  nq.groups.forEach(g => { if(g.some(v => t.includes(v))) sc += 3; else if(g.some(v => b.includes(v))) sc += 1; });
+  if(phrase && t.includes(phrase)) sc += 4;
+  return sc;
+}
 async function searchTable(table, kind, q){
   try{
-    const s = q.replace(/[,()*\\%_"]/g, " ").trim().slice(0, 60); if(s.length < 2) return [];
-    const e = encodeURIComponent(s);
-    const r = await fetch(SUPABASE_URL + "/rest/v1/" + table + "?select=id,title,body,category,created_at&or=(title.ilike.*" + e + "*,body.ilike.*" + e + "*)&order=created_at.desc&limit=30", {headers:{apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY}});
+    const nq = normalizeQuery(q), vs = nq.flat.filter(v => v.length >= 2).slice(0, 16);
+    if(!vs.length) return [];
+    const phrase = low(q).replace(/[,()*\\%_"]/g, " ").replace(/\s+/g, " ").trim(), orp = vs.flatMap(v => { const e = encodeURIComponent(v); return ["title.ilike.*" + e + "*", "body.ilike.*" + e + "*"]; }).join(",");
+    const r = await fetch(SUPABASE_URL + "/rest/v1/" + table + "?select=id,title,body,category,created_at&or=(" + orp + ")&order=created_at.desc&limit=60", {headers:{apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY}});
     if(!r.ok) return [];
     const page = kind === "post" ? "blog" : "tanya";
-    return (await r.json()).map(x => ({kind, title:x.title, snippet:(x.body || "").slice(0, 200), href:page + "?id=" + (+x.id), source:x.category, published_at:x.created_at}));
+    return (await r.json()).map((x, i) => ({x, i, sc:score(x, nq, phrase.includes(" ") ? phrase : "")})).sort((a, b) => b.sc - a.sc || a.i - b.i).slice(0, 30)
+      .map(({x}) => ({kind, title:x.title, snippet:(x.body || "").slice(0, 200), href:page + "?id=" + (+x.id), source:x.category, published_at:x.created_at}));
   }catch(e){ return []; }
 }
 const searchQuestions = q => searchTable("questions", "question", q), searchPosts = q => searchTable("posts", "post", q);
