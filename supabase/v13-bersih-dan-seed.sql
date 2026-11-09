@@ -28,7 +28,7 @@ alter table public.questions disable trigger questions_prepare;
 
 insert into public.questions (user_id, author_name, title, body, category, created_at)
 select u.id, 'Tim Niflax', q.title, q.body, q.category, now() - (q.n || ' seconds')::interval
-from (select id from auth.users where lower(email) = lower('GANTI_DENGAN_EMAILMU') limit 1) u
+from (select id from auth.users where lower(email) = lower('ybrap168@gmail.com') limit 1) u
 cross join (values
  (1,  'Umum',      'Bagaimana cara mengecek pajak kendaraan bermotor secara online?', 'Aku ingin tahu situs atau aplikasi resmi yang aman untuk cek tagihan pajak, dan data apa saja yang diperlukan.'),
  (2,  'Umum',      'Apa bedanya libur nasional dan cuti bersama?', 'Apakah perusahaan swasta wajib mengikuti cuti bersama, dan bagaimana hitungannya terhadap jatah cuti tahunan?'),
