@@ -1,7 +1,7 @@
 /* Blog pengguna (v19). Mandiri, sesi dari localStorage "niflax.session". Butuh supabase/v19-blog.sql.
    Semua teks dari database lewat esc(). */
 const AUTH_KEY = "niflax.session", PAGE = 15, CATS = ["Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga","Hiburan","Catatan harian"];
-let session = null, offset = 0, shown = 0, cat = "Semua";
+let session = null, offset = 0, shown = 0;          // `cat` dipakai bersama dari state.js (deklarasi ganda di sini membuat blog.js gagal jalan)
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
 const keep = s => { session = s; try{ s ? localStorage.setItem(AUTH_KEY, JSON.stringify(s)) : localStorage.removeItem(AUTH_KEY); }catch(e){} };
 const pack = d => d && d.access_token ? {access_token:d.access_token, refresh_token:d.refresh_token, expires_at:d.expires_at || Math.floor(Date.now()/1000) + (d.expires_in || 3600), user:d.user} : null;
@@ -88,5 +88,6 @@ $("writeForm").addEventListener("submit", e => { e.preventDefault(); publish(); 
   await initSession(); paintHead();
   const id = +new URLSearchParams(location.search).get("id");
   if(Number.isInteger(id) && id > 0) return showDetail(id);
+  { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // v24: ?cat=Kuliner dari baris ikon beranda
   $("listView").hidden = false; paintCats(); loadList(true);
 })();

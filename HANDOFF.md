@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v18).
+Terakhir diperbarui: 9 November 2026 (v24, lihat bagian 26).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -356,3 +356,18 @@ Berkas baru: `tools/impor-berita.mjs`, `tools/feeds.json`, `.github/workflows/im
 - Beranda kini berisi tulisan Blog dan Tanya Jawab (`loadPosts` di `js/api.js`, `cPost` di `js/ui.js`). Tab: Semua, Blog, Tanya Jawab.
 - Pencarian (`js/search.js`) mencari di Blog dan Tanya Jawab, hasil `Semua` dikelompokkan per bagian seperti Naver. Butuh `supabase/v10-tanya-jawab.sql` dan `supabase/v19-blog.sql`.
 - Tabel `news`, `saved_news`, RPC `search_all`/`search_news` tidak dipakai lagi (boleh dibiarkan; bersihkan lewat SQL bila mau).
+
+## 26. v24: beranda ala portal besar (pola susunan Naver, identitas Niflax)
+Acuan: screenshot naver.com (mode desktop di HP) dibandingkan dengan beranda Niflax. Yang ditiru hanya **pola susunan**: bilah atas tipis, kotak cari pil, baris ikon layanan satu baris, panel putih berbingkai tipis, kolom utama + kolom samping. Tidak ada logo, ikon, warna, atau teks Naver.
+
+**Berkas:** `css/naver.css` (baru, dimuat PALING AKHIR, `?v=24`), `index.html`, `js/ui.js`, `js/main.js`, `js/services.js`, `js/data.js`, `js/blog.js`, `js/tanya.js`. Cache naik ke `?v=24` di semua HTML.
+
+- **Baris ikon** (`SVC` di `ui.js`): satu baris, bisa digeser di HP. Semua tujuan nyata (tanpa label "segera"): Tanya, Blog, Sholat, Libur, Teknologi, Ekonomi, Kuliner, Otomotif, Olahraga, Hiburan, Semua.
+- **Panel kolom utama** (`renderModules`): banner ajakan menulis; **Jelajah** (tab, baris judul terbaru, kisi petak 4 kolom HP / 6 desktop); **Blog pilihan** (tagar kategori di kiri, kartu 2 kolom HP / 4 desktop, pager); **Tanya Jawab terbaru**; lalu panel umpan bertab (Semua, Blog, Tanya Jawab) berupa kisi kartu 3 / 4 / 5 kolom. Kartu memakai sampul ikon kategori (`CAT_ART`, ditambah `Umum` dan `Catatan harian`).
+- **Kolom samping** (desktop 320px, di HP mengalir di bawah umpan): akun, cuaca (angka besar + 5 hari), kurs, kalender (angka tanggal besar + kisi), gempa, alat harian. Urutan diatur lewat `order` di `naver.css`.
+- **`?cat=`**: `blog?cat=Kuliner` dan `tanya?cat=Ekonomi` membuka daftar yang sudah tersaring. Dipakai baris ikon dan petak.
+- **Menu hamburger** (`services.js`): Kurs rupiah, Cuaca, Olahraga, Hiburan, Kuliner, Otomotif kini tertaut. Yang masih "segera": Cek resi, Komunitas, Pusat kreator, Berita, Video, Belanja, Komik, Religi, Peta, Tiket.
+- **Perbaikan bug lama:** `blog.js` mendeklarasikan `let cat` padahal `state.js` sudah memilikinya, sehingga `blog.js` gagal jalan (SyntaxError). Kini memakai `cat` dari `state.js`.
+- **Bar jam** WIB/WITA/WIT kini bar tipis terang di atas header (bukan bar gelap).
+- Diuji dengan Chromium (Playwright) di 390px dan 1280px: tanpa overflow horizontal, tanpa error JS di 8 halaman. Diuji dengan data tiruan HANYA di mesin uji; repo tidak berisi data contoh.
+- **Belum ada (sengaja, karena tidak ada sumber data nyata):** kios berita/penerbit, widget saham/musik, kotak iklan, tombol AI di kotak cari.

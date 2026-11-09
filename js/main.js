@@ -6,6 +6,11 @@ $("svr").addEventListener("click", e => {
   const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderFeed(); $("feed").scrollIntoView({behavior:"smooth", block:"start"}); return; }
   const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
 });
+$("modules").addEventListener("click", e => {
+  const c = e.target.closest("button[data-bpc]"); if(c){ bpCat = c.dataset.bpc; bpPage = 0; renderModules(); return; }
+  const p = e.target.closest("button[data-bpp]"); if(p){ bpPage = Math.max(0, bpPage + +p.dataset.bpp); renderModules(); return; }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
+});
 $("mini").addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); } });
 $("tools").addEventListener("change", e => {
   if(e.target.id !== "kota") return;

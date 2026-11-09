@@ -161,5 +161,6 @@ $("qform").addEventListener("submit", e => { e.preventDefault(); qs = $("qin").v
   await initSession(); paintHead();
   const id = +new URLSearchParams(location.search).get("id");
   if(Number.isInteger(id) && id > 0) return showDetail(id);
+  { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // v24: ?cat=Kuliner dari baris ikon beranda
   $("listView").hidden = false; paintCats(); loadList(true);
 })();
