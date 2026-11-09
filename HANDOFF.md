@@ -246,3 +246,9 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Semua orisinal: **tanpa foto member** dan tanpa logo/tulisan bergaya NewJeans. Jangan menambah foto member (lihat bagian 2).
 - Font Sora tidak termuat di dalam SVG yang dipakai lewat `<img>`; yang tampil adalah font cadangan. Untuk hasil persis, ekspor ke PNG dari browser.
 - Banner tampil di beranda (`.hbanner`) dan di `brand.html`.
+
+## 5d. Halaman Member (v37)
+- `member.html` + `css/member.css`: biografi lima member NewJeans (profil, latar belakang, kabar terbaru per 9 Nov 2026, garis waktu singkat sengketa ADOR). Tab "Member" ditambahkan di `js/nav.js` dan menu `index.html`.
+- Data ada di HTML (tidak ada JS tambahan). Warna aksen tiap member sama dengan `js/bias.js`.
+- **Foto:** sengaja tidak disertakan (lihat bagian 2). Kartu memuat `assets/member/<id>.jpg` kalau ada; bila tidak, tampil ilustrasi Bunbun dengan inisial. Isi foto hanya jika sudah berizin.
+- Tinggi badan, MBTI, golongan darah sengaja tidak dicantumkan karena sumber publik saling bertentangan.
