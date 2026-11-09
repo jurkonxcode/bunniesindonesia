@@ -21,10 +21,10 @@ const RATIO = ["a", "b", "c", "b"];
 const saveBtn = n => session && n.id ? `<button class="save" data-save="${n.id}" aria-pressed="${saved.has(n.id)}">${saved.has(n.id) ? "Tersimpan" : "Simpan"}</button>` : "";
 function cNews(n, i){
   const url = sUrl(n.url);
-  const body = `<div class="fcv ${RATIO[i % 4]}">${cover(n, i)}</div><div class="fb"><span class="tag">${esc(n.category)}</span><h3>${esc(n.title)}</h3><span class="meta">${esc(n.source)} · ${esc(when(n))}</span></div>`;
+  const body = `<div class="fcv ${RATIO[i % 4]}">${cover(n, i)}</div><div class="fb"><span class="tag">${esc(n.category)}</span><span class="ext" title="Dikutip dari RSS ${esc(n.source || "media lain")}. Membuka situs sumber.">Sumber luar ↗</span><h3>${esc(n.title)}</h3><span class="meta">${esc(n.source)} · ${esc(when(n))}</span></div>`;
   return `<article class="fc">${url ? `<a class="fl" href="${esc(url)}" target="_blank" rel="noopener noreferrer nofollow">${body}</a>` : `<div class="fl">${body}</div>`}${saveBtn(n) ? `<div class="fa">${saveBtn(n)}</div>` : ""}</article>`;
 }
-const cQuestion = q => `<article class="fc"><a class="fl fcm" href="tanya?id=${+q.id}">${ic("tanya", "g4")}<div><span class="tag">Tanya Jawab · ${esc(q.category)}</span><h3>${esc(q.title)}</h3><span class="meta">${q.best_answer_id ? "Terjawab · " : ""}${+q.answer_count} jawaban · ${esc(ago(q.created_at))}</span></div></a></article>`;
+const cQuestion = q => `<article class="fc"><a class="fl fcm" href="tanya?id=${+q.id}">${ic("tanya", "g4")}<div><span class="tag">Tanya Jawab · ${esc(q.category)}</span><span class="ext in" title="Ditulis oleh pengguna Niflax">Dari Niflax</span><h3>${esc(q.title)}</h3><span class="meta">${q.best_answer_id ? "Terjawab · " : ""}${+q.answer_count} jawaban · ${esc(ago(q.created_at))}</span></div></a></article>`;
 
 function feedItems(){
   const nw = news.filter(n => !onlySaved || saved.has(n.id));
@@ -65,11 +65,12 @@ function renderTabs(){
   $("ftabs").innerHTML =
     L.map(t => `<button type="button" data-t="${esc(t[0])}" aria-pressed="${t[0] === tab}">${esc(t[1])}</button>`).join("");
 }
+const EXTNOTE = "Kartu bertanda \"Sumber luar\" adalah judul berita yang dikutip lewat RSS dari media lain, bukan tulisan Niflax. Ketuk untuk membaca lengkap di situs sumbernya.";
 const NOTE = "Berita belum tersedia. Kami sedang menyiapkan sumber berita yang berizin. Sementara itu, jelajahi Tanya Jawab dan alat harian di bawah.";
 function renderFeed(){
   renderTabs(); renderSvr();
   const items = feedItems();
-  $("status").textContent = loadErr ? "Gagal memuat data langsung. Periksa koneksi internetmu lalu muat ulang halaman." : (!news.length && tab !== "Tanya" && !onlySaved ? NOTE : "");
+  $("status").textContent = loadErr ? "Gagal memuat data langsung. Periksa koneksi internetmu lalu muat ulang halaman." : (!news.length && tab !== "Tanya" && !onlySaved ? NOTE : (news.length && tab !== "Tanya" ? EXTNOTE : ""));
   $("feed").innerHTML = items.length ? items.map((x, i) => x.h(i)).join("") :
     `<p class="empty">${onlySaved ? "Belum ada berita tersimpan." : tab === "Tanya" ? "Belum ada pertanyaan. Jadilah yang pertama di <a href=\"tanya\">Tanya Jawab</a>." : "Belum ada isi untuk tab ini."}</p>`;
 }

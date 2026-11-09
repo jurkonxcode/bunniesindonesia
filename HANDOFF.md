@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v17).
+Terakhir diperbarui: 9 November 2026 (v18).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -344,3 +344,9 @@ Berkas baru: `tools/impor-berita.mjs`, `tools/feeds.json`, `.github/workflows/im
 - **Pembersihan:** jalankan `supabase/v17-bersihkan-berita.sql`. Fungsi `bersihkan_berita(30)` menghapus berita lebih tua dari 30 hari yang tidak sedang disimpan siapa pun. Jadwal harian lewat pg_cron (baris dikomentari di berkas itu).
 - **Status sumber (dicek 9 Nov 2026):** ANTARA: ketentuan penggunaan Pasal 3 melarang reproduksi/distribusi tanpa persetujuan tertulis dan tidak menyebut RSS, jadi minta izin dulu. VOA: teks buatan VOA sendiri domain publik dengan kredit, materi AFP/AP/Reuters tidak. BBC: syarat RSS belum bisa dibaca langsung dari sini, cek sendiri. Semua `izin` tetap false sampai pemilik memutuskan.
 - **Belum ada:** deduplikasi berita yang sama dari media berbeda, kategori daerah/provinsi, halaman khusus per kategori (saat ini tab di beranda).
+
+
+## 25. v18: penanda asal konten
+
+- Kartu berita di beranda kini berlabel **"Sumber luar ↗"** (kelas `.ext`), kartu Tanya Jawab berlabel **"Dari Niflax"** (`.ext.in`). Di atas umpan muncul catatan (`EXTNOTE` di `js/ui.js`) bahwa kartu bertanda Sumber luar dikutip lewat RSS dari media lain dan membuka situs sumber. Di `search.html`, jenis hasil berita tertulis "Berita · sumber luar".
+- Tujuan: pembaca tahu berita bukan tulisan Niflax, dan pengutipan terlihat jelas (sejalan dengan kebijakan hak cipta di bagian 9). Gaya ada di akhir `css/home.css`. Cache `?v=18`.

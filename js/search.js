@@ -1,6 +1,6 @@
 /* Halaman hasil pencarian: search_all / search_news + autocomplete + log_search. */
 const TABS = [["", "Semua", "all"], ["berita", "Berita", "news"], ["tanya", "Tanya Jawab", "all"]];
-const KIND = {news:"Berita", video:"Video", product:"Belanja", community:"Komunitas", question:"Tanya Jawab"};
+const KIND = {news:"Berita · sumber luar", video:"Video", product:"Belanja", community:"Komunitas", question:"Tanya Jawab"};
 const KMAP = {"":null, berita:"news", tanya:"question"};
 const params = new URLSearchParams(location.search);
 let Q = (params.get("q") || "").trim().slice(0, 100);
