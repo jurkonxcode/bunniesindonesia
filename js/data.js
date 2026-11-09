@@ -4,7 +4,7 @@ const PAL = [["#2f6fe4","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],[
 
 /* Ikon dan warna sampul per kategori berita: [id ikon di assets/icons/bunnies-icons.svg, indeks PAL] */
 /* v17: urutan kunci di sini = urutan tab kategori di beranda. Kategori baru wajib ditambah di sini DAN di tools/klasifikasi.mjs. */
-const CAT_ART = {Kuliah:["blog",1],Kerja:["kurs",0],Visa:["syarat",3],Bahasa:["tanya",2],Budaya:["hiburan",1],"Hidup di sana":["peta",3],Nasional:["nasional",0],Politik:["nasional",1],Hukum:["syarat",3],Internasional:["peta",3],Ekonomi:["kurs",0],Teknologi:["teknologi",3],Bola:["bola",4],Olahraga:["bola",4],Hiburan:["hiburan",1],Kuliner:["kuliner",5],Otomotif:["otomotif",3],Religi:["religi",4],Kesehatan:["berita",4],Pendidikan:["blog",1],Umum:["berita",0],"Catatan harian":["blog",2]};
+const CAT_ART = {info:["berita",0],diskusi:["komunitas",1],fanart:["kreator",2],musik:["hiburan",1],video:["video",3],event:["tiket",5],umum:["blog",0],Kuliah:["blog",1],Kerja:["kurs",0],Visa:["syarat",3],Bahasa:["tanya",2],Budaya:["hiburan",1],"Hidup di sana":["peta",3],Nasional:["nasional",0],Politik:["nasional",1],Hukum:["syarat",3],Internasional:["peta",3],Ekonomi:["kurs",0],Teknologi:["teknologi",3],Bola:["bola",4],Olahraga:["bola",4],Hiburan:["hiburan",1],Kuliner:["kuliner",5],Otomotif:["otomotif",3],Religi:["religi",4],Kesehatan:["berita",4],Pendidikan:["blog",1],Umum:["berita",0],"Catatan harian":["blog",2]};
 
 /* Chip pencarian cepat: hanya yang punya alat nyata */
 const quick = ["Minji","Hanni","Danielle","Haerin","Hyein"];

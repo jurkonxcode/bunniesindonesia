@@ -1,7 +1,7 @@
 /* Blog pengguna (v19, komentar+reaksi+bias v31). Mandiri, sesi dari localStorage "bunnies.session".
    Butuh supabase/v19-blog.sql dan supabase/v31-komentar-reaksi-bias.sql.
    Semua teks dari database lewat esc(). Bias dan chip dari js/bias.js (dimuat sebelum file ini). */
-const AUTH_KEY = "bunnies.session", PAGE = 15, CATS = ["Kuliah","Kerja","Visa","Bahasa","Budaya","Hidup di sana","Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga","Hiburan","Catatan harian"];
+const AUTH_KEY = "bunnies.session", PAGE = 15;
 const RX = [["suka","Suka"],["keren","Keren"],["lucu","Lucu"],["haru","Haru"]];
 let session = null, offset = 0, shown = 0;          // `cat` dipakai bersama dari state.js (deklarasi ganda di sini membuat blog.js gagal jalan)
 let currentPost = 0, repType = "post", repId = 0;
@@ -39,7 +39,7 @@ async function initSession(){
 }
 const paintHead = () => { $("hbar").innerHTML = session ? `<span class="who">${myName()}</span>` : `<button class="btn green" id="loginBtn" type="button">Masuk</button>`; };
 
-const card = p => `<a class="r" href="blog?id=${+p.id}"><div class="tx"><span class="kind">${esc(p.category)}</span><h3>${esc(p.title)}</h3><p>${esc((p.body || "").slice(0, 160))}</p><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></div></a>`;
+const card = p => `<a class="r" href="blog?id=${+p.id}"><div class="tx"><span class="kind">${esc(catLabel(p.category))}</span><h3>${esc(p.title)}</h3><p>${esc((p.body || "").slice(0, 160))}</p><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></div></a>`;
 async function loadList(reset){
   if(reset){ offset = 0; shown = 0; $("plist").innerHTML = ""; }
   $("pinfo").textContent = "Memuat…"; $("more").hidden = true;
@@ -53,7 +53,7 @@ async function loadList(reset){
     $("more").hidden = rows.length < PAGE;
   }catch(e){ $("pinfo").innerHTML = `Gagal memuat (${esc(e.message)}). Pastikan <b>v19-blog.sql</b> sudah dijalankan di Supabase.`; }
 }
-const paintCats = () => { $("catTabs").innerHTML = ["Semua", ...CATS].map(c => `<button type="button" aria-pressed="${c === cat}" data-c="${c}">${c}</button>`).join(""); };
+const paintCats = () => { $("catTabs").innerHTML = ["Semua", ...CATS].map(c => `<button type="button" aria-pressed="${c === cat}" data-c="${c}">${esc(c === "Semua" ? c : catLabel(c))}</button>`).join(""); };
 
 /* ---------- Reaksi ---------- */
 const rxBar = (type, id, s) => {
@@ -93,7 +93,7 @@ async function showDetail(id){
     document.title = p.title.slice(0, 60) + " – Bunnies Indonesia";
     const own = session && session.user.id === p.user_id;
     const sum = await rpc("reaction_summary", {p_type:"post", p_id:+p.id}).catch(() => null);
-    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(p.category)}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>${rxBar("post", p.id, sum)}${shareBar(p.title)}<section class="cm" id="thread"><p class="sinfo">Memuat komentar…</p></section>`;
+    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(catLabel(p.category))}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>${rxBar("post", p.id, sum)}${shareBar(p.title)}<section class="cm" id="thread"><p class="sinfo">Memuat komentar…</p></section>`;
     loadThread(+p.id);
   }catch(e){ $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><p class="sempty">Gagal memuat: ${esc(e.message)}</p>`; }
 }
@@ -147,11 +147,11 @@ document.addEventListener("submit", async e => {
 $("writeForm").addEventListener("submit", e => { e.preventDefault(); publish(); });
 $("repForm").addEventListener("submit", e => { e.preventDefault(); sendReport(); });
 (async function(){
-  $("wCat").innerHTML = `<option>Umum</option>`;     // v32: kategori disembunyikan, semua tulisan masuk "Umum"
+  $("wCat").innerHTML = catOptions(); $("wCat").required = true;     // v33: 7 kategori fanpage
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("listView").hidden = false; $("pinfo").textContent = "Supabase belum dikonfigurasi di js/config.js."; return; }
   await initSession(); paintHead();
   const id = +new URLSearchParams(location.search).get("id");
   if(Number.isInteger(id) && id > 0) return showDetail(id);
-  { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // v24: ?cat=Kuliner dari baris ikon beranda
+  { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // ?cat=musik dari beranda (slug v33)
   $("listView").hidden = false; paintCats(); loadList(true);
 })();

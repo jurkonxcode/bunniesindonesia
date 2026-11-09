@@ -43,7 +43,7 @@ async function searchTable(table, kind, q){
     if(!r.ok) return [];
     const page = kind === "post" ? "blog" : "tanya";
     return (await r.json()).map((x, i) => ({x, i, sc:score(x, nq, phrase.includes(" ") ? phrase : "")})).sort((a, b) => b.sc - a.sc || a.i - b.i).slice(0, 30)
-      .map(({x}) => ({kind, title:x.title, snippet:(x.body || "").slice(0, 200), href:page + "?id=" + (+x.id), source:x.category, published_at:x.created_at}));
+      .map(({x}) => ({kind, title:x.title, snippet:(x.body || "").slice(0, 200), href:page + "?id=" + (+x.id), source:catLabel(x.category), published_at:x.created_at}));
   }catch(e){ return []; }
 }
 const searchQuestions = q => searchTable("questions", "question", q), searchPosts = q => searchTable("posts", "post", q);

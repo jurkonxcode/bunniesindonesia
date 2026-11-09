@@ -2,7 +2,6 @@
    Sesi dibaca dari localStorage "bunnies.session", sama dengan beranda.
    Semua teks dari database lewat esc(). Butuh supabase/v10-tanya-jawab.sql. */
 const AUTH_KEY = "bunnies.session", PAGE = 20;
-const CATS = ["Kuliah","Kerja","Visa","Bahasa","Budaya","Hidup di sana","Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga"];
 let session = null, offset = 0, shown = 0, qs = "", repTarget = null;
 
 const hdr = t => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + (t || SUPABASE_ANON_KEY)});
@@ -49,7 +48,7 @@ function paintHead(){
 const gate = txt => `<div class="gate"><p>${txt}</p><button class="btn green" data-act="login" type="button">Masuk dengan Google</button> <p class="meta" style="margin-top:8px">Ingin pakai kode email? Masuk dulu lewat <a href="./">beranda</a>, lalu kembali ke sini.</p></div>`;
 
 /* ---------- Daftar ---------- */
-const card = q => `<a class="r" href="tanya?id=${+q.id}"><div class="tx"><span class="kind">${esc(q.category)}</span>${q.best_answer_id ? `<span class="ok">Terjawab</span>` : ""}<h3>${esc(q.title)}</h3>${q.body ? `<p>${esc(q.body)}</p>` : ""}<span class="meta">${esc(q.author_name || "Pengguna")} · ${esc(ago(q.created_at))} · ${+q.answer_count} jawaban</span></div></a>`;
+const card = q => `<a class="r" href="tanya?id=${+q.id}"><div class="tx"><span class="kind">${esc(catLabel(q.category))}</span>${q.best_answer_id ? `<span class="ok">Terjawab</span>` : ""}<h3>${esc(q.title)}</h3>${q.body ? `<p>${esc(q.body)}</p>` : ""}<span class="meta">${esc(q.author_name || "Pengguna")} · ${esc(ago(q.created_at))} · ${+q.answer_count} jawaban</span></div></a>`;
 
 async function loadList(reset){
   if(reset){ offset = 0; shown = 0; $("qlist").innerHTML = ""; }
@@ -69,7 +68,7 @@ async function loadList(reset){
   }
 }
 function paintCats(){
-  $("catTabs").innerHTML = ["Semua", ...CATS].map(c => `<button type="button" aria-pressed="${c === cat}" data-c="${c}">${c}</button>`).join("");
+  $("catTabs").innerHTML = ["Semua", ...CATS].map(c => `<button type="button" aria-pressed="${c === cat}" data-c="${c}">${esc(c === "Semua" ? c : catLabel(c))}</button>`).join("");
 }
 
 /* ---------- Detail ---------- */
@@ -88,7 +87,7 @@ async function showDetail(id){
     const act = (t, i, mine) => !session ? "" : mine ? `<button class="lk" data-del="${t}:${i}" type="button">Hapus</button>` : `<button class="lk" data-rep="${t}:${i}" type="button">Laporkan</button>`;
     $("detailView").innerHTML =
       `<a class="back" href="tanya">← Semua pertanyaan</a>` +
-      `<article class="qd"><span class="kind">${esc(q.category)}</span>${q.best_answer_id ? ` <span class="ok">Terjawab</span>` : ""}<h1>${esc(q.title)}</h1>${q.body ? `<div class="pre">${esc(q.body)}</div>` : ""}<span class="meta">${esc(q.author_name || "Pengguna")} · ${esc(ago(q.created_at))}</span><div class="acts">${act("q", q.id, own)}</div></article>${shareBar(q.title)}` +
+      `<article class="qd"><span class="kind">${esc(catLabel(q.category))}</span>${q.best_answer_id ? ` <span class="ok">Terjawab</span>` : ""}<h1>${esc(q.title)}</h1>${q.body ? `<div class="pre">${esc(q.body)}</div>` : ""}<span class="meta">${esc(q.author_name || "Pengguna")} · ${esc(ago(q.created_at))}</span><div class="acts">${act("q", q.id, own)}</div></article>${shareBar(q.title)}` +
       `<h2 class="ah">${aa.length} jawaban</h2>` +
       (aa.map(a => `<div class="an${a.id === q.best_answer_id ? " best" : ""}">${a.id === q.best_answer_id ? `<span class="ok">Jawaban terbaik</span>` : ""}<div class="pre">${esc(a.body)}</div><span class="meta">${esc(a.author_name || "Pengguna")} · ${esc(ago(a.created_at))}</span><div class="acts">${own && a.id !== q.best_answer_id ? `<button class="lk good" data-best="${q.id}:${a.id}" type="button">Pilih terbaik</button>` : ""}${act("a", a.id, a.user_id === me)}</div></div>`).join("") || `<p class="meta" style="padding:14px 0">Belum ada jawaban.</p>`) +
       (session ? `<form class="form" id="ansForm"><textarea id="ansBody" placeholder="Tulis jawabanmu" minlength="2" maxlength="3000" required></textarea><p class="msg" id="ansMsg" role="status"></p><button class="btn green">Kirim jawaban</button></form>` : gate("Masuk untuk menjawab."));
@@ -156,11 +155,11 @@ $("qform").addEventListener("submit", e => { e.preventDefault(); qs = $("qin").v
 
 /* ---------- Mulai ---------- */
 (async function(){
-  $("aCat").innerHTML = `<option>Umum</option>`;     // v32: kategori disembunyikan, semua pertanyaan masuk "Umum"
+  $("aCat").innerHTML = catOptions(); $("aCat").required = true;     // v33: 7 kategori fanpage
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("listView").hidden = false; $("qinfo").textContent = "Supabase belum dikonfigurasi di js/config.js."; return; }
   await initSession(); paintHead();
   const id = +new URLSearchParams(location.search).get("id");
   if(Number.isInteger(id) && id > 0) return showDetail(id);
-  { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // v24: ?cat=Kuliner dari baris ikon beranda
+  { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // ?cat=musik (slug v33)
   $("listView").hidden = false; paintCats(); loadList(true);
 })();

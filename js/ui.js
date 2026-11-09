@@ -17,10 +17,10 @@ function cover(n, i){
 }
 
 /* ---------- v24: beranda ala portal besar: panel, baris ikon satu baris, kolom samping ---------- */
-const BC = [];     // v32 fokus fanpage: kategori portal disembunyikan. Isi lagi bila kategori fanpage sudah ditentukan.
+const BC = KATEGORI;     // v33: kategori fanpage dari js/kategori.js, pasangan [slug, nama]
 const catArt = c => CAT_ART[c] || ["blog", 0];
-const cPost = (p, i) => `<a class="fc" href="blog?id=${+p.id}"><div class="fcv">${cover(p, i)}<span class="fk">${esc(p.category)}</span></div><h3>${esc(p.title)}</h3><span class="au">${esc(p.author_name || "Pengguna")}</span><span class="meta">${esc(ago(p.created_at))}</span></a>`;
-const cQuestion = q => `<a class="fc" href="tanya?id=${+q.id}"><div class="fcv"><div class="thumb" style="${grad(1)}">${art("tanya")}</div><span class="fk q">Tanya${q.best_answer_id ? " · Terjawab" : ""}</span></div><h3>${esc(q.title)}</h3><span class="au">${esc(q.category)}</span><span class="meta">${+q.answer_count} jawaban · ${esc(ago(q.created_at))}</span></a>`;
+const cPost = (p, i) => `<a class="fc" href="blog?id=${+p.id}"><div class="fcv">${cover(p, i)}<span class="fk">${esc(catLabel(p.category))}</span></div><h3>${esc(p.title)}</h3><span class="au">${esc(p.author_name || "Pengguna")}</span><span class="meta">${esc(ago(p.created_at))}</span></a>`;
+const cQuestion = q => `<a class="fc" href="tanya?id=${+q.id}"><div class="fcv"><div class="thumb" style="${grad(1)}">${art("tanya")}</div><span class="fk q">Tanya${q.best_answer_id ? " · Terjawab" : ""}</span></div><h3>${esc(q.title)}</h3><span class="au">${esc(catLabel(q.category))}</span><span class="meta">${+q.answer_count} jawaban · ${esc(ago(q.created_at))}</span></a>`;
 function feedItems(){
   const P = posts.map(p => ({h:i => cPost(p, i)})), Q = questions.map(q => ({h:() => cQuestion(q)}));
   if(tab === "Blog") return P;
@@ -58,22 +58,22 @@ let bpCat = "Semua", bpPage = 0;
 function renderModules(){
   const size = mq.matches ? 8 : 4;
   const first = posts[0] ? [`blog?id=${+posts[0].id}`, posts[0].title] : questions[0] ? [`tanya?id=${+questions[0].id}`, questions[0].title] : null;
-  const tiles = [["blog","Semua tulisan","blog","g1"],["tanya","Tanya Jawab","tanya","g4"]]
-    .concat(BC.map((c, i) => [catArt(c)[0], c, "blog?cat=" + encodeURIComponent(c), "g" + (1 + (i + 2) % 5)]))
+  const tiles = [["tanya","Tanya Jawab","tanya","g4"]]
+    .concat(BC.map(([s, l], i) => [catArt(s)[0], l, "blog?cat=" + s, "g" + (1 + (i + 2) % 5)]))
     ;
   const list = bpCat === "Semua" ? posts : posts.filter(p => p.category === bpCat);
   const pages = Math.max(1, Math.ceil(list.length / size)); bpPage = Math.min(bpPage, pages - 1);
   const cards = list.slice(bpPage * size, bpPage * size + size).map((p, i) =>
     `<a class="bc" href="blog?id=${+p.id}"><div class="fcv">${cover(p, i)}</div><h3>${esc(p.title)}</h3><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></a>`).join("");
-  const qs = questions.slice(0, 6).map(q => `<li><a href="tanya?id=${+q.id}"><span class="tag">${esc(q.category)}</span><span class="qt">${esc(q.title)}</span><em>${+q.answer_count} jawaban</em></a></li>`).join("");
+  const qs = questions.slice(0, 6).map(q => `<li><a href="tanya?id=${+q.id}"><span class="tag">${esc(catLabel(q.category))}</span><span class="qt">${esc(q.title)}</span><em>${+q.answer_count} jawaban</em></a></li>`).join("");
   $("modules").innerHTML =
     `<a class="promo" href="blog"><div><b>Tulis blog pertamamu di Bunnies Indonesia</b><span>Bagikan cerita, tips, atau pengalamanmu. Cukup masuk dengan Google atau kode email.</span></div><span class="pill">Mulai menulis ›</span></a>` +
     `<section class="pn stand"><div class="pn-tabs"><b>Jelajah</b><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a><a href="layanan">Layanan</a></div>` +
       `<div class="hline"><b class="hk">Terbaru</b><span class="ht">${first ? `<a href="${first[0]}">${esc(first[1])}</a>` : `<span class="dim">Belum ada tulisan. Jadilah yang pertama.</span>`}</span><span class="hr"><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a></span></div>` +
       `<div class="tiles">${tiles.map(([id, nm, to, c]) => `<a href="${to}"${to[0] === "#" ? ` data-go="${to.slice(1)}"` : ""}>${ic(id, c)}<span>${esc(nm)}</span></a>`).join("")}</div></section>` +
     `<section class="pn bp"><div class="pn-tabs"><b>Blog pilihan</b><a href="blog">Lihat semua</a><span class="pn-r">${bpPage + 1}/${pages}</span></div>` +
-      `<div class="bp-body"><ul class="tags">${["Semua", ...BC].map(c => `<li><button type="button" data-bpc="${esc(c)}" aria-pressed="${c === bpCat}">#${esc(c)}</button></li>`).join("")}</ul>` +
-      `<div class="bp-grid">${cards || skel(size)}</div></div>` +
+      `<div class="bp-body"><ul class="tags">${[["Semua","Semua"], ...BC].map(([s, l]) => `<li><button type="button" data-bpc="${s}" aria-pressed="${s === bpCat}">#${esc(l)}</button></li>`).join("")}</ul>` +
+      `<div class="bp-grid">${cards || (postsLoaded ? "" : skel(size))}</div></div>` +
       (cards ? "" : `<p class="mnote">${posts.length ? "Belum ada tulisan di kategori ini." : `Belum ada tulisan. <a href="blog">Tulis yang pertama</a>.`}</p>`) +
       `<div class="pager"><button type="button" data-bpp="-1" aria-label="Sebelumnya"${bpPage === 0 ? " disabled" : ""}>‹</button><span>Blog ${bpPage + 1}/${pages}</span><button type="button" data-bpp="1" aria-label="Berikutnya"${bpPage >= pages - 1 ? " disabled" : ""}>›</button></div></section>` +
     `<section class="pn"><div class="pn-h"><h2>Tanya Jawab terbaru</h2><a href="tanya">Lihat semua ›</a></div>${qs ? `<ul class="qlist">${qs}</ul>` : `<p class="mnote">Belum ada pertanyaan. <a href="tanya">Tanya sesuatu</a>.</p>`}</section>`;
