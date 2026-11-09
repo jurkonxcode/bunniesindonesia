@@ -147,7 +147,7 @@ document.addEventListener("submit", async e => {
 $("writeForm").addEventListener("submit", e => { e.preventDefault(); publish(); });
 $("repForm").addEventListener("submit", e => { e.preventDefault(); sendReport(); });
 (async function(){
-  $("wCat").innerHTML = CATS.map(c => `<option>${c}</option>`).join("");
+  $("wCat").innerHTML = `<option>Umum</option>`;     // v32: kategori disembunyikan, semua tulisan masuk "Umum"
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("listView").hidden = false; $("pinfo").textContent = "Supabase belum dikonfigurasi di js/config.js."; return; }
   await initSession(); paintHead();
   const id = +new URLSearchParams(location.search).get("id");

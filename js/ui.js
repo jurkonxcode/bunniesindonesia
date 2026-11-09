@@ -17,7 +17,7 @@ function cover(n, i){
 }
 
 /* ---------- v24: beranda ala portal besar: panel, baris ikon satu baris, kolom samping ---------- */
-const BC = ["Umum","Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga","Hiburan","Catatan harian"];     // kategori Blog (sama dengan blog.js)
+const BC = [];     // v32 fokus fanpage: kategori portal disembunyikan. Isi lagi bila kategori fanpage sudah ditentukan.
 const catArt = c => CAT_ART[c] || ["blog", 0];
 const cPost = (p, i) => `<a class="fc" href="blog?id=${+p.id}"><div class="fcv">${cover(p, i)}<span class="fk">${esc(p.category)}</span></div><h3>${esc(p.title)}</h3><span class="au">${esc(p.author_name || "Pengguna")}</span><span class="meta">${esc(ago(p.created_at))}</span></a>`;
 const cQuestion = q => `<a class="fc" href="tanya?id=${+q.id}"><div class="fcv"><div class="thumb" style="${grad(1)}">${art("tanya")}</div><span class="fk q">Tanya${q.best_answer_id ? " · Terjawab" : ""}</span></div><h3>${esc(q.title)}</h3><span class="au">${esc(q.category)}</span><span class="meta">${+q.answer_count} jawaban · ${esc(ago(q.created_at))}</span></a>`;
@@ -60,7 +60,7 @@ function renderModules(){
   const first = posts[0] ? [`blog?id=${+posts[0].id}`, posts[0].title] : questions[0] ? [`tanya?id=${+questions[0].id}`, questions[0].title] : null;
   const tiles = [["blog","Semua tulisan","blog","g1"],["tanya","Tanya Jawab","tanya","g4"]]
     .concat(BC.map((c, i) => [catArt(c)[0], c, "blog?cat=" + encodeURIComponent(c), "g" + (1 + (i + 2) % 5)]))
-    .concat([["sholat","Jadwal sholat","#tool-sholat","g2"],["libur","Libur nasional","#tool-libur","g3"]]);
+    ;
   const list = bpCat === "Semua" ? posts : posts.filter(p => p.category === bpCat);
   const pages = Math.max(1, Math.ceil(list.length / size)); bpPage = Math.min(bpPage, pages - 1);
   const cards = list.slice(bpPage * size, bpPage * size + size).map((p, i) =>

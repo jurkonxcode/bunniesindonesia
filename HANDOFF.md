@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v31.
+Terakhir diperbarui: 9 November 2026, rilis v32.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -69,7 +69,7 @@ HANDOFF.md, README.md
 6. Alamat tanpa `.html` (`/blog`, `/akun`) berfungsi di GitHub Pages. Tulis tautan tanpa garis miring di akhir.
 
 **Cache:** semua tag `<link>` dan `<script>` di HTML memakai `?v=NN`. **Naikkan NN di semua HTML tiap rilis**, supaya HP tidak menyajikan file lama:
-untuk rilis berikutnya (ganti angkanya): `sed -i 's/?v=[0-9][0-9]*/?v=32/g' *.html`
+untuk rilis berikutnya (ganti angkanya): `sed -i 's/?v=[0-9][0-9]*/?v=33/g' *.html`
 
 ## 4. Supabase
 
@@ -114,6 +114,16 @@ File lama yang tidak lagi dipakai: `v13-bersih-dan-seed.sql`, `v17-bersihkan-ber
 | Panel admin: antrean laporan tulisan, pertanyaan, jawaban; blokir; buka blokir | Berfungsi. **Belum menampilkan komentar** (lihat bagian 10) |
 | Halaman statis untuk SEO (`dist/`, sitemap) | Berfungsi. Komentar dan reaksi tidak ikut ke halaman statis |
 | Berita, kurs, cuaca, sholat, libur, layanan | Sisa dari portal lama. Tidak relevan untuk fanpage. Sebaiknya dipangkas (lihat bagian 10) |
+
+## 5a. Fokus fanpage (v32): fitur portal lama disembunyikan
+
+Yang tampil sekarang hanya Beranda, Tanya Jawab, Blog, komentar, reaksi, bias, dan Akun saya. Yang lain **disembunyikan, tidak dihapus**, supaya bisa dikembalikan.
+
+- **Disembunyikan lewat `css/fokus.css`** (dimuat paling akhir di semua HTML): ticker, layanan (`#svr`), cuaca, kalender, gempa, ujian bahasa, kurs, alat harian (`#alat`), mini strip, tren, tab kategori, dropdown kategori tulis, tombol menu layanan (burger), footer "Layanan".
+- **Diubah di JavaScript:** `BC` di `js/ui.js` dikosongkan (tile dan tag kategori beranda hilang). Menu atas di `js/nav.js` hanya tiga tab. Pilihan kategori di form tulis (`blog.js`, `tanya.js`) hanya "Umum".
+- **Masih ada tapi tidak terlihat:** halaman `layanan.html`, `tentang`, dan alat harian. Bisa dibuka lewat alamat langsung. Skrip cuaca, kurs, dan gempa masih berjalan di latar belakang dan memanggil API luar.
+- **Cara menampilkan lagi:** hapus baris `<link ... css/fokus.css ...>` dari HTML yang diinginkan. Untuk kategori dan tab menu, kembalikan perubahan di `BC`, `nav.js`, dan `blog.js`/`tanya.js` (lihat catatan v32 di kodenya).
+- **Kategori fanpage belum ditentukan.** Setelah itu ditetapkan, isi `BC` dan daftar kategori di `blog.js` dan `tanya.js`, lalu ubah constraint kategori di database (lihat bagian 10 nomor 1).
 
 ## 6. Komentar, reaksi, dan bias (v31)
 

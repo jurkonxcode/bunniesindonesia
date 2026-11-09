@@ -156,7 +156,7 @@ $("qform").addEventListener("submit", e => { e.preventDefault(); qs = $("qin").v
 
 /* ---------- Mulai ---------- */
 (async function(){
-  $("aCat").innerHTML = CATS.map(c => `<option>${c}</option>`).join("");
+  $("aCat").innerHTML = `<option>Umum</option>`;     // v32: kategori disembunyikan, semua pertanyaan masuk "Umum"
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("listView").hidden = false; $("qinfo").textContent = "Supabase belum dikonfigurasi di js/config.js."; return; }
   await initSession(); paintHead();
   const id = +new URLSearchParams(location.search).get("id");
