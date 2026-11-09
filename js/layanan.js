@@ -1,14 +1,7 @@
 /* Semua layanan (v11). Mandiri: tidak butuh Supabase. Pintasan disimpan di localStorage perangkat ini.
    Tiap item: [id ikon, nama, tujuan, status]. Tanpa tujuan = belum tersedia (ditandai "segera"). */
 const ICONS = "assets/icons/niflax-icons.svg", PIN_KEY = "niflax.pins", MAX = 8;
-const GROUPS = [
-  {c:"g2", name:"Alat harian", items:[["sholat","Jadwal sholat","./#tool-sholat"],["libur","Libur nasional","./#tool-libur"],["kurs","Kurs dan emas","","segera"],["resi","Cek resi","","segera"]]},
-  {c:"g4", name:"Komunitas dan konten", items:[["tanya","Tanya Jawab","tanya"],["komunitas","Komunitas","","segera"],["blog","Blog","","segera"],["kreator","Pusat kreator","","segera"]]},
-  {c:"g1", name:"Berita dan info", items:[["berita","Berita","","segera"],["bola","Bola","","segera"],["hiburan","Hiburan","","segera"],["cuaca","Cuaca","","segera"]]},
-  {c:"g3", name:"Video dan belanja", items:[["video","Video","","segera"],["belanja","Belanja","","segera"],["komik","Komik","","segera"]]},
-  {c:"g5", name:"Gaya hidup dan perjalanan", items:[["kuliner","Kuliner","","segera"],["otomotif","Otomotif","","segera"],["religi","Religi","","segera"],["peta","Peta","","segera"],["tiket","Tiket","","segera"]]},
-  {c:"g6", name:"Akun dan Niflax", items:[["tersimpan","Berita tersimpan","./#acct"],["tentang","Tentang","tentang"],["kontak","Kontak","tentang#kontak"],["privasi","Kebijakan privasi","privasi"],["syarat","Syarat layanan","syarat"],["brand","Panduan merek","brand"]]}
-];
+/* GROUPS dipindah ke js/services.js (v16) */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ALL = GROUPS.flatMap(g => g.items.map(i => ({c:g.c, id:i[0], name:i[1], href:i[2], st:i[3] || ""})));

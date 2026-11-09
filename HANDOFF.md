@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v15).
+Terakhir diperbarui: 9 November 2026 (v16).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -68,7 +68,7 @@ HANDOFF.md              dokumen ini
 ```
 
 **Aturan penting:**
-1. Urutan tag `<script>` di `index.html` **harus dipertahankan**: config, data, state, api, auth, ui, sholat, tools, main (sholat ditambah di v13). Semua file berbagi variabel global (bukan ES module).
+1. Urutan tag `<script>` di `index.html` **harus dipertahankan**: config, data, services, state, api, auth, ui, sholat, tools, menu, main (sholat ditambah di v13; services dan menu di v16). Semua file berbagi variabel global (bukan ES module).
 2. Urutan `<link>` CSS juga penting: `identity.css` dimuat sebelum `responsive.css` dan setelah `content.css` karena menimpa `.thumb::before`.
 3. Teks dari database **wajib** lewat `esc()` sebelum masuk `innerHTML` (anti-XSS).
 4. Jangan pernah menaruh `service_role` key di repo atau frontend.
@@ -323,3 +323,11 @@ Berkas baru: `tools/impor-berita.mjs`, `tools/feeds.json`, `.github/workflows/im
 - Tabel `news` bertambah terus. Pembersihan otomatis belum ada (hati-hati: `saved_news` terhubung dengan `on delete cascade`, jadi jangan hapus berita yang sedang disimpan pengguna).
 - UU Hak Cipta Pasal 43 huruf c (berita aktual, sumber disebut lengkap) sedang diusulkan dihapus oleh Dewan Pers; pantau revisinya. Kebijakan Niflax tetap: minta izin tertulis.
 - Kunci rahasia di `js/config.js` adalah kesalahan fatal: kunci di frontend itu publik.
+
+## 23. v16: panel menu hamburger dan kotak cari ringkas
+
+- **Panel menu** (`#drawer`, `js/menu.js`): tombol hamburger di header membuka panel dari kiri yang bisa digulir sendiri (isi: kartu akun, "Pintasanmu" dari localStorage `niflax.pins`, semua kelompok layanan lengkap dengan jumlahnya, tautan Tentang/Kontak/Privasi/Syarat). Tutup lewat tombol X, klik latar gelap, atau tombol Esc. Fokus dijaga di dalam panel, gulir halaman dikunci saat panel terbuka. Tanpa JavaScript, tombol tetap membuka halaman `layanan`.
+- **Daftar layanan dipusatkan** di `js/services.js` (`GROUPS`). Dipakai oleh `layanan.js` dan `menu.js`. Tambah/ubah layanan di SATU tempat itu saja. `layanan.html` kini memuat `services.js` sebelum `layanan.js`.
+- **Kotak cari ringkas** (`#hSearch` di header): muncul saat kotak cari besar tergulir keluar layar (IntersectionObserver), lalu menu teks dan logo disembunyikan. Pencarian di sini memakai aturan yang sama (alat harian dulu lewat `goTool`, selain itu ke `search`).
+- Urutan `<script>` di `index.html` sekarang: config, data, services, state, api, auth, ui, sholat, tools, menu, main.
+- Berkas berubah: `index.html`, `layanan.html`, `js/services.js` (baru), `js/menu.js` (baru), `js/layanan.js`, `css/portal.css`. Cache `?v=16` di `index.html` dan `layanan.html`.

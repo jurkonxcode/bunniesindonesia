@@ -12,21 +12,22 @@
 <meta property="og:type" content="website"><meta property="og:image" content="https://jurkonxcode.github.io/niflax/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=14">
-<link rel="stylesheet" href="css/base.css?v=14">
-<link rel="stylesheet" href="css/header.css?v=14">
-<link rel="stylesheet" href="css/content.css?v=14">
-<link rel="stylesheet" href="css/identity.css?v=14">
-<link rel="stylesheet" href="css/auth.css?v=14">
-<link rel="stylesheet" href="css/responsive.css?v=14">
-<link rel="stylesheet" href="css/home.css?v=14">
-<link rel="stylesheet" href="css/portal.css?v=14">
+<link rel="stylesheet" href="css/tokens.css?v=16">
+<link rel="stylesheet" href="css/base.css?v=16">
+<link rel="stylesheet" href="css/header.css?v=16">
+<link rel="stylesheet" href="css/content.css?v=16">
+<link rel="stylesheet" href="css/identity.css?v=16">
+<link rel="stylesheet" href="css/auth.css?v=16">
+<link rel="stylesheet" href="css/responsive.css?v=16">
+<link rel="stylesheet" href="css/home.css?v=16">
+<link rel="stylesheet" href="css/portal.css?v=16">
 </head>
 <body>
 <div class="ticker"><div class="wrap" id="ticker"></div></div>
 <header class="top"><div class="wrap">
   <a class="burger" href="layanan" aria-label="Semua layanan"><svg aria-hidden="true"><use href="assets/icons/niflax-icons.svg#n-menu"/></svg></a>
   <a class="logo" href="./"><img src="assets/brand/logo-mark.svg" alt="" width="30" height="30">niflax</a>
+  <form class="hsearch" id="hSearch" role="search"><img src="assets/brand/logo-mark.svg" alt="" width="22" height="22"><input id="hq" type="search" placeholder="Cari berita, video, atau topik" autocomplete="off" aria-label="Cari"><button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button></form>
   <nav class="menu" aria-label="Menu utama">
     <a class="on" href="./">Beranda</a><a href="tanya">Tanya Jawab</a><a href="layanan">Semua layanan</a><a href="#alat">Alat</a>
   </nav>
@@ -73,6 +74,12 @@
   <div class="fbot"><span>© 2026 Niflax. Seluruh hak dilindungi.</span><span><a href="privasi">Kebijakan privasi</a> · <a href="syarat">Syarat layanan</a></span></div>
 </div></footer>
 
+<div id="dwBack" hidden></div>
+<aside id="drawer" role="dialog" aria-modal="true" aria-label="Menu layanan" hidden>
+  <div class="dw-top"><h2>Menu</h2><a class="dw-all" href="layanan">Semua layanan</a><button type="button" class="x" id="dwClose" aria-label="Tutup menu"><svg aria-hidden="true"><use href="assets/icons/niflax-icons.svg#n-tutup"/></svg></button></div>
+  <div id="dwBody"></div>
+</aside>
+
 <dialog id="authDlg"><h2>Masuk ke Niflax</h2>
 <div id="authStep1"><p>Belum punya akun? Otomatis dibuat saat pertama masuk.</p>
 <button class="btn alt" id="googleBtn" type="button">Lanjut dengan Google</button>
@@ -80,14 +87,16 @@
 <div id="authStep2" hidden><form id="codeForm"><input id="codeIn" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kode dari email" required><button class="btn green">Masuk</button></form></div>
 <p class="legal">Dengan masuk, kamu setuju dengan <a href="syarat">Syarat Layanan</a> dan <a href="privasi">Kebijakan Privasi</a>.</p>
 <p id="authMsg" role="status"></p><button class="btn alt" id="authClose" type="button">Tutup</button></dialog>
-<script src="js/config.js?v=14"></script>
-<script src="js/data.js?v=14"></script>
-<script src="js/state.js?v=14"></script>
-<script src="js/api.js?v=14"></script>
-<script src="js/auth.js?v=14"></script>
-<script src="js/ui.js?v=14"></script>
-<script src="js/sholat.js?v=14"></script>
-<script src="js/tools.js?v=14"></script>
-<script src="js/main.js?v=14"></script>
+<script src="js/config.js?v=16"></script>
+<script src="js/data.js?v=16"></script>
+<script src="js/services.js?v=16"></script>
+<script src="js/state.js?v=16"></script>
+<script src="js/api.js?v=16"></script>
+<script src="js/auth.js?v=16"></script>
+<script src="js/ui.js?v=16"></script>
+<script src="js/sholat.js?v=16"></script>
+<script src="js/tools.js?v=16"></script>
+<script src="js/menu.js?v=16"></script>
+<script src="js/main.js?v=16"></script>
 </body>
 </html>
