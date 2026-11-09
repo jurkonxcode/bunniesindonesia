@@ -1,2 +1,17 @@
-@media(max-width:900px){.grid{grid-template-columns:1fr}.short{grid-template-columns:repeat(4,1fr)}nav{display:none}.lead{grid-template-columns:1fr}}
+@media(max-width:1000px){
+  .grid,.two{grid-template-columns:1fr}
+  .vgrid,.pgrid{grid-template-columns:repeat(2,1fr)}
+  .cgrid{grid-template-columns:repeat(3,1fr)}
+  .menu,.actions .ghost{display:none}
+  header.top .wrap{justify-content:space-between}
+  .short{grid-template-columns:repeat(5,1fr)}
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .lead,.nc4{grid-template-columns:1fr}
+  .short{display:flex;overflow-x:auto;scrollbar-width:none}
+  .short a{flex:0 0 76px}
+  .hero{padding:32px 16px 24px}
+  .ticker .date{display:none}
+}
 @media(prefers-reduced-motion:reduce){.orbit .ring{animation:none}}
