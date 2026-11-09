@@ -240,3 +240,9 @@ Semua harus `true`.
 Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 
 > Aku melanjutkan Bunnies Indonesia, fanpage NewJeans tidak resmi untuk penggemar Indonesia (HTML/CSS/JS murni di GitHub Pages dengan backend Supabase). Baca `HANDOFF.md` di zip yang kulampirkan, lalu kerjakan: [tulis tugas, misalnya "ganti kategori ke fanpage NewJeans di bagian 10 nomor 1"]. Pertahankan struktur folder, urutan script, dan gaya visual (biru, merah muda, Bunbun). Jangan ubah `config.js`. Naikkan `?v=` di semua HTML bila ada perubahan frontend.
+
+## 5c. Kit sosmed (v36)
+- `css/kit.css`, `assets/brand/banner.svg`, `badge-avatar.svg`, `og-image.svg/.png` (dibuat ulang), `templates/tpl-*.svg` (Streaming Guide, Happy Birthday, Comeback).
+- Semua orisinal: **tanpa foto member** dan tanpa logo/tulisan bergaya NewJeans. Jangan menambah foto member (lihat bagian 2).
+- Font Sora tidak termuat di dalam SVG yang dipakai lewat `<img>`; yang tampil adalah font cadangan. Untuk hasil persis, ekspor ke PNG dari browser.
+- Banner tampil di beranda (`.hbanner`) dan di `brand.html`.
