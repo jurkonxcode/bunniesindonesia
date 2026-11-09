@@ -31,10 +31,10 @@
       "url": "https://feeds.bbci.co.uk/indonesia/rss.xml",
       "kategori": "Auto",
       "kategori_bawaan": "Internasional",
-      "izin": false,
+      "izin": true,
       "ringkasan": false,
       "bahasa": "id",
-      "catatan": "Alamat belum diuji dari sini. Seingat saya syarat RSS BBC hanya untuk pemakaian nonkomersial dan tidak untuk situs beriklan. Baca syaratnya di bbc.co.uk (cari 'RSS feeds terms') sebelum diaktifkan. Selama Niflax tanpa iklan dan tanpa penghasilan, mungkin boleh, tapi pastikan sendiri."
+      "catatan": "Diaktifkan atas keputusan pemilik, 9 Nov 2026. Hanya judul dan tautan ke BBC yang disimpan. Syarat RSS BBC: pemakaian nonkomersial, jadi JANGAN pasang iklan atau cari penghasilan dari Niflax tanpa meninjau ulang syarat ini. Alamat diuji hidup (HTTP 200, 21 butir)."
     },
     {
       "id": "antara-terkini",
