@@ -1,10 +1,11 @@
 {
-  "_baca": "Semua feed bawaan MATI (izin: false). Ubah izin menjadi true HANYA setelah ada izin tertulis dari media, atau lisensinya jelas mengizinkan (isi 'catatan'). Lihat HANDOFF.md bagian 22.",
+  "_baca": "Semua feed MATI (izin: false). Ubah izin menjadi true HANYA setelah ada izin tertulis dari media, atau lisensinya jelas mengizinkan (isi 'catatan'). Lihat HANDOFF.md bagian 22 dan 24. Cek apakah alamat feed hidup tanpa menyimpan apa pun: node tools/impor-berita.mjs --cek-url",
   "_kolom": {
     "id": "nama pendek untuk log",
     "nama": "nama sumber yang tampil di kartu berita",
     "url": "alamat RSS/Atom resmi dari situs media",
-    "kategori": "Nasional | Teknologi | Bola | Olahraga | Ekonomi | Hiburan | Kuliner | Otomotif | Religi",
+    "kategori": "Auto (diklasifikasi otomatis dari judul) | Nasional | Politik | Hukum | Internasional | Ekonomi | Teknologi | Bola | Olahraga | Hiburan | Kuliner | Otomotif | Religi | Kesehatan | Pendidikan. Feed Olahraga otomatis dipecah ke Bola bila judulnya soal sepak bola",
+    "kategori_bawaan": "hanya untuk kategori Auto: dipakai bila tidak ada kata kunci yang cocok (bawaan Nasional)",
     "izin": "true bila sudah berizin; selain itu feed dilewati",
     "ringkasan": "true = simpan ringkasan pendek (maks 200 huruf). Bawaan false: hanya judul dan tautan",
     "bahasa": "id (bawaan) atau kode lain, mis. en. Berita non-id diberi label (EN) dan TIDAK diterjemahkan otomatis",
@@ -14,24 +15,47 @@
   },
   "feeds": [
     {
-      "id": "contoh-media-id",
-      "nama": "Nama Media",
+      "id": "voa-indonesia",
+      "nama": "VOA Indonesia",
       "url": "GANTI_DENGAN_URL_RSS",
-      "kategori": "Nasional",
+      "kategori": "Auto",
+      "kategori_bawaan": "Internasional",
       "izin": false,
       "ringkasan": false,
       "bahasa": "id",
-      "catatan": "belum ada izin"
+      "catatan": "Syarat VOA (voanews.com/terms-use-and-privacy-notice): teks buatan VOA sendiri berstatus domain publik, cantumkan VOA sebagai sumber. Materi AFP/AP/Reuters di situsnya TIDAK domain publik. Cari alamat RSS di halaman RSS voaindonesia.com, uji dengan --cek-url, baru ubah izin. Karena hanya judul + tautan ke VOA, risikonya kecil, tetapi putuskan sendiri."
     },
     {
-      "id": "contoh-media-en",
-      "nama": "Nama Media Internasional",
-      "url": "GANTI_DENGAN_URL_RSS",
-      "kategori": "Ekonomi",
+      "id": "bbc-indonesia",
+      "nama": "BBC News Indonesia",
+      "url": "https://feeds.bbci.co.uk/indonesia/rss.xml",
+      "kategori": "Auto",
+      "kategori_bawaan": "Internasional",
       "izin": false,
       "ringkasan": false,
-      "bahasa": "en",
-      "catatan": "cek lisensi RSS terbaru sebelum diaktifkan"
+      "bahasa": "id",
+      "catatan": "Alamat belum diuji dari sini. Seingat saya syarat RSS BBC hanya untuk pemakaian nonkomersial dan tidak untuk situs beriklan. Baca syaratnya di bbc.co.uk (cari 'RSS feeds terms') sebelum diaktifkan. Selama Niflax tanpa iklan dan tanpa penghasilan, mungkin boleh, tapi pastikan sendiri."
+    },
+    {
+      "id": "antara-terkini",
+      "nama": "ANTARA News",
+      "url": "https://www.antaranews.com/rss/terkini.xml",
+      "kategori": "Auto",
+      "kategori_bawaan": "Nasional",
+      "izin": false,
+      "ringkasan": false,
+      "bahasa": "id",
+      "catatan": "Alamat belum diuji dari sini. Ketentuan Penggunaan ANTARA (antaranews.com/ketentuan-penggunaan, Pasal 3) melarang reproduksi dan distribusi konten tanpa persetujuan tertulis dan tidak menyebut RSS. Minta izin tertulis dulu (lewat kontak di situs mereka) sebelum izin diubah ke true."
+    },
+    {
+      "id": "contoh-media-baru",
+      "nama": "Nama Media",
+      "url": "GANTI_DENGAN_URL_RSS",
+      "kategori": "Auto",
+      "izin": false,
+      "ringkasan": false,
+      "bahasa": "id",
+      "catatan": "salin blok ini untuk tiap media baru"
     }
   ]
 }

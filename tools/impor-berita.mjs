@@ -12,13 +12,18 @@
    Pemakaian:
      node tools/impor-berita.mjs --dry          # hanya cetak hasil, tidak menulis ke database, tanpa kunci
      SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node tools/impor-berita.mjs
+     node tools/impor-berita.mjs --cek-url      # v17: hanya cek apakah tiap alamat feed menjawab dan terbaca (tidak menampilkan/menyimpan isi)
+
+   v17: "kategori": "Auto" memakai tools/klasifikasi.mjs (kata kunci pada judul) dengan "kategori_bawaan" sebagai cadangan.
+        Feed "Olahraga" otomatis dipecah ke "Bola" bila judulnya soal sepak bola.
 */
 import { readFile } from "node:fs/promises";
+import { klasifikasi, KATEGORI } from "./klasifikasi.mjs";
 
 const DRY = process.argv.includes("--dry");
-const FEEDS_FILE = new URL("./feeds.json", import.meta.url);
+const CEK = process.argv.includes("--cek-url");               // v17: cek apakah alamat feed hidup, abaikan izin, TIDAK menyimpan apa pun
+const FEEDS_FILE = process.env.FEEDS_FILE ? new URL("file://" + process.env.FEEDS_FILE) : new URL("./feeds.json", import.meta.url);
 const UA = "NiflaxBot/1.0 (+https://niflax.com; pembaca RSS, hanya judul dan tautan)";
-const KATEGORI = ["Nasional", "Teknologi", "Bola", "Olahraga", "Ekonomi", "Hiburan", "Kuliner", "Otomotif", "Religi"];
 
 /* ---------- parser RSS 2.0 / Atom sederhana ---------- */
 const ENT = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", hellip: "…", ndash: "–", mdash: "—", lsquo: "‘", rsquo: "’", ldquo: "“", rdquo: "”" };
@@ -71,9 +76,17 @@ let enabled = 0, failed = 0;
 
 for (const f of cfg.feeds) {
   const label = f.id || f.nama;
-  if (f.izin !== true) { console.log(`- lewati ${label}: izin belum diberikan`); continue; }
+  if (!CEK && f.izin !== true) { console.log(`- lewati ${label}: izin belum diberikan`); continue; }
   if (!f.url || /GANTI/.test(f.url)) { console.log(`- lewati ${label}: url belum diisi`); continue; }
-  if (!KATEGORI.includes(f.kategori)) { console.log(`- lewati ${label}: kategori harus salah satu dari ${KATEGORI.join(", ")}`); continue; }
+  if (f.kategori !== "Auto" && !KATEGORI.includes(f.kategori)) { console.log(`- lewati ${label}: kategori harus "Auto" atau salah satu dari ${KATEGORI.join(", ")}`); continue; }
+  if (CEK) {                                                    // hanya status + jumlah butir; tanpa judul, tanpa simpan
+    try {
+      const r = await fetch(f.url, { headers: { "User-Agent": UA }, signal: AbortSignal.timeout(20000) });
+      const n = r.ok ? parseFeed(await r.text()).length : 0;
+      console.log(`${r.ok && n ? "OK  " : "GAGAL"} ${label}: HTTP ${r.status}, ${n} butir  (izin: ${f.izin === true ? "ya" : "belum"})`);
+    } catch (e) { console.log(`GAGAL ${label}: ${e.message}`); }
+    continue;
+  }
   enabled++;
   try {
     const r = await fetch(f.url, { headers: { "User-Agent": UA, Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml" }, signal: AbortSignal.timeout(20000) });
@@ -89,8 +102,11 @@ for (const f of cfg.feeds) {
       if (!url || title.length < 5) continue;
       let t = Date.parse(it.date); if (!isFinite(t)) t = now; if (t > now + 36e5) t = now;
       if (now - t > maxAge) continue;
+      let category = f.kategori;
+      if (category === "Auto") category = klasifikasi(title, it.desc, f.kategori_bawaan || "Nasional").kategori;
+      else if (category === "Olahraga" && klasifikasi(title, it.desc, "Olahraga").kategori === "Bola") category = "Bola";
       rows.push({
-        title, url, category: f.kategori, source: sumber,
+        title, url, category, source: sumber,
         summary: f.ringkasan === true && it.desc ? cut(it.desc, 200) : null,
         image_url: null,                                           // sengaja kosong: foto punya hak cipta sendiri
         published_at: new Date(t).toISOString()
@@ -101,6 +117,7 @@ for (const f of cfg.feeds) {
   } catch (e) { failed++; console.warn(`! ${label}: gagal (${e.message})`); }
 }
 
+if (CEK) process.exit(0);
 const seen = new Set(), uniq = rows.filter(r => !seen.has(r.url) && seen.add(r.url));
 console.log(`Total ${uniq.length} berita siap dimasukkan (${enabled} feed aktif, ${failed} gagal).`);
 

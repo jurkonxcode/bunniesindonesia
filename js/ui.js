@@ -41,7 +41,8 @@ function feedItems(){
 }
 /* Tab hanya tampil bila ada isinya: Berita dan kategori muncul setelah berita nyata masuk. */
 function tabList(){
-  const cats = [...new Set(news.map(n => n.category).filter(Boolean))];
+  const urut = Object.keys(CAT_ART), pos = c => urut.indexOf(c) < 0 ? 99 : urut.indexOf(c);
+  const cats = [...new Set(news.map(n => n.category).filter(Boolean))].sort((a, b) => pos(a) - pos(b));
   return [["Semua","Semua"], ...(news.length ? [["Berita","Berita"], ...cats.map(c => [c, c])] : []), ["Tanya","Tanya Jawab"]];
 }
 /* v14: baris ikon layanan di bawah kotak cari (mengacu pola portal besar). [ikon, nama, tujuan, warna, tab]

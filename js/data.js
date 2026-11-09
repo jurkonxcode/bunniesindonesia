@@ -3,7 +3,8 @@
 const PAL = [["#17a862","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],["#0ea5e9","#5b4bdb"],["#10b981","#84cc16"],["#ef5a6f","#8b5cf6"]];
 
 /* Ikon dan warna sampul per kategori berita: [id ikon di assets/icons/niflax-icons.svg, indeks PAL] */
-const CAT_ART = {Nasional:["nasional",0],Teknologi:["teknologi",3],Bola:["bola",4],Olahraga:["bola",4],Ekonomi:["kurs",0],Hiburan:["hiburan",1],Kuliner:["kuliner",5],Otomotif:["otomotif",3],Religi:["religi",4]};
+/* v17: urutan kunci di sini = urutan tab kategori di beranda. Kategori baru wajib ditambah di sini DAN di tools/klasifikasi.mjs. */
+const CAT_ART = {Nasional:["nasional",0],Politik:["nasional",1],Hukum:["syarat",3],Internasional:["peta",3],Ekonomi:["kurs",0],Teknologi:["teknologi",3],Bola:["bola",4],Olahraga:["bola",4],Hiburan:["hiburan",1],Kuliner:["kuliner",5],Otomotif:["otomotif",3],Religi:["religi",4],Kesehatan:["berita",4],Pendidikan:["blog",1]};
 
 /* Chip pencarian cepat: hanya yang punya alat nyata */
 const quick = ["Jadwal sholat","Libur nasional"];

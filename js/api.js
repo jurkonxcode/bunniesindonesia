@@ -6,7 +6,7 @@ async function sb(path){
 async function load(){
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ loadErr = true; return; }
   try{
-    const [n,t] = await Promise.all([sb("news?select=*&order=published_at.desc&limit=30"), sb("trending?select=keyword&order=rank.asc&limit=10")]);
+    const [n,t] = await Promise.all([sb("news?select=*&order=published_at.desc&limit=150"), sb("trending?select=keyword&order=rank.asc&limit=10")]);
     news = n; trending = t.map(x => x.keyword); loadErr = false;
   }catch(e){ loadErr = true; }
 }

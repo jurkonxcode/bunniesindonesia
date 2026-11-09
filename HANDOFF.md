@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v16).
+Terakhir diperbarui: 9 November 2026 (v17).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -331,3 +331,16 @@ Berkas baru: `tools/impor-berita.mjs`, `tools/feeds.json`, `.github/workflows/im
 - **Kotak cari ringkas** (`#hSearch` di header): muncul saat kotak cari besar tergulir keluar layar (IntersectionObserver), lalu menu teks dan logo disembunyikan. Pencarian di sini memakai aturan yang sama (alat harian dulu lewat `goTool`, selain itu ke `search`).
 - Urutan `<script>` di `index.html` sekarang: config, data, services, state, api, auth, ui, sholat, tools, menu, main.
 - Berkas berubah: `index.html`, `layanan.html`, `js/services.js` (baru), `js/menu.js` (baru), `js/layanan.js`, `css/portal.css`. Cache `?v=16` di `index.html` dan `layanan.html`.
+
+
+## 24. v17: klasifikasi berita otomatis, kategori baru, pembersihan
+
+**Berkas baru/berubah:** `tools/klasifikasi.mjs` (baru), `tools/impor-berita.mjs`, `tools/feeds.json`, `supabase/v17-bersihkan-berita.sql` (baru), `js/data.js` (CAT_ART), `js/api.js` (limit 150), `js/ui.js` (urutan tab). Cache `?v=17`.
+
+- **Klasifikasi:** feed dengan `"kategori": "Auto"` diklasifikasi per berita dari kata kunci pada judul (deskripsi feed ikut menghitung skor tetapi tidak disimpan). Aturan ada di `ATURAN` dalam `tools/klasifikasi.mjs`; tambah kata kunci di sana. Tanpa AI dan tanpa biaya. Akurasi bergantung kata kunci: periksa `select category, count(*) from news group by 1` dan perbaiki aturan bila ada yang salah masuk. Feed `Olahraga` otomatis dipecah ke `Bola` bila judul soal sepak bola. Bila tak ada yang cocok, dipakai `kategori_bawaan` (bawaan Nasional).
+- **Kategori sekarang 14:** Nasional, Politik, Hukum, Internasional, Ekonomi, Teknologi, Bola, Olahraga, Hiburan, Kuliner, Otomotif, Religi, Kesehatan, Pendidikan. Tab hanya muncul bila kategorinya ada isinya, urutannya mengikuti urutan kunci `CAT_ART`. Kategori baru harus ditambah di `CAT_ART` (`js/data.js`) dan `ATURAN` (`tools/klasifikasi.mjs`).
+- **Beranda memuat 150 berita terbaru** (dulu 30), supaya tab kategori tidak kosong saat satu kategori sedang sepi. Bila nanti kategori tertentu tetap sepi, ganti dengan satu permintaan per tab.
+- **`--cek-url`:** `node tools/impor-berita.mjs --cek-url` mengecek apakah alamat feed menjawab dan terbaca (status dan jumlah butir saja, tanpa menampilkan atau menyimpan isi), meski `izin` masih false. Pakai ini untuk memastikan alamat RSS benar sebelum minta izin.
+- **Pembersihan:** jalankan `supabase/v17-bersihkan-berita.sql`. Fungsi `bersihkan_berita(30)` menghapus berita lebih tua dari 30 hari yang tidak sedang disimpan siapa pun. Jadwal harian lewat pg_cron (baris dikomentari di berkas itu).
+- **Status sumber (dicek 9 Nov 2026):** ANTARA: ketentuan penggunaan Pasal 3 melarang reproduksi/distribusi tanpa persetujuan tertulis dan tidak menyebut RSS, jadi minta izin dulu. VOA: teks buatan VOA sendiri domain publik dengan kredit, materi AFP/AP/Reuters tidak. BBC: syarat RSS belum bisa dibaca langsung dari sini, cek sendiri. Semua `izin` tetap false sampai pemilik memutuskan.
+- **Belum ada:** deduplikasi berita yang sama dari media berbeda, kategori daerah/provinsi, halaman khusus per kategori (saat ini tab di beranda).

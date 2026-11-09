@@ -16,3 +16,5 @@ assets/   gambar, ikon, font lokal
 - Tidak ada data contoh sejak v13. Tabel Supabase yang dibaca: `news`, `trending`, `questions`. Baca `HANDOFF.md` bagian 20.
 
 - Impor berita RSS: `tools/` + `.github/workflows/impor-berita.yml`. Baca `HANDOFF.md` bagian 22.
+
+- v17: klasifikasi berita otomatis (`tools/klasifikasi.mjs`), 14 kategori, `--cek-url`, pembersihan berita lama. Baca `HANDOFF.md` bagian 24.
