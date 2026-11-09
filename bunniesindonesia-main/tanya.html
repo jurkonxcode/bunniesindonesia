@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tanya Jawab – Bunnies Indonesia</title>
+<meta name="description" content="Tanya apa saja, dijawab sesama pengguna Bunnies Indonesia.">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css?v=37"><link rel="stylesheet" href="css/base.css?v=37"><link rel="stylesheet" href="css/identity.css?v=37"><link rel="stylesheet" href="css/search.css?v=37"><link rel="stylesheet" href="css/tanya.css?v=37">
+<link rel="stylesheet" href="css/share.css?v=37"><link rel="stylesheet" href="css/nav.css?v=37">
+<link rel="stylesheet" href="css/brand-skin.css?v=37"><link rel="stylesheet" href="css/fokus.css?v=37">
+</head><body class="sp">
+<header class="sbar"><div class="swrap">
+  <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
+  <div class="hbar" id="hbar"></div>
+</div>
+<script src="js/nav.js?v=37"></script></header>
+<main class="swrap">
+  <section id="listView" hidden>
+    <div class="thead"><h1>Tanya Jawab</h1><button class="btn green" id="askBtn" type="button">Tanya</button></div>
+    <form id="qform" class="qsearch" role="search"><input id="qin" type="search" placeholder="Cari pertanyaan" maxlength="100" aria-label="Cari pertanyaan"></form>
+    <nav class="stabs" id="catTabs" aria-label="Kategori"></nav>
+    <div id="qlist"></div>
+    <p id="qinfo" class="sinfo" role="status"></p>
+    <button class="btn more" id="more" type="button" hidden>Muat lagi</button>
+  </section>
+  <section id="detailView" hidden></section>
+</main>
+
+<dialog id="askDlg" class="dlg"><form id="askForm">
+  <h2>Tanya sesuatu</h2>
+  <input id="aTitle" placeholder="Tulis pertanyaanmu (min. 10 huruf)" minlength="10" maxlength="200" required>
+  <textarea id="aBody" placeholder="Tambahkan detail (opsional)" maxlength="3000"></textarea>
+  <select id="aCat" aria-label="Kategori"></select>
+  <p class="msg" id="askMsg" role="status"></p>
+  <div class="row"><button class="btn alt" type="button" id="askCancel">Batal</button><button class="btn green">Kirim</button></div>
+  <p class="meta">Jangan menulis data pribadi (nomor telepon, alamat, KTP). Nama tampilmu akan terlihat publik.</p>
+</form></dialog>
+
+<dialog id="repDlg" class="dlg"><form id="repForm">
+  <h2>Laporkan</h2>
+  <select id="repReason" aria-label="Alasan">
+    <option value="spam">Spam atau iklan</option><option value="sara">Ujaran kebencian / SARA</option>
+    <option value="porno">Konten dewasa</option><option value="pribadi">Memuat data pribadi</option><option value="lainnya">Lainnya</option>
+  </select>
+  <p class="msg" id="repMsg" role="status"></p>
+  <div class="row"><button class="btn alt" type="button" id="repCancel">Batal</button><button class="btn green">Kirim laporan</button></div>
+</form></dialog>
+
+<script src="js/config.js?v=37"></script>
+<script src="js/kategori.js?v=37"></script>
+<script src="js/data.js?v=37"></script>
+<script src="js/state.js?v=37"></script>
+<script src="js/api.js?v=37"></script>
+<script src="js/share.js?v=37"></script>
+<script src="js/tanya.js?v=37"></script>
+</body></html>

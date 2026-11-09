@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akun saya – Bunnies Indonesia</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css?v=37"><link rel="stylesheet" href="css/base.css?v=37"><link rel="stylesheet" href="css/identity.css?v=37"><link rel="stylesheet" href="css/search.css?v=37"><link rel="stylesheet" href="css/tanya.css?v=37"><link rel="stylesheet" href="css/admin.css?v=37">
+<link rel="stylesheet" href="css/nav.css?v=37"><link rel="stylesheet" href="css/komentar.css?v=37">
+<link rel="stylesheet" href="css/brand-skin.css?v=37"><link rel="stylesheet" href="css/fokus.css?v=37">
+</head><body class="sp">
+<header class="sbar"><div class="swrap">
+  <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
+  <div class="hbar" id="hbar"></div>
+</div>
+<script src="js/nav.js?v=37"></script></header>
+<main class="swrap">
+  <section id="gateView"><p class="sinfo">Memuat…</p></section>
+  <section id="akunView" hidden>
+    <div class="thead"><h1>Akun saya</h1></div>
+    <p class="meta" id="who"></p>
+
+    <div class="box">
+      <h2>Nama tampil</h2>
+      <p>Nama ini muncul di tulisan, pertanyaan, dan jawabanmu berikutnya. Tulisan lama tidak berubah. Jangan pakai bagian depan emailmu.</p>
+      <form id="nameForm"><input id="nameIn" minlength="2" maxlength="40" autocomplete="nickname" aria-label="Nama tampil" required>
+      <p class="msg" id="nameMsg" role="status"></p><button class="btn green">Simpan nama</button></form>
+    </div>
+
+    <div class="box">
+      <h2>Bias</h2>
+      <p>Pilih member favoritmu. Bias tampil sebagai label di samping komentarmu. Pilihan ini bisa diubah kapan saja.</p>
+      <div class="bias-pick" id="biasPick" role="group" aria-label="Pilih bias"></div>
+      <p class="msg" id="biasMsg" role="status"></p>
+    </div>
+
+    <div class="box">
+      <h2>Unduh data saya</h2>
+      <p>Berkas JSON berisi profil (termasuk bias), tulisan, pertanyaan, jawaban, dan laporan yang pernah kamu kirim.</p>
+      <p class="msg" id="dlMsg" role="status"></p><button class="btn" id="dlBtn" type="button">Unduh data</button>
+    </div>
+
+    <div class="box" id="adminBox" hidden>
+      <h2>Admin</h2><p>Kamu terdaftar sebagai admin.</p><a class="btn green" href="admin">Buka panel admin</a>
+    </div>
+
+    <div class="box">
+      <h2>Keluar</h2><button class="btn" id="outBtn" type="button">Keluar dari akun</button>
+    </div>
+
+    <div class="box warn">
+      <h2>Hapus akun</h2>
+      <p>Akun, profil (termasuk bias), semua tulisan, komentar, reaksi, pertanyaan, dan jawabanmu dihapus <b>permanen</b> dan tidak bisa dipulihkan. Jawaban di pertanyaan orang lain juga ikut hilang. Berkas lama di halaman statis (SEO) hilang paling lambat sekitar 30 menit.</p>
+      <label for="delIn" class="meta">Ketik <b>HAPUS</b> untuk melanjutkan</label>
+      <input id="delIn" autocomplete="off" autocapitalize="characters" aria-label="Ketik HAPUS">
+      <p class="msg" id="delMsg" role="status"></p><button class="btn danger" id="delBtn" type="button" disabled>Hapus akun saya</button>
+    </div>
+  </section>
+</main>
+<script src="js/config.js?v=37"></script>
+<script src="js/state.js?v=37"></script>
+<script src="js/bias.js?v=37"></script>
+<script src="js/sesi.js?v=37"></script>
+<script src="js/akun.js?v=37"></script>
+</body></html>

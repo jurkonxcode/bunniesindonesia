@@ -1,0 +1,43 @@
+/* Identitas Bunnies Indonesia: motif kawung, warna hangat, alat harian */
+:root{--warm:#ff7fb0}
+.orbit{display:none}
+.hero::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%233b82f6' stroke-opacity='.4' stroke-width='1.2'%3E%3Cellipse cx='24' cy='12' rx='6' ry='12'/%3E%3Cellipse cx='24' cy='36' rx='6' ry='12'/%3E%3Cellipse cx='12' cy='24' rx='12' ry='6'/%3E%3Cellipse cx='36' cy='24' rx='12' ry='6'/%3E%3C/g%3E%3C/svg%3E");-webkit-mask-image:radial-gradient(80% 100% at 50% 0%,#000,transparent 85%);mask-image:radial-gradient(80% 100% at 50% 0%,#000,transparent 85%);pointer-events:none}
+.hero .sub{font-size:14.5px}
+.thumb::before{left:0;top:0;right:0;bottom:0;width:auto;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.9' stroke-width='1.2'%3E%3Cellipse cx='24' cy='12' rx='6' ry='12'/%3E%3Cellipse cx='24' cy='36' rx='6' ry='12'/%3E%3Cellipse cx='12' cy='24' rx='12' ry='6'/%3E%3Cellipse cx='36' cy='24' rx='12' ry='6'/%3E%3C/g%3E%3C/svg%3E");opacity:.28}
+.chips{position:relative;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chips button{border:1px dashed color-mix(in srgb,var(--brand) 55%,var(--line));background:color-mix(in srgb,var(--brand) 8%,transparent);color:var(--ink);font-size:13px;padding:5px 13px;border-radius:999px;cursor:pointer}
+.chips button:hover{background:var(--brand);color:var(--brand-ink);border-style:solid}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tool{padding:18px}
+.tool .sh{margin-bottom:10px}
+.tool h3{font-size:15.5px;letter-spacing:-.01em}
+.prayer li{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;margin:0 -10px;border-radius:9px;font-size:14px}
+.prayer b{font-family:'Sora';font-size:14px}
+.prayer em{font-style:normal;font-size:11.5px;font-weight:600;background:var(--warm);color:#4a0f2a;padding:1px 8px;border-radius:999px;margin-left:6px}
+.prayer .now{background:color-mix(in srgb,var(--warm) 16%,transparent)}
+.prayer i{font-style:normal;font-size:12px;font-weight:500}.prayer i.u{color:var(--up)}.prayer i.d{color:var(--down)}
+.resi{display:grid;gap:8px;margin-bottom:10px}
+.resi select,.resi input{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.resi .btn{padding:10px}
+.big{font-family:'Sora';font-size:40px;font-weight:800;letter-spacing:-.04em;line-height:1.05;color:var(--brand-d)}
+.big span{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:0}
+#tool-libur p{margin-top:6px;font-size:14px}
+.promo{display:flex;justify-content:space-between;align-items:center;margin:-4px 0 14px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--warm),#ff8a3d);color:#4a0f2a;font-size:14px}
+.promo[hidden]{display:none}
+.tool.flash{animation:flash 1.4s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 0 var(--warm)}30%{box-shadow:0 0 0 6px var(--warm)}100%{box-shadow:0 0 0 0 transparent}}
+@media(prefers-reduced-motion:reduce){.tool.flash{animation:none}}
+.rows .meta{white-space:nowrap;margin-left:10px}
+
+/* ===== v11: ikon dan sampul bermerek Bunnies Indonesia ===== */
+.ic{display:grid;place-items:center;flex:0 0 auto;width:44px;height:44px;border-radius:13px;background:color-mix(in srgb,var(--c,var(--brand-d)) 13%,var(--surface));color:var(--c,var(--brand-d))}
+.ic svg{width:24px;height:24px}
+.g1{--c:var(--brand-d)}.g2{--c:#c2336f}.g3{--c:#d6455a}.g4{--c:var(--accent)}.g5{--c:#0b8f7a}.g6{--c:var(--muted)}
+.thumb .art{position:absolute;left:50%;top:50%;width:min(46%,52px);height:auto;aspect-ratio:1;transform:translate(-50%,-50%);color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.25));z-index:1}
+.lead .thumb .art{width:84px}
+.vc .thumb .art{display:none}
+.cm .thumb .art{top:38%;width:46px}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.burger{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;color:var(--ink);margin-left:auto}
+.burger:hover{background:var(--bg)}
+.burger svg{width:24px;height:24px}

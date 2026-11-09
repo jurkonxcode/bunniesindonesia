@@ -1,0 +1,24 @@
+@media(max-width:1000px){
+  .grid,.two{grid-template-columns:minmax(0,1fr)}
+  main,aside,.grid>*{min-width:0}
+  .vgrid,.pgrid{grid-template-columns:repeat(2,1fr)}
+  .cgrid{grid-template-columns:repeat(3,1fr)}
+  .menu,.actions .ghost{display:none}
+  header.top .wrap{justify-content:space-between}
+  .short{grid-template-columns:repeat(5,1fr)}
+  .fcols{grid-template-columns:1fr 1fr}
+  .tgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .tgrid{display:flex;overflow-x:auto;gap:12px;margin:0 -20px;padding:2px 20px 8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .tool{flex:0 0 260px;scroll-snap-align:start}
+  .cgrid{display:flex;overflow-x:auto;gap:12px;margin:0 -20px;padding:0 20px;scrollbar-width:none}
+  .cm{flex:0 0 132px}
+  .lead .thumb{min-height:170px}
+  .lead,.nc4{grid-template-columns:1fr}
+  .short{display:flex;overflow-x:auto;scrollbar-width:none}
+  .short a{flex:0 0 76px}
+  .hero{padding:32px 16px 24px}
+  .ticker .date{display:none}
+}
+@media(prefers-reduced-motion:reduce){.orbit .ring{animation:none}}

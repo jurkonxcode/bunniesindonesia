@@ -1,0 +1,16 @@
+.ticker{background:#0b1630;color:#cddcf5;font-size:12.5px}
+.ticker .wrap{display:flex;gap:26px;align-items:center;height:36px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.ticker b{font-weight:600;margin-right:6px;color:#fff}
+.ticker .up{color:#7fb0ff}.ticker .down{color:#ff7b80}
+.ticker .date{margin-left:auto;color:#93a8cf}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.logo{font-weight:800;font-size:25px;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--brand);display:grid;place-items:center}
+.logo svg{width:18px;height:18px}
+.menu{display:flex;gap:2px;flex:1}
+.menu a{padding:8px 13px;border-radius:8px;font-weight:500;font-size:14px;color:var(--muted)}
+.menu a:hover{color:var(--ink);background:var(--bg)}
+.menu a.on{color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--brand);border-radius:0}
+.actions{display:flex;gap:10px;align-items:center}
+.actions .ghost{font-size:14px;font-weight:500;color:var(--muted)}
