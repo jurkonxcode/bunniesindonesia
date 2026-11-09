@@ -441,3 +441,8 @@ Acuan: pola navigasi naver.com (bilah tab menempel, bilah atas yang ikut muncul/
 - Kategori baru (Tanya + Blog): Kuliah, Kerja, Visa, Bahasa, Budaya, Hidup di sana. Jalankan `supabase/v28-asia-timur.sql` (ganti email; ubah constraint kategori + 24 pertanyaan awal, tanpa jawaban palsu).
 - Beranda: blok hero wedge, chip cari (KGSP, EPS, visa Jepang, Hangul), baris ikon baru. Gaya baru di `css/asia.css` (dimuat terakhir, `?v=28`).
 - Belum: `tools/build-static.mjs` belum dicek untuk kategori baru; pastikan halaman statis ikut. Isi 200 jawaban nyata sebelum menambah fitur.
+
+## 31. v29: panel Ujian bahasa + kurs won/yen
+- `js/exam.js` (baru, dimuat setelah `live.js`): panel "Ujian bahasa" di kolom samping. Data di array `EXAMS`; baru berisi TOPIK ke-110 (10 Jan 2027, di Korea). **Tambahkan baris hanya dari situs resmi** (topik.go.kr, jlpt.jp, hrdkorea.or.kr), lengkap dengan tanggal cek. Tanggal yang lewat otomatis disembunyikan.
+- Panel Kurs kini menampilkan 100 KRW dan 100 JPY di atas (sumber tetap ExchangeRate-API).
+- Belum ada: jadwal JLPT dan jadwal TOPIK di Indonesia (belum terverifikasi dari sumber resmi).

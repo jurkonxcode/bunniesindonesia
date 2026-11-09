@@ -38,7 +38,7 @@
     try{
       const d = await cached("niflax.fx", "https://open.er-api.com/v6/latest/USD"), idr = d.rates.IDR;
       const row = (n, c, k = 1) => d.rates[c] ? `<div><span>${n}</span><b>Rp ${Math.round(idr / d.rates[c] * k).toLocaleString("id-ID")}</b></div>` : "";
-      el.innerHTML = `<div class="fxl">${row("1 USD", "USD")}${row("1 EUR", "EUR")}${row("1 SGD", "SGD")}${row("1 SAR", "SAR")}${row("100 JPY", "JPY", 100)}</div><p class="src">Sumber: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a>. Kurs tengah, bukan kurs jual-beli bank.</p>`;
+      el.innerHTML = `<div class="fxl">${row("100 KRW (won)", "KRW", 100)}${row("100 JPY (yen)", "JPY", 100)}${row("1 USD", "USD")}${row("1 SGD", "SGD")}${row("1 SAR", "SAR")}</div><p class="src">Sumber: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a>. Kurs tengah, bukan kurs jual-beli bank.</p>`;
     }catch(e){ fail(el); }
   }
   window.liveRefresh = cuaca;                     // dipanggil tools.js saat kota berganti
