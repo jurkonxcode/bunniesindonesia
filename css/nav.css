@@ -1,0 +1,120 @@
+/* v27: navigasi ala portal besar + perapian tata letak dan detail kecil. Dimuat PALING AKHIR (setelah naver.css di beranda).
+   Semua warna lewat token. Bilah tab dibuat oleh js/nav.js. */
+:root{--h1:52px;--h2:42px;--hh:calc(var(--h1) + var(--h2))}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(var(--hh) + 8px)}
+body{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+a,button,input,select,summary{touch-action:manipulation}
+[id]{scroll-margin-top:calc(var(--hh) + 8px)}
+h1,h2,h3{text-wrap:balance}
+.ticker,.cbig,.wnow,.cal,.fxl,.bc .meta{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--brand-d);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important}}
+
+/* ---------- bilah atas (baris 1) ---------- */
+header.top{transition:top .22s ease}
+header.top .wrap{height:var(--h1);gap:12px}
+header.top.hide1{top:calc(-1 * var(--h1))}
+header.top .burger{flex:0 0 auto;display:grid;place-items:center;width:40px;height:40px;margin-left:-8px;border-radius:10px;color:var(--ink)}
+header.top .burger:hover{background:var(--bg)}
+header.top .burger:active{background:var(--line)}
+header.top .burger svg{width:22px;height:22px}
+header.top .logo{flex:0 0 auto}
+header.top .actions{margin-left:auto;flex:0 0 auto}
+header.top .actions .btn{height:36px;padding:0 18px;display:inline-flex;align-items:center}
+header.top.compact .actions{margin-left:0}
+
+/* ---------- bilah tab (baris 2): menempel, bisa digeser, tab aktif bergaris bawah ---------- */
+.snav{position:relative;background:var(--surface);border-top:1px solid var(--line)}
+.snw{display:flex;align-items:stretch;max-width:1240px;margin:0 auto;padding:0 20px}
+.snl{flex:1;min-width:0;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.snl::-webkit-scrollbar{display:none}
+.snl a{flex:0 0 auto;position:relative;display:flex;align-items:center;height:var(--h2);padding:0 12px;font-size:14.5px;font-weight:500;color:var(--muted);white-space:nowrap;scroll-snap-align:center;transition:color .15s}
+.snl a:first-child{margin-left:-12px}
+.snl a:hover{color:var(--ink)}
+.snl a:active{color:var(--ink);background:var(--bg)}
+.snl a[aria-current=page]{color:var(--ink);font-weight:700}
+.snl a[aria-current=page]::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--brand)}
+.sall{flex:0 0 auto;display:flex;align-items:center;gap:6px;height:var(--h2);margin-left:4px;padding:0 0 0 14px;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;border-left:1px solid var(--line)}
+.sall:hover{color:var(--brand-d)}
+.sall svg{color:var(--brand-d)}
+/* bayangan tepi: penanda masih ada tab di luar layar */
+.snav::before,.snav::after{content:"";position:absolute;top:0;bottom:0;width:22px;opacity:0;pointer-events:none;transition:opacity .15s;z-index:1}
+.snav::before{left:0;background:linear-gradient(90deg,var(--surface),transparent)}
+.snav.fl::before{opacity:1}
+.snav.fr::after{opacity:1;right:var(--sall-w,112px);background:linear-gradient(270deg,var(--surface),transparent)}
+@media(max-width:699px){
+  .sall span{display:none}
+  .sall{padding:0 0 0 12px}
+  .snav{--sall-w:40px}
+  .snw{padding:0 12px}
+}
+@media(min-width:1000px){.snw{max-width:1180px}.snl a{font-size:15px;padding:0 14px}.snl a:first-child{margin-left:-14px}.snl a[aria-current=page]::after{left:14px;right:14px}}
+/* halaman dalam: lebar isi 760px, bilah atas tidak ikut bersembunyi */
+.sbar{padding-bottom:0}
+.sbar .swrap{padding-bottom:10px}
+.sbar .snw{max-width:760px;padding:0 16px}
+.sbar .snl a:first-child{margin-left:-12px}
+.sbar{z-index:20}
+
+/* ---------- tombol TOP ---------- */
+.totop{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 4px 16px -4px rgba(15,31,26,.28);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
+.totop.on{opacity:1;visibility:visible;transform:none}
+.totop span{font-size:9.5px;font-weight:700;letter-spacing:.04em;line-height:1;margin-top:-2px}
+.totop:hover{border-color:var(--brand);color:var(--brand-d)}
+.totop:active{transform:scale(.94)}
+
+/* ---------- tata letak dan detail kecil (beranda) ---------- */
+.search .box,.hsearch{transition:box-shadow .15s}
+.search .box:focus-within,.hsearch:focus-within{box-shadow:0 0 0 4px color-mix(in srgb,var(--brand) 20%,transparent)}
+.box input:focus-visible,.hsearch input:focus-visible{outline:0}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;height:16px;width:16px;border-radius:50%;cursor:pointer;
+  background:var(--muted) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m5 5 6 6M11 5l-6 6'/%3E%3C/svg%3E") center/10px no-repeat;opacity:.55}
+input[type=search]::-webkit-search-cancel-button:hover{opacity:.9}
+.ik:active .ic{transform:scale(.94)}
+.pn a:active,.tiles a:active{background:var(--bg)}
+.pn .meta,.fc .au{line-height:1.4}
+.tiles,.hline{margin-left:16px;margin-right:16px}
+.pn-h h2,.pn-tabs>b,.sh h2{font-weight:700}
+footer{margin-top:24px;padding:28px 0 24px}
+.fbot{border-top:1px solid var(--line)}
+
+@media(max-width:699px){
+  .wrap{padding-left:12px;padding-right:12px}
+  .svr{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .hs{padding-top:14px}
+  .hs .chips{margin-top:10px}
+  .promo{padding:12px 14px}
+}
+/* HP/tablet: kolom samping mengalir di bawah umpan, jaraknya seragam 12px */
+@media(max-width:999px){
+  .cols{gap:0}
+  .cols .pn,.cols .feedpn{margin:12px 0 0}
+  #acct,.mini,#wx,#fx,#cal,#eq,#alat{margin:12px 0 0}
+  #acct.out{margin:12px 0 0}
+  #alat{margin-bottom:12px}
+}
+@media(min-width:1000px){
+  .side{position:static;top:auto;gap:12px;padding-top:12px}
+  .side>*{margin:0}
+  .ftabs{top:var(--hh)}
+}
+
+/* ---------- dropdown kotak cari ---------- */
+.search,.hsearch{position:relative}
+.sgbox{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:35;max-height:min(62vh,440px);overflow-y:auto;overscroll-behavior:contain;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px -14px rgba(15,31,26,.32);padding:6px 0 8px}
+.sgbox[hidden]{display:none}
+.sgbox ul{margin:0;padding:0}
+.sg-h{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;font-size:12px;color:var(--muted)}
+.sg-h b{font-weight:700;color:var(--ink);font-size:12.5px}
+.sg-h button{border:0;background:none;color:var(--muted);font-size:12px;cursor:pointer;padding:2px 0}
+.sg-h button:hover{color:var(--ink);text-decoration:underline}
+.sgbox li{display:flex;align-items:center;gap:10px;padding:0 16px;min-height:40px;font-size:14.5px;cursor:pointer;list-style:none}
+.sgbox li svg{flex:0 0 auto;color:var(--muted)}
+.sgbox li:hover,.sgbox li[aria-selected=true]{background:var(--bg)}
+.sg-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sg-x{flex:0 0 auto;width:28px;height:28px;border:0;background:none;border-radius:50%;color:var(--muted);font-size:18px;line-height:1;cursor:pointer}
+.sg-x:hover{background:var(--line);color:var(--ink)}
+.sg-n{flex:0 0 18px;font-style:normal;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;text-align:center;color:var(--muted)}
+.sg-n.top{color:var(--brand-d)}
+@media(min-width:700px){.sg-tr{display:grid;grid-template-columns:1fr 1fr}}

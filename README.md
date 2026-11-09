@@ -20,3 +20,4 @@ assets/   gambar, ikon, font lokal
 - v24: beranda ala portal besar (panel, baris ikon satu baris, kolom samping). Baca `HANDOFF.md` bagian 26.
 - v25: halaman statis SEO + sitemap lewat GitHub Actions (`tools/build-static.mjs`). Baca `HANDOFF.md` bagian 27.
 - v26: panel admin (`/admin`), moderasi laporan termasuk tulisan blog, blokir pengguna, halaman Akun saya (ubah nama, unduh data, hapus akun). Jalankan `supabase/v26-moderasi.sql`. Baca `HANDOFF.md` bagian 28.
+- v27: navigasi ala portal besar (bilah tab menempel, bilah atas hilang/muncul saat gulir, tombol TOP, dropdown cari). Baca `HANDOFF.md` bagian 29.

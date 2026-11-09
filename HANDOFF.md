@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v26, lihat bagian 28).
+Terakhir diperbarui: 9 November 2026 (v27, lihat bagian 29).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -421,3 +421,17 @@ Acuan: screenshot naver.com (mode desktop di HP) dibandingkan dengan beranda Nif
 - Belum ada: banding atas blokir, notifikasi ke penulis saat kontennya disembunyikan, ekspor `mod_log` ke panel (lihat di Table Editor), laporan untuk komentar (komentar belum ada).
 - Berikutnya (v27): Religi (Al-Qur'an), Peta, direktori wilayah dari data terbuka.
 
+
+## 29. v27: navigasi ala portal besar + perapian tata letak
+Acuan: pola navigasi naver.com (bilah tab menempel, bilah atas yang ikut muncul/hilang saat digulir, tombol TOP, dropdown cari). naver.com tidak bisa dibuka dari mesin kerja (diblokir), jadi pola diambil dari pengetahuan umum, bukan dari salinan halaman. Tidak ada logo, ikon, warna, atau teks Naver. **Isi, data, dan logika Supabase tidak diubah.**
+
+**Berkas baru:** `css/nav.css`, `js/nav.js`, `js/suggest.js`. **Berubah:** `index.html`, `blog.html`, `tanya.html`, `search.html`, `akun.html` (pasang nav), `js/menu.js` (satu angka: `rootMargin` -64px jadi -94px karena header kini dua baris). Cache `?v=27` di semua HTML.
+
+- **Bilah tab (`js/nav.js`)**: dibuat sinkron di dalam `<header>` (tag script terakhir di dalam header, jadi tanpa lompatan tata letak). Tab: Beranda, Tanya Jawab, Blog, enam kategori, Alat harian, ditambah tombol "Semua layanan" di kanan (di beranda membuka panel menu hamburger yang sudah ada). Tab aktif ditebalkan + garis hijau, otomatis diposisikan ke tengah, bayangan tepi muncul hanya bila ada tab tersembunyi. Daftar tab ada di satu tempat: konstanta `TABS` di `nav.js`.
+- **Bilah atas hilang saat gulir ke bawah, muncul saat gulir ke atas** (hanya di bawah 1000px, hanya beranda). Bilah tab tetap menempel. Fokus ke kotak cari memunculkannya lagi. Tinggi diatur variabel `--h1` (52px) dan `--h2` (42px) di `nav.css`; jangan menulis tinggi header manual di CSS lain, pakai `--hh`.
+- **Tombol TOP** muncul setelah gulir 520px.
+- **Dropdown cari (`js/suggest.js`, hanya beranda)**: kotak kosong menampilkan "Pencarian terakhir" (localStorage `niflax.recent`, maks 8, bisa dihapus satu-satu atau semua) dan "Tren" (view `trending`); mengetik 2+ huruf memanggil `suggest_keywords`. Navigasi keyboard + ARIA combobox. Riwayat dicatat saat `search.html?q=` dibuka (di `nav.js`). Halaman `search.html` tetap memakai dropdown-nya sendiri.
+- **Tata letak:** jarak antar kartu di HP seragam 12px (sebelumnya kartu Cuaca/Kurs/Kalender menempel dan panel berjarak ganda), padding sisi HP 12px, kolom samping desktop tidak lagi `sticky` (kolom yang lebih tinggi dari layar tidak bisa terbaca bawahnya), `scroll-margin-top` agar anchor tidak tertutup header.
+- **Detail kecil:** cincin fokus hijau di kotak cari, tombol hapus (x) khusus di input search, `tabular-nums` untuk angka, efek tekan di ikon/panel, tanpa sorotan ketuk, hormati `prefers-reduced-motion`, `text-wrap:balance` di judul.
+- **Diuji** (Chromium, 390px dan 1280px, data tiruan hanya di mesin uji): tanpa overflow horizontal dan tanpa error JS di beranda, blog, tanya, search, akun, layanan, tentang, admin; headroom, TOP, dropdown (isi, saran, hapus), drawer dari "Semua layanan", tab aktif `blog?cat=Kuliner`.
+- **Belum:** `layanan.html`, halaman hukum, dan `admin.html` belum memakai bilah tab (sengaja, bentuknya berbeda). Ikon di dalam tab dan bilah bawah ala aplikasi tidak dibuat.

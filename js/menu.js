@@ -63,7 +63,7 @@
       const on = !en.isIntersecting && en.boundingClientRect.top < 0;
       top.classList.toggle("compact", on);
       if(on && !hq.value) hq.value = $("q").value;
-    }, {rootMargin:"-64px 0px 0px 0px", threshold:0}).observe(mainBox);
+    }, {rootMargin:"-94px 0px 0px 0px", threshold:0}).observe(mainBox);
   }
   $("hSearch").addEventListener("submit", e => {
     e.preventDefault();
