@@ -2,6 +2,10 @@ $("ftabs").addEventListener("click", e => {
   const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderFeed(); return; }
   const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
 });
+$("svr").addEventListener("click", e => {
+  const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderFeed(); $("feed").scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
+});
 $("mini").addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); } });
 $("tools").addEventListener("change", e => {
   if(e.target.id !== "kota") return;

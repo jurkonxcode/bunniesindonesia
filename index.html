@@ -12,14 +12,15 @@
 <meta property="og:type" content="website"><meta property="og:image" content="https://jurkonxcode.github.io/niflax/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=13">
-<link rel="stylesheet" href="css/base.css?v=13">
-<link rel="stylesheet" href="css/header.css?v=13">
-<link rel="stylesheet" href="css/content.css?v=13">
-<link rel="stylesheet" href="css/identity.css?v=13">
-<link rel="stylesheet" href="css/auth.css?v=13">
-<link rel="stylesheet" href="css/responsive.css?v=13">
-<link rel="stylesheet" href="css/home.css?v=13">
+<link rel="stylesheet" href="css/tokens.css?v=14">
+<link rel="stylesheet" href="css/base.css?v=14">
+<link rel="stylesheet" href="css/header.css?v=14">
+<link rel="stylesheet" href="css/content.css?v=14">
+<link rel="stylesheet" href="css/identity.css?v=14">
+<link rel="stylesheet" href="css/auth.css?v=14">
+<link rel="stylesheet" href="css/responsive.css?v=14">
+<link rel="stylesheet" href="css/home.css?v=14">
+<link rel="stylesheet" href="css/portal.css?v=14">
 </head>
 <body>
 <div class="ticker"><div class="wrap" id="ticker"></div></div>
@@ -44,16 +45,22 @@
     <p class="sub" id="greet"></p>
   </section>
 
-  <nav class="ftabs" id="ftabs" aria-label="Jelajah"></nav>
-  <div class="mini" id="mini"></div>
-  <section class="card login" id="acct" hidden></section>
-  <p class="status" id="status"></p>
+  <nav class="svr" id="svr" aria-label="Layanan"></nav>
 
-  <section class="feedwrap">
-    <div class="feed" id="feed"></div>
-  </section>
-
-  <section class="section" id="alat"><div class="sh"><h2>Alat harian</h2><small>Yang sering dicari tiap hari</small></div><div class="tgrid" id="tools"></div></section>
+  <div class="cols">
+    <main class="mainc">
+      <nav class="ftabs" id="ftabs" aria-label="Jelajah"></nav>
+      <p class="status" id="status"></p>
+      <section class="feedwrap">
+        <div class="feed" id="feed"></div>
+      </section>
+    </main>
+    <aside class="side" aria-label="Akun dan alat harian">
+      <section class="card login" id="acct"></section>
+      <div class="mini" id="mini"></div>
+      <section class="section" id="alat"><div class="sh"><h2>Alat harian</h2><small>Yang sering dicari tiap hari</small></div><div class="tgrid" id="tools"></div></section>
+    </aside>
+  </div>
 </div>
 
 <footer><div class="wrap">
@@ -73,14 +80,14 @@
 <div id="authStep2" hidden><form id="codeForm"><input id="codeIn" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kode dari email" required><button class="btn green">Masuk</button></form></div>
 <p class="legal">Dengan masuk, kamu setuju dengan <a href="syarat">Syarat Layanan</a> dan <a href="privasi">Kebijakan Privasi</a>.</p>
 <p id="authMsg" role="status"></p><button class="btn alt" id="authClose" type="button">Tutup</button></dialog>
-<script src="js/config.js?v=13"></script>
-<script src="js/data.js?v=13"></script>
-<script src="js/state.js?v=13"></script>
-<script src="js/api.js?v=13"></script>
-<script src="js/auth.js?v=13"></script>
-<script src="js/ui.js?v=13"></script>
-<script src="js/sholat.js?v=13"></script>
-<script src="js/tools.js?v=13"></script>
-<script src="js/main.js?v=13"></script>
+<script src="js/config.js?v=14"></script>
+<script src="js/data.js?v=14"></script>
+<script src="js/state.js?v=14"></script>
+<script src="js/api.js?v=14"></script>
+<script src="js/auth.js?v=14"></script>
+<script src="js/ui.js?v=14"></script>
+<script src="js/sholat.js?v=14"></script>
+<script src="js/tools.js?v=14"></script>
+<script src="js/main.js?v=14"></script>
 </body>
 </html>

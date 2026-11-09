@@ -1,0 +1,39 @@
+/* v14: kolom utama + kolom samping (desktop) dan baris ikon layanan. Dimuat SETELAH home.css. */
+
+/* ---------- baris ikon layanan ---------- */
+.svr{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 4px;max-width:680px;margin:8px auto 14px}
+.ik{display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 2px;min-width:0;border:0;background:none;
+  font-size:12.5px;font-weight:500;color:var(--ink);text-align:center;cursor:pointer;border-radius:12px}
+.ik .ic{width:48px;height:48px;border-radius:16px;transition:background .15s,transform .15s}
+.ik .ic svg{width:26px;height:26px}
+.ik .nm{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ik:hover .ic{background:color-mix(in srgb,var(--c) 24%,var(--surface));transform:translateY(-2px)}
+.ik.off{opacity:.55;cursor:default}
+.ik.off:hover .ic{background:color-mix(in srgb,var(--c,var(--brand-d)) 13%,var(--surface));transform:none}
+.ik.off em{font-style:normal;font-size:10.5px;color:var(--muted);margin-top:-4px}
+@media(min-width:700px){.svr{grid-template-columns:repeat(10,1fr)}}
+
+/* ---------- susunan dua kolom ---------- */
+/* HP/tablet: kolom dibuka (display:contents) lalu diurutkan: tab, strip mini, akun, status, umpan, alat harian */
+.cols{display:flex;flex-direction:column}
+.mainc,.side{display:contents}
+.ftabs{order:1}.mini{order:2}#acct{order:3}.status{order:4}.feedwrap{order:5}#alat{order:6}
+#acct.out{display:none}
+.feed{scroll-margin-top:120px}
+
+@media(min-width:1000px){
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:0 24px;align-items:start}
+  .mainc{display:block;min-width:0}
+  .side{display:flex;flex-direction:column;gap:16px;min-width:0;padding-top:12px}
+  .ftabs{margin:0;padding:8px 0}
+  .mini{display:none}                        /* kartu sholat/libur sudah terlihat di kolom samping */
+  #acct.out{display:block}
+  .side #acct{margin:0;padding:18px}
+  .side #acct .btn{width:100%;padding:12px;font-size:15px}
+  .side #acct .links{display:block;margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+  .side .section{margin:0}
+  .side .tgrid{grid-template-columns:1fr;gap:16px}
+  .feed{column-count:2}
+}
+@media(min-width:1240px){.feed{column-count:3}}
+.feed .empty{column-span:all}

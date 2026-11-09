@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v13).
+Terakhir diperbarui: 9 November 2026 (v14).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -36,6 +36,7 @@ css/
   base.css              reset, tipografi, .card, .sh, .btn, .thumb
   header.css            bar ticker + header menempel
   hero.css, shortcuts.css   LAMA, tidak dimuat lagi sejak v12 (aman dihapus)
+  portal.css            (v14) susunan dua kolom + baris ikon layanan (dimuat setelah home.css)
   home.css              beranda v12: cari, tab sticky, umpan kartu (dimuat terakhir)
   content.css           berita, panel samping, video, belanja, komunitas, komik, footer
   auth.css              dialog masuk, tombol Simpan, label .demo
@@ -283,3 +284,15 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 3. Naikkan cache: sudah `?v=13` di semua HTML.
 
 **Berikutnya:** (a) berita berizin: tulis ke media pilihan untuk kemitraan, lalu baru Edge Function impor; (b) kurs resmi (Bank Indonesia), cuaca (BMKG), setelah dicek syarat pemakaiannya; (c) kirim email kontak asli dan fitur hapus akun sebelum pendaftaran dibuka umum.
+
+## 21. v14: dua kolom dan baris ikon layanan
+
+Tujuan: struktur beranda lebih dekat ke portal besar (kolom utama + kolom samping, baris ikon layanan), identitas tetap Niflax.
+
+- **Baris ikon layanan** (`#svr`, di bawah kotak cari): 10 ikon, 5x2 di HP dan 1 baris di layar >=700px. Daftar ada di `SVC` dalam `js/ui.js`. Tujuan `#...` menggulir ke alat; ikon dengan tab (Berita, Bola, Hiburan, Kuliner) membuka tab umpan **hanya bila kategori itu sudah ada isinya**; selain itu tampil redup berlabel "segera". Ubah daftar di `SVC` saat layanan baru jadi.
+- **Dua kolom** (>=1000px): `.mainc` (tab + umpan, 2 kolom masonry, 3 di >=1240px) dan `.side` 340px (kartu akun, Alat harian). Di bawah 1000px kedua pembungkus memakai `display:contents` dan urutan dijaga lewat `order` di `css/portal.css`: tab, strip mini, akun, status, umpan, alat harian (sama seperti v13).
+- Kartu akun kini selalu ada di DOM (`js/auth.js`): tampil di kolom samping desktop meski belum masuk; di HP disembunyikan lewat kelas `.out` sampai masuk.
+- Tab pintas "Tanya / Sholat / Layanan" di `.ftabs` dihapus (digantikan baris ikon).
+- Strip mini (`.mini`) disembunyikan di desktop karena kartu sholat/libur sudah terlihat di kolom samping.
+- Berkas berubah: `index.html`, `css/portal.css` (baru), `js/ui.js`, `js/main.js`, `js/auth.js`. Parameter cache naik ke `?v=14` di `index.html`.
+- Belum dikerjakan (urut prioritas): Kios Berita, panel hamburger, blok Belanja, widget cuaca/kurs/kalender.

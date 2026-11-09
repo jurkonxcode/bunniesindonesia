@@ -44,15 +44,29 @@ function tabList(){
   const cats = [...new Set(news.map(n => n.category).filter(Boolean))];
   return [["Semua","Semua"], ...(news.length ? [["Berita","Berita"], ...cats.map(c => [c, c])] : []), ["Tanya","Tanya Jawab"]];
 }
+/* v14: baris ikon layanan di bawah kotak cari (mengacu pola portal besar). [ikon, nama, tujuan, warna, tab]
+   tujuan "#..." = gulir ke alat; tanpa tujuan tapi ada tab = membuka tab umpan bila kategorinya sudah ada isinya; selain itu "segera". */
+const SVC = [["tanya","Tanya","tanya","g4"],["sholat","Sholat","#tool-sholat","g2"],["libur","Libur","#tool-libur","g1"],
+  ["berita","Berita","","g1","Berita"],["bola","Bola","","g5","Bola"],["hiburan","Hiburan","","g4","Hiburan"],["kuliner","Kuliner","","g3","Kuliner"],
+  ["belanja","Belanja","","g2"],["video","Video","","g3"],["menu","Semua","layanan","g6"]];
+function renderSvr(){
+  const have = new Set(tabList().map(t => t[0]));
+  $("svr").innerHTML = SVC.map(([id, nm, to, c, t]) => {
+    const body = `${ic(id, c)}<span class="nm">${esc(nm)}</span>`;
+    if(to && to[0] === "#") return `<a class="ik" href="${to}" data-go="${to.slice(1)}">${body}</a>`;
+    if(to) return `<a class="ik" href="${to}">${body}</a>`;
+    if(t && have.has(t)) return `<button type="button" class="ik" data-t="${esc(t)}">${body}</button>`;
+    return `<span class="ik off" aria-disabled="true">${body}<em>segera</em></span>`;
+  }).join("");
+}
 function renderTabs(){
   const L = tabList(); if(!L.some(t => t[0] === tab)) tab = "Semua";
   $("ftabs").innerHTML =
-    `<a class="qk" href="tanya">${ic("tanya", "g4", "sm")}Tanya</a><a class="qk" href="#tool-sholat" data-go="tool-sholat">${ic("sholat", "g2", "sm")}Sholat</a><a class="qk" href="layanan">${ic("menu", "g1", "sm")}Layanan</a><i class="sep"></i>` +
     L.map(t => `<button type="button" data-t="${esc(t[0])}" aria-pressed="${t[0] === tab}">${esc(t[1])}</button>`).join("");
 }
 const NOTE = "Berita belum tersedia. Kami sedang menyiapkan sumber berita yang berizin. Sementara itu, jelajahi Tanya Jawab dan alat harian di bawah.";
 function renderFeed(){
-  renderTabs();
+  renderTabs(); renderSvr();
   const items = feedItems();
   $("status").textContent = loadErr ? "Gagal memuat data langsung. Periksa koneksi internetmu lalu muat ulang halaman." : (!news.length && tab !== "Tanya" && !onlySaved ? NOTE : "");
   $("feed").innerHTML = items.length ? items.map((x, i) => x.h(i)).join("") :
