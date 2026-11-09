@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="css/shortcuts.css">
 <link rel="stylesheet" href="css/content.css">
 <link rel="stylesheet" href="css/identity.css">
+<link rel="stylesheet" href="css/auth.css">
 <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -57,7 +58,7 @@
       <div id="newsBody"></div>
     </main>
     <aside>
-      <section class="card login">
+      <section class="card login" id="acct">
         <div class="sh"><h2>Akun Niflax</h2></div>
         <p>Masuk untuk menyimpan berita, berkomentar, dan bergabung ke komunitas.</p>
         <button class="btn green" id="loginBtn">Masuk dengan email</button>
@@ -97,10 +98,17 @@
   <div class="fbot"><span>© 2026 Niflax. Seluruh hak dilindungi.</span><span>Kebijakan privasi · Syarat layanan · Pusat bantuan</span></div>
 </div></footer>
 
+<dialog id="authDlg"><h2>Masuk ke Niflax</h2>
+<div id="authStep1"><p>Belum punya akun? Otomatis dibuat saat pertama masuk.</p>
+<button class="btn alt" id="googleBtn" type="button">Lanjut dengan Google</button>
+<form id="emailForm"><input id="emailIn" type="email" placeholder="email@kamu.com" autocomplete="email" required><button class="btn green">Kirim kode ke email</button></form></div>
+<div id="authStep2" hidden><form id="codeForm"><input id="codeIn" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kode dari email" required><button class="btn green">Masuk</button></form></div>
+<p id="authMsg" role="status"></p><button class="btn alt" id="authClose" type="button">Tutup</button></dialog>
 <script src="js/config.js"></script>
 <script src="js/data.js"></script>
 <script src="js/state.js"></script>
 <script src="js/api.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/tools.js"></script>
 <script src="js/main.js"></script>

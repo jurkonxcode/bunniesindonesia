@@ -10,13 +10,14 @@ function renderNews(){
   const cats = ["Semua", ...new Set(news.map(n => n.category).filter(Boolean))];
   $("cats").innerHTML = cats.map(c => `<button aria-pressed="${c === cat}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
   const q = query.toLowerCase();
-  const items = news.filter(n => (cat === "Semua" || n.category === cat) && (!q || (n.title + " " + (n.summary || "")).toLowerCase().includes(q)));
+  const sv = n => session && n.id ? `<button class="save" data-save="${n.id}" aria-pressed="${saved.has(n.id)}">${saved.has(n.id) ? "Tersimpan" : "Simpan"}</button>` : "";
+  const items = news.filter(n => (!onlySaved || saved.has(n.id)) && (cat === "Semua" || n.category === cat) && (!q || (n.title + " " + (n.summary || "")).toLowerCase().includes(q)));
   const found = q ? `<div class="found"><span>${items.length} hasil untuk “${esc(query)}”</span><button id="clearQ">Hapus</button></div>` : "";
   if(!items.length){ $("newsBody").innerHTML = found + `<p class="empty">Tidak ada berita yang cocok. Coba kata kunci atau kategori lain.</p>`; return; }
   const [a, ...rest] = items;
-  const card = (n, i) => `<a class="nc" href="#"><div class="thumb" style="${grad(i + 1)}"></div><div><span class="tag">${esc(n.category)}</span><h4>${esc(n.title)}</h4><span class="meta">${esc(n.source)} · ${esc(when(n))}</span></div></a>`;
+  const card = (n, i) => `<a class="nc" href="#"><div class="thumb" style="${grad(i + 1)}"></div><div><span class="tag">${esc(n.category)}</span><h4>${esc(n.title)}</h4><span class="meta">${esc(n.source)} · ${esc(when(n))}</span>${sv(n)}</div></a>`;
   $("newsBody").innerHTML = found +
-    `<article class="lead"><div class="thumb" style="${grad(0)}"></div><div><span class="tag">${esc(a.category)}</span><h3>${esc(a.title)}</h3><p>${esc(a.summary)}</p><span class="meta">${esc(a.source)} · ${esc(when(a))}</span></div></article>` +
+    `<article class="lead"><div class="thumb" style="${grad(0)}"></div><div><span class="tag">${esc(a.category)}</span><h3>${esc(a.title)}</h3><p>${esc(a.summary)}</p><span class="meta">${esc(a.source)} · ${esc(when(a))}</span>${sv(a)}</div></article>` +
     (rest.length ? `<div class="nc4">${rest.slice(0, 4).map(card).join("")}</div>` : "") +
     (rest.length > 4 ? `<ul class="rows">${rest.slice(4, 10).map(n => `<li><a href="#"><span class="tag">${esc(n.category)}</span>${esc(n.title)}</a><span class="meta">${esc(when(n))}</span></li>`).join("")}</ul>` : "");
 }
