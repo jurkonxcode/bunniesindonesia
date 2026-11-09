@@ -1,63 +1,47 @@
-/* Data contoh. Berita dan kata kunci populer diambil dari Supabase jika config.js terisi. */
+/* v13: tidak ada lagi data contoh. Isi file ini hanya konfigurasi tampilan dan data resmi.
+   Berita, pertanyaan, dan kata kunci populer datang dari Supabase. */
 const PAL = [["#17a862","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],["#0ea5e9","#5b4bdb"],["#10b981","#84cc16"],["#ef5a6f","#8b5cf6"]];
 
-const demoNews = [
-  {title:"Pusat data hijau pertama di Asia Tenggara mulai beroperasi",summary:"Fasilitas baru memakai energi surya dan pendinginan air laut untuk menekan emisi karbon.",category:"Teknologi",source:"Niflax Tekno",time:"12 menit lalu"},
-  {title:"Timnas U-23 umumkan skuad untuk laga persahabatan",summary:"Pelatih memanggil 26 pemain, termasuk tiga debutan dari kompetisi Liga 1.",category:"Bola",source:"Niflax Bola",time:"25 menit lalu"},
-  {title:"Kereta cepat tambah rute akhir pekan ke tiga kota",category:"Nasional",source:"Niflax News",time:"35 menit lalu"},
-  {title:"Harga emas Antam bergerak naik, pembeli ritel ramai",category:"Ekonomi",source:"Niflax Bisnis",time:"1 jam lalu"},
-  {title:"Drama Korea terbaru puncaki daftar tontonan pekan ini",category:"Hiburan",source:"Niflax Hiburan",time:"1 jam lalu"},
-  {title:"Resep soto ayam kuning, kuah bening dan bumbu meresap",category:"Kuliner",source:"Niflax Kuliner",time:"2 jam lalu"},
-  {title:"Motor listrik baru dibanderol di bawah Rp20 juta",category:"Otomotif",source:"Niflax Otomotif",time:"2 jam lalu"},
-  {title:"Jadwal kajian dan program Maulid di berbagai kota",category:"Religi",source:"Niflax Religi",time:"3 jam lalu"},
-  {title:"Persija dan Persib bersiap hadapi laga klasik akhir pekan",category:"Bola",source:"Niflax Bola",time:"3 jam lalu"},
-  {title:"Startup lokal luncurkan asisten AI berbahasa daerah",category:"Teknologi",source:"Niflax Tekno",time:"4 jam lalu"},
-  {title:"Pemerintah perluas internet desa ke 2.000 titik baru",category:"Nasional",source:"Niflax News",time:"5 jam lalu"},
-  {title:"UMKM kuliner naik kelas lewat ekspor makanan beku",category:"Ekonomi",source:"Niflax Bisnis",time:"6 jam lalu"}
-];
-const demoTrend = ["Jadwal Liga 1","Harga emas hari ini","Cek resi","Promo 11.11","Cuaca besok","Jadwal sholat","Drama Korea terbaru","Pajak kendaraan"];
-const ticker = [["IHSG","7.412,5","+0,42%",1],["USD/IDR","15.980","-0,18%",0],["Emas/gr","1.385.000","+0,30%",1],["BTC","$68.240","+1,10%",1],["Minyak","$81,2","-0,65%",0]];
-const videos = [
-  {title:"Keliling Nusantara: 7 pantai tersembunyi di timur Indonesia",dur:"12:40"},
-  {title:"Resep nasi goreng kampung ala warung 24 jam",dur:"08:15"},
-  {title:"Review ponsel terbaru di bawah Rp3 juta",dur:"15:02"},
-  {title:"Cuplikan gol terbaik pekan ini",dur:"05:48"}
-];
-const products = [
-  {name:"Earbuds nirkabel bass kuat, baterai 30 jam",price:149000,old:229000,off:35},
-  {name:"Kemeja linen pria lengan panjang",price:119000,old:159000,off:25},
-  {name:"Botol minum stainless 750 ml",price:79000,old:99000,off:20},
-  {name:"Tas ransel laptop anti air 15 inci",price:189000,old:289000,off:34}
-];
-const communities = [
-  {name:"Pecinta Kopi Nusantara",members:"128 rb"},
-  {name:"Komunitas Programmer ID",members:"96 rb"},
-  {name:"Traveler Indonesia",members:"214 rb"},
-  {name:"Investor Pemula",members:"87 rb"},
-  {name:"Otomotif Klasik",members:"52 rb"}
-];
-const comics = [{title:"Langit Sembilan",genre:"Fantasi"},{title:"Kota Tanpa Malam",genre:"Fiksi ilmiah"},{title:"Dapur Mak Ijah",genre:"Komedi"},{title:"Pendekar Senja",genre:"Aksi"},{title:"Surat untuk Rani",genre:"Romansa"},{title:"Rumah di Ujung Gang",genre:"Misteri"}];
-const scores = [["Persib","2 – 1","Persija"],["Bali United","0 – 0","Arema"],["PSM","3 – 2","Persebaya"]];
-const shortcuts = [
-  ["Berita","berita","#berita","","g1"],
-  ["Bola","bola","#berita","Bola","g1"],
-  ["Hiburan","hiburan","#berita","Hiburan","g1"],
-  ["Video","video","#video","","g3"],
-  ["Belanja","belanja","#belanja","","g3"],
-  ["Kuliner","kuliner","#berita","Kuliner","g5"],
-  ["Religi","religi","#berita","Religi","g5"],
-  ["Otomotif","otomotif","#berita","Otomotif","g5"],
-  ["Cek resi","resi","#tool-resi","","g2"],
-  ["Kurs & emas","kurs","#tool-kurs","","g2"]
-];
-/* Ikon dan warna gambar sampul per kategori berita: [id ikon di assets/icons/niflax-icons.svg, indeks PAL] */
+/* Ikon dan warna sampul per kategori berita: [id ikon di assets/icons/niflax-icons.svg, indeks PAL] */
 const CAT_ART = {Nasional:["nasional",0],Teknologi:["teknologi",3],Bola:["bola",4],Olahraga:["bola",4],Ekonomi:["kurs",0],Hiburan:["hiburan",1],Kuliner:["kuliner",5],Otomotif:["otomotif",3],Religi:["religi",4]};
-const quick = ["Cek resi","Jadwal sholat","Kurs dolar","Harga emas","Libur nasional"];
-const prayer = [["Subuh","04:05"],["Zuhur","11:51"],["Asar","15:12"],["Magrib","17:55"],["Isya","19:05"]];
-const rates = [["USD","15.980","-0,18%",0],["SGD","11.850","+0,10%",1],["EUR","17.420","+0,22%",1],["Emas Antam/gr","1.385.000","+0,30%",1]];
-const couriers = ["JNE","J&T","SiCepat","AnterAja","Pos Indonesia","Shopee Express"];
-const holidays = [["Hari Raya Natal","2026-12-25"],["Tahun Baru Masehi","2027-01-01"]];
-const toolRoutes = [[/resi|paket|kurir/i,"tool-resi"],[/sholat|salat|shalat|adzan|azan/i,"tool-sholat"],[/kurs|dolar|dollar|emas|antam/i,"tool-kurs"],[/libur|cuti/i,"tool-libur"]];
 
-/* Tab beranda: [kunci, label]. Bola/Hiburan/Kuliner/Religi/Otomotif menyaring berita menurut kategori. */
-const TABS = [["Semua","Semua"],["Berita","Berita"],["Bola","Bola"],["Hiburan","Hiburan"],["Video","Video"],["Belanja","Belanja"],["Kuliner","Kuliner"],["Religi","Religi"],["Otomotif","Otomotif"],["Tanya","Tanya Jawab"]];
+/* Chip pencarian cepat: hanya yang punya alat nyata */
+const quick = ["Jadwal sholat","Libur nasional"];
+const toolRoutes = [[/sholat|salat|shalat|adzan|azan|subuh|magrib|maghrib/i,"tool-sholat"],[/libur|cuti|tanggal merah/i,"tool-libur"]];
+
+/* Kota untuk jadwal sholat: [nama, lintang, bujur, selisih jam dari UTC]. WIB = 7, WITA = 8, WIT = 9. */
+const CITIES = [
+  ["Banda Aceh",5.5483,95.3238,7],["Medan",3.5952,98.6722,7],["Padang",-0.9471,100.4172,7],["Pekanbaru",0.5071,101.4478,7],
+  ["Batam",1.0456,104.0305,7],["Palembang",-2.9761,104.7754,7],["Bandar Lampung",-5.45,105.2667,7],["Jakarta",-6.2088,106.8456,7],
+  ["Bandung",-6.9175,107.6191,7],["Semarang",-6.9667,110.4167,7],["Yogyakarta",-7.7956,110.3695,7],["Surabaya",-7.2575,112.7521,7],
+  ["Malang",-7.9839,112.6214,7],["Pontianak",-0.0263,109.3425,7],["Palangkaraya",-2.2161,113.9135,7],
+  ["Banjarmasin",-3.3194,114.5908,8],["Balikpapan",-1.2379,116.8529,8],["Samarinda",-0.5022,117.1536,8],["Denpasar",-8.6705,115.2126,8],
+  ["Mataram",-8.5833,116.1167,8],["Kupang",-10.1772,123.607,8],["Makassar",-5.1477,119.4327,8],["Palu",-0.8917,119.8707,8],
+  ["Kendari",-3.9985,122.5129,8],["Manado",1.4748,124.8421,8],["Ambon",-3.6954,128.1814,9],["Ternate",0.7833,127.3667,9],
+  ["Sorong",-0.8762,131.2558,9],["Jayapura",-2.5337,140.7181,9]
+];
+
+/* Libur nasional dan cuti bersama. Sumber: SKB 3 Menteri (Agama, Ketenagakerjaan, PANRB).
+   2026: SKB 2025 (hanya sisa tahun ini). 2027: SKB 15 September 2026, https://www.setneg.go.id/baca/index/inilah_skb_3_menteri_libur_nasional_dan_cuti_bersama_2027
+   t: "libur" = libur nasional, "cuti" = cuti bersama. Idulfitri dan Iduladha ditetapkan Menteri Agama dan bisa bergeser.
+   Perbarui file ini tiap September, saat SKB tahun berikutnya terbit. Tanggal yang lewat boleh dihapus. */
+const holidays = [
+  ["2026-12-24","Cuti bersama Natal","cuti"],["2026-12-25","Hari Raya Natal","libur"],
+  ["2027-01-01","Tahun Baru 2027 Masehi","libur"],["2027-01-05","Isra Mikraj Nabi Muhammad SAW","libur"],
+  ["2027-02-05","Cuti bersama Tahun Baru Imlek","cuti"],["2027-02-06","Tahun Baru Imlek 2578","libur"],
+  ["2027-03-08","Hari Suci Nyepi (Tahun Baru Saka 1949)","libur"],["2027-03-09","Cuti bersama Idulfitri","cuti"],
+  ["2027-03-10","Idulfitri 1448 H","libur"],["2027-03-11","Idulfitri 1448 H","libur"],
+  ["2027-03-12","Cuti bersama Idulfitri","cuti"],["2027-03-15","Cuti bersama Idulfitri","cuti"],
+  ["2027-03-25","Cuti bersama Wafat Yesus Kristus","cuti"],["2027-03-26","Wafat Yesus Kristus","libur"],
+  ["2027-03-28","Kebangkitan Yesus Kristus (Paskah)","libur"],["2027-05-01","Hari Buruh Internasional","libur"],
+  ["2027-05-06","Kenaikan Yesus Kristus","libur"],["2027-05-17","Iduladha 1448 H","libur"],
+  ["2027-05-18","Cuti bersama Iduladha","cuti"],["2027-05-19","Cuti bersama Waisak","cuti"],
+  ["2027-05-20","Hari Raya Waisak 2571 BE","libur"],["2027-06-01","Hari Lahir Pancasila","libur"],
+  ["2027-06-06","1 Muharam, Tahun Baru Islam 1449 H","libur"],["2027-08-15","Maulid Nabi Muhammad SAW","libur"],
+  ["2027-08-17","Proklamasi Kemerdekaan RI","libur"],["2027-12-24","Cuti bersama Natal","cuti"],
+  ["2027-12-25","Hari Raya Natal","libur"],["2027-12-26","Isra Mikraj Nabi Muhammad SAW","libur"]
+];
+const HOLIDAY_SRC = "https://www.setneg.go.id/baca/index/inilah_skb_3_menteri_libur_nasional_dan_cuti_bersama_2027";
+
+/* Pintasan: [nama, ikon, tujuan, kategori berita, kelompok warna] */
+const shortcuts = [];

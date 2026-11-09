@@ -12,14 +12,14 @@
 <meta property="og:type" content="website"><meta property="og:image" content="https://jurkonxcode.github.io/niflax/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=12">
-<link rel="stylesheet" href="css/base.css?v=12">
-<link rel="stylesheet" href="css/header.css?v=12">
-<link rel="stylesheet" href="css/content.css?v=12">
-<link rel="stylesheet" href="css/identity.css?v=12">
-<link rel="stylesheet" href="css/auth.css?v=12">
-<link rel="stylesheet" href="css/responsive.css?v=12">
-<link rel="stylesheet" href="css/home.css?v=12">
+<link rel="stylesheet" href="css/tokens.css?v=13">
+<link rel="stylesheet" href="css/base.css?v=13">
+<link rel="stylesheet" href="css/header.css?v=13">
+<link rel="stylesheet" href="css/content.css?v=13">
+<link rel="stylesheet" href="css/identity.css?v=13">
+<link rel="stylesheet" href="css/auth.css?v=13">
+<link rel="stylesheet" href="css/responsive.css?v=13">
+<link rel="stylesheet" href="css/home.css?v=13">
 </head>
 <body>
 <div class="ticker"><div class="wrap" id="ticker"></div></div>
@@ -40,12 +40,11 @@
       <button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
     </div></form>
     <div class="chips" id="chips" aria-label="Pencarian cepat"></div>
-    <div class="trend"><b>Tren</b><span id="trendText"></span></div>
+    <div class="trend" id="trendRow" hidden><b>Tren</b><span id="trendText"></span></div>
     <p class="sub" id="greet"></p>
   </section>
 
   <nav class="ftabs" id="ftabs" aria-label="Jelajah"></nav>
-  <div class="promo" id="promo" hidden></div>
   <div class="mini" id="mini"></div>
   <section class="card login" id="acct" hidden></section>
   <p class="status" id="status"></p>
@@ -60,7 +59,7 @@
 <footer><div class="wrap">
   <div class="fcols">
     <div><a class="logo" href="./">niflax</a><p>Portal pencarian dan konten untuk pengguna Indonesia.</p></div>
-    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="#alat">Alat harian</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
+    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="#alat">Alat harian</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
     <div><h5>Komunitas</h5><ul><li><a href="tanya">Tanya Jawab</a></li></ul></div>
     <div><h5>Niflax</h5><ul><li><a href="tentang">Tentang</a></li><li><a href="tentang#kontak">Kontak</a></li><li><a href="privasi">Kebijakan privasi</a></li><li><a href="syarat">Syarat layanan</a></li></ul></div>
   </div>
@@ -74,13 +73,14 @@
 <div id="authStep2" hidden><form id="codeForm"><input id="codeIn" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kode dari email" required><button class="btn green">Masuk</button></form></div>
 <p class="legal">Dengan masuk, kamu setuju dengan <a href="syarat">Syarat Layanan</a> dan <a href="privasi">Kebijakan Privasi</a>.</p>
 <p id="authMsg" role="status"></p><button class="btn alt" id="authClose" type="button">Tutup</button></dialog>
-<script src="js/config.js?v=12"></script>
-<script src="js/data.js?v=12"></script>
-<script src="js/state.js?v=12"></script>
-<script src="js/api.js?v=12"></script>
-<script src="js/auth.js?v=12"></script>
-<script src="js/ui.js?v=12"></script>
-<script src="js/tools.js?v=12"></script>
-<script src="js/main.js?v=12"></script>
+<script src="js/config.js?v=13"></script>
+<script src="js/data.js?v=13"></script>
+<script src="js/state.js?v=13"></script>
+<script src="js/api.js?v=13"></script>
+<script src="js/auth.js?v=13"></script>
+<script src="js/ui.js?v=13"></script>
+<script src="js/sholat.js?v=13"></script>
+<script src="js/tools.js?v=13"></script>
+<script src="js/main.js?v=13"></script>
 </body>
 </html>

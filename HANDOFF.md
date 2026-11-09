@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026.
+Terakhir diperbarui: 9 November 2026 (v13).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -44,12 +44,13 @@ css/
   responsive.css        breakpoint 1000px dan 640px
 js/
   config.js             SUPABASE_URL dan SUPABASE_ANON_KEY (diisi pemilik)
-  data.js               data contoh + daftar shortcut + rute alat
+  data.js               (v13) daftar kota, libur nasional 2026-2027, rute alat. TIDAK ada data contoh lagi
   state.js              state global + helper $ dan esc()
   api.js                sb() dan load() untuk membaca Supabase
   auth.js               login (Google + kode email), sesi, Simpan berita
   ui.js                 fungsi render (berita, ticker, video, produk, dst.)
-  tools.js              alat harian, jam, sapaan, promo 11.11, goTool()
+  sholat.js             (v13) hitung jadwal sholat di browser, metode Kemenag
+  tools.js              alat harian (sholat, libur), jam, sapaan, goTool()
   main.js               event listener dan inisialisasi
 assets/                 gambar, ikon, font lokal (masih kosong)
 supabase/
@@ -66,7 +67,7 @@ HANDOFF.md              dokumen ini
 ```
 
 **Aturan penting:**
-1. Urutan tag `<script>` di `index.html` **harus dipertahankan**: config, data, state, api, auth, ui, tools, main. Semua file berbagi variabel global (bukan ES module).
+1. Urutan tag `<script>` di `index.html` **harus dipertahankan**: config, data, state, api, auth, ui, sholat, tools, main (sholat ditambah di v13). Semua file berbagi variabel global (bukan ES module).
 2. Urutan `<link>` CSS juga penting: `identity.css` dimuat sebelum `responsive.css` dan setelah `content.css` karena menimpa `.thumb::before`.
 3. Teks dari database **wajib** lewat `esc()` sebelum masuk `innerHTML` (anti-XSS).
 4. Jangan pernah menaruh `service_role` key di repo atau frontend.
@@ -104,20 +105,20 @@ Pencarian teks memakai konfigurasi `simple` plus `ILIKE` dan trigram. Belum ada 
 - `news` dan `trending`: dibaca saat halaman dibuka (`load()` di `api.js`). Jika gagal, tampil data contoh dan pesan status "Gagal memuat data langsung".
 - v8: `log_search`, `search_all`, `search_news`, `suggest_keywords` dipakai oleh `search.html`. Login dan Simpan terhubung sejak v4. Komunitas belum.
 
-## 5. Apa yang nyata dan apa yang masih contoh
+## 5. Apa yang nyata (status v13)
+
+Prinsip v13: **tidak ada data palsu**. Bagian yang belum punya sumber nyata disembunyikan, bukan diberi label "contoh".
 
 | Bagian | Status |
 |---|---|
 | Jam WIB/WITA/WIT, sapaan, tanggal | Nyata (dihitung di browser) |
-| Hitung mundur libur nasional | Nyata, tapi daftar libur di `data.js` baru 2 entri (Natal 2026, Tahun Baru 2027). Perlu dilengkapi dan diperbarui tiap tahun |
-| Hitung mundur 11.11 | Nyata (otomatis tampil 30 hari sebelumnya) |
-| Berita dan kata kunci populer | Dari Supabase jika terhubung, selain itu data contoh |
-| Jadwal sholat, kurs, harga emas | **Data contoh** (diberi label) |
-| Cek resi | Formulir ada, pelacakan **belum aktif** (butuh API kurir) |
-| Video, produk, komunitas, komik, skor, ticker pasar, cuaca | **Data contoh** |
-| Masuk/Daftar (v4) | Google + kode email, sesi di localStorage. **Butuh pengaturan di dashboard Supabase (lihat v4 di bawah)** |
-| Simpan berita (v4) | Tombol Simpan di kartu berita yang punya `id`, tersimpan di `saved_news` |
-| Kotak pencarian | Menyaring berita yang sudah dimuat di halaman. Kata alat harian (resi, sholat, kurs, emas, libur) diarahkan ke kartu alatnya |
+| Jadwal sholat | Nyata. Dihitung di perangkat (`js/sholat.js`), metode Kemenag, 29 kota + "Lokasiku". Diuji silang dengan rumus independen (selisih maks 1 menit). Bisa beda 1-2 menit dari jadwal resmi daerah (sudah dicantumkan di kartu) |
+| Libur nasional | Nyata, dari SKB 3 Menteri. `data.js` berisi sisa 2026 dan seluruh 2027. **Perbarui tiap September** saat SKB tahun berikutnya terbit |
+| Tanya Jawab | Nyata (Supabase). 20 pertanyaan awal atas nama "Tim Niflax" lewat `supabase/v13-bersih-dan-seed.sql` |
+| Berita | Dari tabel `news` di Supabase. **Masih kosong sampai impor berizin dibuat.** Beranda menampilkan catatan jujur dan menyembunyikan tab Berita |
+| Kata kunci populer | Dari view `trending` (pencarian sungguhan). Baris disembunyikan bila kosong |
+| Pencarian | `search.html` mencari berita dan Tanya Jawab. Tanpa data cadangan palsu: bila gagal, tampil pesan error |
+| Dihapus dari tampilan di v13 | ticker pasar (IHSG, kurs, BTC), cuaca, skor, kurs dan emas, cek resi, video, belanja, komunitas, komik, banner 11.11. Kode yang tersisa di CSS aman dihapus |
 
 ## 6. Cara deploy dan bekerja
 
@@ -166,6 +167,7 @@ Jika `git push` ditolak ("fetch first"), jalankan `git pull --rebase` dulu. **Ja
 
 - **Hak cipta:** jangan menyalin artikel penuh. Tampilkan judul, cuplikan singkat, dan tautan ke sumber. Jangan memakai logo, nama, atau desain persis Naver.
 - **Keamanan:** semua tabel memakai RLS. Setiap tabel baru **wajib** `enable row level security` dan policy eksplisit. Tabel `searches` sengaja tanpa policy.
+- **Sumber berita:** syarat penggunaan konten tiap media harus dicek sebelum impor otomatis. Tempo, misalnya, menyatakan penggunaan konten oleh teknologi otomatis/crawler memerlukan izin tertulis dan menyediakan jalur lisensi resmi. Jangan impor media mana pun tanpa izin yang jelas.
 - **Konten pengguna:** perlu moderasi sejak hari pertama. Tanpa itu, spam dan konten melanggar akan cepat muncul.
 - **Data pribadi:** begitu ada pendaftaran, berlaku kewajiban perlindungan data pribadi di Indonesia (UU PDP). Cantumkan kebijakan privasi dan sediakan cara menghapus akun.
 - **Kunci rahasia:** `service_role` hanya untuk Edge Function dan tidak boleh masuk repo.
@@ -261,3 +263,23 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 - Daftar peringkat kata kunci (`#rank`), kolom samping, dan skor dihapus dari beranda. Tren tetap berputar di bawah kotak cari.
 - **Cache:** semua tag CSS/JS di halaman HTML kini memakai `?v=12`. **Naikkan angkanya di semua file HTML tiap rilis** supaya HP tidak menyajikan CSS/JS lama (penyebab tampilan setengah baru setengah lama di v11). Perintah: `sed -i 's/?v=12/?v=13/g' *.html`.
 - Urutan `<script>` tidak berubah. `css/home.css` harus tetap setelah `responsive.css`.
+
+
+## 20. v13: data nyata, tanpa data contoh
+
+**Dilakukan:**
+- `data.js`, `state.js`, `api.js`, `ui.js`, `main.js`, `tools.js` ditulis ulang tanpa data contoh. File baru `js/sholat.js`.
+- **Jadwal sholat** dihitung lokal (rumus Meeus). Kota dan pilihan "Lokasiku" disimpan di `localStorage` kunci `niflax.kota`, tidak dikirim ke server. Zona waktu memakai selisih jam kota, bukan zona perangkat.
+- **Libur nasional** dari SKB 3 Menteri (sumber: setneg.go.id). Tanggal Idulfitri/Iduladha ditetapkan Menteri Agama dan bisa bergeser; kartu mencantumkan itu.
+- **Beranda:** strip mini (sholat berikutnya + libur berikutnya, keduanya nyata), tab dinamis (Berita dan kategori baru muncul bila ada berita), baris tren tersembunyi bila kosong, bar atas hanya berisi jam.
+- `layanan.js`: semua layanan tanpa fitur nyata diberi label `segera`, tanpa tautan.
+- `search.js`: tab Video/Belanja/Komunitas dihapus, ditambah tab Tanya Jawab (REST ilike pada `questions`), data cadangan palsu dihapus.
+- `tentang.html` dan `syarat.html` diperbarui agar jujur soal apa yang sudah ada.
+- `supabase-schema.sql`: bagian "DATA AWAL" (berita, komunitas, komik palsu) dihapus.
+
+**Wajib dilakukan pemilik (sekali):**
+1. Masuk ke situs dengan emailmu sekali (agar akun ada di `auth.users`).
+2. Buka `supabase/v13-bersih-dan-seed.sql`, ganti `GANTI_DENGAN_EMAILMU` dengan emailmu, jalankan di SQL Editor. Ini menghapus berita/komunitas/komik palsu dari database lama dan mengisi 20 pertanyaan awal.
+3. Naikkan cache: sudah `?v=13` di semua HTML.
+
+**Berikutnya:** (a) berita berizin: tulis ke media pilihan untuk kemitraan, lalu baru Edge Function impor; (b) kurs resmi (Bank Indonesia), cuaca (BMKG), setelah dicek syarat pemakaiannya; (c) kirim email kontak asli dan fitur hapus akun sebelum pendaftaran dibuka umum.

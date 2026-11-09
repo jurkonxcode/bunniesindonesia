@@ -307,20 +307,6 @@ create policy "own saved" on public.saved_news for all to authenticated
 grant select on public.trending to anon, authenticated;
 
 -- ---------------------------------------------------------------------
--- 6. DATA AWAL (opsional, hapus bagian ini jika tidak perlu)
+-- 6. DATA AWAL: dihapus di v13. Niflax tidak lagi memasukkan data contoh.
+--    Jika database lamamu sudah berisi data contoh, jalankan supabase/v13-bersih-dan-seed.sql.
 -- ---------------------------------------------------------------------
-insert into public.news (title, summary, category, source, published_at) values
- ('Pusat data hijau pertama di Asia Tenggara mulai beroperasi','Fasilitas baru memakai energi surya dan pendinginan air laut untuk menekan emisi karbon.','Teknologi','Niflax Tekno', now() - interval '12 minutes'),
- ('Kereta cepat tambah rute akhir pekan ke tiga kota',null,'Nasional','Niflax News', now() - interval '35 minutes'),
- ('Rupiah menguat tipis, investor menanti data inflasi',null,'Ekonomi','Niflax Bisnis', now() - interval '1 hour'),
- ('Timnas U-23 umumkan skuad untuk laga persahabatan',null,'Olahraga','Niflax Sport', now() - interval '2 hours')
-on conflict do nothing;
-
-insert into public.communities (name, slug, description, member_count) values
- ('Pecinta Kopi Nusantara','pecinta-kopi','Diskusi biji kopi, seduh, dan kedai lokal',128000),
- ('Komunitas Programmer ID','programmer-id','Belajar dan berbagi soal pemrograman',96000),
- ('Traveler Indonesia','traveler-id','Tips dan cerita perjalanan di dalam negeri',214000)
-on conflict (slug) do nothing;
-
-insert into public.comics (title, genre, weekly_rank) values
- ('Langit Sembilan','Fantasi',1),('Kota Tanpa Malam','Fiksi ilmiah',2),('Dapur Mak Ijah','Komedi',3);

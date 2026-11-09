@@ -1,7 +1,14 @@
 $("ftabs").addEventListener("click", e => {
-  const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderTabs(); renderFeed(); return; }
-  if(e.target.closest("#qkResi")){ e.preventDefault(); goTool("resi"); }
+  const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderFeed(); return; }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
 });
+$("mini").addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); } });
+$("tools").addEventListener("change", e => {
+  if(e.target.id !== "kota") return;
+  const i = +e.target.value; if(!(i >= 0 && i < CITIES.length)) return;
+  loc = cityObj(i); saveLoc(); $("kotaMsg").textContent = ""; renderKota(); paintSholat();
+});
+$("tools").addEventListener("click", e => { if(e.target.closest("#kotaGps")) useMyLocation(); });
 $("searchForm").addEventListener("submit", e => {
   e.preventDefault();
   const v = $("q").value.trim(); if(!v) return;
@@ -14,14 +21,15 @@ document.addEventListener("click", e => {
   e.preventDefault();
   if(t.dataset.save) return toggleSave(+t.dataset.save);
   ({loginBtn:openAuth, loginTop:openAuth, signup:openAuth, logoutTop:logout, logoutBtn:logout, googleBtn:googleLogin,
-    authClose:() => $("authDlg").close(), showSaved:() => { onlySaved = !onlySaved; tab = "Semua"; renderTabs(); renderAuth(); renderFeed(); }})[t.id]();
+    authClose:() => $("authDlg").close(), showSaved:() => { onlySaved = !onlySaved; tab = "Semua"; renderAuth(); renderFeed(); }})[t.id]();
 });
 $("emailForm").addEventListener("submit", e => { e.preventDefault(); sendCode($("emailIn").value.trim()); });
 $("codeForm").addEventListener("submit", e => { e.preventDefault(); verifyCode($("codeIn").value.trim()); });
 $("chips").addEventListener("click", e => { const b = e.target.closest("button"); if(b){ $("q").value = b.textContent; $("searchForm").requestSubmit(); } });
 
-renderStatic(); renderTools(); renderPromo(); greeting(); tickClocks(); setInterval(tickClocks, 20000); renderTabs(); renderFeed(); rotate();
+renderStatic(); renderTools(); greeting(); tickClocks(); renderFeed();
+setInterval(() => { tickClocks(); paintSholat(); paintLibur(); }, 20000);      // jam, hitung mundur sholat, dan tanggal libur tetap segar
 setInterval(rotate, 3000);
 initAuth();
-load().then(() => { renderFeed(); });
+load().then(() => { renderFeed(); rotate(); });
 loadQuestions().then(() => renderFeed());

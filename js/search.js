@@ -1,11 +1,11 @@
 /* Halaman hasil pencarian: search_all / search_news + autocomplete + log_search. */
-const TABS = [["", "Semua", "all"], ["berita", "Berita", "news"], ["video", "Video", "video"], ["belanja", "Belanja", "all"], ["komunitas", "Komunitas", "community"]];
-const KIND = {news:"Berita", video:"Video", product:"Belanja", community:"Komunitas"};
-const KMAP = {"":null, berita:"news", video:"video", belanja:"product", komunitas:"community"};
+const TABS = [["", "Semua", "all"], ["berita", "Berita", "news"], ["tanya", "Tanya Jawab", "all"]];
+const KIND = {news:"Berita", video:"Video", product:"Belanja", community:"Komunitas", question:"Tanya Jawab"};
+const KMAP = {"":null, berita:"news", tanya:"question"};
 const params = new URLSearchParams(location.search);
 let Q = (params.get("q") || "").trim().slice(0, 100);
 let T = TABS.some(t => t[0] === params.get("t")) ? params.get("t") : "";
-let ALL = [], offset = 0, demo = false;
+let ALL = [], offset = 0;
 const PAGE = 20;
 
 const safeUrl = u => { try{ const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : ""; }catch(e){ return ""; } };
@@ -25,22 +25,24 @@ async function rpc(fn, body){
   if(!r.ok) throw new Error(r.status);
   return r.json();
 }
-function demoSearch(){                                // cadangan bila Supabase tidak terjangkau
-  const q = Q.toLowerCase(), has = s => String(s || "").toLowerCase().includes(q);
-  return [
-    ...demoNews.filter(n => has(n.title) || has(n.summary)).map(n => ({kind:"news", title:n.title, snippet:n.summary, url:"", image_url:"", source:n.source, when:n.time})),
-    ...videos.filter(v => has(v.title)).map(v => ({kind:"video", title:v.title, snippet:v.dur, url:"", image_url:""})),
-    ...products.filter(p => has(p.name)).map(p => ({kind:"product", title:p.name, snippet:rp(p.price), url:"", image_url:""}))
-  ];
+/* Pertanyaan Tanya Jawab yang cocok. Gagal diam-diam bila tabel belum ada (v10-tanya-jawab.sql belum dijalankan). */
+async function searchQuestions(q){
+  try{
+    const s = q.replace(/[,()*\\%_"]/g, " ").trim().slice(0, 60); if(s.length < 2) return [];
+    const e = encodeURIComponent(s);
+    const r = await fetch(SUPABASE_URL + "/rest/v1/questions?select=id,title,body,category,created_at&or=(title.ilike.*" + e + "*,body.ilike.*" + e + "*)&order=created_at.desc&limit=20", {headers:{apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY}});
+    if(!r.ok) return [];
+    return (await r.json()).map(x => ({kind:"question", title:x.title, snippet:x.body || "", href:"tanya?id=" + (+x.id), source:x.category, published_at:x.created_at}));
+  }catch(e){ return []; }
 }
-const rp = n => "Rp" + Number(n).toLocaleString("id-ID");
 
-const ART = {news:"berita", video:"video", product:"belanja", community:"komunitas"};
+const ART = {news:"berita", video:"video", product:"belanja", community:"komunitas", question:"tanya"};
 function item(r, i){
   const url = safeUrl(r.url), img = safeUrl(r.image_url);
   const bg = img ? `background-image:url('${esc(img)}'),linear-gradient(135deg,var(--a),var(--b));${grad(i)}` : grad(i);
   const meta = [r.source || host(url), r.published_at ? ago(r.published_at) : r.when].filter(Boolean).map(esc).join(" · ");
   const body = `<div class="thumb" style="${bg}">${img ? "" : `<svg class="art" aria-hidden="true"><use href="assets/icons/niflax-icons.svg#n-${ART[r.kind] || "berita"}"/></svg>`}</div><div class="tx"><span class="kind">${esc(KIND[r.kind] || "")}</span><h3>${mark(r.title)}</h3>${r.snippet ? `<p>${mark(r.snippet)}</p>` : ""}<span class="meta">${meta}</span></div>`;
+  if(r.href) return `<a class="r" href="${esc(r.href)}">${body}</a>`;          // tautan internal (Tanya Jawab)
   return url ? `<a class="r" href="${esc(url)}" target="_blank" rel="noopener noreferrer nofollow">${body}</a>` : `<div class="r">${body}</div>`;
 }
 function empty(title, text, retry){
@@ -52,22 +54,22 @@ function view(){
     const n = KMAP[t[0]] ? ALL.filter(r => r.kind === KMAP[t[0]]).length : ALL.length;
     return `<button data-t="${t[0]}" aria-pressed="${t[0] === T}">${t[1]}${ALL.length ? " " + n : ""}</button>`;
   }).join("");
-  $("sinfo").textContent = (demo ? "Data contoh (server tidak terjangkau). " : "") + (list.length ? `${list.length} hasil untuk “${Q}”` : "");
+  $("sinfo").textContent = (list.length ? `${list.length} hasil untuk “${Q}”` : "");
   $("sres").innerHTML = list.length ? list.map(item).join("") : empty("Belum ada yang cocok", "Coba kata kunci lain, lebih singkat, atau periksa ejaannya.");
-  $("more").hidden = !(T === "berita" && list.length && list.length % PAGE === 0 && !demo);
+  $("more").hidden = !(T === "berita" && list.length && list.length % PAGE === 0);
 }
 async function run(){
   if(Q.length < 2){ $("sres").innerHTML = empty("Mau cari apa?", "Ketik minimal 2 huruf di kotak pencarian."); $("stabs").innerHTML = ""; return; }
   document.title = Q + " – Niflax";
-  $("sres").innerHTML = `<p class="sinfo">Mencari…</p>`; offset = 0; demo = false;
+  $("sres").innerHTML = `<p class="sinfo">Mencari…</p>`; offset = 0;
   try{
     if(!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("no config");
-    ALL = T === "berita" ? (await rpc("search_news", {p_query:Q, p_limit:PAGE, p_offset:0})).map(r => ({...r, kind:"news"})) : await rpc("search_all", {p_query:Q, p_limit:50});
-    if(T === "berita") offset = ALL.length;
+    if(T === "berita"){ ALL = (await rpc("search_news", {p_query:Q, p_limit:PAGE, p_offset:0})).map(r => ({...r, kind:"news"})); offset = ALL.length; }
+    else if(T === "tanya") ALL = await searchQuestions(Q);
+    else{ const [a, q] = await Promise.all([rpc("search_all", {p_query:Q, p_limit:50}), searchQuestions(Q)]); ALL = a.concat(q); }
     rpc("log_search", {p_query:Q, p_scope:(TABS.find(t => t[0] === T) || TABS[0])[2]}).catch(() => {});
   }catch(e){
-    if(SUPABASE_URL && SUPABASE_ANON_KEY){ $("stabs").innerHTML = ""; $("sinfo").textContent = ""; $("sres").innerHTML = empty("Gagal memuat hasil", "Periksa koneksi internetmu lalu coba lagi.", true); return; }
-    ALL = demoSearch(); demo = true;
+    $("stabs").innerHTML = ""; $("sinfo").textContent = ""; $("sres").innerHTML = empty("Gagal memuat hasil", "Periksa koneksi internetmu lalu coba lagi.", true); return;
   }
   view();
 }

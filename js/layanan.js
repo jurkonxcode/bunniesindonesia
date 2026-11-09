@@ -2,11 +2,11 @@
    Tiap item: [id ikon, nama, tujuan, status]. Tanpa tujuan = belum tersedia (ditandai "segera"). */
 const ICONS = "assets/icons/niflax-icons.svg", PIN_KEY = "niflax.pins", MAX = 8;
 const GROUPS = [
-  {c:"g1", name:"Berita dan info", items:[["berita","Berita","./#berita"],["bola","Bola","search?q=bola&t=berita"],["hiburan","Hiburan","search?q=hiburan&t=berita"],["cuaca","Cuaca","./","contoh"]]},
-  {c:"g2", name:"Alat harian", items:[["sholat","Jadwal sholat","./#tool-sholat","contoh"],["kurs","Kurs dan emas","./#tool-kurs","contoh"],["resi","Cek resi","./#tool-resi"],["libur","Libur nasional","./#tool-libur"]]},
-  {c:"g3", name:"Video dan belanja", items:[["video","Video","./#video","contoh"],["belanja","Belanja","./#belanja","contoh"],["promo","Promo 11.11","./#belanja"],["komik","Komik","./#komik","contoh"]]},
-  {c:"g4", name:"Komunitas dan konten", items:[["komunitas","Komunitas","./#komunitas","contoh"],["tanya","Tanya Jawab","tanya"],["blog","Blog","","segera"],["kreator","Pusat kreator","","segera"]]},
-  {c:"g5", name:"Gaya hidup dan perjalanan", items:[["kuliner","Kuliner","search?q=kuliner&t=berita"],["otomotif","Otomotif","search?q=otomotif&t=berita"],["religi","Religi","search?q=religi&t=berita"],["peta","Peta","","segera"],["tiket","Tiket","","segera"]]},
+  {c:"g2", name:"Alat harian", items:[["sholat","Jadwal sholat","./#tool-sholat"],["libur","Libur nasional","./#tool-libur"],["kurs","Kurs dan emas","","segera"],["resi","Cek resi","","segera"]]},
+  {c:"g4", name:"Komunitas dan konten", items:[["tanya","Tanya Jawab","tanya"],["komunitas","Komunitas","","segera"],["blog","Blog","","segera"],["kreator","Pusat kreator","","segera"]]},
+  {c:"g1", name:"Berita dan info", items:[["berita","Berita","","segera"],["bola","Bola","","segera"],["hiburan","Hiburan","","segera"],["cuaca","Cuaca","","segera"]]},
+  {c:"g3", name:"Video dan belanja", items:[["video","Video","","segera"],["belanja","Belanja","","segera"],["komik","Komik","","segera"]]},
+  {c:"g5", name:"Gaya hidup dan perjalanan", items:[["kuliner","Kuliner","","segera"],["otomotif","Otomotif","","segera"],["religi","Religi","","segera"],["peta","Peta","","segera"],["tiket","Tiket","","segera"]]},
   {c:"g6", name:"Akun dan Niflax", items:[["tersimpan","Berita tersimpan","./#acct"],["tentang","Tentang","tentang"],["kontak","Kontak","tentang#kontak"],["privasi","Kebijakan privasi","privasi"],["syarat","Syarat layanan","syarat"],["brand","Panduan merek","brand"]]}
 ];
 const $ = id => document.getElementById(id);
