@@ -350,3 +350,9 @@ Berkas baru: `tools/impor-berita.mjs`, `tools/feeds.json`, `.github/workflows/im
 
 - Kartu berita di beranda kini berlabel **"Sumber luar ↗"** (kelas `.ext`), kartu Tanya Jawab berlabel **"Dari Niflax"** (`.ext.in`). Di atas umpan muncul catatan (`EXTNOTE` di `js/ui.js`) bahwa kartu bertanda Sumber luar dikutip lewat RSS dari media lain dan membuka situs sumber. Di `search.html`, jenis hasil berita tertulis "Berita · sumber luar".
 - Tujuan: pembaca tahu berita bukan tulisan Niflax, dan pengutipan terlihat jelas (sejalan dengan kebijakan hak cipta di bagian 9). Gaya ada di akhir `css/home.css`. Cache `?v=18`.
+
+## 23. v20: RSS dihapus, Niflax jadi konten orisinil
+- Dihapus: `tools/`, workflow `impor-berita.yml`, pembaca iframe. Bagian 22 dan catatan RSS di atas sudah tidak berlaku.
+- Beranda kini berisi tulisan Blog dan Tanya Jawab (`loadPosts` di `js/api.js`, `cPost` di `js/ui.js`). Tab: Semua, Blog, Tanya Jawab.
+- Pencarian (`js/search.js`) mencari di Blog dan Tanya Jawab, hasil `Semua` dikelompokkan per bagian seperti Naver. Butuh `supabase/v10-tanya-jawab.sql` dan `supabase/v19-blog.sql`.
+- Tabel `news`, `saved_news`, RPC `search_all`/`search_news` tidak dipakai lagi (boleh dibiarkan; bersihkan lewat SQL bila mau).

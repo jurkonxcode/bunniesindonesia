@@ -37,3 +37,4 @@ setInterval(rotate, 3000);
 initAuth();
 load().then(() => { renderFeed(); rotate(); });
 loadQuestions().then(() => renderFeed());
+loadPosts().then(() => renderFeed());

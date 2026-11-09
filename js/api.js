@@ -6,9 +6,12 @@ async function sb(path){
 async function load(){
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ loadErr = true; return; }
   try{
-    const [n,t] = await Promise.all([sb("news?select=*&order=published_at.desc&limit=150"), sb("trending?select=keyword&order=rank.asc&limit=10")]);
-    news = n; trending = t.map(x => x.keyword); loadErr = false;
+    trending = (await sb("trending?select=keyword&order=rank.asc&limit=10")).map(x => x.keyword); loadErr = false;
   }catch(e){ loadErr = true; }
+}
+async function loadPosts(){                // tulisan Blog terbaru untuk beranda; dilewati diam-diam bila v19-blog.sql belum dijalankan
+  if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return;
+  try{ posts = await sb("posts?select=id,title,body,category,author_name,created_at&order=created_at.desc&limit=30"); }catch(e){ posts = []; }
 }
 async function loadQuestions(){            // pertanyaan terbaru untuk beranda; dilewati diam-diam bila v10-tanya-jawab.sql belum dijalankan
   if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return;

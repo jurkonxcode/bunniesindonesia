@@ -30,3 +30,5 @@ a.r:hover h3{text-decoration:underline}
 @media(max-width:520px){.logo span{display:none}.r .thumb{flex-basis:80px;height:64px}}
 .more[hidden]{display:none}
 .sempty .btn{margin-top:14px}
+.sgh{font-size:16px;margin:20px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--brand)}
+.sgh small{color:var(--muted);font-weight:500;margin-left:4px}

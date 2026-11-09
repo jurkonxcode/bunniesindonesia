@@ -26,29 +26,20 @@ function cNews(n, i){
 }
 const cQuestion = q => `<article class="fc"><a class="fl fcm" href="tanya?id=${+q.id}">${ic("tanya", "g4")}<div><span class="tag">Tanya Jawab · ${esc(q.category)}</span><span class="ext in" title="Ditulis oleh pengguna Niflax">Dari Niflax</span><h3>${esc(q.title)}</h3><span class="meta">${q.best_answer_id ? "Terjawab · " : ""}${+q.answer_count} jawaban · ${esc(ago(q.created_at))}</span></div></a></article>`;
 
+const cPost = p => `<article class="fc"><a class="fl fcm" href="blog?id=${+p.id}">${ic("blog", "g1")}<div><span class="tag">Blog · ${esc(p.category)}</span><span class="ext in" title="Ditulis oleh pengguna Niflax">Dari Niflax</span><h3>${esc(p.title)}</h3><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></div></a></article>`;
 function feedItems(){
-  const nw = news.filter(n => !onlySaved || saved.has(n.id));
-  const N = nw.map(n => ({h:i => cNews(n, i)}));
-  const Q = questions.map(q => ({h:() => cQuestion(q)}));
-  if(tab === "Berita") return N;
+  const P = posts.map(p => ({h:() => cPost(p)})), Q = questions.map(q => ({h:() => cQuestion(q)}));
+  if(tab === "Blog") return P;
   if(tab === "Tanya") return Q;
-  if(tab !== "Semua") return nw.filter(n => n.category === tab).map(n => ({h:i => cNews(n, i)}));
-  if(onlySaved) return N;
-  // Semua: berita diselingi satu pertanyaan tiap dua berita; sisa pertanyaan di akhir
-  const out = [], rest = Q.slice();
-  N.forEach((x, i) => { out.push(x); if(i % 2 === 1 && rest.length) out.push(rest.shift()); });
+  const out = [], rest = Q.slice();                         // Semua: tulisan diselingi satu pertanyaan tiap dua tulisan
+  P.forEach((x, i) => { out.push(x); if(i % 2 === 1 && rest.length) out.push(rest.shift()); });
   return out.concat(rest);
 }
-/* Tab hanya tampil bila ada isinya: Berita dan kategori muncul setelah berita nyata masuk. */
-function tabList(){
-  const urut = Object.keys(CAT_ART), pos = c => urut.indexOf(c) < 0 ? 99 : urut.indexOf(c);
-  const cats = [...new Set(news.map(n => n.category).filter(Boolean))].sort((a, b) => pos(a) - pos(b));
-  return [["Semua","Semua"], ...(news.length ? [["Berita","Berita"], ...cats.map(c => [c, c])] : []), ["Tanya","Tanya Jawab"]];
-}
+function tabList(){ return [["Semua","Semua"], ["Blog","Blog"], ["Tanya","Tanya Jawab"]]; }
 /* v14: baris ikon layanan di bawah kotak cari (mengacu pola portal besar). [ikon, nama, tujuan, warna, tab]
    tujuan "#..." = gulir ke alat; tanpa tujuan tapi ada tab = membuka tab umpan bila kategorinya sudah ada isinya; selain itu "segera". */
 const SVC = [["tanya","Tanya","tanya","g4"],["sholat","Sholat","#tool-sholat","g2"],["libur","Libur","#tool-libur","g1"],
-  ["berita","Berita","","g1","Berita"],["bola","Bola","","g5","Bola"],["hiburan","Hiburan","","g4","Hiburan"],["kuliner","Kuliner","","g3","Kuliner"],
+  ["blog","Blog","blog","g1"],["bola","Bola","","g5","Bola"],["hiburan","Hiburan","","g4","Hiburan"],["kuliner","Kuliner","","g3","Kuliner"],
   ["belanja","Belanja","","g2"],["video","Video","","g3"],["menu","Semua","layanan","g6"]];
 function renderSvr(){
   const have = new Set(tabList().map(t => t[0]));
@@ -65,14 +56,12 @@ function renderTabs(){
   $("ftabs").innerHTML =
     L.map(t => `<button type="button" data-t="${esc(t[0])}" aria-pressed="${t[0] === tab}">${esc(t[1])}</button>`).join("");
 }
-const EXTNOTE = "Kartu bertanda \"Sumber luar\" adalah judul berita yang dikutip lewat RSS dari media lain, bukan tulisan Niflax. Ketuk untuk membacanya langsung di Niflax.";
-const NOTE = "Berita belum tersedia. Kami sedang menyiapkan sumber berita yang berizin. Sementara itu, jelajahi Tanya Jawab dan alat harian di bawah.";
 function renderFeed(){
   renderTabs(); renderSvr();
   const items = feedItems();
-  $("status").textContent = loadErr ? "Gagal memuat data langsung. Periksa koneksi internetmu lalu muat ulang halaman." : (!news.length && tab !== "Tanya" && !onlySaved ? NOTE : (news.length && tab !== "Tanya" ? EXTNOTE : ""));
+  $("status").textContent = loadErr ? "Gagal memuat data langsung. Periksa koneksi internetmu lalu muat ulang halaman." : "";
   $("feed").innerHTML = items.length ? items.map((x, i) => x.h(i)).join("") :
-    `<p class="empty">${onlySaved ? "Belum ada berita tersimpan." : tab === "Tanya" ? "Belum ada pertanyaan. Jadilah yang pertama di <a href=\"tanya\">Tanya Jawab</a>." : "Belum ada isi untuk tab ini."}</p>`;
+    `<p class="empty">Belum ada isi. Jadilah yang pertama menulis di <a href="blog">Blog</a> atau bertanya di <a href="tanya">Tanya Jawab</a>.</p>`;
 }
 const renderNews = renderFeed;      // auth.js memanggil nama lama ini
 

@@ -1,7 +1,7 @@
 /* Halaman hasil pencarian: search_all / search_news + autocomplete + log_search. */
-const TABS = [["", "Semua", "all"], ["berita", "Berita", "news"], ["tanya", "Tanya Jawab", "all"]];
-const KIND = {news:"Berita · sumber luar", video:"Video", product:"Belanja", community:"Komunitas", question:"Tanya Jawab"};
-const KMAP = {"":null, berita:"news", tanya:"question"};
+const TABS = [["", "Semua", "all"], ["blog", "Blog", "blog"], ["tanya", "Tanya Jawab", "question"]];
+const KIND = {post:"Blog", question:"Tanya Jawab"};
+const KMAP = {"":null, blog:"post", tanya:"question"};
 const params = new URLSearchParams(location.search);
 let Q = (params.get("q") || "").trim().slice(0, 100);
 let T = TABS.some(t => t[0] === params.get("t")) ? params.get("t") : "";
@@ -25,18 +25,20 @@ async function rpc(fn, body){
   if(!r.ok) throw new Error(r.status);
   return r.json();
 }
-/* Pertanyaan Tanya Jawab yang cocok. Gagal diam-diam bila tabel belum ada (v10-tanya-jawab.sql belum dijalankan). */
-async function searchQuestions(q){
+/* Cari di konten asli Niflax (Blog + Tanya Jawab). Gagal diam-diam bila tabelnya belum ada. */
+async function searchTable(table, kind, q){
   try{
     const s = q.replace(/[,()*\\%_"]/g, " ").trim().slice(0, 60); if(s.length < 2) return [];
     const e = encodeURIComponent(s);
-    const r = await fetch(SUPABASE_URL + "/rest/v1/questions?select=id,title,body,category,created_at&or=(title.ilike.*" + e + "*,body.ilike.*" + e + "*)&order=created_at.desc&limit=20", {headers:{apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY}});
+    const r = await fetch(SUPABASE_URL + "/rest/v1/" + table + "?select=id,title,body,category,created_at&or=(title.ilike.*" + e + "*,body.ilike.*" + e + "*)&order=created_at.desc&limit=30", {headers:{apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY}});
     if(!r.ok) return [];
-    return (await r.json()).map(x => ({kind:"question", title:x.title, snippet:x.body || "", href:"tanya?id=" + (+x.id), source:x.category, published_at:x.created_at}));
+    const page = kind === "post" ? "blog" : "tanya";
+    return (await r.json()).map(x => ({kind, title:x.title, snippet:(x.body || "").slice(0, 200), href:page + "?id=" + (+x.id), source:x.category, published_at:x.created_at}));
   }catch(e){ return []; }
 }
+const searchQuestions = q => searchTable("questions", "question", q), searchPosts = q => searchTable("posts", "post", q);
 
-const ART = {news:"berita", video:"video", product:"belanja", community:"komunitas", question:"tanya"};
+const ART = {post:"blog", question:"tanya"};
 function item(r, i){
   const url = safeUrl(r.url), img = safeUrl(r.image_url);
   const bg = img ? `background-image:url('${esc(img)}'),linear-gradient(135deg,var(--a),var(--b));${grad(i)}` : grad(i);
@@ -55,8 +57,10 @@ function view(){
     return `<button data-t="${t[0]}" aria-pressed="${t[0] === T}">${t[1]}${ALL.length ? " " + n : ""}</button>`;
   }).join("");
   $("sinfo").textContent = (list.length ? `${list.length} hasil untuk “${Q}”` : "");
-  $("sres").innerHTML = list.length ? list.map(item).join("") : empty("Belum ada yang cocok", "Coba kata kunci lain, lebih singkat, atau periksa ejaannya.");
-  $("more").hidden = !(T === "berita" && list.length && list.length % PAGE === 0);
+  const sec = (title, arr) => arr.length ? `<h2 class="sgh">${title} <small>${arr.length}</small></h2>` + arr.map(item).join("") : "";
+  $("sres").innerHTML = !list.length ? empty("Belum ada yang cocok", "Coba kata kunci lain, lebih singkat, atau jadilah yang pertama menulis di Blog atau Tanya Jawab.") :
+    k ? list.map(item).join("") : sec("Blog", list.filter(r => r.kind === "post")) + sec("Tanya Jawab", list.filter(r => r.kind === "question"));
+  $("more").hidden = true;
 }
 async function run(){
   if(Q.length < 2){ $("sres").innerHTML = empty("Mau cari apa?", "Ketik minimal 2 huruf di kotak pencarian."); $("stabs").innerHTML = ""; return; }
@@ -64,9 +68,9 @@ async function run(){
   $("sres").innerHTML = `<p class="sinfo">Mencari…</p>`; offset = 0;
   try{
     if(!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("no config");
-    if(T === "berita"){ ALL = (await rpc("search_news", {p_query:Q, p_limit:PAGE, p_offset:0})).map(r => ({...r, kind:"news"})); offset = ALL.length; }
+    if(T === "blog") ALL = await searchPosts(Q);
     else if(T === "tanya") ALL = await searchQuestions(Q);
-    else{ const [a, q] = await Promise.all([rpc("search_all", {p_query:Q, p_limit:50}), searchQuestions(Q)]); ALL = a.concat(q); }
+    else{ const [a, q] = await Promise.all([searchPosts(Q), searchQuestions(Q)]); ALL = a.concat(q); }
     rpc("log_search", {p_query:Q, p_scope:(TABS.find(t => t[0] === T) || TABS[0])[2]}).catch(() => {});
   }catch(e){
     $("stabs").innerHTML = ""; $("sinfo").textContent = ""; $("sres").innerHTML = empty("Gagal memuat hasil", "Periksa koneksi internetmu lalu coba lagi.", true); return;
@@ -80,13 +84,6 @@ $("stabs").addEventListener("click", e => {
   run();
 });
 $("sres").addEventListener("click", e => { if(e.target.id === "retry") run(); });
-$("more").addEventListener("click", async () => {
-  try{
-    const more = (await rpc("search_news", {p_query:Q, p_limit:PAGE, p_offset:offset})).map(r => ({...r, kind:"news"}));
-    ALL = ALL.concat(more); offset += more.length; view(); if(more.length < PAGE) $("more").hidden = true;
-  }catch(e){ $("sinfo").textContent = "Gagal memuat lagi. Coba sebentar lagi."; }
-});
-
 /* Autocomplete */
 let st, sel = -1, sugs = [];
 const sug = $("sug");
