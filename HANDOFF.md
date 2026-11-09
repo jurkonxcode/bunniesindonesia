@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v32.
+Terakhir diperbarui: 9 November 2026, rilis v34.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -124,6 +124,13 @@ Yang tampil sekarang hanya Beranda, Tanya Jawab, Blog, komentar, reaksi, bias, d
 - **Masih ada tapi tidak terlihat:** halaman `layanan.html`, `tentang`, dan alat harian. Bisa dibuka lewat alamat langsung. Skrip cuaca, kurs, dan gempa masih berjalan di latar belakang dan memanggil API luar.
 - **Cara menampilkan lagi:** hapus baris `<link ... css/fokus.css ...>` dari HTML yang diinginkan. Untuk kategori dan tab menu, kembalikan perubahan di `BC`, `nav.js`, dan `blog.js`/`tanya.js` (lihat catatan v32 di kodenya).
 - **Kategori fanpage belum ditentukan.** Setelah itu ditetapkan, isi `BC` dan daftar kategori di `blog.js` dan `tanya.js`, lalu ubah constraint kategori di database (lihat bagian 10 nomor 1).
+
+## 5b. Brand skin (v34)
+
+- `css/brand-skin.css` (dimuat sebelum `fokus.css`): lapisan visual "soft blue" dari BunniesID_BrandKit. Hero bergradasi langit, stiker melayang, kartu dan tombol lebih lembut, footer bermaskot garis, empty state bermaskot.
+- Dekorasi orisinal di `assets/brand/decor/` (hati, kilau, bintang, planet, awan, kelinci garis). **Logo dan favicon tidak diubah.**
+- `visual-direction.png` hanya referensi mood. Foto member di dalamnya **tidak** dipakai di situs (hak cipta). Pasang foto hanya jika ada izin tertulis.
+- Mengembalikan tampilan lama: hapus baris `<link ... css/brand-skin.css ...>` dari HTML.
 
 ## 6. Komentar, reaksi, dan bias (v31)
 
