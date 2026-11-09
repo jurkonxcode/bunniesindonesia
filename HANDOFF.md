@@ -371,3 +371,25 @@ Acuan: screenshot naver.com (mode desktop di HP) dibandingkan dengan beranda Nif
 - **Bar jam** WIB/WITA/WIT kini bar tipis terang di atas header (bukan bar gelap).
 - Diuji dengan Chromium (Playwright) di 390px dan 1280px: tanpa overflow horizontal, tanpa error JS di 8 halaman. Diuji dengan data tiruan HANYA di mesin uji; repo tidak berisi data contoh.
 - **Belum ada (sengaja, karena tidak ada sumber data nyata):** kios berita/penerbit, widget saham/musik, kotak iklan, tombol AI di kotak cari.
+
+## 27. v25: halaman statis untuk SEO + terbit lewat GitHub Actions
+**Masalah:** Pages menyajikan HTML kosong yang diisi JavaScript, sehingga Google sulit mengindeks tulisan dan pertanyaan. **Solusi tanpa pindah hosting:** skrip membuat halaman HTML berisi teks lengkap, lalu Actions menerbitkannya.
+
+**Berkas baru:** `tools/build-static.mjs`, `.github/workflows/pages.yml`, `css/static.css`, `.gitignore`.
+- Skrip membaca `posts`, `questions`, `answers` (kunci publik dari `js/config.js`, hanya baca; RLS sudah menyembunyikan konten `hidden`), lalu menulis ke `dist/` (tidak masuk repo): salinan situs, `/tulisan/<id>`, `/pertanyaan/<id>`, `/arsip`, `sitemap.xml`, `robots.txt`.
+- Tiap halaman: `<title>`, deskripsi, canonical, Open Graph, JSON-LD (`BlogPosting` untuk tulisan, `QAPage` untuk pertanyaan, plus `BreadcrumbList`), tautan ke tulisan/pertanyaan lain sekategori, dan tombol ke halaman interaktif (`/blog`, `/tanya?id=`).
+- **Kebijakan konten tipis:** tulisan di bawah 120 huruf dan pertanyaan tanpa jawaban diberi `noindex,follow` dan tidak masuk sitemap. Ubah `MIN_POST` di skrip bila perlu.
+- Sitemap otomatis dipecah (indeks sitemap) bila lebih dari 45.000 URL.
+- Semua teks pengguna lewat `esc()`; JSON-LD memakai escape `<`. Diuji dengan judul berisi `<script>`: tampil sebagai teks.
+- Uji lokal tanpa internet: `node tools/build-static.mjs --fixture contoh.json` (`{"posts":[],"questions":[],"answers":[]}`), lalu layani folder `dist/`.
+
+**Pengaturan sekali (wajib):**
+1. GitHub repo, Settings, Pages, Build and deployment, **Source = "GitHub Actions"** (bukan "Deploy from a branch").
+2. Push repo. Workflow "Terbitkan situs" jalan tiap push, tiap 30 menit, dan bisa manual (tab Actions, Run workflow).
+3. Setelah domain aktif: tambah file `CNAME` berisi `niflax.com`, set variabel repo `SITE_URL` = `https://niflax.com` (Settings, Secrets and variables, Actions, Variables), lalu daftarkan situs di Google Search Console dan kirim `https://niflax.com/sitemap.xml`.
+
+**Catatan penting:**
+- `robots.txt` baru dihormati crawler bila ada di akar domain. Di `github.io/niflax` ia berada di subfolder, jadi baru efektif setelah memakai `niflax.com`.
+- Alamat tanpa `.html` (`/tulisan/12`) berfungsi di GitHub Pages; server Python sederhana tidak mengerti ini (lihat bagian 16).
+- Konten baru punya halaman statis paling lambat ~30 menit setelah dibuat. Tautan di beranda sengaja masih mengarah ke halaman dinamis (`blog?id=`, `tanya?id=`) agar tidak 404 pada jeda itu.
+- Belum dikerjakan: canonical dari halaman dinamis ke halaman statis, gambar OG per halaman, sitemap berita (tidak relevan), build bertahap bila konten sudah puluhan ribu.

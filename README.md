@@ -18,3 +18,4 @@ assets/   gambar, ikon, font lokal
 
 - v17: klasifikasi berita otomatis (`tools/klasifikasi.mjs`), 14 kategori, `--cek-url`, pembersihan berita lama. Baca `HANDOFF.md` bagian 24.
 - v24: beranda ala portal besar (panel, baris ikon satu baris, kolom samping). Baca `HANDOFF.md` bagian 26.
+- v25: halaman statis SEO + sitemap lewat GitHub Actions (`tools/build-static.mjs`). Baca `HANDOFF.md` bagian 27.
