@@ -54,9 +54,11 @@ js/
 assets/                 gambar, ikon, font lokal (masih kosong)
 supabase/
   supabase-schema.sql   skema database lengkap
+  v10-tanya-jawab.sql   tabel questions, answers, reports (jalankan setelah schema utama)
 privasi.html, syarat.html, tentang.html   halaman hukum + kontak
 brand.html              panduan merek
 search.html             halaman hasil pencarian (css/search.css, js/search.js)
+tanya.html              Tanya Jawab (css/tanya.css, js/tanya.js), v10
 README.md
 HANDOFF.md              dokumen ini
 ```
@@ -148,7 +150,7 @@ Jika `git push` ditolak ("fetch first"), jalankan `git pull --rebase` dulu. **Ja
 
 **Tahap B: akun dan konten buatan pengguna**
 5. Halaman Daftar dan Masuk memakai Supabase Auth (email OTP dan login Google). Layanan email bawaan Supabase terbatas jumlah kirimnya, jadi siapkan Google login atau SMTP sendiri.
-6. **Tanya Jawab:** tabel `questions`, `answers`, `votes`, pilih jawaban terbaik.
+6. **Tanya Jawab:** SELESAI di v10 (tanpa `votes`, lihat bagian 17).
 7. **Komunitas:** tambah `community_posts`, `comments`, dan fitur gabung/keluar yang sudah punya dasar di skema.
 8. Moderasi: tabel `reports`, peran admin, tombol Laporkan, dan batas jumlah posting per hari.
 9. Berikutnya: Ulasan, Tulisan (blog) dengan gambar di Supabase Storage, dan Komik Kreator.
@@ -217,3 +219,19 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 - Server lokal sederhana (`python3 -m http.server`) tidak mengerti ini dan memberi 404. Pakai `npx serve` atau uji di situs yang tayang.
 - Selalu tulis tautan tanpa garis miring di akhir (`/search`, bukan `/search/`): jalur relatif `css/` dan `js/` bergantung pada itu.
 - Jika bermasalah, kembalikan tautan ke `nama.html` lewat satu commit.
+
+## 17. v10: Tanya Jawab
+
+**Wajib sebelum dipakai:**
+1. Supabase, SQL Editor: jalankan `supabase/v10-tanya-jawab.sql` (aman diulang). Tanpa ini halaman menampilkan pesan gagal memuat.
+2. Authentication, URL Configuration, Redirect URLs: tambahkan `https://jurkonxcode.github.io/niflax/**` agar login Google dari `/tanya` kembali ke halaman itu. Tanpa ini, Supabase mengembalikan pengguna ke beranda (sesi tetap tersimpan, tinggal buka lagi `/tanya`).
+
+**Fitur:** daftar pertanyaan (kategori, pencarian judul/isi, Muat lagi), detail + jawaban, tanya, jawab, penanya memilih jawaban terbaik, hapus milik sendiri, laporkan.
+
+**Keamanan dan moderasi (di database, bukan di frontend):**
+- RLS aktif. Tidak ada policy UPDATE, jadi isi tidak bisa diedit diam-diam. Hanya baca publik, tambah dan hapus milik sendiri.
+- Trigger `prepare_post`: memaksa `user_id` dari sesi, mengisi `author_name`, batas 10 pertanyaan dan 50 jawaban per 24 jam. Bagian depan email tidak pernah ditampilkan publik (diganti "Pengguna").
+- `pick_best_answer()`: hanya penanya yang bisa.
+- `reports`: tidak bisa dibaca dari browser. 3 laporan dari 3 pengguna berbeda otomatis menyembunyikan konten (`status = 'hidden'`). Admin meninjau di Table Editor dan bisa mengembalikan ke `open`.
+
+**Catatan:** `js/tanya.js` mandiri (tidak memuat `auth.js`, yang terikat ke beranda), membaca sesi dari `localStorage` kunci `niflax.session`. Login kode email hanya di beranda. Belum ada: votes, edit, notifikasi jawaban baru, panel admin, hapus akun.
