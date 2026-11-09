@@ -3,17 +3,19 @@ const PAL = [["#03c75a","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],[
 
 const demoNews = [
   {title:"Pusat data hijau pertama di Asia Tenggara mulai beroperasi",summary:"Fasilitas baru memakai energi surya dan pendinginan air laut untuk menekan emisi karbon.",category:"Teknologi",source:"Niflax Tekno",time:"12 menit lalu"},
+  {title:"Timnas U-23 umumkan skuad untuk laga persahabatan",summary:"Pelatih memanggil 26 pemain, termasuk tiga debutan dari kompetisi Liga 1.",category:"Bola",source:"Niflax Bola",time:"25 menit lalu"},
   {title:"Kereta cepat tambah rute akhir pekan ke tiga kota",category:"Nasional",source:"Niflax News",time:"35 menit lalu"},
-  {title:"Startup lokal luncurkan asisten AI berbahasa daerah",category:"Teknologi",source:"Niflax Tekno",time:"1 jam lalu"},
-  {title:"Rupiah menguat tipis, investor menanti data inflasi",category:"Ekonomi",source:"Niflax Bisnis",time:"1 jam lalu"},
-  {title:"Harga tiket konser turun, penonton muda melonjak",category:"Hiburan",source:"Niflax Hiburan",time:"2 jam lalu"},
-  {title:"Timnas U-23 umumkan skuad untuk laga persahabatan",category:"Olahraga",source:"Niflax Sport",time:"2 jam lalu"},
-  {title:"Peneliti temukan cara baru mendaur ulang baterai kendaraan listrik",category:"Sains",source:"Niflax Sains",time:"3 jam lalu"},
-  {title:"Festival film Asia pilih Jakarta sebagai tuan rumah berikutnya",category:"Hiburan",source:"Niflax Hiburan",time:"4 jam lalu"},
+  {title:"Harga emas Antam bergerak naik, pembeli ritel ramai",category:"Ekonomi",source:"Niflax Bisnis",time:"1 jam lalu"},
+  {title:"Drama Korea terbaru puncaki daftar tontonan pekan ini",category:"Hiburan",source:"Niflax Hiburan",time:"1 jam lalu"},
+  {title:"Resep soto ayam kuning, kuah bening dan bumbu meresap",category:"Kuliner",source:"Niflax Kuliner",time:"2 jam lalu"},
+  {title:"Motor listrik baru dibanderol di bawah Rp20 juta",category:"Otomotif",source:"Niflax Otomotif",time:"2 jam lalu"},
+  {title:"Jadwal kajian dan program Maulid di berbagai kota",category:"Religi",source:"Niflax Religi",time:"3 jam lalu"},
+  {title:"Persija dan Persib bersiap hadapi laga klasik akhir pekan",category:"Bola",source:"Niflax Bola",time:"3 jam lalu"},
+  {title:"Startup lokal luncurkan asisten AI berbahasa daerah",category:"Teknologi",source:"Niflax Tekno",time:"4 jam lalu"},
   {title:"Pemerintah perluas internet desa ke 2.000 titik baru",category:"Nasional",source:"Niflax News",time:"5 jam lalu"},
   {title:"UMKM kuliner naik kelas lewat ekspor makanan beku",category:"Ekonomi",source:"Niflax Bisnis",time:"6 jam lalu"}
 ];
-const demoTrend = ["AI berbahasa daerah","Kereta cepat","Jadwal konser","Daur ulang baterai","Cuaca Jakarta","Timnas U-23","Film Asia","Harga emas"];
+const demoTrend = ["Jadwal Liga 1","Harga emas hari ini","Cek resi","Promo 11.11","Cuaca besok","Jadwal sholat","Drama Korea terbaru","Pajak kendaraan"];
 const ticker = [["IHSG","7.412,5","+0,42%",1],["USD/IDR","15.980","-0,18%",0],["Emas/gr","1.385.000","+0,30%",1],["BTC","$68.240","+1,10%",1],["Minyak","$81,2","-0,65%",0]];
 const videos = [
   {title:"Keliling Nusantara: 7 pantai tersembunyi di timur Indonesia",dur:"12:40"},
@@ -37,14 +39,20 @@ const communities = [
 const comics = [{title:"Langit Sembilan",genre:"Fantasi"},{title:"Kota Tanpa Malam",genre:"Fiksi ilmiah"},{title:"Dapur Mak Ijah",genre:"Komedi"},{title:"Pendekar Senja",genre:"Aksi"},{title:"Surat untuk Rani",genre:"Romansa"},{title:"Rumah di Ujung Gang",genre:"Misteri"}];
 const scores = [["Persib","2 – 1","Persija"],["Bali United","0 – 0","Arema"],["PSM","3 – 2","Persebaya"]];
 const shortcuts = [
-  ["Berita","M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-3 2M8 9h5M8 13h5","#berita"],
-  ["Blog","M4 20l1-5L16 4l4 4L9 19zM14 6l4 4","#"],
-  ["Komunitas","M4 5h16v11H9l-5 4zM8 9h8M8 12h5","#komunitas"],
-  ["Video","M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z","#video"],
-  ["Belanja","M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0","#belanja"],
-  ["Peta","M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11zM12 7.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5","#"],
-  ["Terjemah","M4 6h9M8.5 4v2M6 6c1 4 3 6 6 7M12 6c-1 4-3 6-6 7M13 20l4-9 4 9M14.5 17h5","#"],
-  ["Komik","M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 9h16M4 15h16M12 3v18","#komik"],
-  ["Olahraga","M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18","#"],
-  ["Finansial","M5 20V10M12 20V4M19 20v-8","#"]
+  ["Berita","M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-3 2M8 9h5M8 13h5","#berita",""],
+  ["Bola","M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18","#berita","Bola"],
+  ["Hiburan","M4 8h16v11H4zM4 8l3-4h3L7 8M11 8l3-4h3l-3 4","#berita","Hiburan"],
+  ["Video","M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z","#video",""],
+  ["Belanja","M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0","#belanja",""],
+  ["Kuliner","M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-2 6 0 8v10","#berita","Kuliner"],
+  ["Religi","M20 14a8 8 0 1 1-9-10 6 6 0 0 0 9 10z","#berita","Religi"],
+  ["Otomotif","M5 16v-5l2-5h10l2 5v5M3 16h18M7 19v-3M17 19v-3","#berita","Otomotif"],
+  ["Cek resi","M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10","#tool-resi",""],
+  ["Kurs & emas","M5 20V10M12 20V4M19 20v-8","#tool-kurs",""]
 ];
+const quick = ["Cek resi","Jadwal sholat","Kurs dolar","Harga emas","Libur nasional"];
+const prayer = [["Subuh","04:05"],["Zuhur","11:51"],["Asar","15:12"],["Magrib","17:55"],["Isya","19:05"]];
+const rates = [["USD","15.980","-0,18%",0],["SGD","11.850","+0,10%",1],["EUR","17.420","+0,22%",1],["Emas Antam/gr","1.385.000","+0,30%",1]];
+const couriers = ["JNE","J&T","SiCepat","AnterAja","Pos Indonesia","Shopee Express"];
+const holidays = [["Hari Raya Natal","2026-12-25"],["Tahun Baru Masehi","2027-01-01"]];
+const toolRoutes = [[/resi|paket|kurir/i,"tool-resi"],[/sholat|salat|shalat|adzan|azan/i,"tool-sholat"],[/kurs|dolar|dollar|emas|antam/i,"tool-kurs"],[/libur|cuti/i,"tool-libur"]];

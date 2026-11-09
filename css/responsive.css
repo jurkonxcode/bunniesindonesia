@@ -6,8 +6,14 @@
   header.top .wrap{justify-content:space-between}
   .short{grid-template-columns:repeat(5,1fr)}
   .fcols{grid-template-columns:1fr 1fr}
+  .tgrid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
+  .tgrid{display:flex;overflow-x:auto;gap:12px;margin:0 -20px;padding:2px 20px 8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .tool{flex:0 0 260px;scroll-snap-align:start}
+  .cgrid{display:flex;overflow-x:auto;gap:12px;margin:0 -20px;padding:0 20px;scrollbar-width:none}
+  .cm{flex:0 0 132px}
+  .lead .thumb{min-height:170px}
   .lead,.nc4{grid-template-columns:1fr}
   .short{display:flex;overflow-x:auto;scrollbar-width:none}
   .short a{flex:0 0 76px}

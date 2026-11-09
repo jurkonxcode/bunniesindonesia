@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/shortcuts.css">
 <link rel="stylesheet" href="css/content.css">
+<link rel="stylesheet" href="css/identity.css">
 <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -20,7 +21,7 @@
 <header class="top"><div class="wrap">
   <a class="logo" href="./"><i><svg viewBox="0 0 24 24" fill="none" stroke="#022b17" stroke-width="3" stroke-linecap="round"><path d="M6 19V5l12 14V5"/></svg></i>niflax</a>
   <nav class="menu" aria-label="Menu utama">
-    <a class="on" href="#">Beranda</a><a href="#berita">Berita</a><a href="#video">Video</a><a href="#belanja">Belanja</a><a href="#komunitas">Komunitas</a><a href="#komik">Komik</a>
+    <a class="on" href="#">Beranda</a><a href="#berita">Berita</a><a href="#video">Video</a><a href="#belanja">Belanja</a><a href="#komunitas">Komunitas</a><a href="#alat">Alat</a>
   </nav>
   <div class="actions"><a class="ghost" href="#" id="signup">Daftar</a><button class="btn green" id="loginTop">Masuk</button></div>
 </div></header>
@@ -34,17 +35,19 @@
         <circle cx="1040" cy="260" r="7" fill="var(--brand)" stroke="none"/><circle cx="160" cy="260" r="5" fill="var(--accent)" stroke="none"/></g>
       </g>
     </svg>
-    <h1>Satu pencarian untuk semua yang kamu butuhkan</h1>
-    <p class="sub">Berita, video, komunitas, dan belanja dalam satu tempat.</p>
+    <h1>Cari apa saja, langsung ketemu</h1>
+    <p class="sub" id="greet"></p>
     <form class="search" id="searchForm" role="search"><div class="box">
       <input id="q" type="search" placeholder="Cari berita, video, atau topik" autocomplete="off" aria-label="Kata kunci pencarian">
       <button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
     </div></form>
     <div class="tabs" id="scope"><button aria-pressed="true">Semua</button><button aria-pressed="false">Berita</button><button aria-pressed="false">Gambar</button><button aria-pressed="false">Video</button><button aria-pressed="false">Komunitas</button></div>
+    <div class="chips" id="chips" aria-label="Pencarian cepat"></div>
     <div class="trend"><b>Tren</b><span id="trendText"></span></div>
   </section>
 
   <nav class="short" id="short" aria-label="Layanan Niflax"></nav>
+  <section class="section" id="alat"><div class="sh"><h2>Alat harian</h2><small>Yang sering dicari tiap hari</small></div><div class="tgrid" id="tools"></div></section>
   <p class="status" id="status"></p>
 
   <div class="grid section" id="berita">
@@ -76,7 +79,7 @@
   <section class="section" id="video"><div class="sh"><h2>Video pilihan</h2><a href="#">Lihat semua</a></div><div class="vgrid" id="videos"></div></section>
 
   <div class="two section">
-    <section id="belanja" class="card"><div class="sh"><h2>Belanja hari ini</h2><a href="#">Lihat semua</a></div><div class="pgrid" id="products"></div></section>
+    <section id="belanja" class="card"><div class="sh"><h2>Belanja hari ini</h2><a href="#">Lihat semua</a></div><div class="promo" id="promo" hidden></div><div class="pgrid" id="products"></div></section>
     <section id="komunitas" class="card"><div class="sh"><h2>Komunitas populer</h2><a href="#">Jelajahi</a></div><ul class="clist" id="communities"></ul></section>
   </div>
 
@@ -86,7 +89,7 @@
 <footer><div class="wrap">
   <div class="fcols">
     <div><a class="logo" href="./">niflax</a><p>Portal pencarian dan konten untuk pengguna Indonesia.</p></div>
-    <div><h5>Layanan</h5><ul><li><a href="#berita">Berita</a></li><li><a href="#video">Video</a></li><li><a href="#belanja">Belanja</a></li><li><a href="#komik">Komik</a></li></ul></div>
+    <div><h5>Layanan</h5><ul><li><a href="#berita">Berita</a></li><li><a href="#video">Video</a></li><li><a href="#belanja">Belanja</a></li><li><a href="#alat">Alat</a></li></ul></div>
     <div><h5>Komunitas</h5><ul><li><a href="#komunitas">Forum</a></li><li><a href="#">Blog</a></li><li><a href="#">Panduan pengguna</a></li></ul></div>
     <div><h5>Bisnis</h5><ul><li><a href="#">Pasang iklan</a></li><li><a href="#">Jadi mitra</a></li><li><a href="#">API</a></li></ul></div>
     <div><h5>Perusahaan</h5><ul><li><a href="#">Tentang</a></li><li><a href="#">Karier</a></li><li><a href="#">Kontak</a></li></ul></div>
@@ -99,6 +102,7 @@
 <script src="js/state.js"></script>
 <script src="js/api.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/tools.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

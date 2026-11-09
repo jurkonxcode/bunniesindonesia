@@ -23,8 +23,9 @@ function renderNews(){
 
 function renderStatic(){
   $("ticker").innerHTML = ticker.map(t => `<span><b>${t[0]}</b>${t[1]} <span class="${t[3] ? "up" : "down"}">${t[2]}</span></span>`).join("") +
-    `<span class="date">${new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</span>`;
-  $("short").innerHTML = shortcuts.map(s => `<a href="${s[2]}"><span><svg viewBox="0 0 24 24"><path d="${s[1]}"/></svg></span>${s[0]}</a>`).join("");
+    `<span class="date" id="clocks"></span>`;
+  $("short").innerHTML = shortcuts.map(s => `<a href="${s[2]}"${s[3] ? ` data-cat="${s[3]}"` : ""}><span><svg viewBox="0 0 24 24"><path d="${s[1]}"/></svg></span>${s[0]}</a>`).join("");
+  $("chips").innerHTML = quick.map(c => `<button type="button">${esc(c)}</button>`).join("");
   $("stamp").textContent = new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long"});
   $("videos").innerHTML = videos.map((v, i) => `<a class="vc" href="#"><div class="thumb" style="${grad(i + 2)}"><span class="dur">${v.dur}</span></div><h4>${esc(v.title)}</h4></a>`).join("");
   $("products").innerHTML = products.map((p, i) => `<a class="pc" href="#"><div class="thumb" style="${grad(i + 4)}"><span class="off">-${p.off}%</span></div><h4>${esc(p.name)}</h4><b><s>${rp(p.old)}</s>${rp(p.price)}</b></a>`).join("");
