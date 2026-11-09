@@ -57,11 +57,30 @@ function renderTabs(){
     L.map(t => `<button type="button" data-t="${esc(t[0])}" aria-pressed="${t[0] === tab}">${esc(t[1])}</button>`).join("");
 }
 function renderFeed(){
-  renderTabs(); renderSvr();
+  renderTabs(); renderSvr(); renderModules(); renderCal();
   const items = feedItems();
   $("status").textContent = loadErr ? "Gagal memuat data langsung. Periksa koneksi internetmu lalu muat ulang halaman." : "";
   $("feed").innerHTML = items.length ? items.map((x, i) => x.h(i)).join("") :
     `<p class="empty">Belum ada isi. Jadilah yang pertama menulis di <a href="blog">Blog</a> atau bertanya di <a href="tanya">Tanya Jawab</a>.</p>`;
+}
+/* ---------- v21: modul ala portal (kotak berjudul + isi / kerangka kosong) ---------- */
+const skel = n => Array.from({length:n}, () => `<div class="sk"><i></i><b></b><b></b></div>`).join("");
+const mod = (t, more, body, cls = "") => `<section class="mod ${cls}"><div class="mh"><h2>${t}</h2>${more ? `<a href="${more[0]}">${more[1]} ›</a>` : ""}</div>${body}</section>`;
+function renderModules(){
+  const pc = posts.slice(0, 5).map(p => `<a class="pc" href="blog?id=${+p.id}"><div class="pt">${ic("blog", "g1")}</div><h3>${esc(p.title)}</h3><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></a>`).join("");
+  const qs = questions.slice(0, 5).map(q => `<li><a href="tanya?id=${+q.id}"><span class="tag">${esc(q.category)}</span>${esc(q.title)}<em>${+q.answer_count} jawaban</em></a></li>`).join("");
+  $("modules").innerHTML =
+    `<a class="promo" href="blog"><div><b>Ruang promo Niflax</b><span>Tempat banner dan pengumuman. Belum ada isi.</span></div><span class="btn green">Tulis di Blog</span></a>` +
+    mod("Blog pilihan", ["blog", "Lihat semua"], pc ? `<div class="pgrid">${pc}</div>` : `<div class="pgrid">${skel(5)}</div><p class="mnote">Belum ada tulisan. <a href="blog">Tulis yang pertama</a>.</p>`) +
+    mod("Tanya Jawab terbaru", ["tanya", "Lihat semua"], qs ? `<ul class="qlist">${qs}</ul>` : `<p class="mnote">Belum ada pertanyaan. <a href="tanya">Tanya sesuatu</a>.</p>`) +
+    mod("Kategori pilihan", ["blog", "Jelajah"], `<div class="chipr">${["Teknologi","Ekonomi","Kuliner","Otomotif","Olahraga","Hiburan","Catatan harian"].map(c => `<a href="blog">${c}</a>`).join("")}</div>`) +
+    `<div class="mh2"><h2>Jelajah</h2></div>`;
+}
+function renderCal(){
+  const t = new Date(new Date().toLocaleString("en-US", {timeZone:TZ.WIB})), y = t.getFullYear(), m = t.getMonth(), d = t.getDate();
+  const first = new Date(y, m, 1).getDay(), days = new Date(y, m + 1, 0).getDate();
+  const cells = Array.from({length:first}, () => "<i></i>").concat(Array.from({length:days}, (_, i) => `<span${i + 1 === d ? ' class="now"' : ""}>${i + 1}</span>`)).join("");
+  $("cal").innerHTML = `<div class="sh"><h2>Kalender</h2><small>${t.toLocaleDateString("id-ID", {month:"long", year:"numeric"})}</small></div><div class="cal"><b>Min</b><b>Sen</b><b>Sel</b><b>Rab</b><b>Kam</b><b>Jum</b><b>Sab</b>${cells}</div>`;
 }
 const renderNews = renderFeed;      // auth.js memanggil nama lama ini
 

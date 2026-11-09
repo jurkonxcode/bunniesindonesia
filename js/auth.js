@@ -79,7 +79,7 @@ async function logout(){
   renderAuth(); renderNews();
 }
 
-const loggedOutCard = `<div class="sh"><h2>Akun Niflax</h2></div><p>Masuk untuk menyimpan berita, berkomentar, dan bergabung ke komunitas.</p><button class="btn green" id="loginBtn">Masuk atau daftar</button><div class="links"><span>Tanpa kata sandi: cukup kode lewat email atau Google.</span></div>`;
+const loggedOutCard = `<div class="sh"><h2>Akun Niflax</h2></div><p>Masuk untuk menulis blog, bertanya, dan menjawab.</p><button class="btn green" id="loginBtn">Masuk atau daftar</button><div class="links"><span>Tanpa kata sandi: cukup kode lewat email atau Google.</span></div>`;
 function renderAuth(){
   const a = document.querySelector(".top .actions");
   if(session){
