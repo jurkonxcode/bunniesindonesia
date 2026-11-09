@@ -55,6 +55,7 @@ assets/                 gambar, ikon, font lokal (masih kosong)
 supabase/
   supabase-schema.sql   skema database lengkap
 privasi.html, syarat.html, tentang.html   halaman hukum + kontak
+brand.html              panduan merek
 README.md
 HANDOFF.md              dokumen ini
 ```
@@ -185,3 +186,10 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 - Dibuat `privasi.html`, `syarat.html`, `tentang.html` (kontak sementara lewat GitHub Issues). **Sebelum publik: ganti dengan email kontak sungguhan dan buat fitur hapus akun.** Teks hukum adalah draf, belum ditinjau ahli hukum.
 - Bagian data contoh diberi label `contoh` (kelas `.demo`). Hapus label saat data nyata terpasang.
 - Tab pencarian Gambar/Video/Komunitas disembunyikan sampai `search.html` jadi. Footer dibersihkan dari link tanpa tujuan.
+
+## 13. v6: identitas merek
+
+- Aset di `assets/brand/`: `logo-mark.svg` (juga favicon), `logo-wordmark(-dark).svg`, `logo-horizontal(-dark).svg`, `icons.svg` (sprite 8 ikon), `og-image.svg/.png`, `icon-192/512.png`. Panduan visual: `brand.html`.
+- Palet baru: Hijau Daun `#17A862`, Kunyit `#F5A524`, Hutan `#0F2A1E`, Krem `#FFF8EC`. `--brand` di `css/tokens.css` digeser dari `#03c75a` karena identik dengan hijau Naver.
+- Gambar OG memakai URL github.io. Ganti ke domain asli setelah dibeli.
+- Daftarkan merek ke DJKI setelah cek ketersediaan nama.

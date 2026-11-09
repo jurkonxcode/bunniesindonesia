@@ -8,3 +8,5 @@ body.page{background:var(--bg)}
 .doc p,.doc li{font-size:15.5px}
 .doc a{color:var(--brand-d);text-decoration:underline}
 .doc .note{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.logo{font-weight:800;font-size:25px;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+.doc ul{padding-left:20px;list-style:disc}
