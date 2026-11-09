@@ -14,3 +14,5 @@ assets/   gambar, ikon, font lokal
 - Semua path relatif, jadi situs jalan di `username.github.io/niflax` tanpa domain khusus.
 - Saat domain sudah dibeli, tambahkan file `CNAME` berisi nama domain.
 - Tidak ada data contoh sejak v13. Tabel Supabase yang dibaca: `news`, `trending`, `questions`. Baca `HANDOFF.md` bagian 20.
+
+- Impor berita RSS: `tools/` + `.github/workflows/impor-berita.yml`. Baca `HANDOFF.md` bagian 22.

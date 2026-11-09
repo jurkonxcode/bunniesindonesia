@@ -1,0 +1,28 @@
+name: Impor berita (RSS)
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"       # tiap 30 menit (GitHub bisa terlambat beberapa menit)
+  workflow_dispatch:              # tombol "Run workflow" manual di tab Actions
+
+permissions:
+  contents: read
+
+concurrency:
+  group: impor-berita
+  cancel-in-progress: false
+
+jobs:
+  impor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Impor
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node tools/impor-berita.mjs

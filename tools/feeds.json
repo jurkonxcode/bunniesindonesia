@@ -1,0 +1,37 @@
+{
+  "_baca": "Semua feed bawaan MATI (izin: false). Ubah izin menjadi true HANYA setelah ada izin tertulis dari media, atau lisensinya jelas mengizinkan (isi 'catatan'). Lihat HANDOFF.md bagian 22.",
+  "_kolom": {
+    "id": "nama pendek untuk log",
+    "nama": "nama sumber yang tampil di kartu berita",
+    "url": "alamat RSS/Atom resmi dari situs media",
+    "kategori": "Nasional | Teknologi | Bola | Olahraga | Ekonomi | Hiburan | Kuliner | Otomotif | Religi",
+    "izin": "true bila sudah berizin; selain itu feed dilewati",
+    "ringkasan": "true = simpan ringkasan pendek (maks 200 huruf). Bawaan false: hanya judul dan tautan",
+    "bahasa": "id (bawaan) atau kode lain, mis. en. Berita non-id diberi label (EN) dan TIDAK diterjemahkan otomatis",
+    "maks_umur_jam": "abaikan berita lebih tua dari ini (bawaan 72)",
+    "maks_item": "maksimal berita per feed per putaran (bawaan 15)",
+    "catatan": "dari mana izinnya (tanggal, nama kontak, atau tautan lisensi)"
+  },
+  "feeds": [
+    {
+      "id": "contoh-media-id",
+      "nama": "Nama Media",
+      "url": "GANTI_DENGAN_URL_RSS",
+      "kategori": "Nasional",
+      "izin": false,
+      "ringkasan": false,
+      "bahasa": "id",
+      "catatan": "belum ada izin"
+    },
+    {
+      "id": "contoh-media-en",
+      "nama": "Nama Media Internasional",
+      "url": "GANTI_DENGAN_URL_RSS",
+      "kategori": "Ekonomi",
+      "izin": false,
+      "ringkasan": false,
+      "bahasa": "en",
+      "catatan": "cek lisensi RSS terbaru sebelum diaktifkan"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Niflax: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026 (v14).
+Terakhir diperbarui: 9 November 2026 (v15).
 Tujuan dokumen: agar siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan proyek tanpa bertanya ulang. Letakkan file ini di root repo sebagai `HANDOFF.md`.
 
 ---
@@ -296,3 +296,30 @@ Tujuan: struktur beranda lebih dekat ke portal besar (kolom utama + kolom sampin
 - Strip mini (`.mini`) disembunyikan di desktop karena kartu sholat/libur sudah terlihat di kolom samping.
 - Berkas berubah: `index.html`, `css/portal.css` (baru), `js/ui.js`, `js/main.js`, `js/auth.js`. Parameter cache naik ke `?v=14` di `index.html`.
 - Belum dikerjakan (urut prioritas): Kios Berita, panel hamburger, blok Belanja, widget cuaca/kurs/kalender.
+
+## 22. v15: impor berita lewat RSS (berizin saja)
+
+Berkas baru: `tools/impor-berita.mjs`, `tools/feeds.json`, `.github/workflows/impor-berita.yml`. Tidak ada perubahan pada situs (HTML/CSS/JS) sama sekali.
+
+**Cara kerja:** GitHub Actions menjalankan skrip tiap 30 menit (dan bisa manual lewat tab Actions, tombol Run workflow). Skrip membaca feed di `tools/feeds.json`, lalu memasukkan berita baru ke tabel `news` lewat REST Supabase (`on_conflict=url`, duplikat dilewati). Situs membaca tabel itu seperti biasa; tab Berita dan kategori muncul sendiri begitu ada isi.
+
+**Aturan yang dikunci di skrip:**
+- Feed dengan `"izin": true` saja yang diambil. Semua feed bawaan mati. Isi kolom `catatan` dengan asal izinnya (tanggal/kontak/tautan lisensi).
+- Yang disimpan: judul, nama sumber, waktu terbit, tautan asli. Ringkasan hanya bila `"ringkasan": true` (maks 200 huruf). `image_url` selalu kosong (foto punya hak cipta sendiri). Isi artikel penuh tidak disimpan.
+- Berita lebih tua dari `maks_umur_jam` (bawaan 72 jam) dilewati.
+- Berita non-Indonesia diberi label bahasa pada nama sumber, mis. "Nama Media (EN)". **Tidak ada terjemahan otomatis** (terjemahan adalah karya turunan dan butuh izin/lisensi).
+- Kategori harus salah satu: Nasional, Teknologi, Bola, Olahraga, Ekonomi, Hiburan, Kuliner, Otomotif, Religi (sesuai `CAT_ART` di `js/data.js`).
+
+**Pengaturan sekali (wajib):**
+1. GitHub repo, Settings, Secrets and variables, Actions, New repository secret:
+   - `SUPABASE_URL` = alamat proyek Supabase (sama dengan `SUPABASE_URL` di `js/config.js`).
+   - `SUPABASE_SERVICE_ROLE_KEY` = kunci rahasia (service_role atau secret) dari Supabase, Project Settings, API. **Jangan** ditaruh di repo atau di `js/config.js`.
+2. Pastikan `supabase/supabase-schema.sql` sudah dijalankan (tabel `news` dengan kolom `url` unik).
+3. Isi feed di `tools/feeds.json`, ubah `izin` menjadi `true`, commit.
+4. Uji tanpa menulis ke database: `node tools/impor-berita.mjs --dry` (tidak butuh kunci). Lalu di tab Actions, jalankan "Impor berita (RSS)" sekali secara manual dan cek lognya.
+
+**Catatan:**
+- Workflow terjadwal di repo publik dimatikan GitHub bila repo tidak ada aktivitas 60 hari; nyalakan lagi dari tab Actions.
+- Tabel `news` bertambah terus. Pembersihan otomatis belum ada (hati-hati: `saved_news` terhubung dengan `on delete cascade`, jadi jangan hapus berita yang sedang disimpan pengguna).
+- UU Hak Cipta Pasal 43 huruf c (berita aktual, sumber disebut lengkap) sedang diusulkan dihapus oleh Dewan Pers; pantau revisinya. Kebijakan Niflax tetap: minta izin tertulis.
+- Kunci rahasia di `js/config.js` adalah kesalahan fatal: kunci di frontend itu publik.
