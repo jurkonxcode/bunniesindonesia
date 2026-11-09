@@ -1,3 +1,11 @@
+const ICONS = "assets/icons/niflax-icons.svg";
+const art = id => `<svg class="art" aria-hidden="true"><use href="${ICONS}#n-${id}"/></svg>`;
+const sUrl = u => { try{ const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : ""; }catch(e){ return ""; } };
+/* Sampul berita: ilustrasi ikon kategori; jika ada image_url, foto menutupinya (hilang sendiri bila gagal dimuat). */
+function cover(n, i){
+  const [id, p] = CAT_ART[n.category] || ["berita", i || 0], img = sUrl(n.image_url);
+  return `<div class="thumb" style="${grad(p)}">${art(id)}${img ? `<img src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}</div>`;
+}
 const grad = i => `--a:${PAL[i % PAL.length][0]};--b:${PAL[i % PAL.length][1]}`;
 const rp = n => "Rp" + n.toLocaleString("id-ID");
 function ago(d){
@@ -15,9 +23,9 @@ function renderNews(){
   const found = q ? `<div class="found"><span>${items.length} hasil untuk “${esc(query)}”</span><button id="clearQ">Hapus</button></div>` : "";
   if(!items.length){ $("newsBody").innerHTML = found + `<p class="empty">Tidak ada berita yang cocok. Coba kata kunci atau kategori lain.</p>`; return; }
   const [a, ...rest] = items;
-  const card = (n, i) => `<a class="nc" href="#"><div class="thumb" style="${grad(i + 1)}"></div><div><span class="tag">${esc(n.category)}</span><h4>${esc(n.title)}</h4><span class="meta">${esc(n.source)} · ${esc(when(n))}</span>${sv(n)}</div></a>`;
+  const card = (n, i) => `<a class="nc" href="#">${cover(n, i + 1)}<div><span class="tag">${esc(n.category)}</span><h4>${esc(n.title)}</h4><span class="meta">${esc(n.source)} · ${esc(when(n))}</span>${sv(n)}</div></a>`;
   $("newsBody").innerHTML = found +
-    `<article class="lead"><div class="thumb" style="${grad(0)}"></div><div><span class="tag">${esc(a.category)}</span><h3>${esc(a.title)}</h3><p>${esc(a.summary)}</p><span class="meta">${esc(a.source)} · ${esc(when(a))}</span>${sv(a)}</div></article>` +
+    `<article class="lead">${cover(a, 0)}<div><span class="tag">${esc(a.category)}</span><h3>${esc(a.title)}</h3><p>${esc(a.summary)}</p><span class="meta">${esc(a.source)} · ${esc(when(a))}</span>${sv(a)}</div></article>` +
     (rest.length ? `<div class="nc4">${rest.slice(0, 4).map(card).join("")}</div>` : "") +
     (rest.length > 4 ? `<ul class="rows">${rest.slice(4, 10).map(n => `<li><a href="#"><span class="tag">${esc(n.category)}</span>${esc(n.title)}</a><span class="meta">${esc(when(n))}</span></li>`).join("")}</ul>` : "");
 }
@@ -25,13 +33,13 @@ function renderNews(){
 function renderStatic(){
   $("ticker").innerHTML = `<span><em class="demo">contoh</em></span>` + ticker.map(t => `<span><b>${t[0]}</b>${t[1]} <span class="${t[3] ? "up" : "down"}">${t[2]}</span></span>`).join("") +
     `<span class="date" id="clocks"></span>`;
-  $("short").innerHTML = shortcuts.map(s => `<a href="${s[2]}"${s[3] ? ` data-cat="${s[3]}"` : ""}><span><svg viewBox="0 0 24 24"><path d="${s[1]}"/></svg></span>${s[0]}</a>`).join("");
+  $("short").innerHTML = shortcuts.map(s => `<a href="${s[2]}"${s[3] ? ` data-cat="${s[3]}"` : ""}><span class="ic ${s[4]}"><svg aria-hidden="true"><use href="${ICONS}#n-${s[1]}"/></svg></span>${s[0]}</a>`).join("");
   $("chips").innerHTML = quick.map(c => `<button type="button">${esc(c)}</button>`).join("");
   $("stamp").textContent = new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long"});
   $("videos").innerHTML = videos.map((v, i) => `<a class="vc" href="#"><div class="thumb" style="${grad(i + 2)}"><span class="dur">${v.dur}</span></div><h4>${esc(v.title)}</h4></a>`).join("");
-  $("products").innerHTML = products.map((p, i) => `<a class="pc" href="#"><div class="thumb" style="${grad(i + 4)}"><span class="off">-${p.off}%</span></div><h4>${esc(p.name)}</h4><b><s>${rp(p.old)}</s>${rp(p.price)}</b></a>`).join("");
+  $("products").innerHTML = products.map((p, i) => `<a class="pc" href="#"><div class="thumb" style="${grad(i + 4)}">${art("belanja")}<span class="off">-${p.off}%</span></div><h4>${esc(p.name)}</h4><b><s>${rp(p.old)}</s>${rp(p.price)}</b></a>`).join("");
   $("communities").innerHTML = communities.map((c, i) => `<li><span class="av" style="${grad(i)}">${esc(c.name[0])}</span><div>${esc(c.name)}<span class="meta">${c.members} anggota</span></div><button>Gabung</button></li>`).join("");
-  $("comics").innerHTML = comics.map((c, i) => `<a class="cm" href="#"><div class="thumb" style="${grad(i + 1)}"><span>${esc(c.title)}</span></div><h4>${esc(c.title)}</h4><span class="meta">${esc(c.genre)}</span></a>`).join("");
+  $("comics").innerHTML = comics.map((c, i) => `<a class="cm" href="#"><div class="thumb" style="${grad(i + 1)}">${art("komik")}<span>${esc(c.title)}</span></div><h4>${esc(c.title)}</h4><span class="meta">${esc(c.genre)}</span></a>`).join("");
   $("score").innerHTML = scores.map(s => `<li><span>${s[0]}</span><b>${s[1]}</b><span>${s[2]}</span></li>`).join("");
 }
 

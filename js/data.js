@@ -39,17 +39,19 @@ const communities = [
 const comics = [{title:"Langit Sembilan",genre:"Fantasi"},{title:"Kota Tanpa Malam",genre:"Fiksi ilmiah"},{title:"Dapur Mak Ijah",genre:"Komedi"},{title:"Pendekar Senja",genre:"Aksi"},{title:"Surat untuk Rani",genre:"Romansa"},{title:"Rumah di Ujung Gang",genre:"Misteri"}];
 const scores = [["Persib","2 – 1","Persija"],["Bali United","0 – 0","Arema"],["PSM","3 – 2","Persebaya"]];
 const shortcuts = [
-  ["Berita","M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-3 2M8 9h5M8 13h5","#berita",""],
-  ["Bola","M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18","#berita","Bola"],
-  ["Hiburan","M4 8h16v11H4zM4 8l3-4h3L7 8M11 8l3-4h3l-3 4","#berita","Hiburan"],
-  ["Video","M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z","#video",""],
-  ["Belanja","M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0","#belanja",""],
-  ["Kuliner","M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-2 6 0 8v10","#berita","Kuliner"],
-  ["Religi","M20 14a8 8 0 1 1-9-10 6 6 0 0 0 9 10z","#berita","Religi"],
-  ["Otomotif","M5 16v-5l2-5h10l2 5v5M3 16h18M7 19v-3M17 19v-3","#berita","Otomotif"],
-  ["Cek resi","M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10","#tool-resi",""],
-  ["Kurs & emas","M5 20V10M12 20V4M19 20v-8","#tool-kurs",""]
+  ["Berita","berita","#berita","","g1"],
+  ["Bola","bola","#berita","Bola","g1"],
+  ["Hiburan","hiburan","#berita","Hiburan","g1"],
+  ["Video","video","#video","","g3"],
+  ["Belanja","belanja","#belanja","","g3"],
+  ["Kuliner","kuliner","#berita","Kuliner","g5"],
+  ["Religi","religi","#berita","Religi","g5"],
+  ["Otomotif","otomotif","#berita","Otomotif","g5"],
+  ["Cek resi","resi","#tool-resi","","g2"],
+  ["Kurs & emas","kurs","#tool-kurs","","g2"]
 ];
+/* Ikon dan warna gambar sampul per kategori berita: [id ikon di assets/icons/niflax-icons.svg, indeks PAL] */
+const CAT_ART = {Nasional:["nasional",0],Teknologi:["teknologi",3],Bola:["bola",4],Olahraga:["bola",4],Ekonomi:["kurs",0],Hiburan:["hiburan",1],Kuliner:["kuliner",5],Otomotif:["otomotif",3],Religi:["religi",4]};
 const quick = ["Cek resi","Jadwal sholat","Kurs dolar","Harga emas","Libur nasional"];
 const prayer = [["Subuh","04:05"],["Zuhur","11:51"],["Asar","15:12"],["Magrib","17:55"],["Isya","19:05"]];
 const rates = [["USD","15.980","-0,18%",0],["SGD","11.850","+0,10%",1],["EUR","17.420","+0,22%",1],["Emas Antam/gr","1.385.000","+0,30%",1]];

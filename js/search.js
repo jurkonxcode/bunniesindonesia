@@ -35,11 +35,12 @@ function demoSearch(){                                // cadangan bila Supabase 
 }
 const rp = n => "Rp" + Number(n).toLocaleString("id-ID");
 
+const ART = {news:"berita", video:"video", product:"belanja", community:"komunitas"};
 function item(r, i){
   const url = safeUrl(r.url), img = safeUrl(r.image_url);
   const bg = img ? `background-image:url('${esc(img)}'),linear-gradient(135deg,var(--a),var(--b));${grad(i)}` : grad(i);
   const meta = [r.source || host(url), r.published_at ? ago(r.published_at) : r.when].filter(Boolean).map(esc).join(" · ");
-  const body = `<div class="thumb" style="${bg}"></div><div class="tx"><span class="kind">${esc(KIND[r.kind] || "")}</span><h3>${mark(r.title)}</h3>${r.snippet ? `<p>${mark(r.snippet)}</p>` : ""}<span class="meta">${meta}</span></div>`;
+  const body = `<div class="thumb" style="${bg}">${img ? "" : `<svg class="art" aria-hidden="true"><use href="assets/icons/niflax-icons.svg#n-${ART[r.kind] || "berita"}"/></svg>`}</div><div class="tx"><span class="kind">${esc(KIND[r.kind] || "")}</span><h3>${mark(r.title)}</h3>${r.snippet ? `<p>${mark(r.snippet)}</p>` : ""}<span class="meta">${meta}</span></div>`;
   return url ? `<a class="r" href="${esc(url)}" target="_blank" rel="noopener noreferrer nofollow">${body}</a>` : `<div class="r">${body}</div>`;
 }
 function empty(title, text, retry){

@@ -59,6 +59,8 @@ privasi.html, syarat.html, tentang.html   halaman hukum + kontak
 brand.html              panduan merek
 search.html             halaman hasil pencarian (css/search.css, js/search.js)
 tanya.html              Tanya Jawab (css/tanya.css, js/tanya.js), v10
+layanan.html            Semua layanan + pintasan (css/layanan.css, js/layanan.js), v11
+assets/icons/niflax-icons.svg   35 ikon Niflax (sprite, id n-<nama>), v11
 README.md
 HANDOFF.md              dokumen ini
 ```
@@ -235,3 +237,15 @@ Catatan: email bawaan Supabase terbatas jumlah kirimnya. Untuk umum, pasang SMTP
 - `reports`: tidak bisa dibaca dari browser. 3 laporan dari 3 pengguna berbeda otomatis menyembunyikan konten (`status = 'hidden'`). Admin meninjau di Table Editor dan bisa mengembalikan ke `open`.
 
 **Catatan:** `js/tanya.js` mandiri (tidak memuat `auth.js`, yang terikat ke beranda), membaca sesi dari `localStorage` kunci `niflax.session`. Login kode email hanya di beranda. Belum ada: votes, edit, notifikasi jawaban baru, panel admin, hapus akun.
+
+## 18. v11: ikon dan sampul bermerek Niflax, halaman Semua layanan
+
+**Tujuan:** tampilan terasa terisi seperti portal besar, tanpa memakai ikon atau desain Naver. Semua ikon digambar sendiri.
+
+- **Sprite ikon** `assets/icons/niflax-icons.svg`: 35 ikon grid 24, garis bulat 1.8, **satu aksen Kunyit** `#F5A524` per ikon (itu tanda pengenal gayanya). Dipakai lewat `<svg><use href="assets/icons/niflax-icons.svg#n-berita"/></svg>`. Warna garis utama mengikuti `color` elemen, jadi ikon bisa diwarnai CSS. Ikon baru: tambah `<symbol id="n-nama">` di file itu dengan gaya yang sama.
+- **Petak ikon** `.ic` + warna kelompok `.g1` sampai `.g6` (di `css/identity.css`). Sepuluh pintasan di beranda kini memakai ini (`shortcuts` di `data.js` berisi id ikon dan kelas kelompok).
+- **Sampul berita** (`cover()` di `js/ui.js`): selalu ada ilustrasi ikon kategori di atas gradien kawung (peta kategori ke ikon dan warna ada di `CAT_ART`, `data.js`). Bila `news.image_url` terisi (http/https saja), foto menutupinya. Bila foto gagal dimuat, foto dilepas dan ilustrasi muncul lagi. Produk, komik, dan hasil pencarian juga memakai ilustrasi.
+- **`/layanan`** (`layanan.html`): semua layanan per kelompok, kotak cari layanan, dan **Pintasan saya** (maks 8, disimpan di `localStorage` kunci `niflax.pins`, per perangkat). Daftar layanan ada di array `GROUPS` di `js/layanan.js`. Item tanpa tujuan tampil redup dengan label `segera`; item berdata palsu berlabel `contoh`. Saat layanan baru jadi, isi tujuannya dan hapus labelnya.
+- Tombol menu (tiga garis) di header beranda mengarah ke `/layanan`, terlihat juga di HP (menu teks disembunyikan di bawah 1000px).
+
+**Belum ada:** foto asli. Itu baru muncul setelah impor RSS (Tahap A no. 3) mengisi `image_url`. Simpan hanya tautan gambar sumber, jangan salin ke penyimpanan sendiri tanpa izin. Pintasan belum ikut akun (belum sinkron antar perangkat).
