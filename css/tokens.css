@@ -5,8 +5,5 @@
   --shadow:0 1px 2px rgba(15,31,26,.05),0 10px 28px -16px rgba(15,31,26,.18);
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
-  :root{--bg:#07120e; --surface:#0e1d17; --ink:#e8f5ee; --muted:#8fb0a2; --line:#1d3429;
-    --brand:#2fd18a; --brand-d:#25b877; --brand-ink:#03140b; --accent:#8b7dff; --up:#35d58a; --glow:#1ee27a;
-    --shadow:0 10px 28px -16px rgba(0,0,0,.6); color-scheme:dark}
-}
+/* Mode gelap dimatikan: Niflax selalu terang, seperti Naver. */
+

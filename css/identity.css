@@ -33,7 +33,6 @@
 .ic{display:grid;place-items:center;flex:0 0 auto;width:44px;height:44px;border-radius:13px;background:color-mix(in srgb,var(--c,var(--brand-d)) 13%,var(--surface));color:var(--c,var(--brand-d))}
 .ic svg{width:24px;height:24px}
 .g1{--c:var(--brand-d)}.g2{--c:#b86e00}.g3{--c:#d6455a}.g4{--c:var(--accent)}.g5{--c:#0b8f7a}.g6{--c:var(--muted)}
-@media(prefers-color-scheme:dark){.g2{--c:var(--warm)}.g3{--c:#ff7b80}}
 .thumb .art{position:absolute;left:50%;top:50%;width:min(46%,52px);height:auto;aspect-ratio:1;transform:translate(-50%,-50%);color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.25));z-index:1}
 .lead .thumb .art{width:84px}
 .vc .thumb .art{display:none}

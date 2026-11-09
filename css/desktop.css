@@ -25,3 +25,9 @@
   .feed{column-count:3}
 }
 @media(min-width:1000px){.side #acct{order:-1}}
+.lv .wnow{display:flex;align-items:center;gap:10px;margin:10px 0}.wnow .big{font-size:34px}.wnow b{font-size:30px;font-family:Sora,sans-serif}
+.wdays{display:grid;grid-template-columns:repeat(5,1fr);text-align:center;font-size:12px;gap:2px}.wdays div{display:flex;flex-direction:column;gap:2px}.wdays i{font-style:normal;font-size:18px}.wdays em{font-style:normal;color:var(--muted)}
+.eqm{margin:10px 0 4px;font-size:14.5px;line-height:1.4}.eqm b{color:var(--down)}
+.fxl div{display:flex;justify-content:space-between;padding:7px 0;font-size:14px}.fxl div+div{border-top:1px solid var(--line)}
+.src{margin:10px 0 0;font-size:11.5px;color:var(--muted)}.src a{text-decoration:underline}
+#wxLoc{margin-top:10px;border:1px solid var(--line);background:none;color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;cursor:pointer}

@@ -16,7 +16,7 @@ try{
   const v = JSON.parse(localStorage.getItem(LOC_KEY));
   if(v && typeof v.name === "string" && isFinite(v.lat) && isFinite(v.lon) && [7,8,9].includes(v.off)) loc = {name:v.name.slice(0,40), lat:+v.lat, lon:+v.lon, off:+v.off};
 }catch(e){}
-const saveLoc = () => { try{ localStorage.setItem(LOC_KEY, JSON.stringify(loc)); }catch(e){} };
+const saveLoc = () => { try{ localStorage.setItem(LOC_KEY, JSON.stringify(loc)); }catch(e){} if(typeof liveRefresh === "function") liveRefresh(); };
 const zoneName = off => off === 7 ? "WIB" : off === 8 ? "WITA" : "WIT";
 function dist(a, b, c, d){                      // jarak kasar (km), cukup untuk memilih kota terdekat
   const r = x => x * Math.PI / 180, dl = r(d - b), p = Math.cos(r((a + c) / 2));
