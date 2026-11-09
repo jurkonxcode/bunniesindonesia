@@ -70,3 +70,16 @@ footer .wrap{position:relative;z-index:1}
   footer::after{width:110px;height:130px}
 }
 @media(prefers-reduced-motion:reduce){.deco{animation:none}.feed .bc,.feed article{transition:none}}
+
+/* ---------- Putar lagu (v35): embed Spotify ---------- */
+.musik{margin:14px auto 18px;max-width:760px;padding:16px;border-radius:22px;background:var(--grad-soft);border:1.5px solid #fff;
+  box-shadow:0 0 0 1px var(--line),0 16px 34px -24px color-mix(in srgb,var(--brand) 55%,transparent)}
+.musik-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.musik-h img{width:26px;height:26px;flex:0 0 auto}
+.musik-h h2{font:800 17px/1.2 Sora,sans-serif;color:var(--denim);margin:0}
+.musik-h p{margin:2px 0 0;font-size:13px;color:#3a4f78}
+.musik-p{border-radius:16px;overflow:hidden;background:#fff;min-height:352px;box-shadow:0 8px 20px -14px var(--brand)}
+.musik-p iframe{display:block;width:100%;height:352px;border:0}
+.musik-n{margin:10px 2px 0;font-size:12px;line-height:1.5;color:var(--muted)}
+.musik-n a{color:var(--denim);text-decoration:underline}
+@media(min-width:1000px){.musik{max-width:860px;padding:20px}}

@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v34.
+Terakhir diperbarui: 9 November 2026, rilis v35.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -131,6 +131,7 @@ Yang tampil sekarang hanya Beranda, Tanya Jawab, Blog, komentar, reaksi, bias, d
 - Dekorasi orisinal di `assets/brand/decor/` (hati, kilau, bintang, planet, awan, kelinci garis). **Logo dan favicon tidak diubah.**
 - `visual-direction.png` hanya referensi mood. Foto member di dalamnya **tidak** dipakai di situs (hak cipta). Pasang foto hanya jika ada izin tertulis.
 - Mengembalikan tampilan lama: hapus baris `<link ... css/brand-skin.css ...>` dari HTML.
+- **v35, Putar lagu:** bagian `#musik` di `index.html` memuat embed Spotify (playlist `37i9dQZF1DWVGwK1DVdGDJ`). Ganti ID di atribut `src` iframe dan tautan "Buka di Spotify" untuk mengganti playlist. Playlist harus publik. Catatan cookie Spotify sudah ditambahkan di `privasi.html`.
 
 ## 6. Komentar, reaksi, dan bias (v31)
 
