@@ -1,8 +1,0 @@
-/* Fokus fanpage (v32): fitur portal lama disembunyikan dulu. Kodenya tetap ada.
-   Untuk menampilkan lagi, hapus baris <link> css/fokus.css dari halaman yang diinginkan. */
-.ticker, #svr, #mini, #wx, #cal, #eq, #ex, #fx, #alat, #trendRow,
-.burger, .sall,
-.menu a[href="layanan"], .menu a[href="#alat"], .pn-tabs a[href="layanan"],
-.fcols > div:nth-child(2) {
-  display: none !important;
-}

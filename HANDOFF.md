@@ -252,3 +252,10 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Data ada di HTML (tidak ada JS tambahan). Warna aksen tiap member sama dengan `js/bias.js`.
 - **Foto:** sengaja tidak disertakan (lihat bagian 2). Kartu memuat `assets/member/<id>.jpg` kalau ada; bila tidak, tampil ilustrasi Bunbun dengan inisial. Isi foto hanya jika sudah berizin.
 - Tinggi badan, MBTI, golongan darah sengaja tidak dicantumkan karena sumber publik saling bertentangan.
+
+## 5e. Rapikan UI (v38)
+- `css/modern.css` (dimuat setelah `brand-skin.css`, sebelum `fokus.css`): fokus keyboard yang jelas, daftar Blog/Tanya Jawab/Pencarian jadi kartu, chip kategori membungkus di desktop dan bisa digeser di HP, ubin kategori 2 baris x 4, empty state bermaskot. Hapus baris `<link>` itu untuk kembali ke v37.
+- **Beranda dipangkas:** banner (`.hbanner`) dihapus dari `index.html` karena mengulang hero (file `assets/brand/banner.svg` dan `css/kit.css` tetap dipakai `brand.html`). Umpan "Semua" di bawah disembunyikan lewat CSS (`#ftabs`, `.feedwrap`) karena mengulang Blog pilihan dan Tanya Jawab terbaru; pesan galat `#status` tetap tampil. Lebar hero dan pemutar kini sama dengan kolom konten.
+- **Pemutar Spotify:** `js/musik.js` memuat iframe hanya saat tombol "Putar playlist" ditekan. Ganti playlist di atribut `data-src` pada `.musik-p` (hanya host `open.spotify.com` yang diterima). Teks di `privasi.html` disesuaikan.
+- **Palet sampul kartu:** `PAL` di `js/data.js` diganti ke biru langit dan merah muda brand (sebelumnya ungu, oranye, hijau).
+- Tinggi beranda di HP turun dari ~3470px ke ~2500px. Tidak ada perubahan database, login, atau fungsi komentar.

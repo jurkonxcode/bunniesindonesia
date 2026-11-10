@@ -1,6 +1,6 @@
 /* v13: tidak ada lagi data contoh. Isi file ini hanya konfigurasi tampilan dan data resmi.
    Berita, pertanyaan, dan kata kunci populer datang dari Supabase. */
-const PAL = [["#2f6fe4","#0b8f7a"],["#5b4bdb","#9b6cf0"],["#f59e0b","#ef5a6f"],["#0ea5e9","#5b4bdb"],["#10b981","#84cc16"],["#ef5a6f","#8b5cf6"]];
+const PAL = [["#2f6fe4","#6aa5ff"],["#1f56c2","#4f8cf0"],["#e0488a","#ff8fbf"],["#3b82f6","#93c5fd"],["#5b7cfa","#a5b4fc"],["#0ea5e9","#7dd3fc"]];     // v38: biru langit dan merah muda brand
 
 /* Ikon dan warna sampul per kategori berita: [id ikon di assets/icons/bunnies-icons.svg, indeks PAL] */
 /* v17: urutan kunci di sini = urutan tab kategori di beranda. Kategori baru wajib ditambah di sini DAN di tools/klasifikasi.mjs. */
