@@ -396,3 +396,10 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Salinan `en/akun.html` dan `ko/akun.html` dibuat dari `akun.html` dengan jalur relatif yang diganti (`../`). Setiap perubahan struktur di `akun.html` perlu disalin ulang ke kedua file itu.
 - `lokasi.js` menghitung alamat data dari lokasi skripnya sendiri, sehingga bekerja dari `en/` dan `ko/`.
 - Terjemahan Korea belum ditinjau penutur asli.
+
+## v48: pilih lagu di beranda
+
+- Blok "Putar lagu" (beranda `index.html` dan `en/index.html`) punya daftar lagu dari `data/youtube.json`, diurutkan dari tayangan terbanyak. Tampil 12 dulu, lalu "Tampilkan semua".
+- Klik Putar memanggil `BunPlayer.playVideo(id, judul)` di `js/player.js`, yaitu memutar satu video YouTube. Riwayat dengar tetap dicatat per lagu.
+- Logika daftar ada di `js/pilih-lagu.js`, gayanya di `css/pilih-lagu.css`.
+- **Belum ada:** pilihan lagu Spotify. `data/spotify.json` belum punya ID track, jadi perlu ditambahkan dulu. Halaman ko belum punya blok ini.

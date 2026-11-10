@@ -104,7 +104,7 @@
 .bp-bar button{width:30px;height:30px;border-radius:50%;border:0;background:#fff;color:#2f6fe4;font:800 16px/1 system-ui;cursor:pointer}
 .bp-b{height:352px;overflow:hidden;transition:height .2s}#bunPlayer.yt .bp-b{height:auto;aspect-ratio:16/9}#bunPlayer.min .bp-b{height:0!important;aspect-ratio:auto!important}.bp-b iframe{display:block;width:100%;height:100%;border:0}
 .bp-f{margin:0;padding:6px 12px 8px;font-size:12px;color:#5b6b8c}.bp-f a{color:#1f56c2;text-decoration:underline}.musik-on{margin:0;padding:16px;font-size:13px;color:#1f56c2;text-align:center}`;
-  let dock = null, ctrl = null, ytp = null, poll = null, eng = null, api = null, loading = false, pending = null, count = 0, now = null, lastPos = 0;
+  let dock = null, ctrl = null, ytp = null, poll = null, eng = null, api = null, loading = false, pending = null, pendingVid = null, count = 0, now = null, lastPos = 0;
   const mount = () => {
     if(dock) return;
     const st = document.createElement("style"); st.dataset.keep = "1"; st.textContent = CSS; document.head.appendChild(st);
@@ -152,12 +152,12 @@
     try{ ctrl && ctrl.destroy(); }catch(e){}
     try{ ytp && ytp.destroy(); }catch(e){}
     if(poll){ clrI0.call(window, poll); poll = null; }
-    ctrl = null; ytp = null; loading = false; now = null; eng = null;
+    ctrl = null; ytp = null; loading = false; now = null; eng = null; pendingVid = null;
     dock.querySelector(".bp-b").innerHTML = '<div id="bpHost"></div>'; if(sw !== true) dock.hidden = true;
   }
   /* ---- YouTube (lagu penuh tanpa login). Host nocookie; skrip API baru dimuat saat tombol ditekan ---- */
   function openYT(list){
-    pending = list;
+    pending = list; pendingVid = null;
     if(ytp){ try{ ytp.loadPlaylist({list, listType:"playlist"}); }catch(e){} return true; }
     if(loading) return true;
     loading = true;
@@ -168,10 +168,26 @@
     document.head.appendChild(s);
     return true;
   }
+  /* v48: satu video YouTube dipilih dari daftar lagu di beranda */
+  function openVid(id, title){
+    if(!id) return false;
+    mount(); eng = "yt"; dock.hidden = false; dock.classList.remove("min"); dock.classList.add("yt");
+    document.getElementById("bpT").textContent = title || "Pemutar Bunnies"; foot();
+    now = null; pending = null; pendingVid = id;
+    if(ytp){ try{ ytp.loadVideoById(id); }catch(e){} return true; }
+    if(loading) return true;
+    loading = true;
+    if(window.YT && YT.Player){ makeYT(); return true; }
+    window.onYouTubeIframeAPIReady = makeYT;
+    const s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true;
+    s.onerror = () => { loading = false; const f = document.createElement("iframe"); f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id); f.title = "Pemutar YouTube"; f.allow = "autoplay; encrypted-media; picture-in-picture"; f.style.cssText = "width:100%;height:100%;border:0"; document.getElementById("bpHost").replaceChildren(f); };
+    document.head.appendChild(s);
+    return true;
+  }
   function makeYT(){
     ytp = new YT.Player("bpHost", {width:"100%", height:"100%", host:"https://www.youtube-nocookie.com",
-      playerVars:{listType:"playlist", list:pending, loop:1, playsinline:1, rel:0},
-      events:{onReady:e => { loading = false; try{ e.target.setLoop(true); e.target.playVideo(); }catch(x){} }, onStateChange:tickYT}});
+      playerVars: pendingVid ? {videoId:pendingVid, playsinline:1, rel:0} : {listType:"playlist", list:pending, loop:1, playsinline:1, rel:0},
+      events:{onReady:e => { loading = false; try{ if(!pendingVid) e.target.setLoop(true); e.target.playVideo(); }catch(x){} }, onStateChange:tickYT}});
     poll = setI0.call(window, tickYT, 1000);
   }
   function tickYT(){
@@ -218,7 +234,7 @@
     }catch(e){}
   }
 
-  window.BunPlayer = {open, go, __feed:onUpd};
+  window.BunPlayer = {open, go, __feed:onUpd, playVideo:openVid};
   const boot = () => mount();
   document.readyState === "loading" ? add0.call(document, "DOMContentLoaded", boot) : boot();
 })();

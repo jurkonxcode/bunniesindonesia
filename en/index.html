@@ -36,6 +36,7 @@
 <link rel="stylesheet" href="../css/navbar.css?v=55">
 <link rel="stylesheet" href="../css/icloud.css?v=55">
 <script src="../js/player.js?v=55"></script>
+<link rel="stylesheet" href="../css/pilih-lagu.css?v=56">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -72,6 +73,7 @@
     <div class="musik-p" data-src="https://open.spotify.com/embed/playlist/37i9dQZF1DWVGwK1DVdGDJ?utm_source=generator"><button type="button" class="musik-go"><span class="musik-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span><b>Play Spotify playlist</b><small>The Spotify player loads only when you press this button.</small></span></button></div>
     <p class="musik-n">Official Spotify player. Log in to Spotify for full songs; without login you get a 30-second preview. <a href="https://open.spotify.com/playlist/37i9dQZF1DWVGwK1DVdGDJ" target="_blank" rel="noopener noreferrer">Open in Spotify</a></p>
     <p class="musik-l">Also listen on <a href="https://open.spotify.com/artist/6HvZYsbFfjnjFrWF950C9d" target="_blank" rel="noopener noreferrer">Spotify</a> · <a href="https://music.apple.com/id/artist/newjeans/1635469693" target="_blank" rel="noopener noreferrer">Apple Music</a></p>
+  <div class="pick" id="pick" aria-label="Pilih lagu"></div>
   </section>
 
   <div class="cols">
@@ -135,5 +137,6 @@ fetch("../data/kabar.en.json").then(r=>r.json()).then(j=>{
  document.getElementById("kb").hidden=false;
 }).catch(()=>{});
 </script>
+<script src="../js/pilih-lagu.js?v=56"></script>
 </body>
 </html>
