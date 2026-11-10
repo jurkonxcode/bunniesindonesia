@@ -32,7 +32,7 @@ function stems(w){                       // kata dasar kasar; hanya dipakai untu
 }
 function normalizeQuery(q){
   const words = String(q || "").toLowerCase().replace(/[,()*\\%_"'’]/g, " ").split(/\s+/).filter(Boolean);
-  let use = words.filter(w => !STOP.has(w) && w.length >= 2);
+  let use = words.filter(w => !STOP.has(w) && (w.length >= 2 || /[\u3131-\uD79D]/.test(w)));
   if(!use.length) use = words.filter(w => w.length >= 3);          // semua kata umum: pakai apa adanya (minimal 3 huruf)
   const groups = [], seen = new Set();
   for(const w of use.slice(0, 5)){

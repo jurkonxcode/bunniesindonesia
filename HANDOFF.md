@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v47.
+Terakhir diperbarui: 9 November 2026, rilis v48.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -312,3 +312,12 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **Sumber foto:** newjeans.kr tertulis "© 2026 ADOR. All Rights Reserved", jadi **bukan** rilis bebas pakai. Jangan memasang foto dari sana tanpa izin tertulis (`izin-agensi`). Foto yang aman: lisensi terbuka (mis. CC BY-SA dari Wikimedia Commons, wajib kredit dan tautan lisensi), atau foto berizin dari kreator.
 - Cara menambah foto ke slideshow dan Galeri: taruh berkas di `assets/galeri/`, tambahkan entri di `data/galeri.json` dengan `izin: "ada"`, `kredit`, `sumber`, `lisensi`.
 - Status member: Danielle ditandai "Tidak lagi di grup · sejak 29 Des 2025" (kartu abu-abu, panel status, garis waktu, tautan sumber) dan tag "mantan" di chip Member, daftar beranda, serta filter Galeri. Perbarui bila status berubah.
+
+
+## 5f. Bahasa Korea dan Hangul (v48)
+- **Halaman Korea sendiri:** `ko/index.html`, `ko/member.html`, `ko/tentang.html` (+ `css/ko.css`). Isinya ditulis khusus untuk pembaca Korea (panduan komunitas, kosakata Indonesia, profil member, status Danielle dengan garis waktu dan sumber), **bukan terjemahan mesin** dari halaman Indonesia. Ini sengaja: Google menilai halaman terjemahan tipis lebih rendah. Tetap minta penutur asli Korea mengoreksi teksnya sebelum dipromosikan.
+- **SEO bahasa:** tiap halaman Korea punya `canonical`, `hreflang` `ko`/`id`/`x-default`; `index.html`, `member.html`, `tentang.html` punya `hreflang` balasan. Halaman Korea masuk sitemap (`tools/build-static.mjs`). Daftarkan sitemap di Google Search Console.
+- **Tombol bahasa:** `js/nav.js` menambahkan tombol "한국어" di baris atas semua halaman Indonesia; halaman Korea punya tombol "Indonesia".
+- **Hangul di seluruh situs:** font Noto Sans KR dimuat (semua HTML) dan masuk daftar font di `css/modern.css`; `js/hangul.js` memberi `lang="ko"` otomatis pada teks berisi Hangul (termasuk tulisan, komentar, dan pencarian pengguna) sehingga glyph dan pemenggalan baris benar (`:lang(ko){word-break:keep-all}`). Pencarian Hangul berjalan (database memakai UTF-8) dan suku kata tunggal tetap disorot.
+- **Batas panjang di database:** judul Tanya Jawab minimal 10 karakter, judul blog minimal 5 karakter. Teks Korea lebih padat, jadi judul pendek bisa ditolak; longgarkan lewat SQL bila perlu.
+- **Belum ada:** antarmuka dinamis (blog, tanya, akun) masih berbahasa Indonesia; halaman Korea menautkan ke sana dan memberi catatan.

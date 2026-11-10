@@ -16,7 +16,7 @@ function ago(d){
   return m < 60 ? m + " menit lalu" : m < 1440 ? Math.round(m / 60) + " jam lalu" : m < 43200 ? Math.round(m / 1440) + " hari lalu" : new Date(d).toLocaleDateString("id-ID", {day:"numeric", month:"short", year:"numeric"});
 }
 function mark(text){                                  // sorot kata kunci, aman dari XSS
-  const terms = normalizeQuery(Q).flat.filter(w => w.length >= 2).sort((a, b) => b.length - a.length).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const terms = normalizeQuery(Q).flat.filter(w => w.length >= 2 || /[\u3131-\uD79D]/.test(w)).sort((a, b) => b.length - a.length).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   if(!terms.length) return esc(text);
   return String(text ?? "").split(new RegExp("(" + terms.join("|") + ")", "i")).map((p, i) => i % 2 ? `<mark>${esc(p)}</mark>` : esc(p)).join("");
 }

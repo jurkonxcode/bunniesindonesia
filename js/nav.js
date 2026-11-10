@@ -23,6 +23,16 @@
     TABS.map(t => `<a href="${t[1]}"${t[2] === activeKey ? ' aria-current="page"' : ""}>${esc(t[0])}</a>`).join("") +
     `</div><a class="sall" href="layanan" aria-label="Semua layanan"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></svg><span>Semua layanan</span></a></div>`;
   host.appendChild(nav);
+  /* v48: tombol bahasa di baris atas (sebelah Masuk/cari). Halaman yang punya padanan Korea menautkan ke sana; lainnya ke beranda Korea. */
+  {
+    const KO = {home:"ko/", member:"ko/member", tentang:"ko/tentang"};
+    const row = host.querySelector(isTop ? ".wrap" : ".swrap");
+    if(row && !row.querySelector(".slang")){
+      const kl = document.createElement("a");
+      kl.className = "slang"; kl.href = KO[key0] || "ko/"; kl.lang = "ko"; kl.hreflang = "ko"; kl.title = "한국어로 보기"; kl.textContent = "한국어";
+      row.insertBefore(kl, row.querySelector(".actions, .hsrch, .hbar"));
+    }
+  }
 
   const list = nav.querySelector(".snl"), cur = list.querySelector("[aria-current]");
   /* bayangan tepi: tampil hanya bila masih ada tab yang tersembunyi di sisi itu */

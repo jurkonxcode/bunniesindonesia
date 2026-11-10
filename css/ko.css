@@ -1,0 +1,47 @@
+/* v48: halaman bahasa Korea (/ko/). Dimuat setelah modern.css. Ditulis sebagai konten Korea tersendiri, bukan terjemahan mesin. */
+:root{--sbh:60px}
+body.ko{font-family:'Noto Sans KR','Instrument Sans','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;line-height:1.65}
+.kbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.kw{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:8px 16px}
+.kw .logo{flex:0 0 auto;font-size:21px}
+.knav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:4px;min-width:0}
+.knav::-webkit-scrollbar{display:none}
+.knav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:999px;font-weight:700;font-size:14px;color:var(--muted);white-space:nowrap}
+.knav a[aria-current=page]{color:var(--denim);background:var(--sky-3)}
+.kw .slang{margin:0 0 0 auto}
+.kmain{max-width:860px;margin:0 auto;padding:0 16px 8px}
+.khero{position:relative;overflow:hidden;margin:16px 0;padding:30px 20px 28px;text-align:center;border-radius:22px;background:var(--grad-soft);border:1.5px solid #fff;box-shadow:0 0 0 1px var(--line),0 18px 40px -26px color-mix(in srgb,var(--brand) 55%,transparent)}
+.khero .pill{display:inline-block;background:#fff;color:var(--denim);border:1.5px solid var(--sky);border-radius:999px;padding:4px 13px;font-size:12.5px;font-weight:700}
+.khero h1{font-size:clamp(24px,6.4vw,36px);line-height:1.3;letter-spacing:-.02em;color:var(--denim);margin:12px 0 8px;text-shadow:0 2px 0 #fff}
+.khero p{max-width:520px;margin:0 auto;color:#3a4f78;font-size:15px}
+.khero .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.khero .btn{display:inline-flex;align-items:center;min-height:42px;padding:0 20px;border-radius:999px;text-decoration:none}
+.khero .btn.ghost2{background:#fff;color:var(--denim);border:1.5px solid var(--sky)}
+.ksec{background:var(--surface);border:1px solid var(--sky-2);border-radius:20px;padding:18px 18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+.ksec h2{font-size:18px;color:var(--denim);padding-left:12px;border-left:4px solid var(--heart);border-radius:2px;margin:0 0 10px}
+.ksec p{font-size:15.5px;margin:0 0 .8em}
+.ksec p:last-child{margin-bottom:0}
+.kul{margin:0;padding:0;display:grid;gap:10px}
+.kul li{padding:12px 14px;background:var(--sky-3);border:1px solid var(--sky-2);border-radius:14px;font-size:15px}
+.kul b{display:block;color:var(--denim);margin-bottom:2px}
+.kcards{display:grid;gap:10px;margin:0;padding:0}
+.kcards a{display:block;padding:14px 16px;border-radius:16px;border:1.5px solid var(--sky-2);border-left:5px solid var(--bc);background:#fff;transition:transform .15s,box-shadow .2s}
+.kcards a:hover{box-shadow:0 12px 24px -18px var(--bc);transform:translateY(-1px)}
+.kcards b{font-size:16px;color:var(--ink)}
+.kcards small{font-size:12.5px;color:var(--muted);margin-left:6px}
+.kcards span{display:block;font-size:14px;color:#3a4f78;margin-top:2px}
+.ktable{width:100%;border-collapse:collapse;font-size:15px}
+.ktable th,.ktable td{text-align:left;padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}
+.ktable thead th{border-top:0;font-size:12.5px;color:var(--muted)}
+.ktable td:first-child{font-weight:700;color:var(--denim);white-space:nowrap}
+.knote{font-size:13px;color:var(--muted);line-height:1.6}
+@media(min-width:620px){.kcards{grid-template-columns:1fr 1fr}.kul{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.khero{padding:44px 48px 40px}}
+/* HP: menu di baris sendiri supaya semua tab terlihat */
+@media(max-width:560px){
+  :root{--sbh:104px}
+  .kw{flex-wrap:wrap;row-gap:2px}
+  .knav{order:3;width:100%;margin:0 -4px}
+  .knav a{flex:1 1 0;justify-content:center;padding:0 6px}
+}
+.kw .logo{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:-.04em;color:var(--ink)}

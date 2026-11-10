@@ -87,3 +87,14 @@ a.r:hover h3{text-decoration:none;color:var(--denim)}
 .mc-src a{text-decoration:underline}
 .mchips a.gone,.mlist a.gone{opacity:.9}
 .gone-tag{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:1px 7px;border-radius:99px;background:#fff4dc;color:#6b4a14;border:1px solid #f0d49a;margin-left:2px}
+
+/* ---------- v48: Hangul + bahasa Korea ---------- */
+body{font-family:'Instrument Sans','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}
+h1,h2,h3,.logo{font-family:'Sora','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}
+input,textarea,select,button{font-family:inherit}
+:lang(ko){word-break:keep-all;overflow-wrap:break-word;line-break:strict}
+.slang{flex:0 0 auto;display:inline-flex;align-items:center;min-height:32px;margin:0 10px 0 6px;padding:2px 12px;border:1.5px solid var(--sky);border-radius:999px;background:#fff;color:var(--denim);font-size:13px;font-weight:700;white-space:nowrap}
+.slang:hover{background:var(--sky-3)}
+.slang{margin-left:auto}
+.slang + .actions,.slang + .hsrch,.slang + .hbar{margin-left:0}
+header.top .wrap .slang{margin-right:8px}
