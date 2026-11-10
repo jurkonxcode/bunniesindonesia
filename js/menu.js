@@ -63,7 +63,7 @@
       /* v54: "tergulir ke atas" = bagian BAWAH kotak sudah di atas garis batas (bukan top < 0): saat digulir pelan, top masih positif ketika kotak melewati garis, dan kotak cari ringkas tidak pernah muncul */
       const on = !en.isIntersecting && en.boundingClientRect.bottom <= (en.rootBounds ? en.rootBounds.top : 94) + 1;
       top.classList.toggle("compact", on);
-      if(on && !hq.value) hq.value = $("q").value;
+      if(on && hq && !hq.value && $("q")) hq.value = $("q").value;
     }, {rootMargin:"-94px 0px 0px 0px", threshold:0}).observe(mainBox);
   }
   $("hSearch").addEventListener("submit", e => {

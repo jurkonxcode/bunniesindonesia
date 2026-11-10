@@ -1,0 +1,98 @@
+/* v55: tipografi dan kepadatan bergaya iCloud. DIMUAT PALING AKHIR di semua halaman publik.
+   Tujuan: huruf tajam (sistem font Apple, pelacakan rapat, tanpa bayangan teks), jarak mengikuti skala 4/8
+   yang sebanding dengan ukuran huruf, garis setipis rambut di layar retina, dan permukaan datar (tanpa kilau berlebih).
+   Hanya lapisan visual: markup dan JS tidak diubah. Hapus baris <link> ini untuk kembali ke v54.
+   Blok "HAIRLINE" di paling bawah dihasilkan otomatis oleh tools/gen-hairline.py dari aturan border 1px/1.5px. */
+
+:root{
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Instrument Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-d:-apple-system,BlinkMacSystemFont,"SF Pro Display","Instrument Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  /* skala huruf (sebanding dengan jarak di bawah: 1 baris teks 15px ~ 22px tinggi, jarak antarblok kelipatan 4) */
+  --t-xs:12px; --t-sm:13px; --t-md:15px; --t-lg:17px; --t-xl:21px; --t-2xl:clamp(28px,5.4vw,44px);
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px;
+  --ink:#1d1d1f; --muted:#6e6e73; --line:#dbe2ee; --hair:rgba(0,0,0,.1);
+  --radius:18px;
+  --shadow:0 0 0 .5px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04),0 8px 24px -18px rgba(0,0,0,.18);
+}
+
+/* ---------- render huruf ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;scroll-padding-top:calc(var(--hh,98px) + 8px)}
+html body{font-family:var(--font);font-size:var(--t-md);line-height:1.47;letter-spacing:-.011em;font-feature-settings:"kern","liga","calt";color:var(--ink)}
+html body h1,html body h2,html body h3,html body h4,html body .logo,html body .sh h2{font-family:var(--font-d);font-weight:600;letter-spacing:-.022em;line-height:1.16}
+html body h1{font-size:var(--t-2xl);line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
+html body h2{text-wrap:balance}
+html body h2{font-size:var(--t-xl)}
+html body h3{font-size:var(--t-lg);letter-spacing:-.018em}
+html body .logo{font-weight:700;letter-spacing:-.03em}
+html body .sh h2{font-size:var(--t-lg);font-weight:600}
+html body .meta,html body small{font-size:var(--t-xs);letter-spacing:-.005em}
+html body p{line-height:1.47}
+html body input,html body textarea,html body select,html body button{font-family:inherit;letter-spacing:inherit}
+html body input,html body textarea,html body select{font-size:16px}   /* 16px: iOS tidak memperbesar layar saat mengetik */
+html body ::selection{background:rgba(47,111,228,.2)}
+
+/* ---------- header: kaca buram, garis rambut ---------- */
+header.top::before,header.sbar::before{
+  background:rgba(255,255,255,.78);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--hair);
+}
+header.top.hide2::before,header.sbar.hide2::before{box-shadow:0 1px 0 var(--hair)}
+html body nav.menu a,html body .knav a{font-size:var(--t-md);font-weight:500;letter-spacing:-.012em}
+html body nav.menu a[aria-current],html body nav.menu a.on,html body .knav a[aria-current]{font-weight:600}
+html body header .logo span{font-weight:700}
+
+/* ---------- tombol: pil, jarak sebanding dengan huruf ---------- */
+html body .btn{padding:.62em 1.25em;min-height:40px;font-size:var(--t-md);font-weight:600;letter-spacing:-.012em;line-height:1.2;border-radius:980px;box-shadow:none;display:inline-flex;align-items:center;justify-content:center}
+html body .btn:active{transform:scale(.98)}
+html body .wedge .btn.green,html body .wedge .btn.green:hover{box-shadow:none;transform:none}
+html body .btn.green:hover{background:var(--brand-d)}
+html body .chips button{padding:.4em .9em;font-size:var(--t-sm);font-weight:500;letter-spacing:-.008em;border-width:1px}
+
+/* ---------- kartu dan bagian: permukaan datar, jarak 4/8 ---------- */
+html body .card{border-radius:var(--radius);padding:var(--s5) var(--s4);box-shadow:var(--shadow);border-color:transparent}
+@media(min-width:700px){html body .card{padding:var(--s5)}}
+html body .section{margin-bottom:var(--s6)}
+html body .sh{margin-bottom:var(--s3);align-items:baseline}
+html body .sh a,html body .sh small{font-size:var(--t-sm)}
+html body .cols{gap:var(--s4)}
+html body .sidem{padding:var(--s4)}
+html body .mlist li a{padding:var(--s2) 0;font-size:var(--t-md);font-weight:500}
+html body .mlist span{font-size:var(--t-sm)}
+html body .mlink{padding:var(--s3);font-size:var(--t-sm);border-radius:12px}
+
+/* ---------- hero: datar dan tajam (tanpa bayangan teks), dekor tetap ---------- */
+html body .wedge{border:0;box-shadow:0 0 0 .5px var(--hair)}
+html body .wedge:not(.has-slide) h1{text-shadow:none;font-weight:700}
+html body .wedge{padding-left:var(--s5);padding-right:var(--s5)}
+html body .wedge h1{font-size:clamp(26px,6.6vw,44px)}
+html body .wedge p{font-size:var(--t-lg);line-height:1.4;letter-spacing:-.016em;text-wrap:pretty}
+html body .wedge .pill{box-shadow:none;border-width:1px;font-size:var(--t-sm);font-weight:600;letter-spacing:0}
+html body .deco{filter:none}
+
+/* ---------- kotak cari ---------- */
+html body .search .box,html body header .hsearch{border:1px solid var(--hair);box-shadow:0 1px 2px rgba(0,0,0,.04);transition:border-color .15s,box-shadow .15s}
+html body .search .box:focus-within,html body header .hsearch:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px rgba(47,111,228,.16)}
+
+/* ---------- pemutar musik, kit, footer ---------- */
+html body .musik-go b,html body .musik-h b{font-size:var(--t-lg);font-weight:600;letter-spacing:-.018em}
+html body .sbtn{font:600 var(--t-md)/1.2 var(--font);letter-spacing:-.012em;border-width:1px}
+html body footer{font-size:var(--t-sm);line-height:1.45}
+html body .fcols h5{font-size:var(--t-sm);font-weight:600;letter-spacing:-.005em}
+html body .fbot{font-size:var(--t-xs)}
+#bunPlayer{border-width:1px;box-shadow:0 0 0 .5px var(--hair),0 16px 40px -16px rgba(0,0,0,.35)}
+#bunPlayer .bp-t{font-family:var(--font);font-weight:600;letter-spacing:-.012em}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ===== HAIRLINE (dihasilkan otomatis oleh tools/gen-hairline.py, jangan diedit tangan) ===== */
+.ac-chips button,.ad,.ad input,.ad textarea,.cl,.cs div,.dc,.gg figure,.gsel select,.kc,.kcards a,.khero,.khero .btn.ghost2,.khero .pill,.lk a,.lmenu,.mc-gone,.mchips a,.mh,.mh .pill,.mk-g,.mkdlg input,.musik,.musik-go,.sbtn,.slang,.st-search input,.thumb::before,.tpls img,.uchip,.wedge,.wedge .pill,footer{border-top-width:1px}
+.ac-chips button,.ad,.ad input,.ad textarea,.cl,.cs div,.dc,.gg figure,.gsel select,.kc,.kcards a,.khero,.khero .btn.ghost2,.khero .pill,.lk a,.lmenu,.mc-gone,.mchips a,.mh,.mh .pill,.mk-g,.mkdlg input,.musik,.musik-go,.sbtn,.slang,.st-search input,.thumb::before,.tpls img,.uchip,.wedge,.wedge .pill{border-right-width:1px}
+.ac-chips button,.ad,.ad input,.ad textarea,.cl,.cs div,.dc,.gg figure,.gsel select,.kc,.kcards a,.khero,.khero .btn.ghost2,.khero .pill,.lk a,.lmenu,.mc-gone,.mchips a,.mh,.mh .pill,.mk-g,.mkdlg input,.musik,.musik-go,.sbtn,.slang,.st-search input,.thumb::before,.tpls img,.uchip,.wedge,.wedge .pill{border-bottom-width:1px}
+.ac-chips button,.ad,.ad input,.ad textarea,.cl,.cs div,.dc,.gg figure,.gsel select,.khero,.khero .btn.ghost2,.khero .pill,.lk a,.lmenu,.mc-gone,.mchips a,.mh,.mh .pill,.mk-g,.mkdlg input,.musik,.musik-go,.sbtn,.slang,.st-search input,.thumb::before,.tpls img,.uchip,.wedge,.wedge .pill{border-left-width:1px}
+@media(-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi){
+#authDlg .alt,#authDlg input,#ex .exl a,#sug,#wxB .wdays,#wxLoc,.ab.g,.ac button,.ac-act .sec,.al li,.an.best,.ans,.bchip,.bias-pick button,.box,.box input,.box select,.box textarea,.btn.alt,.card,.cats button,.cct button,.chip,.chipr a,.cl .mo button,.cl li+li,.clist button,.clist li,.cm,.cm-form textarea,.dc .ln a,.demo,.dlg input,.dlg select,.dlg textarea,.doc .note,.dw-acct,.dw-s,.ext,.fbot,.fc,.form textarea,.ftabs .qk,.fxl div+div,.gate,.gone-tag,.hero,.hl .tg,.hl li,.hs .chips button,.kchips a,.kl li+li,.kota select,.ksec,.ktable td,.ktable th,.kul li,.lsearch input,.mc,.mc-facts div,.mc-st.out,.mcred li,.mdisc li,.mgroup,.mlist li a,.mod,.mtl li,.nc4,.pager button,.pf-lok,.pf-user,.pn,.pp-facts div,.promo,.qlist li+li,.qsearch input,.r,.rank li,.resi input,.resi select,.rows li,.rx-b,.save,.sb,.score li,.sgbox,.short,.snav,.st-ans,.st-art,.st-cta,.st-more,.st-more li,.stabs button,.stats div,.tabs button,.tags button,.tg,.tiles,.totop,.wedge,.wedge .ghost2,.wr,.wr .pill,.wxrow,footer{border-top-width:.5px}
+#authDlg .alt,#authDlg input,#ex .exl a,#sug,#wxLoc,.ab.g,.ac button,.ac-act .sec,.an.best,.bchip,.bias-pick button,.box,.box input,.box select,.box textarea,.btn.alt,.card,.cats button,.cct button,.chip,.chipr a,.cl .mo button,.clist button,.cm-form textarea,.dc .ln a,.demo,.dlg input,.dlg select,.dlg textarea,.doc .note,.dw-acct,.dw-s,.ext,.fc,.form textarea,.ftabs .qk,.gate,.gone-tag,.hero,.hl .tg,.hs .chips button,.kchips a,.kota select,.ksec,.kul li,.lsearch input,.mc,.mc-facts div,.mc-st.out,.mgroup,.mod,.pager button,.pf-lok,.pf-pre,.pf-user,.pn,.pp,.pp-facts div,.promo,.qsearch input,.r,.resi input,.resi select,.rx-b,.save,.sb,.sgbox,.short,.st-ans,.st-art,.st-cta,.st-more,.stabs button,.stats div,.tabs button,.tags button,.tg,.tiles a,.totop,.wedge,.wedge .ghost2,.wr,.wr .pill{border-right-width:.5px}
+#authDlg .alt,#authDlg input,#ex .exl a,#ex .exr,#sug,#wxLoc,.ab.g,.ac button,.ac-act .sec,.an,.an.best,.bchip,.bias-pick button,.box,.box input,.box select,.box textarea,.box>h2,.btn.alt,.card,.cats button,.cct button,.chip,.chipr a,.cl .mo button,.clist button,.cm-form textarea,.cm-i,.dc .ln a,.demo,.dlg input,.dlg select,.dlg textarea,.doc .note,.dw-acct,.dw-s,.dw-s h3,.dw-top,.ext,.fc,.form textarea,.ftabs,.ftabs .qk,.gate,.gone-tag,.hero,.hl .tg,.hs .chips button,.kbar,.kchips a,.kota select,.ksec,.kul li,.lbar,.lsearch input,.mc,.mc-facts div,.mc-st.out,.mgroup,.mod,.mr,.pager button,.pf-lok,.pf-user,.pg-top,.pn,.pp,.pp-facts div,.promo,.qd,.qsearch input,.r,.resi input,.resi select,.rx-b,.save,.sb,.sbar,.sgbox,.short,.st-ans,.st-art,.st-cta,.st-more,.st-top,.stabs button,.stats div,.tabs button,.tags button,.tg,.ticker,.tiles a,.totop,.wedge,.wedge .ghost2,.wr,.wr .pill,header .snav,header.sbar::before,header.top,header.top::before{border-bottom-width:.5px}
+#authDlg .alt,#authDlg input,#ex .exl a,#sug,#wxLoc,.ab.g,.ac button,.ac-act .sec,.an.best,.bchip,.bias-pick button,.box,.box input,.box select,.box textarea,.btn.alt,.card,.cats button,.cct button,.chip,.chipr a,.cl .mo button,.clist button,.cm-form textarea,.dc .ln a,.demo,.dlg input,.dlg select,.dlg textarea,.doc .note,.dw-acct,.dw-s,.ext,.fc,.form textarea,.ftabs .qk,.gate,.gone-tag,.hero,.hl .tg,.hs .chips button,.kchips a,.kota select,.ksec,.kul li,.lsearch input,.mc,.mc-facts div,.mc-st.out,.mgroup,.mod,.pager button,.pf-lok,.pf-user,.pn,.pp,.pp-facts div,.promo,.qsearch input,.r,.resi input,.resi select,.rx-b,.sall,.save,.sb,.sgbox,.short,.st-ans,.st-art,.st-cta,.st-more,.stabs button,.stats div,.tabs button,.tags button,.tg,.tiles,.totop,.wedge,.wedge .ghost2,.wr,.wr .pill{border-left-width:.5px}
+}

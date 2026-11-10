@@ -367,3 +367,23 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **Tidak diubah:** `en/`, `ko/` (header `.kbar`), `layanan.html`, `admin.html`. Header mereka masih lama.
 - **Diuji** (Chromium, 320/390/768/1024/1280px, 13 halaman): tanpa elemen tumpang tindih, tanpa overflow horizontal, tanpa error JS, header menempel, kotak cari ringkas tampil saat gulir pelan dan gulir loncat, baris tab menyelinap dan kembali (HP) / tetap (desktop), transisi bertahap (fade ~250ms, logo menyusut ~300ms), `prefers-reduced-motion` dihormati.
 
+
+## 5j. Perbaikan tombol bahasa, pemutar tanpa putus, dan CSS bergaya iCloud (v55)
+
+**Bug tombol bahasa (akar masalah).** `js/lang.js` membaca bahasa dari `<html lang>`, tetapi navigasi halus di `js/player.js` tidak memperbarui atribut itu. Akibatnya, sesudah berpindah ke English tanpa muat ulang, tombol masih berlabel "ID" dan tautannya jadi `/en/ko/` (404). Perbaikan:
+- `lang.js`: bahasa dan alamat dihitung dari URL (`/en/`, `/ko/`), tautan memakai alamat mutlak, dan dihitung ulang tiap menu dibuka (hash/query terbaru ikut).
+- `player.js`: `go()` kini menyamakan `<html lang>`, `canonical`, dan `hreflang` dengan halaman baru.
+
+**Lagu tidak boleh mati saat pindah halaman.**
+- `en/*.html` dan `ko/*.html` sebelumnya TIDAK memuat `player.js`, jadi lagu mati di sana. Sudah ditambahkan.
+- Pindah halaman keras yang tersisa diganti `bunGo(url)`: kotak cari ringkas di header (`nav.js`), form di halaman Cari (`search.js`), cari profil dan redirect profil (`profil-publik.js`), pendaftaran selesai (`masuk.js`). `location.reload()` di `masuk.js` dan `tanya.js` kini `bunGo(location.href, false)` (muat ulang halus tanpa riwayat baru).
+- `bunGo(url, false)` = ganti halaman tanpa menambah riwayat.
+- Observer halaman (IntersectionObserver/MutationObserver/ResizeObserver) kini dilepas saat pindah halaman. Dulu `menu.js` melempar error setelah pindah dari beranda.
+- Yang tetap memutus lagu: login Google (keluar dari situs), halaman `admin*`, dan membuka via `file://`.
+
+**CSS bergaya iCloud: `css/icloud.css`** (dimuat paling akhir; hapus `<link>` untuk kembali ke v54).
+- Huruf: tumpukan font sistem Apple (SF Pro), cadangan Instrument Sans; antialias, kerning, pelacakan rapat, tanpa bayangan teks.
+- Skala huruf `--t-xs..--t-2xl` dan skala jarak `--s1..--s6` (kelipatan 4/8), dipakai untuk padding tombol (em), kartu, bagian, dan daftar.
+- Header kaca buram; garis rambut 0,5 px di layar retina; permukaan datar; kotak cari dengan cincin fokus.
+- Blok HAIRLINE di dasar file dihasilkan oleh `python3 tools/gen-hairline.py`. Jalankan ulang bila aturan border di CSS lain berubah.
+- Versi cache dinaikkan ke `?v=55`. `go()` menyisipkan stylesheet baru SEBELUM `icloud.css` supaya tetap menjadi yang terakhir.

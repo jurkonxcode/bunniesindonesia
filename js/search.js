@@ -156,3 +156,10 @@ document.addEventListener("click", e => { if(!e.target.closest("#sform")) hide()
 
 $("sq").value = Q; $("st").value = T;
 run();
+
+/* v55: cari ulang di halaman Cari tanpa muat ulang halaman, supaya lagu di pemutar tidak berhenti */
+$("sform").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("sq").value.trim(), u = "search" + (v ? "?q=" + encodeURIComponent(v) : "");
+  window.bunGo ? bunGo(u) : (location.href = u);
+});

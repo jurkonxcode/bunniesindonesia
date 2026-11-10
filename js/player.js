@@ -11,6 +11,7 @@
   const add0 = EventTarget.prototype.addEventListener, rem0 = EventTarget.prototype.removeEventListener;
   const setI0 = window.setInterval, clrI0 = window.clearInterval;
   const csDesc = Object.getOwnPropertyDescriptor(Document.prototype, "currentScript");
+  const ACC = new URL("../akun", BASE).href;
   const tracked = [], timers = [];
   let curScript = null;
 
@@ -20,7 +21,13 @@
     return add0.call(this, t, f, o);
   };
   window.setInterval = function(...a){ const id = setI0.apply(window, a); timers.push(id); return id; };
-  const cleanPage = () => { tracked.splice(0).forEach(([x, t, f, o]) => rem0.call(x, t, f, o)); timers.splice(0).forEach(id => clrI0.call(window, id)); };
+  /* v55: observer milik halaman (IntersectionObserver dll.) juga dicatat dan dilepas saat pindah halaman; dulu tetap hidup dan memicu error */
+  const obs = [];
+  ["IntersectionObserver", "MutationObserver", "ResizeObserver"].forEach(N => {
+    const O = window[N]; if(!O) return;
+    const W = function(...a){ const o = new O(...a); obs.push(o); return o; }; W.prototype = O.prototype; window[N] = W;
+  });
+  const cleanPage = () => { obs.splice(0).forEach(o => { try{ o.disconnect(); }catch(e){} }); tracked.splice(0).forEach(([x, t, f, o]) => rem0.call(x, t, f, o)); timers.splice(0).forEach(id => clrI0.call(window, id)); };
   try{ Object.defineProperty(document, "currentScript", {configurable:true, get(){ return curScript || (csDesc && csDesc.get.call(document)); }}); }catch(e){}
 
   /* ---- navigasi lembut ---- */
@@ -51,7 +58,7 @@
       /* stylesheet: tambahkan yang belum ada dan tunggu selesai, supaya halaman baru tidak berkedip tanpa gaya */
       const want = [...doc.head.querySelectorAll('link[rel="stylesheet"]')].map(l => new URL(l.getAttribute("href"), u).href);
       const have = new Map([...document.head.querySelectorAll('link[rel="stylesheet"]')].map(l => [l.href, l]));
-      await Promise.all(want.filter(h => !have.has(h)).map(h => new Promise(ok => { const l = document.createElement("link"); l.rel = "stylesheet"; l.href = h; l.onload = l.onerror = ok; document.head.appendChild(l); })));
+      await Promise.all(want.filter(h => !have.has(h)).map(h => new Promise(ok => { const l = document.createElement("link"); l.rel = "stylesheet"; l.href = h; l.onload = l.onerror = ok; const z = document.head.querySelector('link[href*="icloud.css"]'); z ? document.head.insertBefore(l, z) : document.head.appendChild(l); })));
       cleanPage();
       if(push) history.pushState({bun:1}, "", u.href);
       cur = key();
@@ -59,6 +66,9 @@
       document.head.querySelectorAll("style:not([data-keep])").forEach(s => s.remove());
       doc.head.querySelectorAll("style").forEach(s => document.head.appendChild(document.importNode(s, true)));
       document.title = doc.title;
+      document.documentElement.lang = doc.documentElement.lang || document.documentElement.lang;   /* v55: bahasa halaman ikut berganti (tombol bahasa membacanya) */
+      const SEO = 'link[rel="canonical"],link[rel="alternate"][hreflang]';
+      document.head.querySelectorAll(SEO).forEach(n => n.remove()); doc.head.querySelectorAll(SEO).forEach(n => document.head.appendChild(document.importNode(n, true)));
       const d0 = document.head.querySelector('meta[name="description"]'), d1 = doc.head.querySelector('meta[name="description"]');
       if(d0 && d1) d0.content = d1.content;
       document.body.className = doc.body.className;
@@ -78,7 +88,7 @@
     busy = false;
     if(queued){ const q = queued; queued = null; go(q[0], q[1]); }
   }
-  window.bunGo = u => go(u);
+  window.bunGo = (u, push) => go(u, push !== false);   /* v55: bunGo(url, false) = muat ulang halaman ini tanpa menambah riwayat */
   add0.call(document, "click", e => {
     if(e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest && e.target.closest("a[href]");
@@ -110,7 +120,7 @@
   const sess = () => { try{ return JSON.parse(localStorage.getItem("bunnies.session")); }catch(e){ return null; } };
   function foot(){
     const f = document.getElementById("bpF"); if(!f || !dock) return;
-    f.innerHTML = "Sesi ini: " + count + " lagu · " + (sess() ? "tercatat di riwayat akunmu (menu Akun)." : '<a href="akun">Masuk</a> agar riwayat tersimpan.');
+    f.innerHTML = "Sesi ini: " + count + " lagu · " + (sess() ? "tercatat di riwayat akunmu (menu Akun)." : '<a href="' + ACC + '">Masuk</a> agar riwayat tersimpan.');
   }
   const uriFrom = src => { try{ const u = new URL(src); if(u.hostname !== "open.spotify.com") return null; const m = u.pathname.match(/^\/(?:embed\/)?(playlist|album|artist|track|show|episode)\/([A-Za-z0-9]+)/); return m ? "spotify:" + m[1] + ":" + m[2] : null; }catch(e){ return null; } };
   const ytList = src => { try{ const u = new URL(src); return /(^|\.)youtube\.com$/.test(u.hostname) ? (u.searchParams.get("list") || null) : null; }catch(e){ return null; } };

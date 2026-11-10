@@ -43,7 +43,7 @@
     f.innerHTML = (mark ? `<img src="${esc(mark.getAttribute("src"))}" alt="" width="22" height="22">` : "") +
       `<input name="q" type="search" placeholder="Cari di Bunnies…" autocomplete="off" maxlength="100" aria-label="Cari">` +
       `<button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>`;
-    f.addEventListener("submit", e => { if(!f.q.value.trim()){ e.preventDefault(); location.href = "search"; } });
+    f.addEventListener("submit", e => { e.preventDefault(); const v = f.q.value.trim(), u = v ? "search?q=" + encodeURIComponent(v) : "search"; window.bunGo ? bunGo(u) : (location.href = u); });
     logo.after(f);
     host.classList.add("compact");
   }

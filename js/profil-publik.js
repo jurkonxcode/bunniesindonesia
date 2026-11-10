@@ -26,7 +26,7 @@ document.addEventListener("click", e => { if(e.target.closest("[data-act=login]"
 $("findForm").addEventListener("submit", e => {
   e.preventDefault();
   const v = $("findIn").value.toLowerCase().replace(/^@/, "").replace(/^njz_/, "").replace(/[^a-z0-9_]/g, "");
-  if(v) location.href = "profil?u=" + encodeURIComponent(v);
+  if(v){ const u = "profil?u=" + encodeURIComponent(v); window.bunGo ? bunGo(u) : (location.href = u); }
 });
 $("findIn").addEventListener("input", e => { e.target.value = e.target.value.toLowerCase().replace(/^@/, "").replace(/^njz_/, "").replace(/[^a-z0-9_]/g, ""); });
 
@@ -37,7 +37,7 @@ $("findIn").addEventListener("input", e => { e.target.value = e.target.value.toL
   let own = null;
   if(session){ try{ own = (await rpc("my_profile")).username; }catch(e){} }
   if(!u){
-    if(own){ location.replace("profil?u=" + encodeURIComponent(own)); return; }
+    if(own){ { const u = "profil?u=" + encodeURIComponent(own); window.bunGo ? bunGo(u, false) : location.replace(u); } return; }
     $("view").innerHTML = session ? "" : gate("Masuk untuk melihat profilmu, atau cari username di atas.");
     return;
   }

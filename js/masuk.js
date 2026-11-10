@@ -110,7 +110,7 @@
     try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
     try{ sessionStorage.setItem(HI, "1"); }catch(e){}
     clearInterval(tick); dlg.close();
-    if(typeof api.onDone === "function"){ api.onDone(s); hello(); } else location.reload();
+    if(typeof api.onDone === "function"){ api.onDone(s); hello(); } else (window.bunGo ? bunGo(location.href, false) : location.reload());
   }
   function google(){
     if(dlg && dlg.open && needTerms()) return;
@@ -217,7 +217,7 @@
       const r = await fetch(SUPABASE_URL + "/rest/v1/rpc/my_profile", {method:"POST", headers:{"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + s.access_token}, body:"{}"});
       if(!r.ok) return;
       const p = await r.json(); if(!p || p.profil_lengkap) return;
-      if(Date.now() - new Date(p.bergabung) < 15 * 60 * 1000) location.href = BASE + "akun?baru=1";
+      if(Date.now() - new Date(p.bergabung) < 15 * 60 * 1000) { const u = BASE + "akun?baru=1"; window.bunGo ? bunGo(u) : (location.href = u); }
       else setTimeout(() => toast("Profil Bunnies-mu belum lengkap. Ketuk untuk melengkapinya.", BASE + "akun"), 3900);
     }catch(e){}
   }

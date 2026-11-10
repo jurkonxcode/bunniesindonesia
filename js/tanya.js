@@ -101,7 +101,7 @@ async function sendAnswer(qid){
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Mengirim…";
   try{
     await rest("answers", {method:"POST", headers:{Prefer:"return=minimal"}, body:JSON.stringify({question_id:qid, body:$("ansBody").value.trim()})});
-    location.reload();
+    (window.bunGo ? bunGo(location.href, false) : location.reload());
   }catch(e){ msg.className = "msg err"; msg.textContent = e.message; btn.disabled = false; }
 }
 async function sendQuestion(){
@@ -124,7 +124,7 @@ async function del(type, id){
   if(!confirm("Hapus permanen? Ini tidak bisa dibatalkan.")) return;
   try{
     await rest((type === "q" ? "questions" : "answers") + "?id=eq." + (+id), {method:"DELETE"});
-    type === "q" ? (window.bunGo ? bunGo("tanya") : (location.href = "tanya")) : location.reload();
+    type === "q" ? (window.bunGo ? bunGo("tanya") : (location.href = "tanya")) : (window.bunGo ? bunGo(location.href, false) : location.reload());
   }catch(e){ alert("Gagal menghapus: " + e.message); }
 }
 
@@ -145,7 +145,7 @@ document.addEventListener("click", async e => {
   if(t.dataset.rep){ repTarget = t.dataset.rep.split(":"); $("repMsg").textContent = ""; return $("repDlg").showModal(); }
   if(t.dataset.best){
     const [q, a] = t.dataset.best.split(":");
-    try{ await rest("rpc/pick_best_answer", {method:"POST", body:JSON.stringify({p_question:+q, p_answer:+a})}); location.reload(); }
+    try{ await rest("rpc/pick_best_answer", {method:"POST", body:JSON.stringify({p_question:+q, p_answer:+a})}); (window.bunGo ? bunGo(location.href, false) : location.reload()); }
     catch(err){ alert(err.message); }
   }
 });
