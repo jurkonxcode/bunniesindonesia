@@ -6,15 +6,15 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=48"><link rel="stylesheet" href="css/base.css?v=48"><link rel="stylesheet" href="css/identity.css?v=48"><link rel="stylesheet" href="css/search.css?v=48"><link rel="stylesheet" href="css/tanya.css?v=48">
-<link rel="stylesheet" href="css/share.css?v=48"><link rel="stylesheet" href="css/komentar.css?v=48"><link rel="stylesheet" href="css/nav.css?v=48">
-<link rel="stylesheet" href="css/brand-skin.css?v=48"><link rel="stylesheet" href="css/modern.css?v=48"><link rel="stylesheet" href="css/padat.css?v=48"><link rel="stylesheet" href="css/fokus.css?v=48"><link rel="stylesheet" href="css/member.css?v=48"><link rel="stylesheet" href="css/galeri.css?v=48">
-<script src="js/player.js?v=48"></script></head><body class="sp mb">
+<link rel="stylesheet" href="css/tokens.css?v=49"><link rel="stylesheet" href="css/base.css?v=49"><link rel="stylesheet" href="css/identity.css?v=49"><link rel="stylesheet" href="css/search.css?v=49"><link rel="stylesheet" href="css/tanya.css?v=49">
+<link rel="stylesheet" href="css/share.css?v=49"><link rel="stylesheet" href="css/komentar.css?v=49"><link rel="stylesheet" href="css/nav.css?v=49">
+<link rel="stylesheet" href="css/brand-skin.css?v=49"><link rel="stylesheet" href="css/modern.css?v=49"><link rel="stylesheet" href="css/padat.css?v=49"><link rel="stylesheet" href="css/fokus.css?v=49"><link rel="stylesheet" href="css/member.css?v=49"><link rel="stylesheet" href="css/galeri.css?v=49">
+<script src="js/player.js?v=49"></script></head><body class="sp mb">
 <header class="sbar"><div class="swrap">
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
   <div class="hbar" id="hbar"></div>
 </div>
-<script src="js/nav.js?v=48"></script></header>
+<script src="js/nav.js?v=49"></script></header>
 <main class="swrap">
 <section class="mh"><span class="pill">Galeri · tidak resmi</span><h1>Galeri Bunnies</h1>
 <p>Foto dikelompokkan per member, jenis, lisensi, dan tahun. Hanya foto yang izinnya jelas yang tampil. Semua hak milik pemegang aslinya; kredit tertera di tiap foto. <a href="hak-cipta">Lapor atau minta hapus</a>.</p></section>
@@ -26,9 +26,9 @@
 <footer><div class="wrap">
   <div class="fcols">
     <div><a class="logo" href="./">bunnies</a><p>Fansite NewJeans tidak resmi, dibuat penggemar untuk penggemar Indonesia.</p></div>
-    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="#alat">Alat harian</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
+    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
     <div><h5>Komunitas</h5><ul><li><a href="member">Member</a></li><li><a href="info">Info &amp; link resmi</a></li><li><a href="tanya">Tanya Jawab</a></li><li><a href="blog">Blog</a></li><li><a href="galeri">Galeri</a></li></ul></div>
-    <div><h5>Bunnies Indonesia</h5><ul><li><a href="tentang">Tentang</a></li><li><a href="tentang#kontak">Kontak</a></li><li><a href="privasi">Kebijakan privasi</a></li><li><a href="syarat">Syarat layanan</a></li><li><a href="hak-cipta">Hak cipta &amp; kredit</a></li></ul></div>
+    <div><h5>Bunnies Indonesia</h5><ul><li><a href="tentang">Tentang</a></li><li><a href="tentang?b=kontak">Kontak</a></li><li><a href="privasi">Kebijakan privasi</a></li><li><a href="syarat">Syarat layanan</a></li><li><a href="hak-cipta">Hak cipta &amp; kredit</a></li></ul></div>
   </div>
   <div class="fbot"><span>© 2026 Bunnies Indonesia. Fansite tidak resmi, tidak berafiliasi dengan NewJeans maupun agensinya.</span><span><a href="privasi">Kebijakan privasi</a> · <a href="syarat">Syarat layanan</a></span></div>
 </div></footer>
@@ -48,7 +48,7 @@ function opsi(id,judul,vals,label,sel){
  el.innerHTML=`<option value="">${judul}</option>`+v.map(x=>`<option value="${esc(x)}"${x===sel?" selected":""}>${esc(label(x))}</option>`).join("");
 }
 function draw(){
- $("gf").innerHTML=M.map(([k,n])=>`<a href="#${k}" class="${k===cur?"on":""}" data-k="${k}">${n}</a>`).join("");
+ $("gf").innerHTML=M.map(([k,n])=>`<a href="${k==="semua"?"galeri":"galeri?m="+k}" class="${k===cur?"on":""}" data-k="${k}">${n}</a>`).join("");
  const V=D.filter(x=>TAMPIL_BELUM||x.izin==="ada");
  opsi("fj","Semua jenis",V.map(x=>x.jenis),k=>JENIS[k]||k,fj);
  opsi("fl","Semua lisensi",V.map(x=>x.lisensi),k=>LISENSI[k]||k,fl);
@@ -67,9 +67,9 @@ function draw(){
  n.hidden=L.length>0;
  n.textContent=V.length?"Belum ada foto yang cocok dengan filter ini.":"Galeri sedang disiapkan. Foto hanya tampil setelah izin dan kreditnya jelas.";
 }
-$("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"","#"+cur);draw()});
+$("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()});
 $("gs").addEventListener("change",e=>{if(e.target.id==="fj")fj=e.target.value;if(e.target.id==="fl")fl=e.target.value;if(e.target.id==="ft")ft=e.target.value;draw()});
-fetch("data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto||[];const h=location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;draw()}).catch(()=>{$("gn").hidden=false});
+fetch("data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto||[];const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()}).catch(()=>{$("gn").hidden=false});
 </script>
-<script src="js/hangul.js?v=48"></script>
+<script src="js/hangul.js?v=49"></script>
 </body></html>

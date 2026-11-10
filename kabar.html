@@ -6,15 +6,15 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=48"><link rel="stylesheet" href="css/base.css?v=48"><link rel="stylesheet" href="css/identity.css?v=48"><link rel="stylesheet" href="css/search.css?v=48"><link rel="stylesheet" href="css/tanya.css?v=48">
-<link rel="stylesheet" href="css/share.css?v=48"><link rel="stylesheet" href="css/komentar.css?v=48"><link rel="stylesheet" href="css/nav.css?v=48">
-<link rel="stylesheet" href="css/brand-skin.css?v=48"><link rel="stylesheet" href="css/modern.css?v=48"><link rel="stylesheet" href="css/padat.css?v=48"><link rel="stylesheet" href="css/fokus.css?v=48"><link rel="stylesheet" href="css/member.css?v=48"><link rel="stylesheet" href="css/galeri.css?v=48"><link rel="stylesheet" href="css/kabar.css?v=48">
-<script src="js/player.js?v=48"></script></head><body class="sp mb">
+<link rel="stylesheet" href="css/tokens.css?v=49"><link rel="stylesheet" href="css/base.css?v=49"><link rel="stylesheet" href="css/identity.css?v=49"><link rel="stylesheet" href="css/search.css?v=49"><link rel="stylesheet" href="css/tanya.css?v=49">
+<link rel="stylesheet" href="css/share.css?v=49"><link rel="stylesheet" href="css/komentar.css?v=49"><link rel="stylesheet" href="css/nav.css?v=49">
+<link rel="stylesheet" href="css/brand-skin.css?v=49"><link rel="stylesheet" href="css/modern.css?v=49"><link rel="stylesheet" href="css/padat.css?v=49"><link rel="stylesheet" href="css/fokus.css?v=49"><link rel="stylesheet" href="css/member.css?v=49"><link rel="stylesheet" href="css/galeri.css?v=49"><link rel="stylesheet" href="css/kabar.css?v=49">
+<script src="js/player.js?v=49"></script></head><body class="sp mb">
 <header class="sbar"><div class="swrap">
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
   <div class="hbar" id="hbar"></div>
 </div>
-<script src="js/nav.js?v=48"></script></header>
+<script src="js/nav.js?v=49"></script></header>
 <main class="swrap">
 <section class="mh"><span class="pill">Kabar · tidak resmi</span><h1>Kabar terbaru</h1>
 <p>Ringkasan kabar NewJeans dan para member, ditulis ulang dengan kata sendiri. Selalu cek sumber aslinya lewat tautan di tiap kabar.</p></section>
@@ -24,9 +24,9 @@
 <footer><div class="wrap">
   <div class="fcols">
     <div><a class="logo" href="./">bunnies</a><p>Fansite NewJeans tidak resmi, dibuat penggemar untuk penggemar Indonesia.</p></div>
-    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="#alat">Alat harian</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
+    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
     <div><h5>Komunitas</h5><ul><li><a href="member">Member</a></li><li><a href="info">Info &amp; link resmi</a></li><li><a href="tanya">Tanya Jawab</a></li><li><a href="blog">Blog</a></li><li><a href="galeri">Galeri</a></li><li><a href="chart">Chart YouTube</a></li><li><a href="kabar">Kabar</a></li></ul></div>
-    <div><h5>Bunnies Indonesia</h5><ul><li><a href="tentang">Tentang</a></li><li><a href="tentang#kontak">Kontak</a></li><li><a href="privasi">Kebijakan privasi</a></li><li><a href="syarat">Syarat layanan</a></li><li><a href="hak-cipta">Hak cipta &amp; kredit</a></li></ul></div>
+    <div><h5>Bunnies Indonesia</h5><ul><li><a href="tentang">Tentang</a></li><li><a href="tentang?b=kontak">Kontak</a></li><li><a href="privasi">Kebijakan privasi</a></li><li><a href="syarat">Syarat layanan</a></li><li><a href="hak-cipta">Hak cipta &amp; kredit</a></li></ul></div>
   </div>
   <div class="fbot"><span>© 2026 Bunnies Indonesia. Fansite tidak resmi, tidak berafiliasi dengan NewJeans maupun agensinya.</span><span><a href="privasi">Kebijakan privasi</a> · <a href="syarat">Syarat layanan</a></span></div>
 </div></footer>
@@ -38,11 +38,11 @@ const tgl=s=>new Date(s+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",m
 const aman=u=>/^https:\/\//.test(u)?u:"#";
 function draw(){
  const ada=Object.keys(W).filter(k=>D.some(x=>x.member===k));
- document.getElementById("kf").innerHTML=[["semua","Semua"],...ada.map(k=>[k,W[k][0]])].map(([k,n])=>`<a href="#${k}" data-k="${k}" class="${k===cur?"on":""}">${n}</a>`).join("");
+ document.getElementById("kf").innerHTML=[["semua","Semua"],...ada.map(k=>[k,W[k][0]])].map(([k,n])=>`<a href="${k==="semua"?"kabar":"kabar?m="+k}" data-k="${k}" class="${k===cur?"on":""}">${n}</a>`).join("");
  document.getElementById("kk").innerHTML=D.filter(x=>cur==="semua"||x.member===cur).map(x=>{const m=W[x.member]||W.grup;return `<article class="kc" style="--bc:${m[1]}"><div class="km"><i></i>${m[0]} · ${tgl(x.tanggal)}</div><h2>${esc(x.judul)}</h2><p>${esc(x.ringkasan)}</p><a href="${esc(aman(x.sumber_url))}" target="_blank" rel="noopener nofollow">Sumber: ${esc(x.sumber_nama)} ↗</a></article>`}).join("");
 }
-document.getElementById("kf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"","#"+cur);draw()});
-fetch("data/kabar.json").then(r=>r.json()).then(j=>{D=j.kabar.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal));const h=location.hash.slice(1);if(W[h])cur=h;draw()}).catch(()=>{document.getElementById("kk").textContent="Kabar gagal dimuat. Muat ulang halaman."});
+document.getElementById("kf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"",cur==="semua"?"kabar":"kabar?m="+cur);draw()});
+fetch("data/kabar.json").then(r=>r.json()).then(j=>{D=j.kabar.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal));const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(W[h])cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"kabar":"kabar?m="+cur);draw()}).catch(()=>{document.getElementById("kk").textContent="Kabar gagal dimuat. Muat ulang halaman."});
 </script>
-<script src="js/hangul.js?v=48"></script>
+<script src="js/hangul.js?v=49"></script>
 </body></html>

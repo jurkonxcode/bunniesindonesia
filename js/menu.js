@@ -19,7 +19,7 @@
       `<div class="dw-acct">${session ? `<b>Halo, ${myName()}</b><button type="button" class="btn" data-dw="logout">Keluar</button>` : `<b>Masuk ke Bunnies Indonesia</b><button type="button" class="btn green" data-dw="login">Masuk atau daftar</button>`}</div>` +
       (P.length ? `<section class="dw-s"><h3>Pintasanmu <b>${P.length}</b></h3><div class="dw-pins">${P.map(s => `<a href="${esc(s.href)}">${ic(s.id, s.c)}<span>${esc(s.name)}</span></a>`).join("")}</div></section>` : "") +
       GROUPS.map(g => `<section class="dw-s"><h3>${esc(g.name)} <b>${g.items.length}</b></h3><div class="dw-g">${g.items.map(i => row({c:g.c, id:i[0], name:i[1], href:i[2], st:i[3] || ""})).join("")}</div></section>`).join("") +
-      `<p class="dw-f"><a href="tentang">Tentang</a> · <a href="tentang#kontak">Kontak</a> · <a href="privasi">Privasi</a> · <a href="syarat">Syarat</a></p>`;
+      `<p class="dw-f"><a href="tentang">Tentang</a> · <a href="tentang?b=kontak">Kontak</a> · <a href="privasi">Privasi</a> · <a href="syarat">Syarat</a></p>`;
     body.scrollTop = 0;
   }
   const isOpen = () => document.body.classList.contains("dw-open");

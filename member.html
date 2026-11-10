@@ -6,10 +6,10 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=48"><link rel="stylesheet" href="css/base.css?v=48"><link rel="stylesheet" href="css/identity.css?v=48"><link rel="stylesheet" href="css/search.css?v=48"><link rel="stylesheet" href="css/tanya.css?v=48">
-<link rel="stylesheet" href="css/share.css?v=48"><link rel="stylesheet" href="css/komentar.css?v=48"><link rel="stylesheet" href="css/nav.css?v=48">
-<link rel="stylesheet" href="css/brand-skin.css?v=48"><link rel="stylesheet" href="css/modern.css?v=48"><link rel="stylesheet" href="css/padat.css?v=48"><link rel="stylesheet" href="css/fokus.css?v=48"><link rel="stylesheet" href="css/member.css?v=48">
-<script src="js/player.js?v=48"></script><link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/member">
+<link rel="stylesheet" href="css/tokens.css?v=49"><link rel="stylesheet" href="css/base.css?v=49"><link rel="stylesheet" href="css/identity.css?v=49"><link rel="stylesheet" href="css/search.css?v=49"><link rel="stylesheet" href="css/tanya.css?v=49">
+<link rel="stylesheet" href="css/share.css?v=49"><link rel="stylesheet" href="css/komentar.css?v=49"><link rel="stylesheet" href="css/nav.css?v=49">
+<link rel="stylesheet" href="css/brand-skin.css?v=49"><link rel="stylesheet" href="css/modern.css?v=49"><link rel="stylesheet" href="css/padat.css?v=49"><link rel="stylesheet" href="css/fokus.css?v=49"><link rel="stylesheet" href="css/member.css?v=49">
+<script src="js/player.js?v=49"></script><link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/member">
 <link rel="alternate" hreflang="ko" href="https://jurkonxcode.github.io/bunniesindonesia/ko/member">
 <link rel="alternate" hreflang="x-default" href="https://jurkonxcode.github.io/bunniesindonesia/member">
 </head><body class="sp mb">
@@ -17,7 +17,7 @@
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
   <div class="hbar" id="hbar"></div>
 </div>
-<script src="js/nav.js?v=48"></script></header>
+<script src="js/nav.js?v=49"></script></header>
 <main class="swrap">
   <section class="mh">
     <img class="deco d1" src="assets/brand/decor/heart.svg" alt="" width="26" height="26"><img class="deco d2" src="assets/brand/decor/sparkle.svg" alt="" width="20" height="20"><img class="deco d3" src="assets/brand/decor/star.svg" alt="" width="28" height="28">
@@ -26,7 +26,7 @@
     <p>Biografi lengkap lima member NewJeans: siapa mereka, dari mana asalnya, perjalanan sebelum debut, dan kabar terbarunya. Info per 9 November 2026.</p>
   </section>
 
-  <nav class="mchips" aria-label="Loncat ke member"><a href="#minji" style="--bc:#e0488a"><i></i>Minji</a><a href="#hanni" style="--bc:#f0873a"><i></i>Hanni</a><a class="gone" href="#danielle" style="--bc:#2f9ed8" title="Tidak lagi di grup sejak 29 Des 2025"><i></i>Danielle<em class="gone-tag">mantan</em></a><a href="#haerin" style="--bc:#2aa87a"><i></i>Haerin</a><a href="#hyein" style="--bc:#8c6fd8"><i></i>Hyein</a></nav>
+  <nav class="mchips" aria-label="Loncat ke member"><a href="member?m=minji" style="--bc:#e0488a"><i></i>Minji</a><a href="member?m=hanni" style="--bc:#f0873a"><i></i>Hanni</a><a class="gone" href="member?m=danielle" style="--bc:#2f9ed8" title="Tidak lagi di grup sejak 29 Des 2025"><i></i>Danielle<em class="gone-tag">mantan</em></a><a href="member?m=haerin" style="--bc:#2aa87a"><i></i>Haerin</a><a href="member?m=hyein" style="--bc:#8c6fd8"><i></i>Hyein</a></nav>
 
   <section class="mgroup" aria-labelledby="gH">
     <h2 id="gH">Tentang NewJeans</h2>
@@ -202,5 +202,10 @@
   <p class="mnote">Info disusun dari sumber publik (Wikipedia, Forbes, dan situs profil K-pop) dan bisa berubah. Data pribadi yang tidak jelas atau berbeda antar sumber, seperti tinggi badan, MBTI, dan golongan darah, sengaja tidak dicantumkan. Cek pengumuman resmi ADOR untuk kabar terbaru. Fansite ini tidak resmi dan tidak berafiliasi dengan NewJeans maupun ADOR; foto resmi tidak dipakai tanpa izin.</p>
 </main>
 <footer><div class="wrap"><div class="fbot"><span>© 2026 Bunnies Indonesia. Fansite tidak resmi, tidak berafiliasi dengan NewJeans maupun agensinya.</span><span><a href="tentang">Tentang</a> · <a href="privasi">Kebijakan privasi</a> · <a href="syarat">Syarat layanan</a></span></div></div></footer>
-<script src="js/hangul.js?v=48"></script>
+<script src="js/hangul.js?v=49"></script>
+<script>
+(function(){var go=function(id,s){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:s?"smooth":"auto",block:"start"})};
+var q=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(q)setTimeout(function(){go(q)},60);
+document.querySelectorAll('.mchips a[href*="?m="]').forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();go(new URL(a.href).searchParams.get("m"),true)})});})();
+</script>
 </body></html>

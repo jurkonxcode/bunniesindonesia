@@ -36,7 +36,7 @@ const SVC = [["tanya","Tanya","tanya","g4"],["blog","Blog","blog","g1"],["blog",
 function renderSvr(){
   $("svr").innerHTML = SVC.map(([id, nm, to, c]) => {
     const body = `${ic(id, c)}<span class="nm">${esc(nm)}</span>`;
-    return to[0] === "#" ? `<a class="ik" href="${to}" data-go="${to.slice(1)}">${body}</a>` : `<a class="ik" href="${to}">${body}</a>`;
+    return to[0] === "#" ? `<a class="ik" href="./" data-go="${to.slice(1)}">${body}</a>` : `<a class="ik" href="${to}">${body}</a>`;
   }).join("");
 }
 function renderTabs(){
@@ -66,7 +66,7 @@ function renderModules(){
     [catArt("musik")[0], "Musik", "Putar playlist", "#musik", "g4"],
     ["tanya", "Tanya Jawab", nq ? nq + " pertanyaan" : "Tanya apa saja", "tanya", "g5"],
     ["blog", "Blog", np ? np + " tulisan" : "Tulis ceritamu", "blog", "g1"],
-    [catArt("video")[0], "Video & MV", "Tayangan YouTube", "chart#video", "g2"],
+    [catArt("video")[0], "Video & MV", "Tayangan YouTube", "chart?m=video", "g2"],
     ["berita", "Kabar", "Update member", "kabar", "g3"]
   ];
   const catChips = np ? `<div class="kchips">${BC.map(([s, l]) => `<a href="blog?cat=${s}">#${esc(l)}</a>`).join("")}</div>` : "";
@@ -78,7 +78,7 @@ function renderModules(){
   $("modules").innerHTML =
     `<section class="pn stand"><div class="pn-tabs"><b>Jelajah</b><a href="member">Member</a><a href="chart">Chart</a><a href="galeri">Galeri</a></div>` +
       `${first ? `<div class="hline"><b class="hk">Terbaru</b><span class="ht"><a href="${first[0]}">${esc(first[1])}</a></span><span class="hr"><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a></span></div>` : ""}` +
-      `<div class="tiles">${tiles.map(([id, nm, sub, to, c]) => `<a href="${to}">${ic(id, c)}<span class="tl"><b>${esc(nm)}</b><small>${esc(sub)}</small></span></a>`).join("")}</div>` +
+      `<div class="tiles">${tiles.map(([id, nm, sub, to, c]) => `<a href="${to[0] === "#" ? "./" : to}"${to[0] === "#" ? ` data-go="${to.slice(1)}"` : ""}>${ic(id, c)}<span class="tl"><b>${esc(nm)}</b><small>${esc(sub)}</small></span></a>`).join("")}</div>` +
       catChips +
       `<a class="wr" href="blog"><span class="wt"><b>Punya cerita soal NewJeans?</b><small>Tulis di Blog. Cukup masuk dengan Google atau kode email.</small></span><span class="pill">Mulai menulis ›</span></a></section>` +
     (posts.length || !postsLoaded ? `<section class="pn bp"><div class="pn-tabs"><b>Blog pilihan</b><a href="blog">Lihat semua</a><span class="pn-r">${bpPage + 1}/${pages}</span></div>` +

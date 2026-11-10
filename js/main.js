@@ -1,17 +1,19 @@
+/* v49: tautan internal tanpa tanda #. "musik" menggulir ke pemutar; selain itu alat harian lama. */
+const goGo = k => k === "musik" ? document.getElementById("musik").scrollIntoView({behavior:"smooth", block:"start"}) : goTool(k === "tool-libur" ? "libur" : "sholat");
 $("ftabs").addEventListener("click", e => {
   const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderFeed(); return; }
-  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goGo(g.dataset.go); }
 });
 $("svr").addEventListener("click", e => {
   const b = e.target.closest("button[data-t]"); if(b){ tab = b.dataset.t; renderFeed(); $("feed").scrollIntoView({behavior:"smooth", block:"start"}); return; }
-  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goGo(g.dataset.go); }
 });
 $("modules").addEventListener("click", e => {
   const c = e.target.closest("button[data-bpc]"); if(c){ bpCat = c.dataset.bpc; bpPage = 0; renderModules(); return; }
   const p = e.target.closest("button[data-bpp]"); if(p){ bpPage = Math.max(0, bpPage + +p.dataset.bpp); renderModules(); return; }
-  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goGo(g.dataset.go); }
 });
-$("mini").addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goTool(g.dataset.go === "tool-libur" ? "libur" : "sholat"); } });
+$("mini").addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goGo(g.dataset.go); } });
 $("tools").addEventListener("change", e => {
   if(e.target.id !== "kota") return;
   const i = +e.target.value; if(!(i >= 0 && i < CITIES.length)) return;

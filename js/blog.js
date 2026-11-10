@@ -79,7 +79,7 @@ async function loadThread(postId){
   try{
     const rows = await rpc("list_comments", {p_post: postId}) || [];
     box.innerHTML = `<h2>Komentar (${rows.length})</h2>` +
-      (session ? cmForm() : `<p class="gate-inline"><a href="#" data-act="login">Masuk</a> untuk ikut berkomentar.</p>`) +
+      (session ? cmForm() : `<p class="gate-inline"><a href="akun" data-act="login">Masuk</a> untuk ikut berkomentar.</p>`) +
       (rows.length ? `<ul class="cm-list">${rows.map(cmItem).join("")}</ul>` : `<p class="cm-empty">Belum ada komentar. Jadilah yang pertama.</p>`);
   }catch(e){ box.innerHTML = `<p class="sinfo">Komentar gagal dimuat: ${esc(e.message)}</p>`; }
 }

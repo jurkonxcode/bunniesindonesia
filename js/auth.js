@@ -97,9 +97,9 @@ function renderAuth(){
     $("acct").innerHTML = `<div class="ac-h"><span class="av big" aria-hidden="true">${ini}</span><div><h2>Halo, ${myName()}</h2><p class="ac-b">${b ? "Bias kamu: " + esc(b.nama) : "Belum pilih bias"}</p></div></div>`
       + `<div class="ac-act"><a class="pri" href="blog?tulis=1">Tulis blog</a><a class="sec" href="tanya?tanya=1">Tanya sesuatu</a></div>`
       + `<div class="ac-bias"><p>${b ? "Ganti bias:" : "Pilih bias supaya tampil di komentarmu:"}</p><div class="ac-chips" id="acBias">${chips}</div><p class="ac-m" id="acMsg" role="status"></p></div>`
-      + `<div class="links"><a href="akun">Akun saya</a>${isAdmin ? ` · <a href="admin">Panel admin</a>` : ""} · <a href="#" id="logoutBtn">Keluar</a></div>`;
+      + `<div class="links"><a href="akun">Akun saya</a>${isAdmin ? ` · <a href="admin">Panel admin</a>` : ""} · <a href="akun" id="logoutBtn">Keluar</a></div>`;
   }else{
-    a.innerHTML = `<a class="ghost" href="#" id="signup">Daftar</a><button class="btn green" id="loginTop">Masuk</button>`;
+    a.innerHTML = `<a class="ghost" href="akun" id="signup">Daftar</a><button class="btn green" id="loginTop">Masuk</button>`;
     $("acct").innerHTML = loggedOutCard;
   }
   $("acct").hidden = false; $("acct").classList.toggle("out", !session);     // kartu masuk tampil di kolom samping (desktop); di HP disembunyikan lewat CSS bila belum masuk

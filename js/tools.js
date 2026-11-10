@@ -74,7 +74,7 @@ function paintMini(){
 }
 
 function renderTools(){
-  $("mini").innerHTML = `<a class="mc" id="miniSholat" href="#tool-sholat" data-go="tool-sholat"></a><a class="mc" id="miniLibur" href="#tool-libur" data-go="tool-libur"></a>`;
+  $("mini").innerHTML = `<a class="mc" id="miniSholat" href="./" data-go="tool-sholat"></a><a class="mc" id="miniLibur" href="./" data-go="tool-libur"></a>`;
   $("tools").innerHTML =
    `<article class="card tool" id="tool-sholat"><div class="sh"><h3>Jadwal sholat</h3><small id="prayerZone"></small></div>` +
    `<div class="kota"><select id="kota" aria-label="Kota"></select><button class="btn" id="kotaGps" type="button">Lokasiku</button></div>` +

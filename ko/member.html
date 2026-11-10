@@ -17,7 +17,7 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/tokens.css?v=48"><link rel="stylesheet" href="../css/base.css?v=48"><link rel="stylesheet" href="../css/brand-skin.css?v=48"><link rel="stylesheet" href="../css/member.css?v=48"><link rel="stylesheet" href="../css/modern.css?v=48"><link rel="stylesheet" href="../css/ko.css?v=48">
+<link rel="stylesheet" href="../css/tokens.css?v=49"><link rel="stylesheet" href="../css/base.css?v=49"><link rel="stylesheet" href="../css/brand-skin.css?v=49"><link rel="stylesheet" href="../css/member.css?v=49"><link rel="stylesheet" href="../css/modern.css?v=49"><link rel="stylesheet" href="../css/ko.css?v=49">
 </head>
 <body class="ko mb sp">
 <header class="kbar"><div class="kw">
@@ -28,7 +28,7 @@
 <main class="kmain">
   <section class="mh" style="margin-top:16px"><span class="pill">멤버 프로필 · 비공식</span><h1>뉴진스 멤버 소개</h1>
   <p>뉴진스는 HYBE 산하 레이블 ADOR 소속으로 2022년 7월 22일 싱글 ‘Attention’을 발표하며 데뷔했어요. 팬덤 이름은 ‘버니즈(Bunnies)’예요. 2023년에는 미니 앨범 ‘Get Up’이 미국 빌보드 200 1위에 올랐어요. 아래 정보는 2026년 11월 9일 기준이에요.</p></section>
-  <nav class="mchips" aria-label="멤버로 이동"><a href="#minji" style="--bc:#e0488a"><i></i>민지</a><a href="#hanni" style="--bc:#f0873a"><i></i>하니</a><a class="gone" href="#danielle" style="--bc:#2f9ed8" title="2025년 12월 29일 이후 그룹 소속 아님"><i></i>다니엘<em class="gone-tag">전 멤버</em></a><a href="#haerin" style="--bc:#2aa87a"><i></i>해린</a><a href="#hyein" style="--bc:#8c6fd8"><i></i>혜인</a></nav>
+  <nav class="mchips" aria-label="멤버로 이동"><a href="member?m=minji" style="--bc:#e0488a"><i></i>민지</a><a href="member?m=hanni" style="--bc:#f0873a"><i></i>하니</a><a class="gone" href="member?m=danielle" style="--bc:#2f9ed8" title="2025년 12월 29일 이후 그룹 소속 아님"><i></i>다니엘<em class="gone-tag">전 멤버</em></a><a href="member?m=haerin" style="--bc:#2aa87a"><i></i>해린</a><a href="member?m=hyein" style="--bc:#8c6fd8"><i></i>혜인</a></nav>
 <article class="mc" id="minji" style="--bc:#e0488a">
   <div class="mc-photo">
     <div class="mc-ph" aria-hidden="true"><img src="../assets/brand/decor/bunny-line.svg" alt=""><b>민</b></div>
@@ -147,6 +147,11 @@
   </div>
   <div class="fbot"><span>© 2026 버니즈 인도네시아. 비공식 팬사이트이며 ADOR·HYBE·뉴진스와 관련이 없어요.</span><span><a href="../" lang="id">Bahasa Indonesia</a></span></div>
 </div></footer>
-<script src="../js/hangul.js?v=48"></script>
+<script src="../js/hangul.js?v=49"></script>
+<script>
+(function(){var go=function(id,s){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:s?"smooth":"auto",block:"start"})};
+var q=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(q)setTimeout(function(){go(q)},60);
+document.querySelectorAll('.mchips a[href*="?m="]').forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();go(new URL(a.href).searchParams.get("m"),true)})});})();
+</script>
 </body>
 </html>

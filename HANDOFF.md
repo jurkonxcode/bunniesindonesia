@@ -321,3 +321,9 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **Hangul di seluruh situs:** font Noto Sans KR dimuat (semua HTML) dan masuk daftar font di `css/modern.css`; `js/hangul.js` memberi `lang="ko"` otomatis pada teks berisi Hangul (termasuk tulisan, komentar, dan pencarian pengguna) sehingga glyph dan pemenggalan baris benar (`:lang(ko){word-break:keep-all}`). Pencarian Hangul berjalan (database memakai UTF-8) dan suku kata tunggal tetap disorot.
 - **Batas panjang di database:** judul Tanya Jawab minimal 10 karakter, judul blog minimal 5 karakter. Teks Korea lebih padat, jadi judul pendek bisa ditolak; longgarkan lewat SQL bila perlu.
 - **Belum ada:** antarmuka dinamis (blog, tanya, akun) masih berbahasa Indonesia; halaman Korea menautkan ke sana dan memberi catatan.
+
+## 5e. Tautan bersih tanpa # (v49)
+- Tidak ada lagi alamat berakhiran `#...` di tautan situs. Filter dan lompatan bagian memakai query: `galeri?m=minji`, `kabar?m=hanni`, `chart?s=spotify` / `chart?m=video`, `member?m=haerin`, `info?b=resmi`, `tentang?b=kontak`. Tautan lama berbentuk `#nama` masih terbaca lalu dibersihkan.
+- Klik chip filter dan chip lompat tidak menulis `#` ke bilah alamat (galeri, kabar, member, info memakai `history.replaceState` atau `scrollIntoView`).
+- Tautan mati `#alat` dihapus dari footer dan menu. Item layanan lama (sholat, libur, kurs, cuaca, tersimpan) ditandai "segera" di `js/services.js`.
+- Sisa `#` yang sengaja dibiarkan: `assets/icons/*.svg#id` (sprite ikon, bukan alamat halaman), `#access_token` dari login Google (dikembalikan Supabase lalu langsung dibersihkan oleh `history.replaceState`), dan `#j<id>` di data terstruktur SEO pada `tools/build-static.mjs`.
