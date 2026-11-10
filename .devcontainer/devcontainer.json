@@ -1,0 +1,15 @@
+{
+  "name": "Bunnies Indonesia (situs statis)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "Bunnies Indonesia", "onAutoForward": "openBrowser" }
+  },
+  "postStartCommand": "nohup node tools/dev-server.mjs 8000 >/tmp/bunnies-server.log 2>&1 &",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ritwickdey.LiveServer", "esbenp.prettier-vscode"],
+      "settings": { "files.encoding": "utf8" }
+    }
+  }
+}

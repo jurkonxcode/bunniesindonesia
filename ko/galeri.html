@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>갤러리 – 버니즈 인도네시아</title>
+<meta name="description" content="멤버별로 정리한 뉴진스 팬 사진 갤러리예요. 사용 허락과 출처가 분명한 사진만 올려요.">
+<link rel="canonical" href="https://jurkonxcode.github.io/bunniesindonesia/ko/galeri">
+<link rel="alternate" hreflang="ko" href="https://jurkonxcode.github.io/bunniesindonesia/ko/galeri">
+<link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/galeri">
+<link rel="alternate" hreflang="x-default" href="https://jurkonxcode.github.io/bunniesindonesia/galeri">
+<meta property="og:title" content="갤러리 – 버니즈 인도네시아"><meta property="og:description" content="멤버별로 정리한 뉴진스 팬 사진 갤러리예요. 사용 허락과 출처가 분명한 사진만 올려요.">
+<meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="id_ID">
+<meta property="og:image" content="https://jurkonxcode.github.io/bunniesindonesia/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/brand/icon-192.png">
+<meta name="theme-color" content="#2f6fe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css?v=51"><link rel="stylesheet" href="../css/base.css?v=51"><link rel="stylesheet" href="../css/brand-skin.css?v=51"><link rel="stylesheet" href="../css/modern.css?v=51"><link rel="stylesheet" href="../css/masuk.css?v=51"><link rel="stylesheet" href="../css/member.css?v=51"><link rel="stylesheet" href="../css/galeri.css?v=51"><link rel="stylesheet" href="../css/ko.css?v=51">
+</head>
+<body class="ko sp">
+<header class="kbar"><div class="kw">
+  <a class="logo" href="./" aria-label="버니즈 인도네시아 홈"><img src="../assets/brand/logo-mark.svg" alt="" width="30" height="30"><span>bunnies</span></a>
+  <nav class="knav" aria-label="주요 메뉴"><a href="./">홈</a><a href="member">멤버</a><a href="info">정보</a><a href="galeri" aria-current="page">갤러리</a><a href="kabar">소식</a><a href="chart">차트</a><a href="tentang">사이트 소개</a></nav>
+  <a class="slang" role="button" href="../galeri" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
+  <button class="btn green kbtn" id="loginTop" type="button">로그인</button>
+</div></header>
+<main class="kmain">
+  <section class="mh"><span class="pill">갤러리 · 비공식</span><h1>버니즈 갤러리</h1>
+  <p>사진은 멤버, 종류, 라이선스, 연도별로 나눠 보여 줘요. 사용 허락이 분명한 사진만 올리고, 모든 권리는 원래 권리자에게 있어요. 출처는 사진마다 적어 두었어요. <a href="hak-cipta"><u>신고 또는 삭제 요청</u></a></p></section>
+  <nav class="mchips" id="gf" aria-label="멤버 필터"></nav>
+  <div class="gsel" id="gs" hidden><select id="fj" aria-label="종류 필터"></select><select id="fl" aria-label="라이선스 필터"></select><select id="ft" aria-label="연도 필터"></select></div>
+  <div class="gg" id="gg"></div>
+  <p class="gnote" id="gn" hidden>이 필터에 맞는 사진이 아직 없어요.</p>
+</main>
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><a class="logo" href="./">bunnies</a><p>인도네시아 뉴진스 팬들이 만든 비공식 팬사이트예요.</p></div>
+    <div><h5>둘러보기</h5><ul><li><a href="./">홈</a></li><li><a href="member">멤버</a></li><li><a href="info">정보·공식 링크</a></li><li><a href="galeri">갤러리</a></li><li><a href="kabar">소식</a></li><li><a href="chart">차트</a></li><li><a href="tentang">사이트 소개</a></li></ul></div>
+    <div><h5>안내</h5><ul><li><a href="privasi">개인정보 처리방침</a></li><li><a href="syarat">이용약관</a></li><li><a href="hak-cipta">저작권·출처</a></li><li><a href="tentang?b=kontak">문의</a></li></ul></div>
+  </div>
+  <div class="fbot"><span>© 2026 버니즈 인도네시아. 비공식 팬사이트이며 ADOR·HYBE·뉴진스와 관련이 없어요.</span><span><a href="privasi">개인정보</a> · <a href="syarat">약관</a></span></div>
+</div></footer>
+<script src="../js/config.js?v=51"></script>
+<script src="../js/masuk.js?v=51"></script>
+<script>
+(function(){
+  var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
+  var l=document.querySelector(".slang");if(l)l.href+=location.search+location.hash;
+  var b = document.getElementById("loginTop"), s = null;
+  try{ s = JSON.parse(localStorage.getItem("bunnies.session")); }catch(e){}
+  if(s && s.user && window.Masuk){ b.outerHTML = Masuk.chip(s); }
+  else if(b){ b.addEventListener("click", function(){ Masuk.open(""); }); }
+})();
+</script>
+<script>
+/* 노출 규칙: 허락("ada")이 확인된 사진만 보여요. 로컬 테스트일 때만 true로 바꾸세요. */
+const TAMPIL_BELUM=false;
+const M=[["semua","전체"],["minji","민지"],["hanni","하니"],["haerin","해린"],["hyein","혜인"],["danielle","다니엘 (전 멤버)"],["grup","단체"]];
+const JENIS={konser:"콘서트",fansign:"팬사인회",teaser:"티저",mv:"MV",candid:"팬이 찍은 사진",fanart:"팬아트",lainnya:"기타"};
+const LISENSI={"cc-by":"CC BY","cc-by-sa":"CC BY-SA","izin-kreator":"제작자 허락","izin-agensi":"소속사 허락","domain-publik":"퍼블릭 도메인"};
+let D=[],cur="semua",fj="",fl="",ft="";
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=i=>document.getElementById(i);
+const aman=u=>/^https:\/\/\S+$/.test(u||"")?u:"";
+function opsi(id,judul,vals,label,sel){
+ const v=[...new Set(vals.filter(Boolean))].sort(),el=$(id);
+ el.hidden=v.length<1;
+ el.innerHTML=`<option value="">${judul}</option>`+v.map(x=>`<option value="${esc(x)}"${x===sel?" selected":""}>${esc(label(x))}</option>`).join("");
+}
+function draw(){
+ $("gf").innerHTML=M.map(([k,n])=>`<a href="${k==="semua"?"galeri":"galeri?m="+k}" class="${k===cur?"on":""}" data-k="${k}">${n}</a>`).join("");
+ const V=D.filter(x=>TAMPIL_BELUM||x.izin==="ada");
+ opsi("fj","모든 종류",V.map(x=>x.jenis),k=>JENIS[k]||k,fj);
+ opsi("fl","모든 라이선스",V.map(x=>x.lisensi),k=>LISENSI[k]||k,fl);
+ opsi("ft","모든 연도",V.map(x=>x.tahun&&String(x.tahun)),k=>k,ft);
+ $("gs").hidden=!V.length;
+ const L=V.filter(x=>(cur==="semua"||x.member===cur)&&(!fj||x.jenis===fj)&&(!fl||x.lisensi===fl)&&(!ft||String(x.tahun)===ft));
+ $("gg").innerHTML=L.map(x=>{
+  const p=[];
+  if(x.kredit)p.push("출처: "+esc(x.kredit));
+  if(x.lisensi)p.push(esc(LISENSI[x.lisensi]||x.lisensi));
+  if(aman(x.sumber))p.push(`<a href="${esc(x.sumber)}" rel="noopener nofollow" target="_blank">원문</a>`);
+  const meta=[JENIS[x.jenis],x.tahun].filter(Boolean).map(esc).join(" · ");
+  return `<figure><img src="../assets/galeri/${esc(x.file)}" alt="갤러리 사진${x.jenis&&JENIS[x.jenis]?" ("+esc(JENIS[x.jenis])+")":""}" loading="lazy">${p.length||meta?`<figcaption>${meta?`<b>${meta}</b>`:""}${p.join(" · ")}</figcaption>`:""}</figure>`;
+ }).join("");
+ const n=$("gn");
+ n.hidden=L.length>0;
+ n.textContent=V.length?"이 필터에 맞는 사진이 아직 없어요.":"갤러리를 준비 중이에요. 사용 허락과 출처가 확인된 사진만 올라와요.";
+}
+$("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()});
+$("gs").addEventListener("change",e=>{if(e.target.id==="fj")fj=e.target.value;if(e.target.id==="fl")fl=e.target.value;if(e.target.id==="ft")ft=e.target.value;draw()});
+fetch("../data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto||[];const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()}).catch(()=>{$("gn").hidden=false});
+</script>
+<script src="../js/hangul.js?v=51"></script>
+</body>
+</html>

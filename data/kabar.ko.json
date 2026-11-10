@@ -1,0 +1,45 @@
+{
+ "_petunjuk": "data/kabar.json의 한국어판. 항목 순서와 tanggal/member/sumber_*는 원본과 같게 유지하세요. 원문 기사를 바탕으로 직접 다시 쓰고, 문장이나 사진을 그대로 옮기지 마세요.",
+ "kabar": [
+  {
+   "tanggal": "2026-11-07",
+   "member": "hanni",
+   "judul": "하니와 가수 grentperez의 사진, X에서 화제",
+   "ringkasan": "팬 미디어 계정 cosdotmedia가 2026년 11월 7일, 하니가 솔로 가수 grentperez와 함께 있는 것으로 알려진 사진을 올렸어요. Women's March Day 인사말이 함께 적혀 있었고, 사진 중 하나는 “NewJeans NVR DIES”라고 쓰인 폴라로이드예요. 팬 미디어 계정에서 나온 소식이며 소속사의 확인은 아직 없어요.",
+   "sumber_nama": "X (@cosdotmedia)",
+   "sumber_url": "https://x.com/cosdotmedia/status/2119064713619464258"
+  },
+  {
+   "tanggal": "2026-11-07",
+   "member": "grup",
+   "judul": "하니·다니엘이 팬과 함께한 사진, X에서 확산",
+   "ringkasan": "Kpop Charts 계정이 2026년 11월 7일, 하니와 다니엘이 팬 한 명과 함께 포즈를 취한 것으로 알려진 사진을 올렸어요. 게시물은 X에서 빠르게 퍼졌어요. 촬영 장소나 행사에 대한 소속사의 설명은 아직 없어요.",
+   "sumber_nama": "X (@kchartsmaster)",
+   "sumber_url": "https://x.com/kchartsmaster/status/2119103024438116429"
+  },
+  {
+   "tanggal": "2026-10-05",
+   "member": "grup",
+   "judul": "“Super Shy” MV, 유튜브 조회수 3억 회 돌파",
+   "ringkasan": "“Super Shy” 뮤직비디오가 2026년 10월 5일 조회수 3억 회를 넘었어요. 공개 후 약 3년 2개월 만이에요. “OMG”에 이어 뉴진스에서 이 숫자에 도달한 두 번째 MV예요.",
+   "sumber_nama": "Soompi",
+   "sumber_url": "https://www.soompi.com/article/1875542wpp/newjeans-super-shy-becomes-their-2nd-mv-to-hit-300-million-views"
+  },
+  {
+   "tanggal": "2026-08-22",
+   "member": "grup",
+   "judul": "뉴진스 Spotify 누적 스트리밍 80억 회 돌파",
+   "ringkasan": "ADOR는 2026년 8월 18일 기준 Spotify에서 뉴진스 전체 곡의 누적 스트리밍이 80억 회를 넘었다고 밝혔어요. 앨범 수록곡은 모두 1억 회를 넘겼고, 인도네시아는 청취자가 두 번째로 많은 나라예요.",
+   "sumber_nama": "Edaily",
+   "sumber_url": "https://en.edaily.co.kr/news/eda202608225066"
+  },
+  {
+   "tanggal": "2026-07-22",
+   "member": "grup",
+   "judul": "데뷔 기념일에 “2026 Summer of NewJeans” 티저 공개",
+   "ringkasan": "데뷔 4주년을 맞아 뉴진스가 “2026 Summer of NewJeans” 티저를 공개했어요. 민지가 다른 멤버들과 함께 등장했는데, ADOR와 분쟁을 겪은 뒤 공식 자료에서 민지가 뚜렷하게 보인 건 처음이에요.",
+   "sumber_nama": "Complex",
+   "sumber_url": "https://www.complex.com/music/a/jaelaniturnerwilliams/newjeans-2026-comeback-minji-return-four-members"
+  }
+ ]
+}

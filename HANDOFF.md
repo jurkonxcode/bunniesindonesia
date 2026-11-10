@@ -333,3 +333,14 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - `js/masuk.js` dua bahasa: membaca `<html lang>`. Bila `ko`: teks Korea (kamus `KO` di atas file) dan aset/tautan memakai awalan `../`. Untuk menambah teks baru, tambahkan pasangan Indonesia→Korea di `KO`.
 - Masuk lewat kode email: tetap di halaman Korea. Masuk lewat Google: kembali ke `akun` (halaman Indonesia, karena token Google dibaca di sana). Halaman Akun, blog, dan tanya masih berbahasa Indonesia.
 - Perlu di Supabase: Redirect URLs sudah memakai `.../**`, jadi tidak ada yang diubah.
+
+## 5g. Korea lengkap dan tombol bahasa (v51)
+- **Tujuh halaman Korea baru** di `ko/`: `galeri`, `kabar`, `chart`, `info`, `privasi`, `syarat`, `hak-cipta`. Isinya ditulis ulang dalam bahasa Korea (bukan terjemahan mesin per kalimat), mengikuti struktur halaman Indonesia. Halaman dinamis (galeri, kabar, chart, info) memakai JavaScript yang sama dengan versi Indonesia, tetapi label, tanggal (`ko-KR`), dan angka (만/억) diganti. Tetap minta penutur asli Korea mengoreksi teks sebelum dipromosikan.
+- **Data Korea:** `data/kabar.ko.json` adalah versi Korea dari `data/kabar.json`. **Tiap kali menambah kabar di `kabar.json` (lewat Issue atau manual), tambahkan juga entri yang sama di `kabar.ko.json`**, dengan `tanggal`, `member`, `sumber_nama`, dan `sumber_url` yang sama. Galeri dan chart memakai data Indonesia yang sama (`galeri.json`, `youtube.json`, `spotify.json`, `apple.json`); keterangan sumber chart ditulis langsung di `ko/chart.html`.
+- **Halaman kebijakan Korea** (`privasi`, `syarat`, `hak-cipta`) punya catatan bahwa teks Indonesia yang berlaku bila ada perbedaan. Ubah kedua versi bersamaan tiap kebijakan berubah.
+- **Menu Korea:** 홈, 멤버, 정보, 갤러리, 소식, 차트, 사이트 소개 (semua `ko/*.html`, termasuk footer). Di HP menu bisa digeser ke samping dan tab aktif otomatis di tengah. Footer kini menautkan kebijakan versi Korea.
+- **Tombol bahasa sederhana:** satu tombol bergambar globe di baris atas. Halaman Indonesia menampilkan "한국어", halaman Korea menampilkan "Indonesia", dan keduanya membawa query/hash (mis. `?m=hanni`) ke padanannya. `js/nav.js` membuat tombol di halaman Indonesia (peta `KO` berisi semua halaman); `privasi.html` dan `syarat.html` punya tombol statis; halaman Korea memakai tautan statis. Gaya tombol: `.slang` di akhir `css/modern.css`.
+- **SEO:** 7 halaman Indonesia tadi ditambah `hreflang` `id`/`ko`/`x-default`; semua halaman Korea baru punya `canonical` dan `hreflang` balasan; sitemap (`tools/build-static.mjs`) memuat semuanya.
+- **Server lokal:** `tools/dev-server.mjs` (tanpa dependensi) meniru GitHub Pages: `/galeri` dibuka sebagai `galeri.html`, `/ko/` sebagai `ko/index.html`. **Jangan pakai `python -m http.server`**: tautan tanpa `.html` akan 404. Jalankan `node tools/dev-server.mjs 8000`.
+- **Codespaces:** `.devcontainer/devcontainer.json` (Node 20) menjalankan server lokal otomatis di port 8000 dan membuka pratinjau.
+- Cache naik ke `?v=51`.

@@ -167,7 +167,7 @@ copySite();
 const byQ = new Map(); for (const a of answers) (byQ.get(+a.question_id) || byQ.set(+a.question_id, []).get(+a.question_id)).push(a);
 const grp = list => { const m = new Map(); for (const x of list) (m.get(x.category) || m.set(x.category, []).get(x.category)).push(x); return m; };
 const pCat = grp(posts), qCat = grp(questions);
-const urls = [["/"], ["/tanya"], ["/blog"], ["/layanan"], ["/tentang"], ["/ko/"], ["/ko/member"], ["/ko/tentang"], ["/privasi"], ["/syarat"], ["/arsip"]], seen = new Set();
+const urls = [["/"], ["/tanya"], ["/blog"], ["/layanan"], ["/tentang"], ["/ko/"], ["/ko/member"], ["/ko/tentang"], ["/galeri"], ["/kabar"], ["/chart"], ["/info"], ["/hak-cipta"], ["/ko/info"], ["/ko/galeri"], ["/ko/kabar"], ["/ko/chart"], ["/ko/privasi"], ["/ko/syarat"], ["/ko/hak-cipta"], ["/privasi"], ["/syarat"], ["/arsip"]], seen = new Set();
 let np = 0, nq = 0;
 for (const p of posts) {
   if (!p.id || seen.has("p" + p.id)) continue; seen.add("p" + p.id);
