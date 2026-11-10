@@ -10,8 +10,8 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const hdr = () => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY});
   const WHY = {masuk:"Masuk dengan akun yang sudah ada. Tanpa kata sandi.", daftar:"Gratis dan tanpa kata sandi. Username @njz_ dibuat otomatis dan bisa kamu ganti."};
-  /* v50: dialog dua bahasa. Halaman Korea (<html lang="ko">, folder ko/) memakai teks Korea dan awalan "../" untuk aset dan tautan. */
-  const LANG = (document.documentElement.lang || "id").slice(0, 2) === "ko" ? "ko" : "id", BASE = LANG === "ko" ? "../" : "";
+  /* v50/v52: dialog tiga bahasa. Halaman Korea (ko/) dan Inggris (en/) memakai teks dari kamus KO / EN dan awalan "../" untuk aset dan tautan. */
+  const LANG = ["ko", "en"].includes((document.documentElement.lang || "id").slice(0, 2)) ? document.documentElement.lang.slice(0, 2) : "id", BASE = LANG === "id" ? "" : "../";
   const KO = {
     "Masuk":"로그인", "Daftar":"가입", "Masuk atau daftar":"로그인 또는 가입", "Masuk dengan Google":"Google로 로그인", "Daftar dengan Google":"Google로 가입",
     "atau pakai email":"또는 이메일로", "Email":"이메일", "Kirim kode ke email":"이메일로 코드 받기", "Kode dari email":"이메일로 받은 코드",
@@ -30,7 +30,26 @@
     "Tidak bisa terhubung. Cek koneksi internetmu, lalu coba lagi.":"연결할 수 없어요. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.",
     "Profil Bunnies-mu belum lengkap. Ketuk untuk melengkapinya.":"프로필이 아직 완성되지 않았어요. 눌러서 완성해 주세요."
   };
-  const t = x => (LANG === "ko" && KO[x]) || x;
+  const EN = {
+    "Masuk":"Log in", "Daftar":"Sign up", "Masuk atau daftar":"Log in or sign up", "Masuk dengan Google":"Log in with Google", "Daftar dengan Google":"Sign up with Google",
+    "atau pakai email":"or use email", "Email":"Email", "Kirim kode ke email":"Send code to email", "Kode dari email":"Code from your email",
+    "Ganti email":"Change email", "Kirim ulang kode":"Resend code", "Tutup":"Close", "Masuk ke Bunnies Indonesia":"Log in to Bunnies Indonesia", "Daftar jadi Bunnies":"Join as a Bunny",
+    "Dengan akun, kamu bisa menulis blog, bertanya, berkomentar, dan memilih bias.":"With an account you can write blog posts, ask questions, comment, and pick your bias.",
+    "Masuk dengan akun yang sudah ada. Tanpa kata sandi.":"Log in with your existing account. No password needed.",
+    "Gratis dan tanpa kata sandi. Username @njz_ dibuat otomatis dan bisa kamu ganti.":"Free, and no password needed. Your @njz_ username is created automatically and you can change it later.",
+    "Mengirim kode…":"Sending code…", "Kode baru sudah dikirim.":"A new code has been sent.", "Memeriksa kode…":"Checking code…",
+    "Centang persetujuan dulu untuk mendaftar.":"Please tick the agreement box first to sign up.",
+    "Format email belum benar. Contoh: nama@email.com":"That email format isn't right. Example: name@email.com",
+    "Masukkan kode dari email (6 angka atau lebih).":"Enter the code from your email (6 digits or more).",
+    "Terlalu sering meminta kode. Tunggu sekitar satu menit, lalu coba lagi.":"Too many code requests. Wait about a minute, then try again.",
+    "Email ini belum terdaftar. Pilih tab Daftar dulu.":"This email isn't registered yet. Choose the Sign up tab first.",
+    "Kode belum bisa dikirim. Coba lagi sebentar lagi.":"We couldn't send the code. Please try again in a moment.",
+    "Kode salah atau sudah kedaluwarsa. Periksa lagi, atau minta kode baru.":"The code is wrong or has expired. Check it again, or request a new one.",
+    "Tidak bisa terhubung. Cek koneksi internetmu, lalu coba lagi.":"Can't connect. Check your internet connection and try again.",
+    "Profil Bunnies-mu belum lengkap. Ketuk untuk melengkapinya.":"Your Bunnies profile isn't complete yet. Tap to finish it."
+  };
+  const DICT = {ko:KO, en:EN};
+  const t = x => (DICT[LANG] && DICT[LANG][x]) || x;
   let dlg = null, email = "", busy = false, tick = null, left = 0, mode = "masuk", why0 = "";
 
   const name = s => { const m = (s && s.user && s.user.user_metadata) || {}; return m.name || m.full_name || ((s && s.user && s.user.email) || "").split("@")[0] || "Bunnies"; };
@@ -61,7 +80,7 @@
   const msg = (x, kind) => { const m = g("mkMsg"); m.textContent = t(x || ""); m.className = "mk-msg" + (kind ? " " + kind : ""); };
   const lock = (id, on) => { const b = g(id); b.disabled = on; b.setAttribute("aria-busy", on ? "true" : "false"); };
   const show = n => { g("mkS1").hidden = n !== 1; g("mkS2").hidden = n !== 2; };
-  const paintLeft = () => { const b = g("mkResend"); b.disabled = left > 0; b.textContent = left > 0 ? (LANG === "ko" ? "재전송 (" + left + "초)" : "Kirim ulang (" + left + " dtk)") : t("Kirim ulang kode"); };
+  const paintLeft = () => { const b = g("mkResend"); b.disabled = left > 0; b.textContent = left > 0 ? (LANG === "ko" ? "재전송 (" + left + "초)" : LANG === "en" ? "Resend (" + left + "s)" : "Kirim ulang (" + left + " dtk)") : t("Kirim ulang kode"); };
   function countdown(){ clearInterval(tick); left = 30; paintLeft(); tick = setInterval(() => { left--; paintLeft(); if(left <= 0) clearInterval(tick); }, 1000); }
 
   const needTerms = () => {
@@ -96,7 +115,7 @@
   function google(){
     if(dlg && dlg.open && needTerms()) return;
     try{ sessionStorage.setItem(HI, "1"); }catch(e){}
-    location.href = SUPABASE_URL + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(LANG === "ko" ? new URL("../akun", location.href).href : location.origin + location.pathname);
+    location.href = SUPABASE_URL + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(LANG !== "id" ? new URL("../akun", location.href).href : location.origin + location.pathname);
   }
 
   function build(){
@@ -122,14 +141,22 @@
   </div>
   <button class="mk-x" type="button" data-mk="close" aria-label="Tutup"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 </div>`;
-    if(LANG === "ko"){
+    if(LANG !== "id"){
+      const D = DICT[LANG];
       const w = document.createTreeWalker(dlg, NodeFilter.SHOW_TEXT);
-      for(let n; (n = w.nextNode());){ const k = n.nodeValue.trim(); if(KO[k]) n.nodeValue = n.nodeValue.replace(k, KO[k]); }
-      dlg.querySelectorAll("[aria-label]").forEach(e => { const k = e.getAttribute("aria-label"); if(KO[k]) e.setAttribute("aria-label", KO[k]); });
-      const A = `<a href="${BASE}syarat">이용약관</a>`, B = `<a href="${BASE}privasi">개인정보처리방침</a>`;
-      dlg.querySelector(".mk-chk span").innerHTML = `${A} 및 ${B}에 동의해요.`;
-      dlg.querySelector("#mkLegal").innerHTML = `로그인하면 ${A} 및 ${B}에 동의하는 것으로 봐요.`;
-      dlg.querySelector(".mk-sent").innerHTML = `<b id="mkTo"></b>(으)로 코드를 보냈어요. 오지 않았다면 스팸함을 확인해 주세요.`;
+      for(let n; (n = w.nextNode());){ const k = n.nodeValue.trim(); if(D[k]) n.nodeValue = n.nodeValue.replace(k, D[k]); }
+      dlg.querySelectorAll("[aria-label]").forEach(e => { const k = e.getAttribute("aria-label"); if(D[k]) e.setAttribute("aria-label", D[k]); });
+      if(LANG === "ko"){
+        const A = `<a href="${BASE}syarat">이용약관</a>`, B = `<a href="${BASE}privasi">개인정보처리방침</a>`;
+        dlg.querySelector(".mk-chk span").innerHTML = `${A} 및 ${B}에 동의해요.`;
+        dlg.querySelector("#mkLegal").innerHTML = `로그인하면 ${A} 및 ${B}에 동의하는 것으로 봐요.`;
+        dlg.querySelector(".mk-sent").innerHTML = `<b id="mkTo"></b>(으)로 코드를 보냈어요. 오지 않았다면 스팸함을 확인해 주세요.`;
+      } else {
+        const A = `<a href="${BASE}syarat">Terms of Service</a>`, B = `<a href="${BASE}privasi">Privacy Policy</a>`;
+        dlg.querySelector(".mk-chk span").innerHTML = `I agree to the ${A} and ${B}.`;
+        dlg.querySelector("#mkLegal").innerHTML = `By logging in, you agree to the ${A} and ${B}.`;
+        dlg.querySelector(".mk-sent").innerHTML = `We sent a code to <b id="mkTo"></b>. If it doesn't arrive, check your spam folder.`;
+      }
     }
     document.body.appendChild(dlg);
     dlg.addEventListener("click", e => {
@@ -156,6 +183,7 @@
   function paintPrev(){
     const v = g("mkEmail").value.trim(), u = /^\S+@\S+/.test(v) ? usul(v) : "";
     if(LANG === "ko"){ g("mkPrev").textContent = u ? "처음 사용자 이름: @njz_" + u + ". 이메일 이름에서 가져오며 가입 후 바꿀 수 있어요. 이미 사용 중이면 숫자가 붙어요." : "처음 사용자 이름은 @njz_ + 이메일 이름(@ 앞부분)이에요. 가입 후 바꿀 수 있어요."; return; }
+    if(LANG === "en"){ g("mkPrev").textContent = u ? "Your starting username: @njz_" + u + ". It comes from your email name and you can change it after signing up. If it's taken, we add a number." : "Your starting username will be @njz_ + your email name (the part before the @). You can change it after signing up."; return; }
     g("mkPrev").textContent = u ? "Username awalmu: @njz_" + u + ". Diambil dari nama emailmu, bisa kamu ganti setelah daftar. Kalau sudah dipakai, kami tambahkan angka." : "Username awalmu akan berupa @njz_ + nama emailmu (bagian sebelum @). Bisa kamu ganti setelah daftar.";
   }
   function setMode(m){
@@ -198,12 +226,12 @@
     let n = 0;
     const t = setInterval(() => {
       const s = readSession(), stop = () => { clearInterval(t); try{ sessionStorage.removeItem(HI); }catch(e){} };
-      if(s && s.user){ stop(); toast(LANG === "ko" ? "환영해요, " + name(s) + "님!" : "Selamat datang, " + name(s) + "!"); check(s); } else if(++n > 10) stop();
+      if(s && s.user){ stop(); toast(LANG === "ko" ? "환영해요, " + name(s) + "님!" : LANG === "en" ? "Welcome, " + name(s) + "!" : "Selamat datang, " + name(s) + "!"); check(s); } else if(++n > 10) stop();
     }, 300);
   }
   const chip = s => {
     const n = name(s), i = ([...n.trim()][0] || "B").toUpperCase();
-    return `<a class="uchip" href="${BASE}akun" aria-label="${LANG === "ko" ? "내 계정" : "Akun saya"}: ${esc(n)}"><span class="av" aria-hidden="true">${esc(i)}</span><span class="un">${esc(n)}</span></a>`;
+    return `<a class="uchip" href="${BASE}akun" aria-label="${LANG === "ko" ? "내 계정" : LANG === "en" ? "My account" : "Akun saya"}: ${esc(n)}"><span class="av" aria-hidden="true">${esc(i)}</span><span class="un">${esc(n)}</span></a>`;
   };
 
   const api = window.Masuk = {open, daftar:why => open(why, "daftar"), google, chip, name, toast, hello, onDone:null};

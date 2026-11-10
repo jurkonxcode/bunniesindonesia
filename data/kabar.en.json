@@ -1,0 +1,45 @@
+{
+ "_petunjuk": "English version of data/kabar.json. Whenever a news item is added to kabar.json (and kabar.ko.json), add the same item here with the same tanggal, member, sumber_nama, and sumber_url. Write the summary in your own words.",
+ "kabar": [
+  {
+   "tanggal": "2026-11-07",
+   "member": "hanni",
+   "judul": "Hanni photographed with singer grentperez, photo circulates on X",
+   "ringkasan": "The account cosdotmedia shared a photo said to show Hanni with solo singer grentperez on November 7, 2026, with a Women's March Day greeting. One of the photos is a polaroid reading “NewJeans NVR DIES”. The news comes from a fan media account and has not been confirmed by the agency.",
+   "sumber_nama": "X (@cosdotmedia)",
+   "sumber_url": "https://x.com/cosdotmedia/status/2119064713619464258"
+  },
+  {
+   "tanggal": "2026-11-07",
+   "member": "grup",
+   "judul": "Photo of Hanni and Danielle with a fan goes viral on X",
+   "ringkasan": "The account Kpop Charts shared a photo said to show Hanni and Danielle posing with a fan on November 7, 2026. The post spread quickly on X. The agency has not said anything about the location or the event.",
+   "sumber_nama": "X (@kchartsmaster)",
+   "sumber_url": "https://x.com/kchartsmaster/status/2119103024438116429"
+  },
+  {
+   "tanggal": "2026-10-05",
+   "member": "grup",
+   "judul": "“Super Shy” MV passes 300 million views on YouTube",
+   "ringkasan": "The music video for “Super Shy” passed 300 million views on October 5, 2026, about three years and two months after its release. It is NewJeans' second MV to reach that number, after “OMG”.",
+   "sumber_nama": "Soompi",
+   "sumber_url": "https://www.soompi.com/article/1875542wpp/newjeans-super-shy-becomes-their-2nd-mv-to-hit-300-million-views"
+  },
+  {
+   "tanggal": "2026-08-22",
+   "member": "grup",
+   "judul": "NewJeans' total Spotify streams pass 8 billion",
+   "ringkasan": "ADOR announced that total streams of all NewJeans songs on Spotify passed 8 billion as of August 18, 2026. Every song on their albums is above 100 million streams, and Indonesia ranks second among listener countries.",
+   "sumber_nama": "Edaily",
+   "sumber_url": "https://en.edaily.co.kr/news/eda202608225066"
+  },
+  {
+   "tanggal": "2026-07-22",
+   "member": "grup",
+   "judul": "“2026 Summer of NewJeans” teaser released on debut anniversary",
+   "ringkasan": "On their 4th debut anniversary, NewJeans released the “2026 Summer of NewJeans” teaser. Minji appears with the other members, the first time she has been clearly visible in official material since the dispute with ADOR.",
+   "sumber_nama": "Complex",
+   "sumber_url": "https://www.complex.com/music/a/jaelaniturnerwilliams/newjeans-2026-comeback-minji-return-four-members"
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latest news – Bunnies Indonesia</title>
+<meta name="description" content="Short summaries of the latest news about NewJeans and the members, each linked to its source.">
+<link rel="canonical" href="https://jurkonxcode.github.io/bunniesindonesia/en/kabar">
+<link rel="alternate" hreflang="en" href="https://jurkonxcode.github.io/bunniesindonesia/en/kabar">
+<link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/kabar">
+<link rel="alternate" hreflang="ko" href="https://jurkonxcode.github.io/bunniesindonesia/ko/kabar">
+<link rel="alternate" hreflang="x-default" href="https://jurkonxcode.github.io/bunniesindonesia/kabar">
+<meta property="og:title" content="Latest news – Bunnies Indonesia"><meta property="og:description" content="Short summaries of the latest news about NewJeans and the members, each linked to its source.">
+<meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="id_ID"><meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:image" content="https://jurkonxcode.github.io/bunniesindonesia/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/brand/icon-192.png">
+<meta name="theme-color" content="#2f6fe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css?v=52"><link rel="stylesheet" href="../css/base.css?v=52"><link rel="stylesheet" href="../css/brand-skin.css?v=52"><link rel="stylesheet" href="../css/modern.css?v=52"><link rel="stylesheet" href="../css/masuk.css?v=52"><link rel="stylesheet" href="../css/member.css?v=52"><link rel="stylesheet" href="../css/galeri.css?v=52"><link rel="stylesheet" href="../css/kabar.css?v=52"><link rel="stylesheet" href="../css/ko.css?v=52"><link rel="stylesheet" href="../css/en.css?v=52">
+</head>
+<body class="ko en sp">
+<header class="kbar"><div class="kw">
+  <a class="logo" href="./" aria-label="Bunnies Indonesia home"><img src="../assets/brand/logo-mark.svg" alt="" width="30" height="30"><span>bunnies</span></a>
+  <nav class="knav" aria-label="Main menu"><a href="./">Home</a><a href="member">Members</a><a href="info">Info</a><a href="galeri">Gallery</a><a href="kabar" aria-current="page">News</a><a href="chart">Chart</a><a href="tentang">About</a></nav>
+  <a class="slang" role="button" href="../" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
+  <button class="btn green kbtn" id="loginTop" type="button">Log in</button>
+</div><script src="../js/lang.js?v=52"></script></header>
+<main class="kmain">
+  <section class="mh"><span class="pill">News · Unofficial</span><h1>Latest news</h1>
+  <p>Short summaries of news about NewJeans and the members. Every item links to the original, so please check the source too.</p></section>
+  <nav class="mchips" id="kf" aria-label="Member filter"></nav>
+  <div class="kk" id="kk"></div>
+  <p class="knote" style="margin:14px 2px">The news is not copied from the originals: each item is a short rewrite in our own words, based on the source article.</p>
+</main>
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><a class="logo" href="./">bunnies</a><p>An unofficial NewJeans fan site made by Indonesian fans.</p></div>
+    <div><h5>Explore</h5><ul><li><a href="./">Home</a></li><li><a href="member">Members</a></li><li><a href="info">Info &amp; official links</a></li><li><a href="galeri">Gallery</a></li><li><a href="kabar">News</a></li><li><a href="chart">Chart</a></li><li><a href="tentang">About</a></li></ul></div>
+    <div><h5>Policies</h5><ul><li><a href="privasi">Privacy Policy</a></li><li><a href="syarat">Terms of Service</a></li><li><a href="hak-cipta">Copyright &amp; credits</a></li><li><a href="tentang?b=kontak">Contact</a></li></ul></div>
+  </div>
+  <div class="fbot"><span>© 2026 Bunnies Indonesia. Unofficial fan site, not affiliated with ADOR, HYBE, or NewJeans.</span><span><a href="privasi">Privacy</a> · <a href="syarat">Terms</a></span></div>
+</div></footer>
+<script src="../js/config.js?v=52"></script>
+<script src="../js/masuk.js?v=52"></script>
+<script>
+(function(){
+  var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
+  var l=document.querySelector(".slang");if(l)l.href+=location.search+location.hash;
+  var b = document.getElementById("loginTop"), s = null;
+  try{ s = JSON.parse(localStorage.getItem("bunnies.session")); }catch(e){}
+  if(s && s.user && window.Masuk){ b.outerHTML = Masuk.chip(s); }
+  else if(b){ b.addEventListener("click", function(){ Masuk.open(""); }); }
+})();
+</script>
+<script>
+const W={grup:["Group","#2f6fe4"],minji:["Minji","#e0488a"],hanni:["Hanni","#f0873a"],danielle:["Danielle","#2f9ed8"],haerin:["Haerin","#2aa87a"],hyein:["Hyein","#8c6fd8"]};
+let D=[],cur="semua";
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const tgl=s=>new Date(s+"T00:00:00").toLocaleDateString("en-US",{day:"numeric",month:"long",year:"numeric"});
+const aman=u=>/^https:\/\//.test(u)?u:"#";
+function draw(){
+ const ada=Object.keys(W).filter(k=>D.some(x=>x.member===k));
+ document.getElementById("kf").innerHTML=[["semua","All"],...ada.map(k=>[k,W[k][0]])].map(([k,n])=>`<a href="${k==="semua"?"kabar":"kabar?m="+k}" data-k="${k}" class="${k===cur?"on":""}">${n}</a>`).join("");
+ document.getElementById("kk").innerHTML=D.filter(x=>cur==="semua"||x.member===cur).map(x=>{const m=W[x.member]||W.grup;return `<article class="kc" style="--bc:${m[1]}"><div class="km"><i></i>${m[0]} · ${tgl(x.tanggal)}</div><h2>${esc(x.judul)}</h2><p>${esc(x.ringkasan)}</p><a href="${esc(aman(x.sumber_url))}" target="_blank" rel="noopener nofollow">Source: ${esc(x.sumber_nama)} ↗</a></article>`}).join("");
+}
+document.getElementById("kf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"",cur==="semua"?"kabar":"kabar?m="+cur);draw()});
+fetch("../data/kabar.en.json").then(r=>r.json()).then(j=>{D=j.kabar.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal));const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(W[h])cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"kabar":"kabar?m="+cur);draw()}).catch(()=>{document.getElementById("kk").textContent="Couldn't load the news. Please refresh the page."});
+</script>
+</body>
+</html>

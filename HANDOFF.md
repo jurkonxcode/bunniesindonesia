@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v48.
+Terakhir diperbarui: 10 November 2026, rilis v52.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -344,3 +344,13 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **Server lokal:** `tools/dev-server.mjs` (tanpa dependensi) meniru GitHub Pages: `/galeri` dibuka sebagai `galeri.html`, `/ko/` sebagai `ko/index.html`. **Jangan pakai `python -m http.server`**: tautan tanpa `.html` akan 404. Jalankan `node tools/dev-server.mjs 8000`.
 - **Codespaces:** `.devcontainer/devcontainer.json` (Node 20) menjalankan server lokal otomatis di port 8000 dan membuka pratinjau.
 - Cache naik ke `?v=51`.
+
+## 5h. Bahasa Inggris dan pemilih bahasa (v52)
+- **Sepuluh halaman Inggris** di `en/`: `index`, `member`, `info`, `galeri`, `kabar`, `chart`, `tentang`, `privasi`, `syarat`, `hak-cipta` (+ `css/en.css`, memakai kerangka `ko.css`). Padanan 1:1 dengan `ko/`. Teks ditulis untuk pembaca Inggris, bukan terjemahan mesin per kalimat; tetap minta penutur asli meninjau sebelum dipromosikan. Halaman kebijakan menyebut teks Indonesia yang berlaku bila ada perbedaan.
+- **Pemilih bahasa baru: `js/lang.js`.** Satu tombol globe (ID / EN / KO) membuka menu tiga bahasa. Dipasang sinkron sebagai script terakhir di dalam `<header>` (atau `.pg-top`) di semua halaman Indonesia, Korea, dan Inggris kecuali `admin.html`. Bahasa saat ini dibaca dari `<html lang>`. Halaman yang punya padanan di tiga bahasa (daftar `PAGES` di file itu) berpindah ke halaman yang sama dengan query dan hash; halaman lain (blog, tanya, akun, profil, search, layanan, brand) hanya ada dalam bahasa Indonesia, jadi bahasa lain menuju beranda. Tombol statis `.slang` di HTML tetap ada sebagai cadangan bila JavaScript mati. Gaya: akhir `css/modern.css` (`.lsw`, `.lmenu`). Blok tombol Korea lama di `js/nav.js` dihapus.
+- **Halaman dinamis tetap Indonesia.** Blog, Tanya Jawab, Akun, Profil, dan Cari diisi dari database dan antarmukanya masih Indonesia. Halaman Inggris menautkan ke sana dan memberi catatan, sama seperti halaman Korea. Menerjemahkannya butuh kamus string di tiap JS dan kolom bahasa di database; belum dikerjakan.
+- **Dialog masuk tiga bahasa:** `js/masuk.js` membaca `<html lang>` = `id` / `ko` / `en`. Teks baru: tambahkan pasangan Indonesia→Inggris di kamus `EN` (dan Korea di `KO`).
+- **Data:** `data/kabar.en.json` adalah versi Inggris dari `data/kabar.json`. **Tiap menambah kabar, tambahkan juga entri yang sama di `kabar.ko.json` dan `kabar.en.json`** (`tanggal`, `member`, `sumber_nama`, `sumber_url` sama). Workflow `kabar.yml` hanya menulis ke `kabar.json`.
+- **SEO:** semua halaman Inggris punya `canonical` dan `hreflang` `en`/`id`/`ko`/`x-default`; halaman Indonesia dan Korea yang punya padanan ditambah `hreflang="en"` (termasuk `privasi` dan `syarat` Indonesia). Halaman Inggris masuk sitemap (`tools/build-static.mjs`).
+- **Menambah halaman baru:** buat berkas di `en/` dan `ko/`, tambahkan namanya ke `PAGES` di `js/lang.js`, ke sitemap, dan beri `hreflang` di ketiga versi.
+- Cache naik ke `?v=52`.

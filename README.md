@@ -19,8 +19,8 @@ tools/  build-static.mjs (halaman statis untuk SEO)
 
 ## Bahasa
 
-Situs punya dua bahasa: Indonesia (halaman di root) dan Korea (`ko/`). Tombol di baris atas berpindah di antara keduanya.
-Data kabar Korea ada di `data/kabar.ko.json` (selalu diperbarui bersama `data/kabar.json`).
+Situs punya tiga bahasa: Indonesia (halaman di root), Inggris (`en/`), dan Korea (`ko/`). Tombol globe di baris atas (`js/lang.js`) membuka menu Indonesia / English / 한국어 dan membawa pengguna ke halaman yang sama di bahasa lain.
+Data kabar Inggris dan Korea ada di `data/kabar.en.json` dan `data/kabar.ko.json` (selalu diperbarui bersama `data/kabar.json`).
 
 ## Menjalankan lokal / GitHub Codespaces
 

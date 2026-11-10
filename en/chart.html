@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewJeans Chart – Bunnies Indonesia</title>
+<meta name="description" content="YouTube views and Spotify streams for NewJeans songs, with sources. Estimates based on third-party data.">
+<link rel="canonical" href="https://jurkonxcode.github.io/bunniesindonesia/en/chart">
+<link rel="alternate" hreflang="en" href="https://jurkonxcode.github.io/bunniesindonesia/en/chart">
+<link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/chart">
+<link rel="alternate" hreflang="ko" href="https://jurkonxcode.github.io/bunniesindonesia/ko/chart">
+<link rel="alternate" hreflang="x-default" href="https://jurkonxcode.github.io/bunniesindonesia/chart">
+<meta property="og:title" content="NewJeans Chart – Bunnies Indonesia"><meta property="og:description" content="YouTube views and Spotify streams for NewJeans songs, with sources. Estimates based on third-party data.">
+<meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="id_ID"><meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:image" content="https://jurkonxcode.github.io/bunniesindonesia/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/brand/icon-192.png">
+<meta name="theme-color" content="#2f6fe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css?v=52"><link rel="stylesheet" href="../css/base.css?v=52"><link rel="stylesheet" href="../css/brand-skin.css?v=52"><link rel="stylesheet" href="../css/modern.css?v=52"><link rel="stylesheet" href="../css/masuk.css?v=52"><link rel="stylesheet" href="../css/member.css?v=52"><link rel="stylesheet" href="../css/galeri.css?v=52"><link rel="stylesheet" href="../css/chart.css?v=52"><link rel="stylesheet" href="../css/ko.css?v=52"><link rel="stylesheet" href="../css/en.css?v=52">
+</head>
+<body class="ko en sp">
+<header class="kbar"><div class="kw">
+  <a class="logo" href="./" aria-label="Bunnies Indonesia home"><img src="../assets/brand/logo-mark.svg" alt="" width="30" height="30"><span>bunnies</span></a>
+  <nav class="knav" aria-label="Main menu"><a href="./">Home</a><a href="member">Members</a><a href="info">Info</a><a href="galeri">Gallery</a><a href="kabar">News</a><a href="chart" aria-current="page">Chart</a><a href="tentang">About</a></nav>
+  <a class="slang" role="button" href="../" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
+  <button class="btn green kbtn" id="loginTop" type="button">Log in</button>
+</div><script src="../js/lang.js?v=52"></script></header>
+<main class="kmain">
+  <section class="mh"><span class="pill">Chart · Unofficial</span><h1>NewJeans chart</h1>
+  <p>YouTube views and Spotify streams for NewJeans songs. The numbers are estimates based on third-party data, not official figures.</p></section>
+  <div class="cs" id="cs"></div>
+  <nav class="mchips" id="cx" aria-label="Platform"><a href="chart?s=youtube" data-s="yt">YouTube</a><a href="chart?s=spotify" data-s="sp">Spotify</a><a href="chart?s=apple" data-s="am">Apple Music</a></nav>
+  <p class="pb">Listen: <a href="https://open.spotify.com/artist/6HvZYsbFfjnjFrWF950C9d" target="_blank" rel="noopener">Spotify</a> · <a href="https://music.apple.com/id/artist/newjeans/1635469693" target="_blank" rel="noopener">Apple Music</a></p>
+  <nav class="mchips" id="cm" aria-label="View mode"><a href="chart?m=lagu" data-m="lagu">By song</a><a href="chart?m=video" data-m="video">By video</a></nav>
+  <nav class="mchips" id="cf" aria-label="Video type"></nav>
+  <ol class="cl" id="cl"></ol>
+  <p class="cn" id="cn"></p>
+</main>
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><a class="logo" href="./">bunnies</a><p>An unofficial NewJeans fan site made by Indonesian fans.</p></div>
+    <div><h5>Explore</h5><ul><li><a href="./">Home</a></li><li><a href="member">Members</a></li><li><a href="info">Info &amp; official links</a></li><li><a href="galeri">Gallery</a></li><li><a href="kabar">News</a></li><li><a href="chart">Chart</a></li><li><a href="tentang">About</a></li></ul></div>
+    <div><h5>Policies</h5><ul><li><a href="privasi">Privacy Policy</a></li><li><a href="syarat">Terms of Service</a></li><li><a href="hak-cipta">Copyright &amp; credits</a></li><li><a href="tentang?b=kontak">Contact</a></li></ul></div>
+  </div>
+  <div class="fbot"><span>© 2026 Bunnies Indonesia. Unofficial fan site, not affiliated with ADOR, HYBE, or NewJeans.</span><span><a href="privasi">Privacy</a> · <a href="syarat">Terms</a></span></div>
+</div></footer>
+<script src="../js/config.js?v=52"></script>
+<script src="../js/masuk.js?v=52"></script>
+<script>
+(function(){
+  var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
+  var l=document.querySelector(".slang");if(l)l.href+=location.search+location.hash;
+  var b = document.getElementById("loginTop"), s = null;
+  try{ s = JSON.parse(localStorage.getItem("bunnies.session")); }catch(e){}
+  if(s && s.user && window.Masuk){ b.outerHTML = Masuk.chip(s); }
+  else if(b){ b.addEventListener("click", function(){ Masuk.open(""); }); }
+})();
+</script>
+<script>
+const J=[["semua","All"],["mv","MV"],["perf","Performance"],["dance","Dance practice"]];
+let D=null,S=null,AP=null,src="yt",mode="lagu",fl="semua",all=false;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=n=>n>=1e9?(n/1e9).toFixed(2)+"B":n>=1e6?(n/1e6).toFixed(1).replace(/\.0$/,"")+"M":n.toLocaleString("en-US");
+const tgl=s=>new Date(s+"T00:00:00").toLocaleDateString("en-US",{day:"numeric",month:"long",year:"numeric"});
+const more=(n,L)=>(L>10?`<li class="mo"><button type="button" id="mo">${all?"Show less":"Show all "+L}</button></li>`:"");
+function rows(){
+ const v=D.video.filter(x=>fl==="semua"||x.jenis===fl);
+ if(mode==="video")return v.map(x=>({t:x.lagu,s:x.label+" · "+x.rilis,n:x.views,i:x.id,u:"https://www.youtube.com/watch?v="+x.id}));
+ const m={};v.forEach(x=>{const z=m[x.lagu]=m[x.lagu]||{t:x.lagu,n:0,c:0,v:0};z.n+=x.views;z.c++;if(x.views>z.v){z.v=x.views;z.i=x.id}});
+ return Object.values(m).sort((a,b)=>b.n-a.n).map(x=>({t:x.t,s:x.c+(x.c===1?" video":" videos"),n:x.n,i:x.i,u:"https://www.youtube.com/results?search_query="+encodeURIComponent("NewJeans "+x.t)}));
+}
+function drawSp(){
+ const L=S.lagu.map(x=>({t:x.lagu,s:fmt(x.harian)+" per day",n:x.streams,u:"https://open.spotify.com/search/"+encodeURIComponent("NewJeans "+x.lagu)})),top=L[0].n,sh=all?L:L.slice(0,10);
+ document.getElementById("cs").innerHTML=`<div><b>${fmt(S.total)}</b><span>Total streams (40 songs)</span></div><div><b>${fmt(S.pendengar_bulanan)}</b><span>Monthly listeners</span></div><div><b>${fmt(top)}</b><span>No. 1: ${esc(L[0].t)}</span></div>`;
+ document.getElementById("cl").innerHTML=sh.map((x,i)=>`<li><a href="${esc(x.u)}" target="_blank" rel="noopener"><span class="r">${i+1}</span><span class="b"><span class="t"><b>${esc(x.t)}</b><em>${esc(x.s)}</em></span><i style="width:${Math.max(3,x.n/top*100)}%"></i></span><span class="v">${fmt(x.n)}</span></a></li>`).join("")+`<li class="mo"><button type="button" id="mo">${all?"Show less":"Show all "+L.length}</button></li>`;
+ document.getElementById("cn").innerHTML=`Source: kworb.net (a copy of Spotify data, updated manually). As of ${tgl(S.diperbarui)}. The total counts the 40 songs registered on kworb (including remixes, instrumentals, and features), while the list shows only NewJeans' own songs. Rights to the songs belong to their owners; the buttons open Spotify.`;
+}
+function drawAm(){
+ const L=AP.lagu,sh=all?L:L.slice(0,10);
+ document.getElementById("cs").innerHTML=`<div><b>${L.length}</b><span>Top songs listed</span></div><div><b>${esc(L[0].lagu)}</b><span>No. 1</span></div><div><b>Indonesia</b><span>Apple Music store</span></div>`;
+ document.getElementById("cl").innerHTML=sh.map((x,i)=>`<li><a href="${esc(x.url)}" target="_blank" rel="noopener"><span class="r">${i+1}</span><span class="b"><span class="t"><b>${esc(x.lagu)}</b></span><em class="al2">${esc(x.album)}</em></span></a></li>`).join("")+more(0,L.length);
+ document.getElementById("cn").innerHTML=`Source: Apple Music Indonesia (Top Songs ranking; Apple does not publish play counts). As of ${tgl(AP.diperbarui)}. Only the ranking is shown, with no numbers. Rights to the songs belong to their owners; the buttons open Apple Music.`;
+}
+function draw(){
+ document.getElementById("cx").querySelectorAll("a").forEach(a=>a.classList.toggle("on",a.dataset.s===src));
+ const sp=src!=="yt";document.getElementById("cm").style.display=sp?"none":"";document.getElementById("cf").style.display=sp?"none":"";
+ if(src==="sp"){if(S)drawSp();return}
+ if(src==="am"){if(AP)drawAm();return}
+ const L=rows(),top=L[0]?L[0].n:1,sh=all?L:L.slice(0,10);
+ document.getElementById("cs").innerHTML=`<div><b>${fmt(D.total_kanal)}</b><span>Channel total views</span></div><div><b>${D.video.length}</b><span>Videos tracked</span></div><div><b>${fmt(D.video[0].views)}</b><span>No. 1: ${esc(D.video[0].lagu)}</span></div>`;
+ document.getElementById("cm").querySelectorAll("a").forEach(a=>a.classList.toggle("on",a.dataset.m===mode));
+ document.getElementById("cf").innerHTML=J.map(([k,n])=>`<a href="chart?f=${k}" data-f="${k}" class="${k===fl?"on":""}">${n}</a>`).join("");
+ document.getElementById("cl").innerHTML=sh.map((x,i)=>`<li><a href="${esc(x.u)}" target="_blank" rel="noopener"><span class="r">${i+1}</span>${x.i?`<img class="th" loading="lazy" alt="" src="https://i.ytimg.com/vi/${esc(x.i)}/mqdefault.jpg">`:""}<span class="b"><span class="t"><b>${esc(x.t)}</b><em>${esc(x.s)}</em></span><i style="width:${Math.max(3,x.n/top*100)}%"></i></span><span class="v">${fmt(x.n)}</span></a></li>`).join("")+more(0,L.length);
+ document.getElementById("cn").innerHTML=`Source: YouTube Data API (official). Updated ${tgl(D.diperbarui)}. Rights to thumbnails and videos belong to their owners; the buttons open YouTube.`;
+}
+document.addEventListener("click",e=>{
+ const a=e.target.closest("[data-s],[data-m],[data-f],#mo");if(!a)return;
+ if(a.dataset.s){e.preventDefault();src=a.dataset.s;all=false}
+ else if(a.dataset.m){e.preventDefault();mode=a.dataset.m;all=false}
+ else if(a.dataset.f){e.preventDefault();fl=a.dataset.f;all=false}
+ else all=!all;
+ draw();
+});
+fetch("../data/youtube.json").then(r=>r.json()).then(j=>{D=j;const q=new URLSearchParams(location.search),h=q.get("s")||q.get("m")||location.hash.slice(1);if(h==="video")mode="video";if(h==="spotify")src="sp";if(h==="apple")src="am";if(location.hash)history.replaceState(null,"","chart");draw()}).catch(()=>{document.getElementById("cn").textContent="Couldn't load the chart data. Please refresh the page."});
+fetch("../data/apple.json").then(r=>r.json()).then(j=>{AP=j;if(src==="am")draw()}).catch(()=>{});
+fetch("../data/spotify.json").then(r=>r.json()).then(j=>{S=j;if(src==="sp")draw()}).catch(()=>{});
+</script>
+</body>
+</html>

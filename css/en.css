@@ -1,0 +1,3 @@
+/* v52: halaman bahasa Inggris (/en/). Dimuat sesudah ko.css, memakai kerangka yang sama (.kbar, .kmain, .ksec, ...). */
+body.ko.en{font-family:'Instrument Sans','Sora',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.6}
+body.en .khero h1{letter-spacing:-.025em}

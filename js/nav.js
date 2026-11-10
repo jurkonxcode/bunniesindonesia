@@ -23,20 +23,7 @@
     TABS.map(t => `<a href="${t[1]}"${t[2] === activeKey ? ' aria-current="page"' : ""}>${esc(t[0])}</a>`).join("") +
     `</div><a class="sall" href="layanan" aria-label="Semua layanan"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></svg><span>Semua layanan</span></a></div>`;
   host.appendChild(nav);
-  /* v51: tombol bahasa sederhana (ID -> 한국어) di baris atas. Semua halaman punya padanan Korea; yang tidak ada ke beranda Korea. */
-  {
-    const KO = {home:"ko/", member:"ko/member", tentang:"ko/tentang", info:"ko/info", galeri:"ko/galeri", kabar:"ko/kabar", chart:"ko/chart", privasi:"ko/privasi", syarat:"ko/syarat", "hak-cipta":"ko/hak-cipta"};
-    const row = host.querySelector(isTop ? ".wrap" : ".swrap");
-    if(row && !row.querySelector(".slang")){
-      const kl = document.createElement("a");
-      const dest = KO[key0];
-      kl.className = "slang"; kl.setAttribute("role", "button");
-      kl.href = (dest || "ko/") + (dest && dest !== "ko/" ? location.search + location.hash : "");
-      kl.lang = "ko"; kl.hreflang = "ko"; kl.title = "한국어로 보기"; kl.textContent = "한국어";
-      kl.addEventListener("click", () => { try{ localStorage.setItem("bunnies.lang", "ko"); }catch(e){} });
-      row.insertBefore(kl, row.querySelector(".actions, .hsrch, .hbar"));
-    }
-  }
+  /* v52: tombol bahasa kini dipasang oleh js/lang.js (pilihan Indonesia / English / 한국어), dimuat tepat sesudah nav.js. */
 
   const list = nav.querySelector(".snl"), cur = list.querySelector("[aria-current]");
   /* bayangan tepi: tampil hanya bila masih ada tab yang tersembunyi di sisi itu */

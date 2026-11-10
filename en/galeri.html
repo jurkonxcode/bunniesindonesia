@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery – Bunnies Indonesia</title>
+<meta name="description" content="A fan gallery sorted by member, type, license, and year. Only photos with confirmed permission, with credits.">
+<link rel="canonical" href="https://jurkonxcode.github.io/bunniesindonesia/en/galeri">
+<link rel="alternate" hreflang="en" href="https://jurkonxcode.github.io/bunniesindonesia/en/galeri">
+<link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/galeri">
+<link rel="alternate" hreflang="ko" href="https://jurkonxcode.github.io/bunniesindonesia/ko/galeri">
+<link rel="alternate" hreflang="x-default" href="https://jurkonxcode.github.io/bunniesindonesia/galeri">
+<meta property="og:title" content="Gallery – Bunnies Indonesia"><meta property="og:description" content="A fan gallery sorted by member, type, license, and year. Only photos with confirmed permission, with credits.">
+<meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="id_ID"><meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:image" content="https://jurkonxcode.github.io/bunniesindonesia/assets/brand/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/brand/icon-192.png">
+<meta name="theme-color" content="#2f6fe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css?v=52"><link rel="stylesheet" href="../css/base.css?v=52"><link rel="stylesheet" href="../css/brand-skin.css?v=52"><link rel="stylesheet" href="../css/modern.css?v=52"><link rel="stylesheet" href="../css/masuk.css?v=52"><link rel="stylesheet" href="../css/member.css?v=52"><link rel="stylesheet" href="../css/galeri.css?v=52"><link rel="stylesheet" href="../css/ko.css?v=52"><link rel="stylesheet" href="../css/en.css?v=52">
+</head>
+<body class="ko en sp">
+<header class="kbar"><div class="kw">
+  <a class="logo" href="./" aria-label="Bunnies Indonesia home"><img src="../assets/brand/logo-mark.svg" alt="" width="30" height="30"><span>bunnies</span></a>
+  <nav class="knav" aria-label="Main menu"><a href="./">Home</a><a href="member">Members</a><a href="info">Info</a><a href="galeri" aria-current="page">Gallery</a><a href="kabar">News</a><a href="chart">Chart</a><a href="tentang">About</a></nav>
+  <a class="slang" role="button" href="../" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
+  <button class="btn green kbtn" id="loginTop" type="button">Log in</button>
+</div><script src="../js/lang.js?v=52"></script></header>
+<main class="kmain">
+  <section class="mh"><span class="pill">Gallery · Unofficial</span><h1>Bunnies Gallery</h1>
+  <p>Photos are sorted by member, type, license, and year. We post only photos with clear permission, and all rights belong to the original owners. Credits are listed on every photo. <a href="hak-cipta"><u>Report or request removal</u></a></p></section>
+  <nav class="mchips" id="gf" aria-label="Member filter"></nav>
+  <div class="gsel" id="gs" hidden><select id="fj" aria-label="Filter by type"></select><select id="fl" aria-label="Filter by license"></select><select id="ft" aria-label="Filter by year"></select></div>
+  <div class="gg" id="gg"></div>
+  <p class="gnote" id="gn" hidden>No photos match this filter yet.</p>
+</main>
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><a class="logo" href="./">bunnies</a><p>An unofficial NewJeans fan site made by Indonesian fans.</p></div>
+    <div><h5>Explore</h5><ul><li><a href="./">Home</a></li><li><a href="member">Members</a></li><li><a href="info">Info &amp; official links</a></li><li><a href="galeri">Gallery</a></li><li><a href="kabar">News</a></li><li><a href="chart">Chart</a></li><li><a href="tentang">About</a></li></ul></div>
+    <div><h5>Policies</h5><ul><li><a href="privasi">Privacy Policy</a></li><li><a href="syarat">Terms of Service</a></li><li><a href="hak-cipta">Copyright &amp; credits</a></li><li><a href="tentang?b=kontak">Contact</a></li></ul></div>
+  </div>
+  <div class="fbot"><span>© 2026 Bunnies Indonesia. Unofficial fan site, not affiliated with ADOR, HYBE, or NewJeans.</span><span><a href="privasi">Privacy</a> · <a href="syarat">Terms</a></span></div>
+</div></footer>
+<script src="../js/config.js?v=52"></script>
+<script src="../js/masuk.js?v=52"></script>
+<script>
+(function(){
+  var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
+  var l=document.querySelector(".slang");if(l)l.href+=location.search+location.hash;
+  var b = document.getElementById("loginTop"), s = null;
+  try{ s = JSON.parse(localStorage.getItem("bunnies.session")); }catch(e){}
+  if(s && s.user && window.Masuk){ b.outerHTML = Masuk.chip(s); }
+  else if(b){ b.addEventListener("click", function(){ Masuk.open(""); }); }
+})();
+</script>
+<script>
+/* Display rule: only photos with confirmed permission ("ada") are shown. Set to true only for local testing. */
+const TAMPIL_BELUM=false;
+const M=[["semua","All"],["minji","Minji"],["hanni","Hanni"],["haerin","Haerin"],["hyein","Hyein"],["danielle","Danielle (former member)"],["grup","Group"]];
+const JENIS={konser:"Concert",fansign:"Fan signing",teaser:"Teaser",mv:"MV",candid:"Fan photo",fanart:"Fan art",lainnya:"Other"};
+const LISENSI={"cc-by":"CC BY","cc-by-sa":"CC BY-SA","izin-kreator":"Creator's permission","izin-agensi":"Agency's permission","domain-publik":"Public domain"};
+let D=[],cur="semua",fj="",fl="",ft="";
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=i=>document.getElementById(i);
+const aman=u=>/^https:\/\/\S+$/.test(u||"")?u:"";
+function opsi(id,judul,vals,label,sel){
+ const v=[...new Set(vals.filter(Boolean))].sort(),el=$(id);
+ el.hidden=v.length<1;
+ el.innerHTML=`<option value="">${judul}</option>`+v.map(x=>`<option value="${esc(x)}"${x===sel?" selected":""}>${esc(label(x))}</option>`).join("");
+}
+function draw(){
+ $("gf").innerHTML=M.map(([k,n])=>`<a href="${k==="semua"?"galeri":"galeri?m="+k}" class="${k===cur?"on":""}" data-k="${k}">${n}</a>`).join("");
+ const V=D.filter(x=>TAMPIL_BELUM||x.izin==="ada");
+ opsi("fj","All types",V.map(x=>x.jenis),k=>JENIS[k]||k,fj);
+ opsi("fl","All licenses",V.map(x=>x.lisensi),k=>LISENSI[k]||k,fl);
+ opsi("ft","All years",V.map(x=>x.tahun&&String(x.tahun)),k=>k,ft);
+ $("gs").hidden=!V.length;
+ const L=V.filter(x=>(cur==="semua"||x.member===cur)&&(!fj||x.jenis===fj)&&(!fl||x.lisensi===fl)&&(!ft||String(x.tahun)===ft));
+ $("gg").innerHTML=L.map(x=>{
+  const p=[];
+  if(x.kredit)p.push("Credit: "+esc(x.kredit));
+  if(x.lisensi)p.push(esc(LISENSI[x.lisensi]||x.lisensi));
+  if(aman(x.sumber))p.push(`<a href="${esc(x.sumber)}" rel="noopener nofollow" target="_blank">Original</a>`);
+  const meta=[JENIS[x.jenis],x.tahun].filter(Boolean).map(esc).join(" · ");
+  return `<figure><img src="../assets/galeri/${esc(x.file)}" alt="Gallery photo${x.jenis&&JENIS[x.jenis]?" ("+esc(JENIS[x.jenis])+")":""}" loading="lazy">${p.length||meta?`<figcaption>${meta?`<b>${meta}</b>`:""}${p.join(" · ")}</figcaption>`:""}</figure>`;
+ }).join("");
+ const n=$("gn");
+ n.hidden=L.length>0;
+ n.textContent=V.length?"No photos match this filter yet.":"The gallery is being prepared. Only photos with confirmed permission and credits are posted.";
+}
+$("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()});
+$("gs").addEventListener("change",e=>{if(e.target.id==="fj")fj=e.target.value;if(e.target.id==="fl")fl=e.target.value;if(e.target.id==="ft")ft=e.target.value;draw()});
+fetch("../data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto||[];const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()}).catch(()=>{$("gn").hidden=false});
+</script>
+</body>
+</html>

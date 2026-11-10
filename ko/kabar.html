@@ -7,6 +7,7 @@
 <meta name="description" content="뉴진스와 멤버들의 최근 소식을 한국어로 정리하고, 원문 링크를 함께 보여 줘요.">
 <link rel="canonical" href="https://jurkonxcode.github.io/bunniesindonesia/ko/kabar">
 <link rel="alternate" hreflang="ko" href="https://jurkonxcode.github.io/bunniesindonesia/ko/kabar">
+<link rel="alternate" hreflang="en" href="https://jurkonxcode.github.io/bunniesindonesia/en/kabar">
 <link rel="alternate" hreflang="id" href="https://jurkonxcode.github.io/bunniesindonesia/kabar">
 <link rel="alternate" hreflang="x-default" href="https://jurkonxcode.github.io/bunniesindonesia/kabar">
 <meta property="og:title" content="최근 소식 – 버니즈 인도네시아"><meta property="og:description" content="뉴진스와 멤버들의 최근 소식을 한국어로 정리하고, 원문 링크를 함께 보여 줘요.">
@@ -17,7 +18,7 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/tokens.css?v=51"><link rel="stylesheet" href="../css/base.css?v=51"><link rel="stylesheet" href="../css/brand-skin.css?v=51"><link rel="stylesheet" href="../css/modern.css?v=51"><link rel="stylesheet" href="../css/masuk.css?v=51"><link rel="stylesheet" href="../css/member.css?v=51"><link rel="stylesheet" href="../css/galeri.css?v=51"><link rel="stylesheet" href="../css/kabar.css?v=51"><link rel="stylesheet" href="../css/ko.css?v=51">
+<link rel="stylesheet" href="../css/tokens.css?v=52"><link rel="stylesheet" href="../css/base.css?v=52"><link rel="stylesheet" href="../css/brand-skin.css?v=52"><link rel="stylesheet" href="../css/modern.css?v=52"><link rel="stylesheet" href="../css/masuk.css?v=52"><link rel="stylesheet" href="../css/member.css?v=52"><link rel="stylesheet" href="../css/galeri.css?v=52"><link rel="stylesheet" href="../css/kabar.css?v=52"><link rel="stylesheet" href="../css/ko.css?v=52">
 </head>
 <body class="ko sp">
 <header class="kbar"><div class="kw">
@@ -25,7 +26,7 @@
   <nav class="knav" aria-label="주요 메뉴"><a href="./">홈</a><a href="member">멤버</a><a href="info">정보</a><a href="galeri">갤러리</a><a href="kabar" aria-current="page">소식</a><a href="chart">차트</a><a href="tentang">사이트 소개</a></nav>
   <a class="slang" role="button" href="../kabar" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
   <button class="btn green kbtn" id="loginTop" type="button">로그인</button>
-</div></header>
+</div><script src="../js/lang.js?v=52"></script></header>
 <main class="kmain">
   <section class="mh"><span class="pill">소식 · 비공식</span><h1>최근 소식</h1>
   <p>뉴진스와 멤버들의 소식을 우리말로 짧게 정리했어요. 항목마다 원문 링크가 있으니 꼭 원문도 확인해 주세요.</p></section>
@@ -41,8 +42,8 @@
   </div>
   <div class="fbot"><span>© 2026 버니즈 인도네시아. 비공식 팬사이트이며 ADOR·HYBE·뉴진스와 관련이 없어요.</span><span><a href="privasi">개인정보</a> · <a href="syarat">약관</a></span></div>
 </div></footer>
-<script src="../js/config.js?v=51"></script>
-<script src="../js/masuk.js?v=51"></script>
+<script src="../js/config.js?v=52"></script>
+<script src="../js/masuk.js?v=52"></script>
 <script>
 (function(){
   var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
@@ -67,6 +68,6 @@ function draw(){
 document.getElementById("kf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"",cur==="semua"?"kabar":"kabar?m="+cur);draw()});
 fetch("../data/kabar.ko.json").then(r=>r.json()).then(j=>{D=j.kabar.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal));const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(W[h])cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"kabar":"kabar?m="+cur);draw()}).catch(()=>{document.getElementById("kk").textContent="소식을 불러오지 못했어요. 페이지를 새로고침해 주세요."});
 </script>
-<script src="../js/hangul.js?v=51"></script>
+<script src="../js/hangul.js?v=52"></script>
 </body>
 </html>
