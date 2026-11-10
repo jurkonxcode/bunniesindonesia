@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Kabar – Bunnies Indonesia</title>
+<meta name="description" content="Kabar terbaru NewJeans dan para member, dirangkum dengan tautan ke sumber aslinya.">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#2f6fe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css?v=40"><link rel="stylesheet" href="css/base.css?v=40"><link rel="stylesheet" href="css/identity.css?v=40"><link rel="stylesheet" href="css/search.css?v=40"><link rel="stylesheet" href="css/tanya.css?v=40">
+<link rel="stylesheet" href="css/share.css?v=40"><link rel="stylesheet" href="css/komentar.css?v=40"><link rel="stylesheet" href="css/nav.css?v=40">
+<link rel="stylesheet" href="css/brand-skin.css?v=40"><link rel="stylesheet" href="css/modern.css?v=40"><link rel="stylesheet" href="css/padat.css?v=40"><link rel="stylesheet" href="css/fokus.css?v=40"><link rel="stylesheet" href="css/member.css?v=40"><link rel="stylesheet" href="css/galeri.css?v=40"><link rel="stylesheet" href="css/kabar.css?v=1">
+</head><body class="sp mb">
+<header class="sbar"><div class="swrap">
+  <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
+  <div class="hbar" id="hbar"></div>
+</div>
+<script src="js/nav.js?v=40"></script></header>
+<main class="swrap">
+<section class="mh"><span class="pill">Admin · hanya pemilik</span><h1>Admin Kabar</h1>
+<p>Tambah, ubah, atau hapus kabar. Tayang otomatis di beranda dan halaman Kabar.</p></section>
+<section class="ad" id="tk" hidden>
+ <h2>Hubungkan sekali</h2>
+ <p>Tempel token GitHub (fine-grained) khusus repo ini dengan izin <b>Contents</b> dan <b>Actions</b> read &amp; write. Token hanya disimpan di browser ini.</p>
+ <input id="tok" type="password" placeholder="github_pat_…" autocomplete="off">
+ <button type="button" class="ab" id="tkGo">Simpan &amp; cek</button>
+</section>
+<section class="ad" id="fm" hidden>
+ <h2 id="fh">Kabar baru</h2>
+ <nav class="mchips" id="fmem" aria-label="Member"></nav>
+ <input id="fj" maxlength="120" placeholder="Judul (maks 120 karakter)">
+ <textarea id="fr" maxlength="400" rows="4" placeholder="Ringkasan dengan kata sendiri (maks 400)"></textarea>
+ <small id="fc">0/400</small>
+ <input id="fl" type="url" inputmode="url" placeholder="Link sumber (https://…)">
+ <div class="r2"><input id="fs" placeholder="Nama sumber"><input id="ft" type="date"></div>
+ <div class="r2"><button type="button" class="ab" id="fgo">Tayangkan</button><button type="button" class="ab g" id="fcl" hidden>Batal ubah</button></div>
+ <p class="am" id="fmsg" role="status"></p>
+</section>
+<section class="ad" id="ls" hidden><h2>Kabar tayang</h2><ul class="al" id="al"></ul><button type="button" class="ab g" id="out">Putuskan token</button></section>
+</main>
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><a class="logo" href="./">bunnies</a><p>Fansite NewJeans tidak resmi, dibuat penggemar untuk penggemar Indonesia.</p></div>
+    <div><h5>Layanan</h5><ul><li><a href="./">Beranda</a></li><li><a href="layanan">Semua layanan</a></li><li><a href="#alat">Alat harian</a></li><li><a href="tanya">Tanya Jawab</a></li></ul></div>
+    <div><h5>Komunitas</h5><ul><li><a href="member">Member</a></li><li><a href="tanya">Tanya Jawab</a></li><li><a href="blog">Blog</a></li><li><a href="galeri">Galeri</a></li><li><a href="chart">Chart YouTube</a></li><li><a href="kabar">Kabar</a></li></ul></div>
+    <div><h5>Bunnies Indonesia</h5><ul><li><a href="tentang">Tentang</a></li><li><a href="tentang#kontak">Kontak</a></li><li><a href="privasi">Kebijakan privasi</a></li><li><a href="syarat">Syarat layanan</a></li><li><a href="hak-cipta">Hak cipta &amp; kredit</a></li></ul></div>
+  </div>
+  <div class="fbot"><span>© 2026 Bunnies Indonesia. Fansite tidak resmi, tidak berafiliasi dengan NewJeans maupun agensinya.</span><span><a href="privasi">Kebijakan privasi</a> · <a href="syarat">Syarat layanan</a></span></div>
+</div></footer>
+<script>
+const O="jurkonxcode",R="bunniesindonesia",B="main",P="data/kabar.json",API="https://api.github.com/repos/"+O+"/"+R;
+const W={grup:["Grup","#2f6fe4"],minji:["Minji","#e0488a"],hanni:["Hanni","#f0873a"],danielle:["Danielle","#2f9ed8"],haerin:["Haerin","#2aa87a"],hyein:["Hyein","#8c6fd8"]};
+const $=i=>document.getElementById(i),esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let T="";try{T=localStorage.getItem("bn_tok")||""}catch(e){}
+let mem="grup",edit=null,DATA=null;
+const hd=()=>({Authorization:"Bearer "+T,Accept:"application/vnd.github+json"});
+const dec=c=>new TextDecoder().decode(Uint8Array.from(atob(c.replace(/\n/g,"")),x=>x.charCodeAt(0)));
+const enc=s=>{let x="";new TextEncoder().encode(s).forEach(c=>x+=String.fromCharCode(c));return btoa(x)};
+const msg=(t,ok)=>{const m=$("fmsg");m.textContent=t;m.style.color=ok?"#1c7a4d":"#b3261e"};
+const today=()=>new Date().toISOString().slice(0,10);
+async function load(){
+ const r=await fetch(API+"/contents/"+P+"?ref="+B+"&t="+Date.now(),{headers:hd()});
+ if(!r.ok)throw new Error(r.status===401||r.status===403?"Token ditolak. Cek izin Contents dan Actions.":r.status===404?"Repo atau berkas tidak ditemukan untuk token ini.":"GitHub error "+r.status);
+ const j=await r.json();DATA={sha:j.sha,json:JSON.parse(dec(j.content))};return DATA;
+}
+async function commit(fn,pesan){
+ const d=await load();fn(d.json.kabar);
+ const r=await fetch(API+"/contents/"+P,{method:"PUT",headers:{...hd(),"Content-Type":"application/json"},body:JSON.stringify({message:pesan,content:enc(JSON.stringify(d.json,null,1)),sha:d.sha,branch:B})});
+ if(!r.ok)throw new Error("Gagal menyimpan ("+r.status+").");
+ fetch(API+"/actions/workflows/pages.yml/dispatches",{method:"POST",headers:{...hd(),"Content-Type":"application/json"},body:JSON.stringify({ref:B})}).catch(()=>{});
+}
+const key=x=>x.tanggal+"|"+x.judul;
+function memChips(){$("fmem").innerHTML=Object.entries(W).map(([k,v])=>`<a href="#" data-m="${k}" class="${k===mem?"on":""}">${v[0]}</a>`).join("")}
+function list(){
+ const L=DATA.json.kabar.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+ $("al").innerHTML=L.map(x=>{const m=W[x.member]||W.grup;return `<li style="--bc:${m[1]}"><span><i></i><b>${esc(x.judul)}</b><small>${m[0]} · ${esc(x.tanggal)}</small></span><span class="ac"><button type="button" data-e="${esc(key(x))}">Ubah</button><button type="button" data-d="${esc(key(x))}">Hapus</button></span></li>`}).join("")||"<li>Belum ada kabar.</li>";
+}
+function show(){$("tk").hidden=true;$("fm").hidden=false;$("ls").hidden=false;memChips();list();if(!$("ft").value)$("ft").value=today()}
+function reset(){edit=null;$("fh").textContent="Kabar baru";["fj","fr","fl","fs"].forEach(i=>$(i).value="");$("ft").value=today();$("fc").textContent="0/400";$("fcl").hidden=true;$("fgo").textContent="Tayangkan";mem="grup";memChips()}
+async function init(){
+ if(!T){$("tk").hidden=false;return}
+ try{await load();show()}catch(e){$("tk").hidden=false;alert(e.message)}
+}
+$("tkGo").onclick=async()=>{T=$("tok").value.trim();if(!T)return;try{await load();try{localStorage.setItem("bn_tok",T)}catch(e){}$("tok").value="";show()}catch(e){T="";alert(e.message)}};
+$("out").onclick=()=>{try{localStorage.removeItem("bn_tok")}catch(e){}location.reload()};
+$("fmem").onclick=e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();mem=a.dataset.m;memChips()};
+$("fr").oninput=()=>$("fc").textContent=$("fr").value.length+"/400";
+$("fl").onchange=()=>{if($("fs").value)return;try{const h=new URL($("fl").value).hostname.replace(/^www\./,"").split(".");const n=h.length>2?h[h.length-3]:h[0];$("fs").value=n.charAt(0).toUpperCase()+n.slice(1)}catch(e){}};
+$("fcl").onclick=reset;
+$("fgo").onclick=async()=>{
+ const e={tanggal:$("ft").value||today(),member:mem,judul:$("fj").value.trim(),ringkasan:$("fr").value.trim(),sumber_nama:$("fs").value.trim(),sumber_url:$("fl").value.trim()};
+ if(!e.judul)return msg("Judul wajib diisi.");if(!e.ringkasan)return msg("Ringkasan wajib diisi.");
+ if(!/^https:\/\/\S+$/.test(e.sumber_url))return msg("Link sumber harus diawali https://");if(!e.sumber_nama)return msg("Nama sumber wajib diisi.");
+ $("fgo").disabled=true;msg("Menyimpan…",true);
+ try{
+  const old=edit;
+  await commit(a=>{if(old){const i=a.findIndex(x=>key(x)===old);if(i>=0)a[i]=e;else a.unshift(e)}else a.unshift(e)},(old?"Ubah":"Tambah")+" kabar: "+e.judul.slice(0,50));
+  await load();list();reset();msg("Tersimpan. Situs terbit ulang dalam 1-2 menit.",true);
+ }catch(x){msg(x.message)}
+ $("fgo").disabled=false;
+};
+$("al").onclick=async e=>{
+ const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.e){const x=DATA.json.kabar.find(z=>key(z)===b.dataset.e);if(!x)return;edit=b.dataset.e;mem=x.member;memChips();$("fh").textContent="Ubah kabar";$("fj").value=x.judul;$("fr").value=x.ringkasan;$("fl").value=x.sumber_url;$("fs").value=x.sumber_nama;$("ft").value=x.tanggal;$("fc").textContent=x.ringkasan.length+"/400";$("fcl").hidden=false;$("fgo").textContent="Simpan ubahan";scrollTo({top:0,behavior:"smooth"});return}
+ if(b.dataset.d){if(!confirm("Hapus kabar ini dari situs?"))return;const k=b.dataset.d;try{await commit(a=>{const i=a.findIndex(x=>key(x)===k);if(i>=0)a.splice(i,1)},"Hapus kabar");await load();list();msg("Dihapus. Situs terbit ulang dalam 1-2 menit.",true)}catch(x){alert(x.message)}}
+};
+init();
+</script>
+</body></html>
