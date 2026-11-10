@@ -1,0 +1,29 @@
+{
+ "_petunjuk": "Tambah lewat Issue (Kabar member) atau edit manual. member: grup, minji, hanni, danielle, haerin, hyein. Tulis ringkasan dengan kata sendiri, jangan salin teks atau foto.",
+ "kabar": [
+  {
+   "tanggal": "2026-10-05",
+   "member": "grup",
+   "judul": "MV “Super Shy” tembus 300 juta tayangan di YouTube",
+   "ringkasan": "Video musik “Super Shy” melewati 300 juta tayangan pada 5 Oktober 2026, sekitar tiga tahun dua bulan setelah rilis. Ini MV kedua NewJeans yang mencapai angka itu, setelah “OMG”.",
+   "sumber_nama": "Soompi",
+   "sumber_url": "https://www.soompi.com/article/1875542wpp/newjeans-super-shy-becomes-their-2nd-mv-to-hit-300-million-views"
+  },
+  {
+   "tanggal": "2026-08-22",
+   "member": "grup",
+   "judul": "Total stream Spotify NewJeans lewati 8 miliar",
+   "ringkasan": "ADOR mengumumkan total stream semua lagu NewJeans di Spotify melewati 8 miliar per 18 Agustus 2026. Setiap lagu di album mereka sudah di atas 100 juta stream, dan Indonesia ada di urutan kedua negara pendengar terbanyak.",
+   "sumber_nama": "Edaily",
+   "sumber_url": "https://en.edaily.co.kr/news/eda202608225066"
+  },
+  {
+   "tanggal": "2026-07-22",
+   "member": "grup",
+   "judul": "Teaser “2026 Summer of NewJeans” rilis di ulang tahun debut",
+   "ringkasan": "Di ulang tahun debut ke-4, NewJeans merilis teaser “2026 Summer of NewJeans”. Minji tampil bersama anggota lain, pertama kalinya ia terlihat jelas di materi resmi setelah masa sengketa dengan ADOR.",
+   "sumber_nama": "Complex",
+   "sumber_url": "https://www.complex.com/music/a/jaelaniturnerwilliams/newjeans-2026-comeback-minji-return-four-members"
+  }
+ ]
+}

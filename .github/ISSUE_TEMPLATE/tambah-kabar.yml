@@ -1,0 +1,50 @@
+name: Tambah kabar member
+description: Tambahkan kabar terbaru ke beranda dan halaman Kabar (otomatis tayang dalam beberapa menit).
+title: "Kabar: "
+body:
+  - type: dropdown
+    id: member
+    attributes:
+      label: Member
+      options:
+        - Grup (semua member)
+        - Minji
+        - Hanni
+        - Danielle
+        - Haerin
+        - Hyein
+    validations:
+      required: true
+  - type: input
+    id: judul
+    attributes:
+      label: Judul
+      description: Maksimal 120 karakter.
+    validations:
+      required: true
+  - type: textarea
+    id: ringkasan
+    attributes:
+      label: Ringkasan
+      description: Tulis dengan kata sendiri, maksimal 400 karakter. Jangan salin teks atau foto dari sumber.
+    validations:
+      required: true
+  - type: input
+    id: sumber
+    attributes:
+      label: Nama sumber
+      description: Contoh, Soompi, Weverse, atau akun X resmi.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link sumber
+      description: Harus diawali https://
+    validations:
+      required: true
+  - type: input
+    id: tanggal
+    attributes:
+      label: Tanggal
+      description: Format 2026-11-10. Kosongkan untuk hari ini.

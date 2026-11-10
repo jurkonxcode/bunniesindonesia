@@ -1,0 +1,51 @@
+# Issue "Kabar member" dari pemilik repo otomatis jadi entri di data/kabar.json lalu situs diterbitkan ulang.
+name: Tambah kabar
+on:
+  issues:
+    types: [opened]
+permissions:
+  contents: write
+  issues: write
+  actions: write
+jobs:
+  tambah:
+    if: startsWith(github.event.issue.title, 'Kabar:') && github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const body = context.payload.issue.body || "";
+            const get = k => { const m = body.match(new RegExp("### " + k + "\\s*\\n\\n([\\s\\S]*?)(?=\\n### |$)")); const v = m ? m[1].trim() : ""; return v === "_No response_" ? "" : v; };
+            const peta = {"Grup (semua member)":"grup", Minji:"minji", Hanni:"hanni", Danielle:"danielle", Haerin:"haerin", Hyein:"hyein"};
+            const e = { tanggal: get("Tanggal") || new Date().toISOString().slice(0, 10), member: peta[get("Member")], judul: get("Judul"), ringkasan: get("Ringkasan"), sumber_nama: get("Nama sumber"), sumber_url: get("Link sumber") };
+            const salah = [];
+            if (!e.member) salah.push("Member tidak dikenali.");
+            if (!e.judul || e.judul.length > 120) salah.push("Judul wajib diisi, maksimal 120 karakter.");
+            if (!e.ringkasan || e.ringkasan.length > 400) salah.push("Ringkasan wajib diisi, maksimal 400 karakter.");
+            if (!e.sumber_nama) salah.push("Nama sumber wajib diisi.");
+            if (!/^https:\/\/\S+$/.test(e.sumber_url)) salah.push("Link sumber harus diawali https://");
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(e.tanggal)) salah.push("Tanggal harus berformat 2026-11-10.");
+            if (salah.length) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body: "Belum bisa ditambahkan:\n- " + salah.join("\n- ") + "\n\nEdit issue ini lalu buka issue baru, atau perbaiki lewat form lagi." });
+              core.setOutput("ok", "no"); return;
+            }
+            const f = "data/kabar.json", j = JSON.parse(fs.readFileSync(f, "utf8"));
+            j.kabar.unshift(e);
+            fs.writeFileSync(f, JSON.stringify(j, null, 1));
+            core.setOutput("ok", "yes");
+      - if: steps.parse.outputs.ok == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/kabar.json
+          git commit -m "Tambah kabar dari issue #${{ github.event.issue.number }}"
+          git push
+          gh workflow run pages.yml
+          gh issue comment ${{ github.event.issue.number }} --body "Sudah ditambahkan. Situs terbit ulang dalam 1-2 menit."
+          gh issue close ${{ github.event.issue.number }}

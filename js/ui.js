@@ -67,7 +67,7 @@ function renderModules(){
     ["tanya", "Tanya Jawab", nq ? nq + " pertanyaan" : "Tanya apa saja", "tanya", "g5"],
     ["blog", "Blog", np ? np + " tulisan" : "Tulis ceritamu", "blog", "g1"],
     [catArt("video")[0], "Video & MV", "Tayangan YouTube", "chart#video", "g2"],
-    ["tentang", "Tentang", "Soal Bunnies ID", "tentang", "g3"]
+    ["berita", "Kabar", "Update member", "kabar", "g3"]
   ];
   const catChips = np ? `<div class="kchips">${BC.map(([s, l]) => `<a href="blog?cat=${s}">#${esc(l)}</a>`).join("")}</div>` : "";
   const list = bpCat === "Semua" ? posts : posts.filter(p => p.category === bpCat);
