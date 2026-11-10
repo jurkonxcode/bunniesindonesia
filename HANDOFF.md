@@ -259,3 +259,10 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **Pemutar Spotify:** `js/musik.js` memuat iframe hanya saat tombol "Putar playlist" ditekan. Ganti playlist di atribut `data-src` pada `.musik-p` (hanya host `open.spotify.com` yang diterima). Teks di `privasi.html` disesuaikan.
 - **Palet sampul kartu:** `PAL` di `js/data.js` diganti ke biru langit dan merah muda brand (sebelumnya ungu, oranye, hijau).
 - Tinggi beranda di HP turun dari ~3470px ke ~2500px. Tidak ada perubahan database, login, atau fungsi komentar.
+
+## 5f. Padat dan tanpa blok kosong (v39)
+- `css/padat.css` (sebelum `fokus.css`): jarak beranda dirapatkan, tagar Blog pilihan satu baris dengan kartu 4 kolom, footer seragam di semua halaman. Hapus baris `<link>` itu untuk kembali ke v38.
+- `js/ui.js` `renderModules()`: baris "Terbaru", panel Blog pilihan, dan panel Tanya Jawab terbaru **tidak dirender bila datanya kosong** (sebelumnya menampilkan "Belum ada ..."). Panel muncul sendiri begitu ada tulisan atau pertanyaan.
+- `index.html`: kartu "Kenalan member" (tautan ke `member#id` dan Galeri) di kolom samping.
+- `galeri.html`: keterangan "Kredit: belum diisi" dihapus; keterangan hanya tampil bila kredit atau sumber terisi.
+- **Perlu keputusan pemilik:** 6 foto di `data/galeri.json` semuanya `izin: "belum"` dan 4 tanpa kredit. Sesuai bagian 2, jangan dipublikasikan sebelum izin dan kredit jelas.

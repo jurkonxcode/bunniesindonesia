@@ -1,0 +1,47 @@
+/* v39: halaman lebih padat, tanpa blok kosong. Hanya tata letak; dimuat setelah modern.css, sebelum fokus.css.
+   Hapus baris <link> ini untuk kembali ke v38. */
+
+/* beranda: rapatkan jarak */
+.hs{padding:10px 0 2px}
+.wedge{padding-top:20px;padding-bottom:50px}
+.wedge h1{margin:10px 0 6px}
+.wedge .cta{margin-top:12px}
+.hs .chips{margin-top:8px}.hs .sub{margin-top:6px}
+.musik{margin:10px 0}.promo,.pn{margin:10px 0}
+.pn-tabs{padding-top:12px}.tiles{margin-top:8px;margin-bottom:12px}
+.cols{gap:14px}
+@media(min-width:1000px){.wedge{padding:30px 48px 52px}}
+
+/* Blog pilihan: tagar satu baris yang membungkus, kartu 4 kolom */
+.bp-body{flex-direction:column;gap:8px;padding:6px 16px 0}
+.tags{flex:none;flex-direction:row;flex-wrap:wrap;gap:6px}
+.tags button{width:auto;border:1px solid var(--sky-2);border-radius:999px;padding:5px 12px;font-size:12.5px}
+.bp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){.bp-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.pager{padding:8px 0 12px}
+
+/* kolom samping: kartu member */
+.sidem{padding:14px 16px}
+.sidem .sh{margin-bottom:6px}
+.mlist li a{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-weight:600;font-size:14px}
+.mlist li:first-child a{border-top:0}
+.mlist i{flex:0 0 10px;height:10px;border-radius:50%;background:var(--bc)}
+.mlist span{margin-left:auto;font-weight:500;font-size:12.5px;color:var(--muted)}
+.mlist a:hover span{color:var(--brand-d)}
+.mlink{display:block;margin-top:8px;padding:10px;border-radius:12px;background:var(--sky-3);text-align:center;font-size:13.5px;font-weight:600;color:var(--denim)}
+.mlink:hover{background:var(--sky-2)}
+#acct{margin-bottom:12px}
+
+/* galeri: foto tanpa jarak sisa bila tak ada keterangan */
+.gg figure:not(:has(figcaption)){padding-bottom:0}
+.gg figure:not(:has(figcaption)) img{display:block}
+
+/* footer seragam di semua halaman (halaman dalam tidak memuat content.css) */
+footer{padding:26px 0 20px;margin-top:22px;font-size:13.5px}
+.fcols{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:20px;margin-bottom:18px}
+.fcols p{color:var(--muted);max-width:280px;margin-top:8px}
+.fcols h5{font-size:13.5px;margin-bottom:8px}
+.fcols li{margin-bottom:5px;color:var(--muted)}
+.fcols li a:hover{color:var(--brand-d)}
+.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+@media(max-width:699px){.fcols{grid-template-columns:1fr 1fr;gap:16px}.fcols>div:first-child{grid-column:1/-1}}

@@ -69,14 +69,14 @@ function renderModules(){
   $("modules").innerHTML =
     `<a class="promo" href="blog"><div><b>Tulis blog pertamamu di Bunnies Indonesia</b><span>Bagikan cerita, tips, atau pengalamanmu. Cukup masuk dengan Google atau kode email.</span></div><span class="pill">Mulai menulis ›</span></a>` +
     `<section class="pn stand"><div class="pn-tabs"><b>Jelajah</b><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a><a href="layanan">Layanan</a></div>` +
-      `<div class="hline"><b class="hk">Terbaru</b><span class="ht">${first ? `<a href="${first[0]}">${esc(first[1])}</a>` : `<span class="dim">Belum ada tulisan. Jadilah yang pertama.</span>`}</span><span class="hr"><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a></span></div>` +
+      `${first ? `<div class="hline"><b class="hk">Terbaru</b><span class="ht"><a href="${first[0]}">${esc(first[1])}</a></span><span class="hr"><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a></span></div>` : ""}` +
       `<div class="tiles">${tiles.map(([id, nm, to, c]) => `<a href="${to}"${to[0] === "#" ? ` data-go="${to.slice(1)}"` : ""}>${ic(id, c)}<span>${esc(nm)}</span></a>`).join("")}</div></section>` +
-    `<section class="pn bp"><div class="pn-tabs"><b>Blog pilihan</b><a href="blog">Lihat semua</a><span class="pn-r">${bpPage + 1}/${pages}</span></div>` +
+    (posts.length || !postsLoaded ? `<section class="pn bp"><div class="pn-tabs"><b>Blog pilihan</b><a href="blog">Lihat semua</a><span class="pn-r">${bpPage + 1}/${pages}</span></div>` +
       `<div class="bp-body"><ul class="tags">${[["Semua","Semua"], ...BC].map(([s, l]) => `<li><button type="button" data-bpc="${s}" aria-pressed="${s === bpCat}">#${esc(l)}</button></li>`).join("")}</ul>` +
       `<div class="bp-grid">${cards || (postsLoaded ? "" : skel(size))}</div></div>` +
       (cards ? "" : `<p class="mnote">${posts.length ? "Belum ada tulisan di kategori ini." : `Belum ada tulisan. <a href="blog">Tulis yang pertama</a>.`}</p>`) +
-      `<div class="pager"><button type="button" data-bpp="-1" aria-label="Sebelumnya"${bpPage === 0 ? " disabled" : ""}>‹</button><span>Blog ${bpPage + 1}/${pages}</span><button type="button" data-bpp="1" aria-label="Berikutnya"${bpPage >= pages - 1 ? " disabled" : ""}>›</button></div></section>` +
-    `<section class="pn"><div class="pn-h"><h2>Tanya Jawab terbaru</h2><a href="tanya">Lihat semua ›</a></div>${qs ? `<ul class="qlist">${qs}</ul>` : `<p class="mnote">Belum ada pertanyaan. <a href="tanya">Tanya sesuatu</a>.</p>`}</section>`;
+      `<div class="pager"><button type="button" data-bpp="-1" aria-label="Sebelumnya"${bpPage === 0 ? " disabled" : ""}>‹</button><span>Blog ${bpPage + 1}/${pages}</span><button type="button" data-bpp="1" aria-label="Berikutnya"${bpPage >= pages - 1 ? " disabled" : ""}>›</button></div></section>` : "") +
+    (qs ? `<section class="pn"><div class="pn-h"><h2>Tanya Jawab terbaru</h2><a href="tanya">Lihat semua ›</a></div><ul class="qlist">${qs}</ul></section>` : "");
 }
 mq.addEventListener && mq.addEventListener("change", () => renderModules());
 function renderCal(){
