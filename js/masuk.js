@@ -21,7 +21,7 @@
     "Gratis dan tanpa kata sandi. Username @njz_ dibuat otomatis dan bisa kamu ganti.":"무료이고 비밀번호도 필요 없어요. @njz_ 사용자 이름이 자동으로 만들어지며 나중에 바꿀 수 있어요.",
     "Mengirim kode…":"코드를 보내는 중…", "Kode baru sudah dikirim.":"새 코드를 보냈어요.", "Memeriksa kode…":"코드를 확인하는 중…",
     "Centang persetujuan dulu untuk mendaftar.":"가입하려면 먼저 동의에 체크해 주세요.",
-    "Format email belum benar. Contoh: nama@email.com":"이메일 형식이 올바르지 않아요. 예: nama@email.com",
+    "Format email belum benar. Contoh: nama@email.com":"이메일 형식이 올바르지 않아요. 예: name@email.com",
     "Masukkan kode dari email (6 angka atau lebih).":"이메일로 받은 코드(숫자 6자리 이상)를 입력해 주세요.",
     "Terlalu sering meminta kode. Tunggu sekitar satu menit, lalu coba lagi.":"코드를 너무 자주 요청했어요. 1분쯤 기다렸다가 다시 시도해 주세요.",
     "Email ini belum terdaftar. Pilih tab Daftar dulu.":"아직 가입되지 않은 이메일이에요. 먼저 '가입' 탭을 선택해 주세요.",
@@ -143,6 +143,7 @@
 </div>`;
     if(LANG !== "id"){
       const D = DICT[LANG];
+      dlg.querySelector("#mkEmail").placeholder = "name@email.com";
       const w = document.createTreeWalker(dlg, NodeFilter.SHOW_TEXT);
       for(let n; (n = w.nextNode());){ const k = n.nodeValue.trim(); if(D[k]) n.nodeValue = n.nodeValue.replace(k, D[k]); }
       dlg.querySelectorAll("[aria-label]").forEach(e => { const k = e.getAttribute("aria-label"); if(D[k]) e.setAttribute("aria-label", D[k]); });

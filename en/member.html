@@ -18,15 +18,15 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/tokens.css?v=52"><link rel="stylesheet" href="../css/base.css?v=52"><link rel="stylesheet" href="../css/brand-skin.css?v=52"><link rel="stylesheet" href="../css/member.css?v=52"><link rel="stylesheet" href="../css/modern.css?v=52"><link rel="stylesheet" href="../css/masuk.css?v=52"><link rel="stylesheet" href="../css/ko.css?v=52"><link rel="stylesheet" href="../css/en.css?v=52">
+<link rel="stylesheet" href="../css/tokens.css?v=53"><link rel="stylesheet" href="../css/base.css?v=53"><link rel="stylesheet" href="../css/brand-skin.css?v=53"><link rel="stylesheet" href="../css/member.css?v=53"><link rel="stylesheet" href="../css/modern.css?v=53"><link rel="stylesheet" href="../css/masuk.css?v=53"><link rel="stylesheet" href="../css/ko.css?v=53"><link rel="stylesheet" href="../css/en.css?v=53">
 </head>
 <body class="ko en sp">
 <header class="kbar"><div class="kw">
   <a class="logo" href="./" aria-label="Bunnies Indonesia home"><img src="../assets/brand/logo-mark.svg" alt="" width="30" height="30"><span>bunnies</span></a>
   <nav class="knav" aria-label="Main menu"><a href="./">Home</a><a href="member" aria-current="page">Members</a><a href="info">Info</a><a href="galeri">Gallery</a><a href="kabar">News</a><a href="chart">Chart</a><a href="tentang">About</a></nav>
-  <a class="slang" role="button" href="../" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
+  <a class="slang" role="button" href="../" lang="id" hreflang="id" title="View this page in Indonesian">Indonesia</a>
   <button class="btn green kbtn" id="loginTop" type="button">Log in</button>
-</div><script src="../js/lang.js?v=52"></script></header>
+</div><script src="../js/lang.js?v=53"></script></header>
 <main class="kmain">
   <section class="mh" style="margin-top:16px"><span class="pill">Member profiles · Unofficial</span><h1>Meet the NewJeans members</h1>
   <p>NewJeans debuted on July 22, 2022 under ADOR, a HYBE label, with the single “Attention.” The fandom is called “Bunnies.” In 2023, the mini album “Get Up” reached No. 1 on the US Billboard 200. The information below is as of November 9, 2026.</p></section>
@@ -148,12 +148,12 @@
   </div>
   <div class="fbot"><span>© 2026 Bunnies Indonesia. Unofficial fan site, not affiliated with ADOR, HYBE, or NewJeans.</span><span><a href="privasi">Privacy</a> · <a href="syarat">Terms</a></span></div>
 </div></footer>
-<script src="../js/config.js?v=52"></script>
-<script src="../js/masuk.js?v=52"></script>
+<script src="../js/config.js?v=53"></script>
+<script src="../js/masuk.js?v=53"></script>
 <script>
 (function(){
   var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
-  var l=document.querySelector(".slang");if(l)l.href+=location.search+location.hash;
+  var l=document.querySelector("a.slang");if(l)l.href+=location.search+location.hash;
   var b = document.getElementById("loginTop"), s = null;
   try{ s = JSON.parse(localStorage.getItem("bunnies.session")); }catch(e){}
   if(s && s.user && window.Masuk){ b.outerHTML = Masuk.chip(s); }

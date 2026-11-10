@@ -18,7 +18,7 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/tokens.css?v=52"><link rel="stylesheet" href="../css/base.css?v=52"><link rel="stylesheet" href="../css/brand-skin.css?v=52"><link rel="stylesheet" href="../css/modern.css?v=52"><link rel="stylesheet" href="../css/masuk.css?v=52"><link rel="stylesheet" href="../css/member.css?v=52"><link rel="stylesheet" href="../css/galeri.css?v=52"><link rel="stylesheet" href="../css/ko.css?v=52">
+<link rel="stylesheet" href="../css/tokens.css?v=53"><link rel="stylesheet" href="../css/base.css?v=53"><link rel="stylesheet" href="../css/brand-skin.css?v=53"><link rel="stylesheet" href="../css/modern.css?v=53"><link rel="stylesheet" href="../css/masuk.css?v=53"><link rel="stylesheet" href="../css/member.css?v=53"><link rel="stylesheet" href="../css/galeri.css?v=53"><link rel="stylesheet" href="../css/ko.css?v=53">
 </head>
 <body class="ko sp">
 <header class="kbar"><div class="kw">
@@ -26,7 +26,7 @@
   <nav class="knav" aria-label="주요 메뉴"><a href="./">홈</a><a href="member">멤버</a><a href="info">정보</a><a href="galeri" aria-current="page">갤러리</a><a href="kabar">소식</a><a href="chart">차트</a><a href="tentang">사이트 소개</a></nav>
   <a class="slang" role="button" href="../galeri" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
   <button class="btn green kbtn" id="loginTop" type="button">로그인</button>
-</div><script src="../js/lang.js?v=52"></script></header>
+</div><script src="../js/lang.js?v=53"></script></header>
 <main class="kmain">
   <section class="mh"><span class="pill">갤러리 · 비공식</span><h1>버니즈 갤러리</h1>
   <p>사진은 멤버, 종류, 라이선스, 연도별로 나눠 보여 줘요. 사용 허락이 분명한 사진만 올리고, 모든 권리는 원래 권리자에게 있어요. 출처는 사진마다 적어 두었어요. <a href="hak-cipta"><u>신고 또는 삭제 요청</u></a></p></section>
@@ -43,8 +43,8 @@
   </div>
   <div class="fbot"><span>© 2026 버니즈 인도네시아. 비공식 팬사이트이며 ADOR·HYBE·뉴진스와 관련이 없어요.</span><span><a href="privasi">개인정보</a> · <a href="syarat">약관</a></span></div>
 </div></footer>
-<script src="../js/config.js?v=52"></script>
-<script src="../js/masuk.js?v=52"></script>
+<script src="../js/config.js?v=53"></script>
+<script src="../js/masuk.js?v=53"></script>
 <script>
 (function(){
   var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
@@ -94,6 +94,6 @@ $("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;
 $("gs").addEventListener("change",e=>{if(e.target.id==="fj")fj=e.target.value;if(e.target.id==="fl")fl=e.target.value;if(e.target.id==="ft")ft=e.target.value;draw()});
 fetch("../data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto||[];const h=new URLSearchParams(location.search).get("m")||location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;if(location.hash)history.replaceState(null,"",cur==="semua"?"galeri":"galeri?m="+cur);draw()}).catch(()=>{$("gn").hidden=false});
 </script>
-<script src="../js/hangul.js?v=52"></script>
+<script src="../js/hangul.js?v=53"></script>
 </body>
 </html>
