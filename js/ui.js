@@ -58,19 +58,29 @@ let bpCat = "Semua", bpPage = 0;
 function renderModules(){
   const size = mq.matches ? 8 : 4;
   const first = posts[0] ? [`blog?id=${+posts[0].id}`, posts[0].title] : questions[0] ? [`tanya?id=${+questions[0].id}`, questions[0].title] : null;
-  const tiles = [["tanya","Tanya Jawab","tanya","g4"]]
-    .concat(BC.map(([s, l], i) => [catArt(s)[0], l, "blog?cat=" + s, "g" + (1 + (i + 2) % 5)]))
-    ;
+  const nq = questions.length, np = posts.length;
+  const tiles = [
+    ["komunitas", "Member", "5 profil", "member", "g1"],
+    ["kurs", "Chart", "YT & Spotify", "chart", "g2"],
+    ["kreator", "Galeri", "Foto & kredit", "galeri", "g3"],
+    [catArt("musik")[0], "Musik", "Putar playlist", "#musik", "g4"],
+    ["tanya", "Tanya Jawab", nq ? nq + " pertanyaan" : "Tanya apa saja", "tanya", "g5"],
+    ["blog", "Blog", np ? np + " tulisan" : "Tulis ceritamu", "blog", "g1"],
+    [catArt("video")[0], "Video & MV", "Tayangan YouTube", "chart#video", "g2"],
+    ["tentang", "Tentang", "Soal Bunnies ID", "tentang", "g3"]
+  ];
+  const catChips = np ? `<div class="kchips">${BC.map(([s, l]) => `<a href="blog?cat=${s}">#${esc(l)}</a>`).join("")}</div>` : "";
   const list = bpCat === "Semua" ? posts : posts.filter(p => p.category === bpCat);
   const pages = Math.max(1, Math.ceil(list.length / size)); bpPage = Math.min(bpPage, pages - 1);
   const cards = list.slice(bpPage * size, bpPage * size + size).map((p, i) =>
     `<a class="bc" href="blog?id=${+p.id}"><div class="fcv">${cover(p, i)}</div><h3>${esc(p.title)}</h3><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></a>`).join("");
   const qs = questions.slice(0, 6).map(q => `<li><a href="tanya?id=${+q.id}"><span class="tag">${esc(catLabel(q.category))}</span><span class="qt">${esc(q.title)}</span><em>${+q.answer_count} jawaban</em></a></li>`).join("");
   $("modules").innerHTML =
-    `<a class="promo" href="blog"><div><b>Tulis blog pertamamu di Bunnies Indonesia</b><span>Bagikan cerita, tips, atau pengalamanmu. Cukup masuk dengan Google atau kode email.</span></div><span class="pill">Mulai menulis ›</span></a>` +
-    `<section class="pn stand"><div class="pn-tabs"><b>Jelajah</b><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a><a href="layanan">Layanan</a></div>` +
+    `<section class="pn stand"><div class="pn-tabs"><b>Jelajah</b><a href="member">Member</a><a href="chart">Chart</a><a href="galeri">Galeri</a></div>` +
       `${first ? `<div class="hline"><b class="hk">Terbaru</b><span class="ht"><a href="${first[0]}">${esc(first[1])}</a></span><span class="hr"><a href="blog">Blog</a><a href="tanya">Tanya Jawab</a></span></div>` : ""}` +
-      `<div class="tiles">${tiles.map(([id, nm, to, c]) => `<a href="${to}"${to[0] === "#" ? ` data-go="${to.slice(1)}"` : ""}>${ic(id, c)}<span>${esc(nm)}</span></a>`).join("")}</div></section>` +
+      `<div class="tiles">${tiles.map(([id, nm, sub, to, c]) => `<a href="${to}">${ic(id, c)}<span class="tl"><b>${esc(nm)}</b><small>${esc(sub)}</small></span></a>`).join("")}</div>` +
+      catChips +
+      `<a class="wr" href="blog"><span class="wt"><b>Punya cerita soal NewJeans?</b><small>Tulis di Blog. Cukup masuk dengan Google atau kode email.</small></span><span class="pill">Mulai menulis ›</span></a></section>` +
     (posts.length || !postsLoaded ? `<section class="pn bp"><div class="pn-tabs"><b>Blog pilihan</b><a href="blog">Lihat semua</a><span class="pn-r">${bpPage + 1}/${pages}</span></div>` +
       `<div class="bp-body"><ul class="tags">${[["Semua","Semua"], ...BC].map(([s, l]) => `<li><button type="button" data-bpc="${s}" aria-pressed="${s === bpCat}">#${esc(l)}</button></li>`).join("")}</ul>` +
       `<div class="bp-grid">${cards || (postsLoaded ? "" : skel(size))}</div></div>` +

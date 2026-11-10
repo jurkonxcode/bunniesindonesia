@@ -99,3 +99,15 @@ footer{padding:26px 0 20px;margin-top:22px;font-size:13.5px}
 /* footer */
 footer{padding:20px 0 16px;margin-top:16px}
 .fcols{gap:14px;margin-bottom:12px}
+
+/* Kartu Jelajah: tile fitur dengan keterangan, kategori, ajakan menulis */
+.tiles a .tl{display:block;max-width:100%;padding:0 4px;min-height:0;-webkit-line-clamp:unset;overflow:visible}
+.tiles a .tl b{display:block;font-size:12.5px;font-weight:600;line-height:1.2;color:var(--ink)}
+.tiles a .tl small{display:block;margin-top:2px;font-size:10.5px;line-height:1.25;color:var(--muted)}
+.kchips{display:flex;gap:6px;margin:0 12px 10px;overflow-x:auto;scrollbar-width:none}
+.kchips a{flex:0 0 auto;font-size:12px;padding:5px 11px;border:1px solid var(--sky-2);border-radius:99px;background:#fff;color:var(--denim)}
+.wr{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 12px 12px;padding:11px 14px;border-radius:12px;background:linear-gradient(100deg,color-mix(in srgb,var(--warm,#ff7fb0) 20%,#fff),#fff 75%);border:1px solid color-mix(in srgb,var(--warm,#ff7fb0) 25%,#fff)}
+.wr b{display:block;font-size:14px;color:#4a0f2a}
+.wr small{display:block;margin-top:2px;font-size:12px;line-height:1.35;color:var(--muted)}
+.wr .pill{flex:0 0 auto;background:#fff;color:var(--denim);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:99px;white-space:nowrap;border:1px solid var(--sky-2)}
+@media(max-width:560px){.wr small{display:none}}
