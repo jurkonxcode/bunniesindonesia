@@ -45,3 +45,57 @@ footer{padding:26px 0 20px;margin-top:22px;font-size:13.5px}
 .fcols li a:hover{color:var(--brand-d)}
 .fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
 @media(max-width:699px){.fcols{grid-template-columns:1fr 1fr;gap:16px}.fcols>div:first-child{grid-column:1/-1}}
+
+/* ===== v40: pemadatan menyeluruh ===== */
+/* hero */
+.wedge{padding:16px 14px 44px}
+.wedge h1{font-size:clamp(22px,6vw,28px);margin:8px 0 4px}
+.wedge p{font-size:13.5px;line-height:1.45}
+.wedge .cta{margin-top:10px;gap:8px}
+.wedge .btn{padding:8px 18px}
+.wedge .sig{padding:3px 10px;font-size:12px}
+@media(min-width:1000px){.wedge{padding:22px 40px 46px}.wedge h1{font-size:34px}.wedge p{font-size:14.5px}}
+.hs .sub{font-size:11.5px}
+/* pemutar lagu: satu blok ringkas */
+.musik{padding:10px 12px}
+.musik-h{gap:8px}.musik-h h2{font-size:15px}.musik-h p{font-size:12.5px;margin:0}
+.musik-go{padding:8px 12px}.musik-play{width:38px;height:38px}
+.musik-n{font-size:11.5px;margin-top:6px}
+/* ajakan menulis: satu baris tipis */
+.promo{padding:10px 14px;padding-right:70px}
+.promo b{font-size:14px}
+.promo span:not(.pill){font-size:12.5px}
+@media(max-width:699px){.promo span:not(.pill){display:none}}
+/* Jelajah: ubin ringkas, 8 ubin satu baris di desktop */
+.pn.stand .pn-tabs{padding:10px 14px 4px}
+.tiles{margin:6px 12px 10px}
+.tiles a{gap:3px;padding:8px 2px 7px;font-size:12px}
+.tiles a span:last-child{min-height:0;line-height:1.2}
+.tiles .ic{width:28px;height:28px;border-radius:9px}
+.tiles .ic svg{width:16px;height:16px}
+@media(min-width:1000px){.tiles{grid-template-columns:repeat(8,minmax(0,1fr))}}
+.hline{padding:7px 10px;margin-top:6px}
+/* daftar Blog, Tanya Jawab, Pencarian */
+.r{padding:12px 14px;margin:0 0 8px;border-radius:14px}
+.thead{padding:14px 0 4px}.thead h1{font-size:24px}
+.stabs{padding-bottom:8px}
+/* kolom samping */
+.sidem{padding:12px 14px}
+.mlist li a{padding:7px 0}
+.mlink{padding:8px}
+.side .card{padding:14px}
+/* Member: foto di kiri, isi di kanan pada layar lebar */
+@media(min-width:860px){
+  .mc{grid-template-columns:260px 1fr}
+  .mc-photo{aspect-ratio:auto;max-height:none;min-height:100%}
+  .mc-body{padding:14px 18px 16px}
+}
+.mc-body{padding:14px 16px 16px}
+.mc-facts{margin:10px 0;gap:6px}
+.mh{margin:10px 0;padding:16px 16px 14px}
+.mh h1{margin:6px 0 4px}
+/* Galeri: kolom lebih rapat */
+.gg{gap:8px}
+/* footer */
+footer{padding:20px 0 16px;margin-top:16px}
+.fcols{gap:14px;margin-bottom:12px}
