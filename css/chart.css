@@ -25,3 +25,6 @@
 .cct button[hidden]{display:none}
 .cl .th{flex:0 0 auto;width:64px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:var(--sky-3)}
 .cc .cl .th{width:56px}
+.pb{margin:2px 2px 8px;font-size:13px;color:#3a4f78}.pb a{color:var(--denim);font-weight:600;text-decoration:underline}
+.cl .al2{display:block;font-style:normal;font-size:11.5px;color:#3a4f78;margin-top:2px}
+.musik-l{margin:6px 2px 0;font-size:12.5px;color:var(--muted)}.musik-l a{color:var(--denim);text-decoration:underline}
