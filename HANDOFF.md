@@ -269,3 +269,9 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 
 ## 5g. Pemadatan menyeluruh (v40)
 - `css/padat.css` bagian "v40": hero, pemutar lagu, ajakan menulis, ubin Jelajah (8 ubin satu baris di desktop), daftar Blog/Tanya Jawab, kolom samping, dan footer dirapatkan. Di desktop, kartu Member jadi foto di kiri dan isi di kanan. Tinggi beranda di HP turun ke ~1830px. Hapus bagian itu untuk kembali ke v39. Cache `?v=40`.
+
+## 5h. Info & Link Resmi (v41)
+- `info.html` + `css/info.css`: ringkasan fakta, link resmi (YouTube/Instagram/X/TikTok/Weverse @ADOR, Spotify, Apple Music, ADOR di X), diskografi (MV diambil dari `data/youtube.json`), linimasa bersumber, dan cara mendukung. Tiap bagian punya tautan sumber; label "Resmi" vs "Media" membedakan fakta resmi dan laporan media.
+- Titik masuk: tab **Info** di `js/nav.js`, kartu "Link resmi" di sidebar beranda, footer semua halaman, dan menu layanan (`js/services.js`).
+- Akun "NJZ" sengaja tidak ditautkan (disengketakan ADOR, sebagian besar privat sejak Des 2025). Daftar link perlu diuji klik tiap beberapa bulan; handle dikumpulkan dari pemberitaan, bukan dibuka langsung.
+- Data tanggal rilis dari Wikipedia/Qobuz/Apple Music. Perbarui bagian "Status terkini" dan linimasa tiap ada pengumuman ADOR. Cache `?v=41`.

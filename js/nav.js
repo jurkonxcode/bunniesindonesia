@@ -8,7 +8,7 @@
 
   /* [nama, tujuan, kunci aktif]. Kunci: "home" | nama halaman | "cat:Nama". */
   const TABS = [
-    ["Beranda", "./", "home"], ["Member", "member", "member"], ["Tanya Jawab", "tanya", "tanya"], ["Blog", "blog", "blog"], ["Chart", "chart", "chart"]
+    ["Beranda", "./", "home"], ["Member", "member", "member"], ["Info", "info", "info"], ["Tanya Jawab", "tanya", "tanya"], ["Blog", "blog", "blog"], ["Chart", "chart", "chart"]
   ];
   const page = (location.pathname.split("/").pop() || "").replace(/\.html$/, "") || "home";
   const key0 = page === "index" ? "home" : page;
