@@ -1,0 +1,103 @@
+{
+ "diperbarui": "2026-11-09",
+ "sumber": "kworb.net (salinan data Spotify, diperbarui manual)",
+ "total": 8311832294,
+ "catatan": "total = 40 lagu di kworb (termasuk remix, instrumental, fitur). Daftar hanya lagu NewJeans sendiri, tanpa remix, instrumental, dan fitur.",
+ "lagu": [
+  {
+   "lagu": "OMG",
+   "streams": 993335325,
+   "harian": 272458
+  },
+  {
+   "lagu": "Ditto",
+   "streams": 984114787,
+   "harian": 375791
+  },
+  {
+   "lagu": "Super Shy",
+   "streams": 922609768,
+   "harian": 304870
+  },
+  {
+   "lagu": "Hype Boy",
+   "streams": 809754188,
+   "harian": 232413
+  },
+  {
+   "lagu": "Attention",
+   "streams": 598791752,
+   "harian": 208339
+  },
+  {
+   "lagu": "New Jeans",
+   "streams": 589831438,
+   "harian": 316964
+  },
+  {
+   "lagu": "ETA",
+   "streams": 501234531,
+   "harian": 188349
+  },
+  {
+   "lagu": "Cookie",
+   "streams": 363338682,
+   "harian": 159169
+  },
+  {
+   "lagu": "How Sweet",
+   "streams": 324622720,
+   "harian": 184690
+  },
+  {
+   "lagu": "Hurt",
+   "streams": 311832979,
+   "harian": 136641
+  },
+  {
+   "lagu": "Cool With You",
+   "streams": 303364147,
+   "harian": 115670
+  },
+  {
+   "lagu": "Supernatural",
+   "streams": 283670080,
+   "harian": 243539
+  },
+  {
+   "lagu": "ASAP",
+   "streams": 202643723,
+   "harian": 70407
+  },
+  {
+   "lagu": "Get Up",
+   "streams": 192573646,
+   "harian": 67837
+  },
+  {
+   "lagu": "Bubble Gum",
+   "streams": 173453212,
+   "harian": 97505
+  },
+  {
+   "lagu": "Right Now",
+   "streams": 111147851,
+   "harian": 89448
+  },
+  {
+   "lagu": "Zero",
+   "streams": 100353245,
+   "harian": 25981
+  },
+  {
+   "lagu": "Our Night is more beautiful than your Day",
+   "streams": 48870185,
+   "harian": 18408
+  },
+  {
+   "lagu": "Beautiful Restriction",
+   "streams": 27922834,
+   "harian": 8614
+  }
+ ]
+}

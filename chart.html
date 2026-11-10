@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css?v=40"><link rel="stylesheet" href="css/base.css?v=40"><link rel="stylesheet" href="css/identity.css?v=40"><link rel="stylesheet" href="css/search.css?v=40"><link rel="stylesheet" href="css/tanya.css?v=40">
 <link rel="stylesheet" href="css/share.css?v=40"><link rel="stylesheet" href="css/komentar.css?v=40"><link rel="stylesheet" href="css/nav.css?v=40">
-<link rel="stylesheet" href="css/brand-skin.css?v=40"><link rel="stylesheet" href="css/modern.css?v=40"><link rel="stylesheet" href="css/padat.css?v=40"><link rel="stylesheet" href="css/fokus.css?v=40"><link rel="stylesheet" href="css/member.css?v=40"><link rel="stylesheet" href="css/galeri.css?v=40"><link rel="stylesheet" href="css/chart.css?v=1">
+<link rel="stylesheet" href="css/brand-skin.css?v=40"><link rel="stylesheet" href="css/modern.css?v=40"><link rel="stylesheet" href="css/padat.css?v=40"><link rel="stylesheet" href="css/fokus.css?v=40"><link rel="stylesheet" href="css/member.css?v=40"><link rel="stylesheet" href="css/galeri.css?v=40"><link rel="stylesheet" href="css/chart.css?v=3">
 </head><body class="sp mb">
 <header class="sbar"><div class="swrap">
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
@@ -17,8 +17,9 @@
 <script src="js/nav.js?v=40"></script></header>
 <main class="swrap">
 <section class="mh"><span class="pill">Chart · tidak resmi</span><h1>Chart YouTube NewJeans</h1>
-<p>Jumlah tayangan lagu dan video NewJeans di YouTube. Angka hanya perkiraan dari pihak ketiga, bukan data resmi.</p></section>
+<p>Jumlah tayangan YouTube dan stream Spotify lagu NewJeans. Angka hanya perkiraan dari pihak ketiga, bukan data resmi.</p></section>
 <div class="cs" id="cs"></div>
+<nav class="mchips" id="cx" aria-label="Platform"><a href="#youtube" data-s="yt">YouTube</a><a href="#spotify" data-s="sp">Spotify</a></nav>
 <nav class="mchips" id="cm" aria-label="Tampilan"><a href="#lagu" data-m="lagu">Per lagu</a><a href="#video" data-m="video">Per video</a></nav>
 <nav class="mchips" id="cf" aria-label="Jenis video"></nav>
 <ol class="cl" id="cl"></ol>
@@ -35,9 +36,9 @@
 </div></footer>
 <script>
 const J=[["semua","Semua"],["mv","MV"],["perf","Performance"],["dance","Dance practice"]];
-let D=null,mode="lagu",fl="semua",all=false;
+let D=null,S=null,src="yt",mode="lagu",fl="semua",all=false;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const fmt=n=>n>=1e9?(n/1e9).toFixed(2)+" M":n>=1e6?(n/1e6).toFixed(1).replace(".",",")+" jt":n.toLocaleString("id-ID");
+const fmt=n=>n>=1e9?(n/1e9).toFixed(2).replace(".",",")+" miliar":n>=1e6?(n/1e6).toFixed(1).replace(".",",")+" jt":n.toLocaleString("id-ID");
 const tgl=s=>new Date(s+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
 function rows(){
  const v=D.video.filter(x=>fl==="semua"||x.jenis===fl);
@@ -45,7 +46,16 @@ function rows(){
  const m={};v.forEach(x=>{(m[x.lagu]=m[x.lagu]||{t:x.lagu,n:0,c:0}).n+=x.views;m[x.lagu].c++});
  return Object.values(m).sort((a,b)=>b.n-a.n).map(x=>({t:x.t,s:x.c+" video",n:x.n,u:"https://www.youtube.com/results?search_query="+encodeURIComponent("NewJeans "+x.t)}));
 }
+function drawSp(){
+ const L=S.lagu.map(x=>({t:x.lagu,s:fmt(x.harian)+" per hari",n:x.streams,u:"https://open.spotify.com/search/"+encodeURIComponent("NewJeans "+x.lagu)})),top=L[0].n,sh=all?L:L.slice(0,10);
+ document.getElementById("cs").innerHTML=`<div><b>${fmt(S.total)}</b><span>total stream (40 lagu)</span></div><div><b>${L.length}</b><span>lagu terpantau</span></div><div><b>${fmt(top)}</b><span>teratas: ${esc(L[0].t)}</span></div>`;
+ document.getElementById("cl").innerHTML=sh.map((x,i)=>`<li><a href="${esc(x.u)}" target="_blank" rel="noopener"><span class="r">${i+1}</span><span class="b"><span class="t"><b>${esc(x.t)}</b><em>${esc(x.s)}</em></span><i style="width:${Math.max(3,x.n/top*100)}%"></i></span><span class="v">${fmt(x.n)}</span></a></li>`).join("")+`<li class="mo"><button type="button" id="mo">${all?"Ringkas":"Lihat semua "+L.length}</button></li>`;
+ document.getElementById("cn").innerHTML=`Sumber: ${esc(S.sumber)}. Per ${tgl(S.diperbarui)}. ${esc(S.catatan)} Hak atas lagu milik pemegang aslinya; tombol membuka Spotify.`;
+}
 function draw(){
+ document.getElementById("cx").querySelectorAll("a").forEach(a=>a.classList.toggle("on",a.dataset.s===src));
+ const sp=src==="sp";document.getElementById("cm").style.display=sp?"none":"";document.getElementById("cf").style.display=sp?"none":"";
+ if(sp){if(S)drawSp();return}
  const L=rows(),top=L[0]?L[0].n:1,sh=all?L:L.slice(0,10);
  document.getElementById("cs").innerHTML=`<div><b>${fmt(D.total_kanal)}</b><span>total tayangan kanal</span></div><div><b>${D.video.length}</b><span>video terpantau</span></div><div><b>${fmt(D.video[0].views)}</b><span>teratas: ${esc(D.video[0].lagu)}</span></div>`;
  document.getElementById("cm").querySelectorAll("a").forEach(a=>a.classList.toggle("on",a.dataset.m===mode));
@@ -54,12 +64,14 @@ function draw(){
  document.getElementById("cn").innerHTML=`Sumber: ${esc(D.sumber)}. Diperbarui ${tgl(D.diperbarui)}. Hak atas video dan lagu milik pemegang aslinya; tombol membuka YouTube.`;
 }
 document.addEventListener("click",e=>{
- const a=e.target.closest("[data-m],[data-f],#mo");if(!a)return;
- if(a.dataset.m){e.preventDefault();mode=a.dataset.m;all=false}
+ const a=e.target.closest("[data-s],[data-m],[data-f],#mo");if(!a)return;
+ if(a.dataset.s){e.preventDefault();src=a.dataset.s;all=false}
+ else if(a.dataset.m){e.preventDefault();mode=a.dataset.m;all=false}
  else if(a.dataset.f){e.preventDefault();fl=a.dataset.f;all=false}
  else all=!all;
  draw();
 });
-fetch("data/youtube.json").then(r=>r.json()).then(j=>{D=j;const h=location.hash.slice(1);if(h==="video")mode="video";draw()}).catch(()=>{document.getElementById("cn").textContent="Data chart gagal dimuat. Muat ulang halaman."});
+fetch("data/youtube.json").then(r=>r.json()).then(j=>{D=j;const h=location.hash.slice(1);if(h==="video")mode="video";if(h==="spotify")src="sp";draw()}).catch(()=>{document.getElementById("cn").textContent="Data chart gagal dimuat. Muat ulang halaman."});
+fetch("data/spotify.json").then(r=>r.json()).then(j=>{S=j;if(src==="sp")draw()}).catch(()=>{});
 </script>
 </body></html>

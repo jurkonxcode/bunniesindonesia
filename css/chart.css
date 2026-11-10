@@ -19,3 +19,7 @@
 .cc .cl{border:0;margin:4px 0 0;border-radius:0}
 .cc .cl a{padding:8px 0}
 .cc .cn{margin:6px 0 0;font-size:11.5px}
+.cct{display:flex;gap:6px;margin:2px 0 4px}
+.cct button{border:1px solid var(--sky-2);background:#fff;color:var(--denim);border-radius:99px;padding:4px 12px;font:600 12.5px inherit;cursor:pointer}
+.cct button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.cct button[hidden]{display:none}
