@@ -38,14 +38,7 @@
 @media(min-width:1240px){.feed{column-count:3}}
 .feed .empty{column-span:all}
 
-/* ===== v16: kotak cari ringkas di header + panel menu hamburger ===== */
-.hsearch{display:none;flex:1;min-width:0;max-width:640px;margin:0 auto;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--brand);border-radius:999px;padding:3px 3px 3px 12px}
-.hsearch img{border-radius:7px;flex:0 0 auto}
-.hsearch input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:var(--ink);padding:7px 0;outline:0}
-.hsearch button{flex:0 0 auto;border:0;background:var(--brand);color:var(--brand-ink);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;cursor:pointer}
-header.top.compact .hsearch{display:flex}
-header.top.compact .menu,header.top.compact .logo,header.top.compact .actions .ghost{display:none}
-header.top.compact .actions{margin-left:0}
+/* ===== v16: panel menu hamburger (kotak cari ringkas dipindah ke css/navbar.css sejak v54) ===== */
 
 #dwBack[hidden],#drawer[hidden]{display:none}
 #dwBack{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.45);opacity:0;transition:opacity .2s}

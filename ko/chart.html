@@ -18,7 +18,7 @@
 <meta name="theme-color" content="#2f6fe4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/tokens.css?v=53"><link rel="stylesheet" href="../css/base.css?v=53"><link rel="stylesheet" href="../css/brand-skin.css?v=53"><link rel="stylesheet" href="../css/modern.css?v=53"><link rel="stylesheet" href="../css/masuk.css?v=53"><link rel="stylesheet" href="../css/member.css?v=53"><link rel="stylesheet" href="../css/galeri.css?v=53"><link rel="stylesheet" href="../css/chart.css?v=53"><link rel="stylesheet" href="../css/ko.css?v=53">
+<link rel="stylesheet" href="../css/tokens.css?v=54"><link rel="stylesheet" href="../css/base.css?v=54"><link rel="stylesheet" href="../css/brand-skin.css?v=54"><link rel="stylesheet" href="../css/modern.css?v=54"><link rel="stylesheet" href="../css/masuk.css?v=54"><link rel="stylesheet" href="../css/member.css?v=54"><link rel="stylesheet" href="../css/galeri.css?v=54"><link rel="stylesheet" href="../css/chart.css?v=54"><link rel="stylesheet" href="../css/ko.css?v=54">
 </head>
 <body class="ko sp">
 <header class="kbar"><div class="kw">
@@ -26,7 +26,7 @@
   <nav class="knav" aria-label="주요 메뉴"><a href="./">홈</a><a href="member">멤버</a><a href="info">정보</a><a href="galeri">갤러리</a><a href="kabar">소식</a><a href="chart" aria-current="page">차트</a><a href="tentang">사이트 소개</a></nav>
   <a class="slang" role="button" href="../chart" lang="id" hreflang="id" title="Lihat dalam bahasa Indonesia">Indonesia</a>
   <button class="btn green kbtn" id="loginTop" type="button">로그인</button>
-</div><script src="../js/lang.js?v=53"></script></header>
+</div><script src="../js/lang.js?v=54"></script></header>
 <main class="kmain">
   <section class="mh"><span class="pill">차트 · 비공식</span><h1>뉴진스 차트</h1>
   <p>뉴진스 곡의 YouTube 조회수와 Spotify 스트리밍 수예요. 숫자는 제3자 자료를 바탕으로 한 추정치이며 공식 데이터가 아니에요.</p></section>
@@ -46,8 +46,8 @@
   </div>
   <div class="fbot"><span>© 2026 버니즈 인도네시아. 비공식 팬사이트이며 ADOR·HYBE·뉴진스와 관련이 없어요.</span><span><a href="privasi">개인정보</a> · <a href="syarat">약관</a></span></div>
 </div></footer>
-<script src="../js/config.js?v=53"></script>
-<script src="../js/masuk.js?v=53"></script>
+<script src="../js/config.js?v=54"></script>
+<script src="../js/masuk.js?v=54"></script>
 <script>
 (function(){
   var c=document.querySelector(".knav [aria-current]");if(c){var n=c.parentNode;n.scrollLeft=Math.max(0,c.offsetLeft-(n.clientWidth-c.offsetWidth)/2);}
@@ -107,6 +107,6 @@ fetch("../data/youtube.json").then(r=>r.json()).then(j=>{D=j;const q=new URLSear
 fetch("../data/apple.json").then(r=>r.json()).then(j=>{AP=j;if(src==="am")draw()}).catch(()=>{});
 fetch("../data/spotify.json").then(r=>r.json()).then(j=>{S=j;if(src==="sp")draw()}).catch(()=>{});
 </script>
-<script src="../js/hangul.js?v=53"></script>
+<script src="../js/hangul.js?v=54"></script>
 </body>
 </html>

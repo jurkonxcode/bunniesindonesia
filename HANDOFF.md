@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 10 November 2026, rilis v52.
+Terakhir diperbarui: 10 November 2026, rilis v54 (lihat bagian 5i di bawah).
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -354,3 +354,16 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **SEO:** semua halaman Inggris punya `canonical` dan `hreflang` `en`/`id`/`ko`/`x-default`; halaman Indonesia dan Korea yang punya padanan ditambah `hreflang="en"` (termasuk `privasi` dan `syarat` Indonesia). Halaman Inggris masuk sitemap (`tools/build-static.mjs`).
 - **Menambah halaman baru:** buat berkas di `en/` dan `ko/`, tambahkan namanya ke `PAGES` di `js/lang.js`, ke sitemap, dan beri `hreflang` di ketiga versi.
 - Cache naik ke `?v=52`.
+
+## 5i. Navigasi baru: baris atas menempel, logo menyesuaikan (v54)
+- **File:** `css/navbar.css` (baru, dimuat PALING AKHIR di semua halaman yang memakai `js/nav.js`), `js/nav.js` (bagian gulir ditulis ulang), `js/menu.js` (satu perbaikan), `css/portal.css` dan `css/nav.css` (aturan header lama yang bentrok dihapus). Cache naik ke `?v=54`.
+- **Baris atas selalu menempel** di HP dan desktop (logo, kotak cari, bahasa, akun). Dulu di HP baris atas ikut hilang saat menggulir ke bawah (`hide1`), jadi kotak cari ringkas ikut lenyap. `hide1` dihapus.
+- **Baris tab** (Beranda, Member, ...): di HP/tablet (<1000px) menyelinap ke balik baris atas saat menggulir ke bawah (kelas `hide2`) dan turun lagi saat menggulir ke atas. Di desktop selalu tampil. Tinggi header tidak berubah (hanya `transform`), jadi halaman tidak melompat. Header sendiri transparan; latar baris atas digambar oleh `header::before` setinggi `--h1` (56px), baris tab `--h2` (42px).
+- **Kotak cari ringkas** (`.hsearch`) kini SELALU ada di DOM dan di-fade (opacity/transform), bukan `display:none`. Tempatnya sudah tersedia di baris atas, jadi tidak ada elemen yang saling dorong atau tumpang tindih. Muncul saat kotak cari besar di beranda tergulir keluar (kelas `compact`).
+- **Bug lama yang diperbaiki di `js/menu.js`:** kondisi `compact` memakai `boundingClientRect.top < 0`, padahal saat digulir pelan kotak melewati garis dengan `top` masih positif, sehingga kotak cari ringkas tidak pernah muncul. Sekarang memakai `bottom <= rootBounds.top`.
+- **Logo tidak pernah hilang:** teks "bunnies" dibungkus `<span>` (nav.js membungkusnya otomatis bila perlu) dan menyusut halus (`max-width` + opacity) jadi ikon saja di HP (<700px) saat kotak cari tampil. Di desktop teks tetap.
+- **Beranda HP, saat tergulir:** tombol bahasa mengecil ke nol supaya kotak cari lega; kembali saat di atas. Placeholder kotak cari jadi "Cari…" di layar <=520px.
+- **Halaman dalam** (`header.sbar`: Blog, Tanya, Member, Info, Galeri, Chart, Kabar, Akun, Profil) otomatis mendapat kotak cari di baris atas (nav.js, GET ke `search`). Di HP tampil sebagai tombol ikon bulat; di layar >=700px sebagai kotak penuh. `search.html` memakai kotaknya sendiri (`#sform`) dan tidak disentuh.
+- **Tidak diubah:** `en/`, `ko/` (header `.kbar`), `layanan.html`, `admin.html`. Header mereka masih lama.
+- **Diuji** (Chromium, 320/390/768/1024/1280px, 13 halaman): tanpa elemen tumpang tindih, tanpa overflow horizontal, tanpa error JS, header menempel, kotak cari ringkas tampil saat gulir pelan dan gulir loncat, baris tab menyelinap dan kembali (HP) / tetap (desktop), transisi bertahap (fade ~250ms, logo menyusut ~300ms), `prefers-reduced-motion` dihormati.
+

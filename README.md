@@ -13,6 +13,7 @@ tools/  build-static.mjs (halaman statis untuk SEO)
 ```
 
 - Dokumen lengkap, termasuk urutan SQL, aturan keamanan, dan rencana: baca **HANDOFF.md**.
+- Navigasi (baris atas menempel, kotak cari ringkas, baris tab) ada di `css/navbar.css` dan `js/nav.js`. Baca HANDOFF.md bagian 5i.
 - Ubah warna di `css/tokens.css`. Isi kunci Supabase di `js/config.js`.
 - Urutan tag `<script>` harus dipertahankan. Naikkan `?v=NN` di semua HTML tiap rilis.
 - Semua path relatif, jadi situs jalan di `username.github.io/bunniesindonesia`.

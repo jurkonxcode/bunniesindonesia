@@ -1,0 +1,109 @@
+/* v54: header dan navigasi dirapikan. DIMUAT PALING AKHIR di semua halaman yang memakai js/nav.js.
+   Prinsip:
+   1. Baris atas (logo + kotak cari + bahasa + akun) SELALU menempel di atas, di HP maupun desktop.
+   2. Kotak cari ringkas muncul dengan memudar (bukan muncul mendadak) saat kotak cari besar di beranda tergulir keluar.
+      Tempatnya sudah disediakan sejak awal, jadi tidak ada elemen yang saling dorong atau tumpang tindih.
+   3. Logo tidak pernah hilang: teks "bunnies" menyusut halus jadi ikon saja saat ruang sempit.
+   4. Baris tab di HP menyelinap ke balik baris atas saat menggulir ke bawah dan turun lagi saat menggulir ke atas.
+      Tinggi header tidak berubah (hanya transform), jadi halaman tidak melompat.
+   Semua perpindahan memakai transform/opacity (ringan, halus). Dihormati: prefers-reduced-motion. */
+
+:root{
+  --h1:56px; --h2:42px; --hh:calc(var(--h1) + var(--h2));
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+
+/* ---------- kerangka: header transparan, latar baris atas digambar oleh ::before ---------- */
+header.top,header.sbar{
+  position:sticky;top:0;z-index:20;padding:0;border:0;background:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none;pointer-events:none;transition:none;
+}
+header.top>*,header.sbar>*{pointer-events:auto}
+header.top::before,header.sbar::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:var(--h1);z-index:2;pointer-events:none;
+  background:var(--surface);border-bottom:1px solid var(--sky-2,var(--line));transition:box-shadow .3s var(--ease);
+}
+header.top.hide2::before,header.sbar.hide2::before{box-shadow:0 8px 18px -14px rgba(15,27,51,.45)}
+
+/* ---------- baris 1 ---------- */
+header.top .wrap,header.sbar .swrap{
+  position:relative;z-index:3;display:flex;align-items:center;justify-content:flex-start;gap:10px;
+  height:var(--h1);padding-top:0;padding-bottom:0;
+}
+header.top .wrap{padding-left:20px;padding-right:20px}
+header.sbar .swrap{padding-left:16px;padding-right:16px}
+header .logo{flex:0 0 auto;display:flex;align-items:center;gap:0;font-size:22px;line-height:1;color:var(--ink)}
+header .logo img{flex:0 0 auto;width:32px;height:32px;border-radius:10px}
+header .logo span{
+  display:inline-block;margin-left:8px;max-width:170px;overflow:hidden;white-space:nowrap;opacity:1;
+  transition:max-width .34s var(--ease),margin-left .34s var(--ease),opacity .22s ease;
+}
+header.top .actions,header.sbar .hbar,header .hbar{margin-left:0;flex:0 0 auto}
+header .lsw,header.top .wrap .lsw,header.sbar .swrap .lsw{margin:0;flex:0 0 auto;max-width:90px;transition:max-width .3s var(--ease),opacity .2s ease,margin .3s var(--ease)}
+
+/* ---------- kotak cari ringkas (selalu ada, tampil dengan memudar) ---------- */
+header .hsearch{
+  display:flex;position:relative;align-items:center;gap:8px;flex:1 1 0;min-width:0;max-width:560px;margin:0 auto;height:42px;
+  padding:0 4px 0 12px;background:var(--surface);border:2px solid var(--brand);border-radius:999px;
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-6px) scale(.985);
+  transition:opacity .26s ease,transform .32s var(--ease),visibility 0s linear .32s,box-shadow .15s;
+}
+header .hsearch img{flex:0 0 auto;width:22px;height:22px;border-radius:7px}
+header .hsearch input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:var(--ink);padding:0;height:100%;outline:0}
+header .hsearch button{flex:0 0 auto;display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:var(--brand);color:var(--brand-ink);cursor:pointer}
+header .hsearch:focus-within{box-shadow:0 0 0 4px color-mix(in srgb,var(--brand) 20%,transparent)}
+header.compact .hsearch{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition-delay:0s,0s,0s,0s}
+
+/* ---------- baris 2 (tab): di belakang baris 1 saat disembunyikan ---------- */
+header .snav{
+  position:relative;z-index:1;border-top:0;border-bottom:1px solid var(--sky-2,var(--line));background:var(--surface);
+  transition:transform .36s var(--ease),box-shadow .3s var(--ease),visibility 0s;
+}
+header.stuck .snav{box-shadow:0 10px 18px -16px rgba(15,27,51,.4)}
+header.hide2 .snav{transform:translateY(-100%);visibility:hidden;pointer-events:none;box-shadow:none;transition:transform .36s var(--ease),visibility 0s linear .36s}
+header .snw{max-width:1240px}
+header.top .snw{max-width:1180px}
+header.sbar .snw{max-width:760px}
+
+/* ---------- halaman dalam (.sbar): kotak cari berupa ikon di HP, kotak penuh di layar lebar ---------- */
+header.sbar .hsearch.hs-inner{max-width:420px}
+
+/* ---------- HP ---------- */
+@media(max-width:699px){
+  header.top .wrap{padding-left:12px;padding-right:12px}
+  header.sbar .swrap{padding-left:12px;padding-right:12px;gap:8px}
+  /* logo menyusut jadi ikon saja saat kotak cari tampil */
+  header.compact .logo span{max-width:0;margin-left:0;opacity:0}
+  header.sbar .logo span{max-width:0;margin-left:0;opacity:0}
+  header.compact .hsearch img{display:none}
+  header.compact .hsearch{padding-left:14px}
+  /* beranda: bahasa memberi ruang pada kotak cari saat tergulir */
+  header.top.compact .lsw{max-width:0;margin:0;opacity:0;visibility:hidden;pointer-events:none;overflow:hidden}
+  /* halaman dalam: kotak cari jadi tombol ikon (membuka halaman cari) */
+  header.sbar .hsearch.hs-inner{flex:0 0 40px;width:40px;height:40px;max-width:40px;margin:0 0 0 auto;padding:0;border:0;background:transparent;
+    opacity:1;visibility:visible;pointer-events:auto;transform:none}
+  header.sbar .hsearch.hs-inner input,header.sbar .hsearch.hs-inner img{display:none}
+  header.sbar .hsearch.hs-inner button{width:40px;height:40px;background:var(--sky-3,var(--bg));color:var(--brand-d)}
+  header.sbar .hsearch.hs-inner:focus-within{box-shadow:none}
+  header.sbar .hbar{margin-left:0}
+}
+@media(max-width:380px){
+  header.top .actions .btn{padding:0 14px}
+  header.top .wrap{gap:8px}
+}
+
+/* ---------- tablet dan desktop ---------- */
+@media(min-width:1000px){
+  header.top .wrap{gap:14px}
+  header.top .actions .ghost{display:inline-flex}
+}
+/* HP/tablet: baris tab ikut menyelinap. Desktop: dua baris selalu tampil. */
+@media(min-width:1000px){
+  header.hide2 .snav{transform:none;visibility:visible;pointer-events:auto}
+  header.hide2::before{box-shadow:none}
+}
+
+/* ---------- hormati preferensi gerak minimal ---------- */
+@media(prefers-reduced-motion:reduce){
+  header .hsearch,header .snav,header .logo span,header .lsw,header::before{transition-duration:.01ms!important;transition-delay:0s!important}
+}
