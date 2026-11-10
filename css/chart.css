@@ -23,3 +23,5 @@
 .cct button{border:1px solid var(--sky-2);background:#fff;color:var(--denim);border-radius:99px;padding:4px 12px;font:600 12.5px inherit;cursor:pointer}
 .cct button.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .cct button[hidden]{display:none}
+.cl .th{flex:0 0 auto;width:64px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:var(--sky-3)}
+.cc .cl .th{width:56px}

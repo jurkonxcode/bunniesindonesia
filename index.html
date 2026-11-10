@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="css/nav.css?v=40">
 <link rel="stylesheet" href="css/asia.css?v=40">
 <link rel="stylesheet" href="css/brand-skin.css?v=40"><link rel="stylesheet" href="css/modern.css?v=40"><link rel="stylesheet" href="css/padat.css?v=41"><link rel="stylesheet" href="css/fokus.css?v=40"><link rel="stylesheet" href="css/kit.css?v=40">
-<link rel="stylesheet" href="css/chart.css?v=3"><link rel="stylesheet" href="css/kabar.css?v=1">
+<link rel="stylesheet" href="css/chart.css?v=4"><link rel="stylesheet" href="css/kabar.css?v=1">
 </head>
 <body>
 <div class="ticker"><div class="wrap" id="ticker"></div></div>
@@ -136,12 +136,12 @@
  const f=n=>n>=1e9?(n/1e9).toFixed(2).replace(".",",")+" miliar":n>=1e6?(n/1e6).toFixed(1).replace(".",",")+" jt":n.toLocaleString("id-ID");
  const e=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
  const data=()=>{const o={};
-  if(Y){const m={};Y.video.forEach(x=>{m[x.lagu]=(m[x.lagu]||0)+x.views});o.yt=[Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,5),"Tayangan YouTube per lagu. Sumber: "+Y.sumber+"."]}
+  if(Y){const m={};Y.video.forEach(x=>{const z=m[x.lagu]=m[x.lagu]||{n:0,v:0};z.n+=x.views;if(x.views>z.v){z.v=x.views;z.i=x.id}});o.yt=[Object.entries(m).sort((a,b)=>b[1].n-a[1].n).slice(0,5).map(([t,z])=>[t,z.n,z.i]),"Tayangan YouTube per lagu. Sumber: "+Y.sumber+"."]}
   if(S)o.sp=[S.lagu.slice(0,5).map(x=>[x.lagu,x.streams]),"Stream Spotify per lagu. Sumber: "+S.sumber+"."];
   return o};
  const D=data();let cur=D.yt?"yt":"sp";
  const draw=()=>{const [L,n]=D[cur],top=L[0][1];
-  document.getElementById("ccl").innerHTML=L.map(([t,v],i)=>`<li><a href="chart#${cur==="sp"?"spotify":"youtube"}"><span class="r">${i+1}</span><span class="b"><span class="t"><b>${e(t)}</b></span><i style="width:${Math.max(3,v/top*100)}%"></i></span><span class="v">${f(v)}</span></a></li>`).join("");
+  document.getElementById("ccl").innerHTML=L.map(([t,v,id],i)=>`<li><a href="chart#${cur==="sp"?"spotify":"youtube"}"><span class="r">${i+1}</span>${id?`<img class="th" loading="lazy" alt="" src="https://i.ytimg.com/vi/${e(id)}/mqdefault.jpg">`:""}<span class="b"><span class="t"><b>${e(t)}</b></span><i style="width:${Math.max(3,v/top*100)}%"></i></span><span class="v">${f(v)}</span></a></li>`).join("");
   document.getElementById("ccn").textContent=n;
   document.querySelectorAll("#cct button").forEach(b=>{b.classList.toggle("on",b.dataset.s===cur);b.hidden=!D[b.dataset.s]});
   document.getElementById("cc").hidden=false};
