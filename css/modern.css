@@ -52,3 +52,38 @@ a.r:hover h3{text-decoration:none;color:var(--denim)}
 .tiles a{transition:background .15s}
 .tiles a:hover{background:var(--sky-3)}
 .stabs{padding-bottom:12px}
+
+/* ---------- v47: slideshow hero ---------- */
+.wedge.has-slide{color:#fff}
+.hslide{position:absolute;inset:0;z-index:0;overflow:hidden;border-radius:inherit}
+.hslide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;opacity:0;transform:scale(1.04);transition:opacity 1.2s ease,transform 7s linear}
+.hslide img.on{opacity:1;transform:scale(1.1)}
+.hslide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,27,51,.55),rgba(15,27,51,.35) 45%,rgba(15,27,51,.7))}
+.wedge.has-slide > :not(.hslide):not(.deco){position:relative;z-index:2}
+.wedge.has-slide .deco{z-index:1}
+.wedge.has-slide h1{color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.wedge.has-slide p{color:#eef4ff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.wedge.has-slide .slogan{background:rgba(255,255,255,.9)}
+.hcredit{position:absolute!important;right:12px;bottom:8px;z-index:3;max-width:70%;font-size:11px;line-height:1.3;color:#fff;opacity:.85;text-shadow:0 1px 4px rgba(0,0,0,.7);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hcredit:hover{opacity:1;text-decoration:underline}
+
+/* ---------- v47: penanda status member (sudah tidak di grup) ---------- */
+.mc.gone{border-top:5px dashed #9aa6bd}
+.mc.gone .mc-photo>img{filter:grayscale(.85) contrast(.95)}
+.mc.gone .mc-ph{filter:grayscale(.7)}
+.mc-st.out{background:#fff4dc;color:#6b4a14;border:1px solid #f0d49a}
+.mc-gone{margin:14px 0;border:1.5px solid #f0d49a;background:#fffaf0;border-radius:14px;padding:12px 14px}
+.mc-gone h3{margin:0 0 8px!important;color:#6b4a14!important;display:flex;align-items:center;gap:7px}
+.mc-gone h3::before{content:"!";display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#e0a42a;color:#fff;font:800 12px/1 Sora,sans-serif}
+.mc-gone dl{display:grid;gap:6px;margin:0}
+.mc-gone dl div{display:grid;grid-template-columns:84px 1fr;gap:8px;font-size:14px;line-height:1.5}
+.mc-gone dt{font-weight:700;color:#6b4a14}
+.mc-gone dd{margin:0;color:var(--ink)}
+.mc-tl{margin:12px 0 0;padding:0 0 0 14px;border-left:2px solid #f0d49a;list-style:none}
+.mc-tl li{position:relative;padding:0 0 9px 12px;font-size:13.5px;line-height:1.5}
+.mc-tl li::before{content:"";position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid #e0a42a}
+.mc-tl b{font-family:Sora,sans-serif;font-size:12.5px;color:#6b4a14;margin-right:6px}
+.mc-src{font-size:12px;color:var(--muted);margin:8px 0 0}
+.mc-src a{text-decoration:underline}
+.mchips a.gone,.mlist a.gone{opacity:.9}
+.gone-tag{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:1px 7px;border-radius:99px;background:#fff4dc;color:#6b4a14;border:1px solid #f0d49a;margin-left:2px}

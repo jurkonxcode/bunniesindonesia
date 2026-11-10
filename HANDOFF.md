@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v43.
+Terakhir diperbarui: 9 November 2026, rilis v47.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -305,3 +305,10 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - **Masuk vs Daftar** (`js/masuk.js`, `css/masuk.css`): dua tab. **Masuk** memakai `create_user:false` (email belum terdaftar ditolak: "Pilih tab Daftar dulu"). **Daftar** memakai `create_user:true`, menampilkan usulan `@njz_...`, dan wajib centang Syarat/Privasi. Tombol Google di kedua tab membuat akun bila belum ada (tidak bisa dibedakan). Tetap tanpa kata sandi. Tombol "Daftar" di header beranda membuka tab Daftar (`Masuk.open(undefined,"daftar")`).
 - **Onboarding:** sesudah masuk, `check()` memanggil `my_profile`. Bila `profil_lengkap` false: akun baru (<15 menit) diarahkan ke `akun?baru=1`; akun lama diberi toast. `profil_lengkap` menjadi true saat profil pertama disimpan.
 - **Belum dikerjakan:** bahasa Korea (ditunda atas permintaan pemilik; `bahasa` belum ada di database), username belum tampil di komentar/tulisan (komentar masih memakai nama tampil), batas frekuensi ganti username, foto profil. Cache `?v=46`.
+
+
+## 5e. Slideshow hero dan status member (v47)
+- `js/hero-slide.js` + gaya di akhir `css/modern.css`: slideshow otomatis di belakang judul beranda. Sumbernya `data/galeri.json`; hanya foto dengan `izin: "ada"` dan `kredit` + `sumber` terisi yang masuk (aturan yang sama dengan Galeri). Tanpa foto berizin, slideshow tidak muncul dan tampilan lama tetap. Kredit foto tampil kecil di pojok hero.
+- **Sumber foto:** newjeans.kr tertulis "© 2026 ADOR. All Rights Reserved", jadi **bukan** rilis bebas pakai. Jangan memasang foto dari sana tanpa izin tertulis (`izin-agensi`). Foto yang aman: lisensi terbuka (mis. CC BY-SA dari Wikimedia Commons, wajib kredit dan tautan lisensi), atau foto berizin dari kreator.
+- Cara menambah foto ke slideshow dan Galeri: taruh berkas di `assets/galeri/`, tambahkan entri di `data/galeri.json` dengan `izin: "ada"`, `kredit`, `sumber`, `lisensi`.
+- Status member: Danielle ditandai "Tidak lagi di grup · sejak 29 Des 2025" (kartu abu-abu, panel status, garis waktu, tautan sumber) dan tag "mantan" di chip Member, daftar beranda, serta filter Galeri. Perbarui bila status berubah.
