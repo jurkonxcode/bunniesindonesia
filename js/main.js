@@ -29,7 +29,7 @@ document.addEventListener("click", e => {
   if(!t) return;
   e.preventDefault();
   if(t.dataset.save) return toggleSave(+t.dataset.save);
-  ({loginBtn:openAuth, loginTop:openAuth, signup:openAuth, logoutTop:logout, logoutBtn:logout, googleBtn:googleLogin,
+  ({loginBtn:openAuth, loginTop:openAuth, signup:() => Masuk.open(undefined, "daftar"), logoutTop:logout, logoutBtn:logout, googleBtn:googleLogin,
     showSaved:() => { onlySaved = !onlySaved; tab = "Semua"; renderAuth(); renderFeed(); }})[t.id]();
 });
 $("chips").addEventListener("click", e => { const b = e.target.closest("button"); if(b){ $("q").value = b.textContent; $("searchForm").requestSubmit(); } });

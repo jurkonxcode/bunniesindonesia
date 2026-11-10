@@ -85,3 +85,14 @@
 
 /* HP: "Keluar" di header disembunyikan supaya tidak melebar; tetap ada di kartu akun dan halaman Akun saya */
 @media(max-width:520px){header.top .actions #logoutTop{display:none}}
+
+/* ---------- v46: tab Masuk/Daftar, usulan username, persetujuan ---------- */
+.mk-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:0 0 16px;border-radius:14px;background:var(--sky-3,#eaf2ff)}
+.mk-tabs button{min-height:42px;border:0;border-radius:11px;background:transparent;color:var(--denim,#1f56c2);font:700 14.5px "Instrument Sans",sans-serif;cursor:pointer}
+.mk-tabs button[aria-selected="true"]{background:#fff;color:var(--ink,#0f1b33);box-shadow:0 2px 8px -3px rgba(15,27,51,.35)}
+.mk-up{margin:12px 0 0}
+.mk-prev{margin:0 0 10px;padding:9px 12px;border-radius:12px;background:var(--sky-3,#eaf2ff);border:1px dashed var(--sky,#a9c8ff);font-size:13px;line-height:1.5;color:#3a4f78;overflow-wrap:anywhere}
+.mkdlg .mk-chk{display:flex;align-items:flex-start;gap:10px;margin:0;font:500 13px/1.5 "Instrument Sans",sans-serif;color:#3a4f78;cursor:pointer}
+.mkdlg .mk-chk input{flex:none;width:20px;min-height:20px;height:20px;margin:1px 0 0;padding:0;accent-color:var(--brand,#2f6fe4)}
+.mk-chk a{color:var(--denim,#1f56c2);text-decoration:underline}
+a.mk-toast{display:block;text-decoration:underline}

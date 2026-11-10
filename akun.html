@@ -5,20 +5,61 @@
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=45"><link rel="stylesheet" href="css/base.css?v=45"><link rel="stylesheet" href="css/identity.css?v=45"><link rel="stylesheet" href="css/search.css?v=45"><link rel="stylesheet" href="css/tanya.css?v=45"><link rel="stylesheet" href="css/admin.css?v=45">
-<link rel="stylesheet" href="css/nav.css?v=45"><link rel="stylesheet" href="css/komentar.css?v=45">
-<link rel="stylesheet" href="css/brand-skin.css?v=45"><link rel="stylesheet" href="css/modern.css?v=45"><link rel="stylesheet" href="css/padat.css?v=45"><link rel="stylesheet" href="css/masuk.css?v=45"><link rel="stylesheet" href="css/fokus.css?v=45">
-<script src="js/player.js?v=45"></script></head><body class="sp">
+<link rel="stylesheet" href="css/tokens.css?v=46"><link rel="stylesheet" href="css/base.css?v=46"><link rel="stylesheet" href="css/identity.css?v=46"><link rel="stylesheet" href="css/search.css?v=46"><link rel="stylesheet" href="css/tanya.css?v=46"><link rel="stylesheet" href="css/admin.css?v=46">
+<link rel="stylesheet" href="css/nav.css?v=46"><link rel="stylesheet" href="css/komentar.css?v=46">
+<link rel="stylesheet" href="css/brand-skin.css?v=46"><link rel="stylesheet" href="css/modern.css?v=46"><link rel="stylesheet" href="css/padat.css?v=46"><link rel="stylesheet" href="css/masuk.css?v=46"><link rel="stylesheet" href="css/profil.css?v=46"><link rel="stylesheet" href="css/fokus.css?v=46">
+<script src="js/player.js?v=46"></script></head><body class="sp">
 <header class="sbar"><div class="swrap">
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
   <div class="hbar" id="hbar"></div>
 </div>
-<script src="js/nav.js?v=45"></script></header>
+<script src="js/nav.js?v=46"></script></header>
 <main class="swrap">
   <section id="gateView"><p class="sinfo">Memuat…</p></section>
   <section id="akunView" hidden>
     <div class="thead"><h1>Akun saya</h1></div>
     <p class="meta" id="who"></p>
+
+    <div class="box pf-onb" id="onbBox" hidden>
+      <h2>Selamat datang, Bunnies!</h2>
+      <p>Akunmu sudah jadi. Username awalmu <b id="onbHandle"></b> diambil dari nama emailmu. Cek dulu, ganti kalau perlu, lalu simpan profilmu di bawah.</p>
+    </div>
+
+    <div class="box" id="pfBox">
+      <h2>Profil Bunnies</h2>
+      <p class="pf-handle" id="pfHandle" aria-label="Handle publikmu"></p>
+      <p>Inilah yang dilihat sesama Bunnies di profil publikmu. Semua kolom bisa diubah kapan saja.</p>
+      <p class="msg err" id="pfOff" hidden>Profil lengkap belum aktif. Jalankan supabase/v46-profil-username.sql di Supabase.</p>
+      <form id="pfForm" novalidate>
+        <label for="pfUser">Username</label>
+        <div class="pf-user"><span class="pf-pre" aria-hidden="true">@njz_</span><input id="pfUser" maxlength="24" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="pfUserMsg pfUserHint"></div>
+        <p class="pf-st" id="pfUserMsg" role="status"></p>
+        <p class="pf-hint" id="pfUserHint">3 sampai 20 karakter: huruf kecil, angka, dan garis bawah (_). Awalan @njz_ otomatis. Username awal diambil dari nama emailmu; ganti kalau kamu tidak ingin nama emailmu terlihat orang lain.</p>
+
+        <label for="pfBio">Bio</label>
+        <textarea id="pfBio" rows="3" maxlength="160" placeholder="Ceritakan singkat tentang dirimu sebagai Bunnies"></textarea>
+        <p class="pf-hint pf-cnt" id="pfCnt">0/160</p>
+
+        <div class="pf-2">
+          <div><label for="pfSejak">Bunnies sejak (tahun)</label><input id="pfSejak" type="number" inputmode="numeric" min="2022" max="2100" placeholder="mis. 2022"></div>
+          <div><label for="pfLagu">Lagu favorit</label><input id="pfLagu" maxlength="60" placeholder="mis. Ditto"></div>
+        </div>
+
+        <fieldset class="pf-lok">
+          <legend>Asal / lokasi</legend>
+          <label for="pfNeg">Negara</label><select id="pfNeg"></select>
+          <div id="pfWilWrap" hidden><label for="pfWil" id="pfWilL">Provinsi</label><select id="pfWil"></select></div>
+          <div id="pfKotaWrap" hidden><label for="pfKotaSel" id="pfKotaL">Kota / kabupaten</label>
+            <select id="pfKotaSel" hidden></select><input id="pfKotaIn" maxlength="60" placeholder="Tulis nama kota" hidden></div>
+          <label for="pfTampil">Yang tampil di profil publik</label>
+          <select id="pfTampil"><option value="sembunyi">Sembunyikan lokasi</option><option value="negara">Negara saja</option><option value="wilayah">Sampai provinsi</option><option value="kota">Sampai kota</option></select>
+          <p class="pf-hint">Lokasi hanya tampil sesuai pilihanmu. Secara bawaan disembunyikan.</p>
+        </fieldset>
+
+        <p class="msg" id="pfMsg" role="status"></p>
+        <div class="pf-act"><button class="btn green" type="submit">Simpan profil</button><a class="btn alt" id="pfLink" href="profil">Lihat profil publikku</a></div>
+      </form>
+    </div>
 
     <div class="box">
       <h2>Nama tampil</h2>
@@ -64,10 +105,12 @@
     </div>
   </section>
 </main>
-<script src="js/config.js?v=45"></script>
-<script src="js/masuk.js?v=45"></script>
-<script src="js/state.js?v=45"></script>
-<script src="js/bias.js?v=45"></script>
-<script src="js/sesi.js?v=45"></script>
-<script src="js/akun.js?v=45"></script>
+<script src="js/config.js?v=46"></script>
+<script src="js/masuk.js?v=46"></script>
+<script src="js/state.js?v=46"></script>
+<script src="js/bias.js?v=46"></script>
+<script src="js/sesi.js?v=46"></script>
+<script src="js/lokasi.js?v=46"></script>
+<script src="js/profil.js?v=46"></script>
+<script src="js/akun.js?v=46"></script>
 </body></html>

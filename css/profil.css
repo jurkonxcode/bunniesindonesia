@@ -1,0 +1,43 @@
+/* v46: formulir Profil Bunnies (Akun) dan halaman Profil publik. Dimuat setelah masuk.css. Prefiks pf- dan pp-. */
+.box label{display:block;margin:12px 0 6px;font:600 13px/1.2 "Instrument Sans",sans-serif;color:#3a4f78}
+.box select,.box textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;font-size:16px;background:var(--surface);color:inherit;margin-bottom:6px}
+.box textarea{resize:vertical;min-height:84px}
+.box input:focus,.box select:focus,.box textarea:focus{outline:0;border-color:var(--brand);box-shadow:var(--ring,0 0 0 4px rgba(47,111,228,.16))}
+.pf-onb{background:var(--sky-3,#eaf2ff);border-color:var(--sky,#a9c8ff);border-style:dashed}
+.pf-handle{margin:0 0 6px;font:800 22px/1.2 Sora,sans-serif;color:var(--denim,#1f56c2);overflow-wrap:anywhere}
+.pf-user{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.pf-user:focus-within{border-color:var(--brand);box-shadow:var(--ring,0 0 0 4px rgba(47,111,228,.16))}
+.pf-pre{display:grid;place-items:center;padding:0 4px 0 14px;font:700 16px Sora,sans-serif;color:var(--denim,#1f56c2);background:var(--sky-3,#eaf2ff);border-right:1px solid var(--sky-2,#d6e5ff);white-space:nowrap}
+.box .pf-user input{border:0;border-radius:0;margin:0;box-shadow:none;min-width:0}
+.box .pf-user input:focus{box-shadow:none}
+.pf-st{min-height:18px;margin:6px 0 2px!important;font-size:13px!important}
+.pf-st.ok{color:#1d7a46!important}.pf-st.err{color:var(--down)!important}
+.pf-hint{margin:2px 0 8px!important;font-size:12.5px!important;line-height:1.5}
+.pf-cnt{text-align:right}
+.pf-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.pf-2{grid-template-columns:1fr}}
+.pf-lok{border:1px solid var(--line);border-radius:14px;padding:4px 14px 10px;margin:14px 0 6px;min-width:0}
+.pf-lok legend{padding:0 8px;font:700 14px Sora,sans-serif;color:var(--denim,#1f56c2)}
+.pf-lok select:disabled{opacity:.6}
+.pf-act{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pf-act .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;text-decoration:none}
+
+/* profil publik */
+.pp{margin:16px 0;background:var(--surface);border:1px solid var(--sky-2,#d6e5ff);border-top:5px solid var(--bc,var(--brand));border-radius:20px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(15,27,51,.04),0 16px 32px -24px color-mix(in srgb,var(--bc,var(--brand)) 70%,transparent)}
+.pp-top{display:flex;align-items:center;gap:16px;padding:20px 20px 8px;background:linear-gradient(180deg,color-mix(in srgb,var(--bc,var(--brand)) 10%,#fff),transparent)}
+.pp-av{flex:none;display:grid;place-items:center;width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--bc,var(--brand)),var(--heart,#ff7fb0));color:#fff;font:800 32px/1 Sora,sans-serif;box-shadow:0 10px 22px -12px var(--bc,var(--brand))}
+.pp-top h1{margin:0;font:800 clamp(20px,5.4vw,26px)/1.2 Sora,sans-serif;color:var(--denim,#1f56c2);overflow-wrap:anywhere}
+.pp-name{margin:3px 0 6px;font-size:14.5px;color:var(--muted)}
+.pp-bio{margin:0;padding:8px 20px 4px;font-size:15.5px;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}
+.pp-bio.kosong{color:var(--muted)}
+.pp-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 20px 4px}
+.pp-facts div{background:var(--sky-3,#eaf2ff);border:1px solid var(--sky-2,#d6e5ff);border-radius:12px;padding:8px 11px;min-width:0}
+.pp-facts .w{grid-column:1/-1}
+.pp-facts dt{font-size:11.5px;color:var(--muted)}
+.pp-facts dd{margin:0;font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.pp-act{padding:12px 20px 20px}
+.pp-act .btn{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.pp-find{display:flex;gap:8px;margin:12px 0}
+.pp-find .pf-user{flex:1;min-width:0}
+.pp-find input{width:100%;min-height:46px;padding:0 12px;border:0;font:500 16px "Instrument Sans",sans-serif;background:transparent;outline:0;min-width:0}

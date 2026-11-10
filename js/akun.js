@@ -1,4 +1,4 @@
-/* Akun saya (v26): ubah nama tampil, unduh data, keluar, hapus akun. v31: pilih bias. Butuh supabase/v26-moderasi.sql dan v31-komentar-reaksi-bias.sql. */
+/* Akun saya (v26): ubah nama tampil, unduh data, keluar, hapus akun. v31: pilih bias. v46: Profil.init() (js/profil.js). Butuh supabase/v26-moderasi.sql dan v31-komentar-reaksi-bias.sql. */
 function paintHead(){ $("hbar").innerHTML = session ? Masuk.chip(session) : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
 const say = (id, txt, err) => { const m = $(id); m.className = "msg" + (err ? " err" : ""); m.textContent = txt; };
 
@@ -96,6 +96,6 @@ $("delIn").addEventListener("input", () => { $("delBtn").disabled = $("delIn").v
   if(!session){ $("gateView").innerHTML = gate("Masuk dulu untuk mengelola akunmu."); return; }
   $("gateView").hidden = true; $("akunView").hidden = false;
   $("who").textContent = session.user.email || "";
-  loadName(); loadBias(); loadHist();
+  loadName(); loadBias(); loadHist(); Profil.init();
   rpc("is_admin").then(v => { $("adminBox").hidden = v !== true; }).catch(() => {});
 })();
