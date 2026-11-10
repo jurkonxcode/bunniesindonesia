@@ -90,6 +90,12 @@ document.addEventListener("click", async e => {
 });
 $("nameForm").addEventListener("submit", e => { e.preventDefault(); saveName(); });
 $("delIn").addEventListener("input", () => { $("delBtn").disabled = $("delIn").value.trim() !== "HAPUS"; });
+/* ---------- Terima pesan (v49) ---------- */
+$("tpToggle").addEventListener("change", async e => {
+  try{ await rpc("set_terima_pesan", {p:e.target.checked}); say("tpMsg", "Tersimpan."); }
+  catch(err){ e.target.checked = !e.target.checked; say("tpMsg", err.message, true); }
+});
+
 /* ---------- Tab (v47) ---------- */
 function showTab(id){
   document.querySelectorAll(".ptabs [data-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === id)));

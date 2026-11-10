@@ -73,7 +73,7 @@ async function react(btn){
 
 /* ---------- Komentar ---------- */
 const cmForm = () => `<form class="cm-form" id="cForm"><textarea id="cBody" maxlength="1000" placeholder="Tulis komentar (maks. 1000 huruf)" aria-label="Komentar" required></textarea><div class="row"><span class="meta" id="cMsg" role="status"></span><button class="btn green" type="submit">Kirim</button></div></form>`;
-const cmItem = c => `<li class="cm-i" data-cid="${+c.id}"><div class="cm-h"><b>${esc(c.author_name || "Pengguna")}</b>${biasChip(c.bias)}<span class="meta">${esc(ago(c.created_at))}</span></div><p class="pre">${esc(c.body)}</p>${rxBar("comment", c.id, c.reactions)}<div class="acts">${c.mine ? `<button class="lk" data-delc="${+c.id}" type="button">Hapus</button>` : session ? `<button class="lk" data-repc="${+c.id}" type="button">Laporkan</button>` : ""}</div></li>`;
+const cmItem = c => `<li class="cm-i" data-cid="${+c.id}"><div class="cm-h"><b>${c.username ? `<a href="profil?u=${encodeURIComponent(c.username)}">${esc(c.author_name || "Pengguna")}</a>` : esc(c.author_name || "Pengguna")}</b>${biasChip(c.bias)}<span class="meta">${esc(ago(c.created_at))}</span></div><p class="pre">${esc(c.body)}</p>${rxBar("comment", c.id, c.reactions)}<div class="acts">${c.mine ? `<button class="lk" data-delc="${+c.id}" type="button">Hapus</button>` : session ? `<button class="lk" data-repc="${+c.id}" type="button">Laporkan</button>` : ""}</div></li>`;
 async function loadThread(postId){
   const box = $("thread");
   try{
@@ -84,6 +84,15 @@ async function loadThread(postId){
   }catch(e){ box.innerHTML = `<p class="sinfo">Komentar gagal dimuat: ${esc(e.message)}</p>`; }
 }
 
+/* Nama penulis tulisan -> profil publik. Hanya kalau penulisnya punya username (v49). */
+async function linkAuthor(uid){
+  if(!uid) return;
+  try{
+    const r = await rpc("penulis_username", {p_ids:[uid]});
+    const u = r && r[0] && r[0].username; if(!u) return;
+    document.querySelectorAll(`a.au[data-uid="${uid}"]`).forEach(a => { a.href = "profil?u=" + encodeURIComponent(u); });
+  }catch(e){}
+}
 async function showDetail(id){
   currentPost = id;
   $("detailView").hidden = false; $("detailView").innerHTML = `<p class="sinfo">Memuat…</p>`;
@@ -93,8 +102,8 @@ async function showDetail(id){
     document.title = p.title.slice(0, 60) + " – Bunnies Indonesia";
     const own = session && session.user.id === p.user_id;
     const sum = await rpc("reaction_summary", {p_type:"post", p_id:+p.id}).catch(() => null);
-    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(catLabel(p.category))}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>${rxBar("post", p.id, sum)}${shareBar(p.title)}<section class="cm" id="thread"><p class="sinfo">Memuat komentar…</p></section>`;
-    loadThread(+p.id);
+    $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><article class="qd"><span class="kind">${esc(catLabel(p.category))}</span><h1>${esc(p.title)}</h1><div class="pre">${esc(p.body)}</div><span class="meta">${p.user_id ? `<a href="#" class="au" data-uid="${esc(p.user_id)}">${esc(p.author_name || "Pengguna")}</a>` : esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span>${own ? `<div class="acts"><button class="lk" data-del="${p.id}" type="button">Hapus</button></div>` : session ? `<div class="acts"><button class="lk" data-rep="${p.id}" type="button">Laporkan</button></div>` : ""}</article>${rxBar("post", p.id, sum)}${shareBar(p.title)}<section class="cm" id="thread"><p class="sinfo">Memuat komentar…</p></section>`;
+    loadThread(+p.id); linkAuthor(p.user_id);
   }catch(e){ $("detailView").innerHTML = `<a class="back" href="blog">← Semua tulisan</a><p class="sempty">Gagal memuat: ${esc(e.message)}</p>`; }
 }
 async function publish(){

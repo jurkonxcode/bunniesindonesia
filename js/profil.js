@@ -81,6 +81,7 @@ const Profil = (() => {
     me = p;
     g("pfHandle").textContent = p.handle;
     paintHero(p); setSoc(p.socials);
+    if(g("tpToggle")) g("tpToggle").checked = !!p.terima_pesan;
     g("pfUser").value = p.username; stat("Ini username-mu sekarang.", "ok");
     g("pfBio").value = p.bio || ""; cnt();
     g("pfSejak").value = p.bunnies_sejak || ""; g("pfLagu").value = p.lagu_favorit || "";

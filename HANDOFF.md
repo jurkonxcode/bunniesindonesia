@@ -403,3 +403,16 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Klik Putar memanggil `BunPlayer.playVideo(id, judul)` di `js/player.js`, yaitu memutar satu video YouTube. Riwayat dengar tetap dicatat per lagu.
 - Logika daftar ada di `js/pilih-lagu.js`, gayanya di `css/pilih-lagu.css`.
 - **Belum ada:** pilihan lagu Spotify. `data/spotify.json` belum punya ID track, jadi perlu ditambahkan dulu. Halaman ko belum punya blok ini.
+
+## v49: profil publik terhubung dan pesan langsung (DM)
+
+- **Database:** `supabase/v49-pesan.sql` (jalankan setelah v47). Tabel `dm_threads`, `dm_messages`, `dm_reports` tanpa akses langsung dari browser. Fungsi: `set_terima_pesan`, `kirim_pesan`, `daftar_pesan`, `baca_pesan`, `lapor_pesan`, `penulis_username`. `list_comments` sekarang juga mengembalikan `username`.
+- **Opt-in:** `profiles.terima_pesan` default `false`. `kirim_pesan` menolak penerima yang belum mengaktifkannya, dan memeriksanya setiap kali pesan dikirim.
+- **Pemblokiran:** memakai `blocked_users` (diatur admin). Pengirim maupun penerima yang diblokir tidak bisa saling mengirim pesan, dan percakapan mereka disembunyikan dari kotak pesan.
+- **Batas kecepatan:** 10 pesan per 10 menit dan 100 pesan per hari per akun.
+- **Laporan:** tombol Laporkan di setiap pesan dari lawan bicara, tersimpan di `dm_reports`. Tiga laporan dari tiga orang berbeda menyembunyikan pesan (`dm_messages.status = 'hidden'`). Admin memantaunya lewat Table Editor, karena panel admin belum menampilkan pesan.
+- **Halaman:** `pesan.html` (kotak pesan, percakapan, pesan baru lewat `?ke=username`), dengan salinan `en/pesan.html` dan `ko/pesan.html`.
+- **Profil publik:** `js/profil-pesan.js` menampilkan tombol "Kirim pesan langsung" bila pemilik profil mengaktifkan terima pesan, atau "Belum menerima pesan" bila belum.
+- **Tautan profil:** nama penulis di komentar dan halaman detail tulisan kini menuju `profil?u=username`. Nama di kartu daftar tulisan belum dibuat tautan, karena kartu itu sudah berupa tautan dan tautan di dalam tautan tidak valid di HTML.
+- **Akun:** kotak "Pesan langsung" di tab Pengaturan berisi opsi terima pesan dan tautan ke kotak pesan.
+- **Belum ada:** pembatasan oleh pengguna sendiri (pengguna belum bisa memblokir orang lain), penanda pesan belum dibaca, pembaruan langsung tanpa muat ulang, dan panel admin untuk laporan pesan.

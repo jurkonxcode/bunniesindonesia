@@ -1,0 +1,15 @@
+/* Pesan langsung (v49) */
+.pm-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pm-item{display:flex;flex-direction:column;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.pm-item b{font-size:15px}
+.pm-item small{color:var(--muted);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-chat{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.pm-b{max-width:82%;padding:10px 12px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.pm-b.me{align-self:flex-end;background:var(--brand);color:#fff;border-color:var(--brand)}
+.pm-b p{margin:0;white-space:pre-line;font-size:15px;line-height:1.5}
+.pm-b small{display:block;margin-top:4px;font-size:12px;opacity:.75}
+.pm-b.me small .lk{display:none}
+.pm-b .lk{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer}
+.pm-form textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;font-size:16px;background:var(--surface);color:inherit;resize:vertical;box-sizing:border-box}
+.tg{display:flex;align-items:center;gap:8px;font-size:15px;margin:8px 0}
+.tg input{width:20px;height:20px}
