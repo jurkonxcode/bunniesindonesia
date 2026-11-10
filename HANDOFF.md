@@ -387,3 +387,12 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Header kaca buram; garis rambut 0,5 px di layar retina; permukaan datar; kotak cari dengan cincin fokus.
 - Blok HAIRLINE di dasar file dihasilkan oleh `python3 tools/gen-hairline.py`. Jalankan ulang bila aturan border di CSS lain berubah.
 - Versi cache dinaikkan ke `?v=55`. `go()` menyisipkan stylesheet baru SEBELUM `icloud.css` supaya tetap menjadi yang terakhir.
+
+## v47: profil sebagai hub (tahap 1)
+
+- Halaman Akun (`akun.html`, `en/akun.html`, `ko/akun.html`) punya kartu profil (avatar, nama, handle, bias, bio, statistik tulisan dan komentar, sosial media) dan dua tab: Profil dan Pengaturan.
+- Sosial media disimpan lewat `save_socials` (supabase/v47-profil-hub.sql). Hanya domain resmi yang diizinkan: Instagram, X, TikTok, YouTube, Weverse, Spotify.
+- **Terjemahan:** teks Indonesia di halaman dan pesan JavaScript diterjemahkan lewat `js/i18n.js` (fungsi `T()` dan `applyI18n()`). Bahasa dibaca dari `<html lang>`. Untuk menambah teks baru, tambahkan pasangan Indonesia, en, ko di kamus `I18N`. Jangan menerjemahkan langsung di HTML.
+- Salinan `en/akun.html` dan `ko/akun.html` dibuat dari `akun.html` dengan jalur relatif yang diganti (`../`). Setiap perubahan struktur di `akun.html` perlu disalin ulang ke kedua file itu.
+- `lokasi.js` menghitung alamat data dari lokasi skripnya sendiri, sehingga bekerja dari `en/` dan `ko/`.
+- Terjemahan Korea belum ditinjau penutur asli.

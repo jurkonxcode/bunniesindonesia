@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akun saya – Bunnies Indonesia</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css?v=55"><link rel="stylesheet" href="../css/base.css?v=55"><link rel="stylesheet" href="../css/identity.css?v=55"><link rel="stylesheet" href="../css/search.css?v=55"><link rel="stylesheet" href="../css/tanya.css?v=55"><link rel="stylesheet" href="../css/admin.css?v=55">
+<link rel="stylesheet" href="../css/nav.css?v=55"><link rel="stylesheet" href="../css/komentar.css?v=55">
+<link rel="stylesheet" href="../css/brand-skin.css?v=55"><link rel="stylesheet" href="../css/modern.css?v=55"><link rel="stylesheet" href="../css/padat.css?v=55"><link rel="stylesheet" href="../css/masuk.css?v=55"><link rel="stylesheet" href="../css/profil.css?v=55"><link rel="stylesheet" href="../css/fokus.css?v=55">
+<script src="../js/player.js?v=55"></script><link rel="stylesheet" href="../css/navbar.css?v=55">
+<link rel="stylesheet" href="../css/icloud.css?v=55">
+<link rel="stylesheet" href="../css/profil-hub.css?v=55">
+</head><body class="sp">
+<header class="sbar"><div class="swrap">
+  <a class="logo" href="../" aria-label="Bunnies Indonesia, ke beranda"><img src="../assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
+  <div class="hbar" id="hbar"></div>
+</div>
+<script src="../js/nav.js?v=55"></script><script src="../js/lang.js?v=55"></script></header>
+<main class="swrap">
+  <section id="gateView"><p class="sinfo">Memuat…</p></section>
+  <section id="akunView" hidden>
+    <div class="thead"><h1>Akun saya</h1></div>
+    <p class="meta" id="who"></p>
+
+    <div class="box pf-onb" id="onbBox" hidden>
+      <h2>Selamat datang, Bunnies!</h2>
+      <p>Akunmu sudah jadi. Username awalmu <b id="onbHandle"></b> diambil dari nama emailmu. Cek dulu, ganti kalau perlu, lalu simpan profilmu di bawah.</p>
+    </div>
+
+    <div class="box pf-hero" id="pfHero">
+      <div class="pf-top">
+        <div class="pf-av" id="heroAv" aria-hidden="true">B</div>
+        <div class="pf-hid">
+          <h2 id="heroName"></h2>
+          <p class="pf-handle" id="pfHandle" aria-label="Handle publikmu"></p>
+          <p class="meta"><span id="heroBias"></span> <span id="heroJoin"></span></p>
+        </div>
+      </div>
+      <p class="pf-bio" id="heroBio"></p>
+      <div class="pf-stats">
+        <div><b id="statPosts">0</b><span>Tulisan</span></div>
+        <div><b id="statComments">0</b><span>Komentar</span></div>
+      </div>
+      <div class="pf-socl" id="heroSocial"></div>
+      <div class="pf-act"><a class="btn alt" id="pfLink" href="../profil">Lihat profil publikku</a></div>
+    </div>
+
+    <div class="ptabs" role="tablist">
+      <button type="button" role="tab" data-tab="profil" aria-selected="true">Profil</button>
+      <button type="button" role="tab" data-tab="atur" aria-selected="false">Pengaturan</button>
+    </div>
+
+    <section id="tab-profil" role="tabpanel">
+      <div class="box" id="pfBox">
+        <h2>Profil Bunnies</h2>
+        <p>Inilah yang dilihat sesama Bunnies di profil publikmu. Semua kolom bisa diubah kapan saja.</p>
+        <p class="msg err" id="pfOff" hidden>Profil lengkap belum aktif. Jalankan supabase/v46-profil-username.sql di Supabase.</p>
+        <form id="pfForm" novalidate>
+          <label for="pfUser">Username</label>
+          <div class="pf-user"><span class="pf-pre" aria-hidden="true">@njz_</span><input id="pfUser" maxlength="24" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="pfUserMsg pfUserHint"></div>
+          <p class="pf-st" id="pfUserMsg" role="status"></p>
+          <p class="pf-hint" id="pfUserHint">3 sampai 20 karakter: huruf kecil, angka, dan garis bawah (_). Awalan @njz_ otomatis. Username awal diambil dari nama emailmu; ganti kalau kamu tidak ingin nama emailmu terlihat orang lain.</p>
+          <label for="pfBio">Bio</label>
+          <textarea id="pfBio" rows="3" maxlength="160" placeholder="Ceritakan singkat tentang dirimu sebagai Bunnies"></textarea>
+          <p class="pf-hint pf-cnt" id="pfCnt">0/160</p>
+          <div class="pf-2">
+            <div><label for="pfSejak">Bunnies sejak (tahun)</label><input id="pfSejak" type="number" inputmode="numeric" min="2022" max="2100" placeholder="mis. 2022"></div>
+            <div><label for="pfLagu">Lagu favorit</label><input id="pfLagu" maxlength="60" placeholder="mis. Ditto"></div>
+          </div>
+          <fieldset class="pf-lok">
+            <legend>Asal / lokasi</legend>
+            <label for="pfNeg">Negara</label><select id="pfNeg"></select>
+            <div id="pfWilWrap" hidden><label for="pfWil" id="pfWilL">Provinsi</label><select id="pfWil"></select></div>
+            <div id="pfKotaWrap" hidden><label for="pfKotaSel" id="pfKotaL">Kota / kabupaten</label>
+              <select id="pfKotaSel" hidden></select><input id="pfKotaIn" maxlength="60" placeholder="Tulis nama kota" hidden></div>
+            <label for="pfTampil">Yang tampil di profil publik</label>
+            <select id="pfTampil"><option value="sembunyi">Sembunyikan lokasi</option><option value="negara">Negara saja</option><option value="wilayah">Sampai provinsi</option><option value="kota">Sampai kota</option></select>
+            <p class="pf-hint">Lokasi hanya tampil sesuai pilihanmu. Secara bawaan disembunyikan.</p>
+          </fieldset>
+          <p class="msg" id="pfMsg" role="status"></p>
+          <div class="pf-act"><button class="btn green" type="submit">Simpan profil</button></div>
+        </form>
+      </div>
+
+      <div class="box">
+        <h2>Sosial media</h2>
+        <form id="socForm" class="soc-form" novalidate>
+          <div class="soc-in"><label for="sIg">Instagram</label><input id="sIg" type="url" placeholder="https://" maxlength="200" autocapitalize="none"></div>
+          <div class="soc-in"><label for="sX">X</label><input id="sX" type="url" placeholder="https://" maxlength="200" autocapitalize="none"></div>
+          <div class="soc-in"><label for="sTt">TikTok</label><input id="sTt" type="url" placeholder="https://" maxlength="200" autocapitalize="none"></div>
+          <div class="soc-in"><label for="sYt">YouTube</label><input id="sYt" type="url" placeholder="https://" maxlength="200" autocapitalize="none"></div>
+          <div class="soc-in"><label for="sWv">Weverse</label><input id="sWv" type="url" placeholder="https://" maxlength="200" autocapitalize="none"></div>
+          <div class="soc-in"><label for="sSp">Spotify</label><input id="sSp" type="url" placeholder="https://" maxlength="200" autocapitalize="none"></div>
+          <p class="pf-hint">Tautan harus diawali https:// dan dari situs resmi platform. Kosongkan untuk menghapus.</p>
+          <p class="msg" id="socMsg" role="status"></p>
+          <div class="pf-act"><button class="btn green" type="submit">Simpan sosial media</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="tab-atur" role="tabpanel" hidden>
+      <div class="box">
+        <h2>Nama tampil</h2>
+        <p>Nama ini muncul di tulisan, pertanyaan, dan jawabanmu berikutnya. Tulisan lama tidak berubah. Jangan pakai bagian depan emailmu.</p>
+        <form id="nameForm"><input id="nameIn" minlength="2" maxlength="40" autocomplete="nickname" aria-label="Nama tampil" required>
+        <p class="msg" id="nameMsg" role="status"></p><button class="btn green">Simpan nama</button></form>
+      </div>
+      <div class="box">
+        <h2>Bias</h2>
+        <p>Pilih member favoritmu. Bias tampil sebagai label di samping komentarmu. Pilihan ini bisa diubah kapan saja.</p>
+        <div class="bias-pick" id="biasPick" role="group" aria-label="Pilih bias"></div>
+        <p class="msg" id="biasMsg" role="status"></p>
+      </div>
+      <div class="box">
+        <h2>Riwayat dengar lagu</h2>
+        <p>Lagu yang kamu putar di pemutar Bunnies dihitung setelah didengar sekitar 30 detik. Hanya kamu yang bisa melihatnya.</p>
+        <div id="histBody" class="meta">Memuat…</div>
+        <p class="msg" id="histMsg" role="status"></p><button class="btn" id="histClr" type="button">Hapus riwayat dengar</button>
+      </div>
+      <div class="box">
+        <h2>Unduh data saya</h2>
+        <p>Berkas JSON berisi profil (termasuk bias), riwayat dengar lagu, tulisan, pertanyaan, jawaban, dan laporan yang pernah kamu kirim.</p>
+        <p class="msg" id="dlMsg" role="status"></p><button class="btn" id="dlBtn" type="button">Unduh data</button>
+      </div>
+      <div class="box" id="adminBox" hidden>
+        <h2>Admin</h2><p>Kamu terdaftar sebagai admin.</p><a class="btn green" href="../admin">Buka panel admin</a>
+      </div>
+      <div class="box">
+        <h2>Keluar</h2><button class="btn" id="outBtn" type="button">Keluar dari akun</button>
+      </div>
+      <div class="box warn">
+        <h2>Hapus akun</h2>
+        <p>Akun, profil (termasuk bias), semua tulisan, komentar, reaksi, pertanyaan, dan jawabanmu dihapus <b>permanen</b> dan tidak bisa dipulihkan. Jawaban di pertanyaan orang lain juga ikut hilang. Berkas lama di halaman statis (SEO) hilang paling lambat sekitar 30 menit.</p>
+        <label for="delIn" class="meta">Ketik HAPUS untuk melanjutkan</label>
+        <input id="delIn" autocomplete="off" autocapitalize="characters" aria-label="Ketik HAPUS">
+        <p class="msg" id="delMsg" role="status"></p><button class="btn danger" id="delBtn" type="button" disabled>Hapus akun saya</button>
+      </div>
+    </section>
+  </section>
+</main>
+<script src="../js/config.js?v=55"></script>
+<script src="../js/masuk.js?v=55"></script>
+<script src="../js/state.js?v=55"></script>
+<script src="../js/bias.js?v=55"></script>
+<script src="../js/sesi.js?v=55"></script>
+<script src="../js/lokasi.js?v=55"></script>
+<script src="../js/i18n.js?v=55"></script>
+<script src="../js/profil.js?v=55"></script>
+<script src="../js/akun.js?v=55"></script>
+<script src="../js/hangul.js?v=55"></script>
+<script>applyI18n();</script>
+</body></html>
+

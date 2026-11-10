@@ -3,7 +3,9 @@
    label sekarang memakai nama Indonesia dan, untuk Korea Selatan, Hangul di dalam kurung. */
 const Lokasi = (() => {
   let data = null;
-  const load = async () => data || (data = await (await fetch("data/lokasi.json")).json());
+  /* v47: alamat data dihitung dari lokasi skrip ini, supaya tetap benar dari en/ dan ko/ */
+  const dataUrl = () => { const sc = [...document.scripts].find(x => /js\/lokasi\.js/.test(x.src)); return sc ? sc.src.replace(/js\/lokasi\.js.*$/, "data/lokasi.json") : "data/lokasi.json"; };
+  const load = async () => data || (data = await (await fetch(dataUrl())).json());
   const lab = (o, ko) => !o ? "" : (ko && o.ko && o.ko !== o.id ? o.id + " (" + o.ko + ")" : o.id);
   const negara = k => data && data.negara.find(n => n.k === k) || null;
   const wilayah = (n, k) => data && (data.wilayah[n] || []).find(w => w.k === k) || null;

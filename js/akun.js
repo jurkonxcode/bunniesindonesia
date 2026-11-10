@@ -1,6 +1,6 @@
 /* Akun saya (v26): ubah nama tampil, unduh data, keluar, hapus akun. v31: pilih bias. v46: Profil.init() (js/profil.js). Butuh supabase/v26-moderasi.sql dan v31-komentar-reaksi-bias.sql. */
 function paintHead(){ $("hbar").innerHTML = session ? Masuk.chip(session) : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
-const say = (id, txt, err) => { const m = $(id); m.className = "msg" + (err ? " err" : ""); m.textContent = txt; };
+const say = (id, txt, err) => { const m = $(id); m.className = "msg" + (err ? " err" : ""); m.textContent = T(txt); };
 
 async function loadName(){
   const meta = (session.user.user_metadata && (session.user.user_metadata.name || session.user.user_metadata.full_name)) || (session.user.email || "").split("@")[0];
@@ -27,15 +27,15 @@ async function download(){
   btn.disabled = false;
 }
 async function removeAccount(){
-  if($("delIn").value.trim() !== "HAPUS") return;
-  if(!confirm("Hapus akun dan semua kontenmu secara permanen?")) return;
+  if($("delIn").value.trim() !== T("HAPUS")) return;
+  if(!confirm(T("Hapus akun dan semua kontenmu secara permanen?"))) return;
   const btn = $("delBtn"); btn.disabled = true; say("delMsg", "Menghapus…");
   try{
     await rpc("delete_my_account");
     keep(null);
     $("akunView").hidden = true; paintHead();
     $("gateView").hidden = false;
-    $("gateView").innerHTML = `<div class="gate"><p><b>Akunmu sudah dihapus.</b> Terima kasih sudah mencoba Bunnies Indonesia.</p><a class="btn green" href="./">Ke beranda</a></div>`;
+    $("gateView").innerHTML = `<div class="gate"><p><b>${T("Akunmu sudah dihapus.")}</b> ${T("Terima kasih sudah mencoba Bunnies Indonesia.")}</p><a class="btn green" href="./">${T("Ke beranda")}</a></div>`;
   }catch(e){ say("delMsg", e.message, true); btn.disabled = $("delIn").value.trim() !== "HAPUS"; }
 }
 
@@ -43,7 +43,7 @@ async function removeAccount(){
 let myBias = null;
 function paintBias(){
   $("biasPick").innerHTML = [...BIAS.map(b => ({id:b.id, nama:b.nama, warna:b.warna})), {id:"none", nama:"Belum pilih", warna:"#5f6f8c"}]
-    .map(b => `<button type="button" data-bias="${b.id}" style="--bc:${b.warna}" aria-pressed="${(myBias || "none") === b.id}">${esc(b.nama)}</button>`).join("");
+    .map(b => `<button type="button" data-bias="${b.id}" style="--bc:${b.warna}" aria-pressed="${(myBias || "none") === b.id}">${esc(T(b.nama))}</button>`).join("");
 }
 async function loadBias(){
   try{
@@ -68,12 +68,12 @@ async function loadHist(){
   const box = $("histBody"); if(!box) return;
   try{
     const h = await rpc("riwayat_dengar", {p_limit:10});
-    box.innerHTML = `<p><b>${h.total}</b> lagu · ${durasi(h.detik)} · ${h.hari_ini} hari ini</p>` +
-      (h.terakhir.length ? `<ol>${h.terakhir.map(x => `<li>${esc(x.judul || "Lagu")} <span class="meta">· ${ago(x.at)}</span></li>`).join("")}</ol>` : `<p>Belum ada. Tekan "Putar lagu" di beranda, lalu dengarkan sampai habis atau sekitar 30 detik.</p>`);
-  }catch(e){ box.textContent = "Riwayat belum aktif. Jalankan supabase/v45-riwayat-lagu.sql di Supabase."; }
+    box.innerHTML = `<p><b>${h.total}</b> ${T('lagu')} · ${T(durasi(h.detik))} · ${h.hari_ini} ${T('hari ini')}</p>` +
+      (h.terakhir.length ? `<ol>${h.terakhir.map(x => `<li>${esc(x.judul || T("Lagu"))} <span class="meta">· ${T(ago(x.at))}</span></li>`).join("")}</ol>` : `<p>${T('Belum ada. Tekan "Putar lagu" di beranda, lalu dengarkan sampai habis atau sekitar 30 detik.')}</p>`);
+  }catch(e){ box.textContent = T("Riwayat belum aktif. Jalankan supabase/v45-riwayat-lagu.sql di Supabase."); }
 }
 async function clearHist(){
-  if(!confirm("Hapus semua riwayat dengar lagumu?")) return;
+  if(!confirm(T("Hapus semua riwayat dengar lagumu?"))) return;
   say("histMsg", "Menghapus…");
   try{ await rpc("hapus_riwayat_dengar"); say("histMsg", "Riwayat dihapus."); loadHist(); }catch(e){ say("histMsg", e.message, true); }
 }
@@ -90,10 +90,29 @@ document.addEventListener("click", async e => {
 });
 $("nameForm").addEventListener("submit", e => { e.preventDefault(); saveName(); });
 $("delIn").addEventListener("input", () => { $("delBtn").disabled = $("delIn").value.trim() !== "HAPUS"; });
+/* ---------- Tab (v47) ---------- */
+function showTab(id){
+  document.querySelectorAll(".ptabs [data-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === id)));
+  $("tab-profil").hidden = id !== "profil"; $("tab-atur").hidden = id !== "atur";
+}
+document.querySelectorAll(".ptabs [data-tab]").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+
+/* ---------- Sosial media (v47): hanya domain resmi, lewat fungsi save_socials ---------- */
+const SOC_IN = {instagram:"sIg", x:"sX", tiktok:"sTt", youtube:"sYt", weverse:"sWv", spotify:"sSp"};
+async function saveSocials(e){
+  e.preventDefault();
+  const btn = $("socForm").querySelector("button"); btn.disabled = true; say("socMsg", "Menyimpan…");
+  const obj = {}; Object.keys(SOC_IN).forEach(k => { obj[k] = $(SOC_IN[k]).value.trim(); });
+  try{ const p = await rpc("save_socials", {p:obj}); Profil.fill(p); say("socMsg", "Sosial media tersimpan."); }
+  catch(err){ say("socMsg", err.message, true); }
+  btn.disabled = false;
+}
+$("socForm").addEventListener("submit", saveSocials);
+
 (async function(){
-  if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("gateView").innerHTML = `<p class="sinfo">Supabase belum dikonfigurasi di js/config.js.</p>`; return; }
+  if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ $("gateView").innerHTML = `<p class="sinfo">${T("Supabase belum dikonfigurasi di js/config.js.")}</p>`; return; }
   await initSession(); paintHead();
-  if(!session){ $("gateView").innerHTML = gate("Masuk dulu untuk mengelola akunmu."); return; }
+  if(!session){ $("gateView").innerHTML = gate(T("Masuk dulu untuk mengelola akunmu.")); return; }
   $("gateView").hidden = true; $("akunView").hidden = false;
   $("who").textContent = session.user.email || "";
   loadName(); loadBias(); loadHist(); Profil.init();

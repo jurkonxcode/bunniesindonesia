@@ -4,12 +4,12 @@
 const Profil = (() => {
   let me = null, cekT = 0, cekN = 0;
   const g = id => document.getElementById(id);
-  const say = (t, err) => { const m = g("pfMsg"); m.className = "msg" + (err ? " err" : ""); m.textContent = t; };
+  const say = (t, err) => { const m = g("pfMsg"); m.className = "msg" + (err ? " err" : ""); m.textContent = T(t); };
   const clean = v => String(v || "").toLowerCase().replace(/^@/, "").replace(/^njz_/, "").replace(/[^a-z0-9_]/g, "").slice(0, 20);
   const OKFMT = /^[a-z0-9][a-z0-9_]{1,18}[a-z0-9]$/;
 
   /* ---------- username ---------- */
-  function stat(t, kind){ const m = g("pfUserMsg"); m.textContent = t; m.className = "pf-st" + (kind ? " " + kind : ""); }
+  function stat(t, kind){ const m = g("pfUserMsg"); m.textContent = T(t); m.className = "pf-st" + (kind ? " " + kind : ""); }
   async function cek(){
     const v = clean(g("pfUser").value), n = ++cekN;
     if(!v){ stat("Isi username.", "err"); return; }
@@ -27,7 +27,7 @@ const Profil = (() => {
   }
 
   /* ---------- lokasi ---------- */
-  const opt = (v, t, sel) => `<option value="${esc(v)}"${sel ? " selected" : ""}>${esc(t)}</option>`;
+  const opt = (v, t, sel) => `<option value="${esc(v)}"${sel ? " selected" : ""}>${esc(T(t))}</option>`;
   function paintNegara(sel){
     g("pfNeg").innerHTML = opt("", "— pilih —", !sel) + Lokasi.data.negara.map(n => opt(n.k, Lokasi.lab(n, n.k === "KR"), n.k === sel)).join("");
   }
@@ -35,13 +35,13 @@ const Profil = (() => {
     const list = Lokasi.data.wilayah[neg], box = g("pfWilWrap");
     box.hidden = !list;
     if(!list) { g("pfWil").innerHTML = ""; return; }
-    g("pfWilL").textContent = neg === "KR" ? "Provinsi / kota besar (시·도)" : "Provinsi";
+    g("pfWilL").textContent = neg === "KR" ? T("Provinsi / kota besar (시·도)") : T("Provinsi");
     g("pfWil").innerHTML = opt("", "— pilih —", !sel) + list.map(w => opt(w.k, Lokasi.lab(w, neg === "KR"), w.k === sel)).join("");
   }
   function paintKota(neg, wil, sel){
     const kr = neg === "KR", s = g("pfKotaSel"), t = g("pfKotaIn");
     g("pfKotaWrap").hidden = !neg;
-    g("pfKotaL").textContent = kr ? "Kota / distrik (시·군·구)" : "Kota / kabupaten";
+    g("pfKotaL").textContent = kr ? T("Kota / distrik (시·군·구)") : T("Kota / kabupaten");
     s.hidden = !kr; t.hidden = kr;
     if(kr){
       const w = Lokasi.wilayah("KR", wil), list = w ? w.kota : [];
@@ -57,10 +57,30 @@ const Profil = (() => {
   }
   const kotaVal = () => g("pfNeg").value === "KR" ? g("pfKotaSel").value : g("pfKotaIn").value;
 
+  /* ---------- kartu profil di atas (v47) ---------- */
+  const SOSIAL = [["instagram","Instagram"],["x","X"],["tiktok","TikTok"],["youtube","YouTube"],["weverse","Weverse"],["spotify","Spotify"]];
+  const SOC_IN = {instagram:"sIg", x:"sX", tiktok:"sTt", youtube:"sYt", weverse:"sWv", spotify:"sSp"};
+  const LOCALE = () => ({en:"en-US", ko:"ko-KR"}[document.documentElement.lang] || "id-ID");
+  function paintHero(p){
+    const nama = p.display_name || p.username || "";
+    g("heroName").textContent = nama || T("Akun saya");
+    g("heroAv").textContent = (nama || "B").trim().charAt(0).toUpperCase();
+    g("heroBio").textContent = p.bio || "";
+    g("heroBias").innerHTML = biasChip(p.bias);
+    g("heroJoin").textContent = p.bergabung ? T("Bergabung") + " " + new Date(p.bergabung).toLocaleDateString(LOCALE(), {day:"numeric", month:"long", year:"numeric"}) : "";
+    g("statPosts").textContent = p.tulisan || 0;
+    g("statComments").textContent = p.komentar || 0;
+    const s = p.socials || {};
+    const links = SOSIAL.filter(([k]) => s[k]).map(([k, l]) => `<a href="${esc(s[k])}" target="_blank" rel="noopener nofollow">${esc(l)}</a>`);
+    g("heroSocial").innerHTML = links.length ? links.join("") : `<span class="none">${esc(T("Belum ada sosial media."))}</span>`;
+  }
+  function setSoc(s){ SOSIAL.forEach(([k]) => { g(SOC_IN[k]).value = (s && s[k]) || ""; }); }
+
   /* ---------- isi dan simpan ---------- */
   function fill(p){
     me = p;
     g("pfHandle").textContent = p.handle;
+    paintHero(p); setSoc(p.socials);
     g("pfUser").value = p.username; stat("Ini username-mu sekarang.", "ok");
     g("pfBio").value = p.bio || ""; cnt();
     g("pfSejak").value = p.bunnies_sejak || ""; g("pfLagu").value = p.lagu_favorit || "";
@@ -103,5 +123,5 @@ const Profil = (() => {
     g("pfWil").addEventListener("change", () => paintKota(g("pfNeg").value, g("pfWil").value, ""));
     g("pfForm").addEventListener("submit", save);
   }
-  return {init};
+  return {init, fill, setSoc};
 })();
