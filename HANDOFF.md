@@ -266,6 +266,7 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - `index.html`: kartu "Kenalan member" (tautan ke `member#id` dan Galeri) di kolom samping.
 - `galeri.html`: keterangan "Kredit: belum diisi" dihapus; keterangan hanya tampil bila kredit atau sumber terisi.
 - **Perlu keputusan pemilik:** 6 foto di `data/galeri.json` semuanya `izin: "belum"` dan 4 tanpa kredit. Sesuai bagian 2, jangan dipublikasikan sebelum izin dan kredit jelas.
+- **v44, Galeri:** `data/galeri.json` punya field `jenis`, `lisensi`, `tahun` (nilai yang diizinkan ada di `_petunjuk`). `galeri.html` hanya menampilkan foto dengan `izin: "ada"` (konstanta `TAMPIL_BELUM` di skrip) dan menyediakan filter member, jenis, lisensi, tahun. Menambah foto: taruh berkas di `assets/galeri/`, tambah entri, isi kredit, sumber, dan ubah `izin` ke `"ada"` setelah izinnya jelas.
 
 ## 5g. Pemadatan menyeluruh (v40)
 - `css/padat.css` bagian "v40": hero, pemutar lagu, ajakan menulis, ubin Jelajah (8 ubin satu baris di desktop), daftar Blog/Tanya Jawab, kolom samping, dan footer dirapatkan. Di desktop, kartu Member jadi foto di kiri dan isi di kanan. Tinggi beranda di HP turun ke ~1830px. Hapus bagian itu untuk kembali ke v39. Cache `?v=40`.

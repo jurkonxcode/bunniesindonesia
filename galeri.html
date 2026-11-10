@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css?v=43"><link rel="stylesheet" href="css/base.css?v=43"><link rel="stylesheet" href="css/identity.css?v=43"><link rel="stylesheet" href="css/search.css?v=43"><link rel="stylesheet" href="css/tanya.css?v=43">
 <link rel="stylesheet" href="css/share.css?v=43"><link rel="stylesheet" href="css/komentar.css?v=43"><link rel="stylesheet" href="css/nav.css?v=43">
-<link rel="stylesheet" href="css/brand-skin.css?v=43"><link rel="stylesheet" href="css/modern.css?v=43"><link rel="stylesheet" href="css/padat.css?v=43"><link rel="stylesheet" href="css/fokus.css?v=43"><link rel="stylesheet" href="css/member.css?v=43"><link rel="stylesheet" href="css/galeri.css?v=43">
+<link rel="stylesheet" href="css/brand-skin.css?v=43"><link rel="stylesheet" href="css/modern.css?v=43"><link rel="stylesheet" href="css/padat.css?v=43"><link rel="stylesheet" href="css/fokus.css?v=43"><link rel="stylesheet" href="css/member.css?v=43"><link rel="stylesheet" href="css/galeri.css?v=44">
 </head><body class="sp mb">
 <header class="sbar"><div class="swrap">
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
@@ -17,8 +17,9 @@
 <script src="js/nav.js?v=43"></script></header>
 <main class="swrap">
 <section class="mh"><span class="pill">Galeri · tidak resmi</span><h1>Galeri Bunnies</h1>
-<p>Foto dikelompokkan per member. Semua hak milik pemegang aslinya; kredit tertera di tiap foto. <a href="hak-cipta">Lapor atau minta hapus</a>.</p></section>
+<p>Foto dikelompokkan per member, jenis, lisensi, dan tahun. Hanya foto yang izinnya jelas yang tampil. Semua hak milik pemegang aslinya; kredit tertera di tiap foto. <a href="hak-cipta">Lapor atau minta hapus</a>.</p></section>
 <nav class="mchips" id="gf" aria-label="Filter member"></nav>
+<div class="gsel" id="gs" hidden><select id="fj" aria-label="Filter jenis"></select><select id="fl" aria-label="Filter lisensi"></select><select id="ft" aria-label="Filter tahun"></select></div>
 <div class="gg" id="gg"></div>
 <p class="gnote" id="gn" hidden>Belum ada foto di kategori ini.</p>
 </main>
@@ -32,17 +33,42 @@
   <div class="fbot"><span>© 2026 Bunnies Indonesia. Fansite tidak resmi, tidak berafiliasi dengan NewJeans maupun agensinya.</span><span><a href="privasi">Kebijakan privasi</a> · <a href="syarat">Syarat layanan</a></span></div>
 </div></footer>
 <script>
-const M=[["semua","Semua"],["minji","Minji"],["hanni","Hanni"],["haerin","Haerin"],["hyein","Hyein"],["danielle","Danielle"],["grup","Grup"],["belum","Belum dikategorikan"]];
-let D=[],cur="semua";
+/* Aturan tayang: hanya foto dengan izin "ada" yang tampil. Ubah ke true hanya untuk uji lokal. */
+const TAMPIL_BELUM=false;
+const M=[["semua","Semua"],["minji","Minji"],["hanni","Hanni"],["haerin","Haerin"],["hyein","Hyein"],["danielle","Danielle"],["grup","Grup"]];
+const JENIS={konser:"Konser",fansign:"Fansign",teaser:"Teaser",mv:"MV",candid:"Candid penggemar",fanart:"Fanart",lainnya:"Lainnya"};
+const LISENSI={"cc-by":"CC BY","cc-by-sa":"CC BY-SA","izin-kreator":"Izin kreator","izin-agensi":"Izin agensi","domain-publik":"Domain publik"};
+let D=[],cur="semua",fj="",fl="",ft="";
 const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function draw(){
- const f=document.getElementById("gf");
- f.innerHTML=M.map(([k,n])=>`<a href="#${k}" class="${k===cur?"on":""}" data-k="${k}">${n}</a>`).join("");
- const L=D.filter(x=>cur==="semua"||x.member===cur);
- document.getElementById("gg").innerHTML=L.map(x=>`<figure><img src="assets/galeri/${esc(x.file)}" alt="Foto galeri" loading="lazy">${x.kredit||x.sumber?`<figcaption>${x.kredit?"Kredit: "+esc(x.kredit):""}${x.kredit&&x.sumber?" · ":""}${x.sumber?`<a href="${esc(x.sumber)}" rel="noopener nofollow" target="_blank">sumber</a>`:""}</figcaption>`:""}</figure>`).join("");
- document.getElementById("gn").hidden=L.length>0;
+const $=i=>document.getElementById(i);
+const aman=u=>/^https:\/\/\S+$/.test(u||"")?u:"";
+function opsi(id,judul,vals,label,sel){
+ const v=[...new Set(vals.filter(Boolean))].sort(),el=$(id);
+ el.hidden=v.length<1;
+ el.innerHTML=`<option value="">${judul}</option>`+v.map(x=>`<option value="${esc(x)}"${x===sel?" selected":""}>${esc(label(x))}</option>`).join("");
 }
-document.getElementById("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"","#"+cur);draw()});
-fetch("data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto;const h=location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;draw()}).catch(()=>{document.getElementById("gn").hidden=false});
+function draw(){
+ $("gf").innerHTML=M.map(([k,n])=>`<a href="#${k}" class="${k===cur?"on":""}" data-k="${k}">${n}</a>`).join("");
+ const V=D.filter(x=>TAMPIL_BELUM||x.izin==="ada");
+ opsi("fj","Semua jenis",V.map(x=>x.jenis),k=>JENIS[k]||k,fj);
+ opsi("fl","Semua lisensi",V.map(x=>x.lisensi),k=>LISENSI[k]||k,fl);
+ opsi("ft","Semua tahun",V.map(x=>x.tahun&&String(x.tahun)),k=>k,ft);
+ $("gs").hidden=!V.length;
+ const L=V.filter(x=>(cur==="semua"||x.member===cur)&&(!fj||x.jenis===fj)&&(!fl||x.lisensi===fl)&&(!ft||String(x.tahun)===ft));
+ $("gg").innerHTML=L.map(x=>{
+  const p=[];
+  if(x.kredit)p.push("Kredit: "+esc(x.kredit));
+  if(x.lisensi)p.push(esc(LISENSI[x.lisensi]||x.lisensi));
+  if(aman(x.sumber))p.push(`<a href="${esc(x.sumber)}" rel="noopener nofollow" target="_blank">sumber</a>`);
+  const meta=[JENIS[x.jenis],x.tahun].filter(Boolean).map(esc).join(" · ");
+  return `<figure><img src="assets/galeri/${esc(x.file)}" alt="Foto galeri${x.jenis&&JENIS[x.jenis]?" "+esc(JENIS[x.jenis]).toLowerCase():""}" loading="lazy">${p.length||meta?`<figcaption>${meta?`<b>${meta}</b>`:""}${p.join(" · ")}</figcaption>`:""}</figure>`;
+ }).join("");
+ const n=$("gn");
+ n.hidden=L.length>0;
+ n.textContent=V.length?"Belum ada foto yang cocok dengan filter ini.":"Galeri sedang disiapkan. Foto hanya tampil setelah izin dan kreditnya jelas.";
+}
+$("gf").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();cur=a.dataset.k;history.replaceState(null,"","#"+cur);draw()});
+$("gs").addEventListener("change",e=>{if(e.target.id==="fj")fj=e.target.value;if(e.target.id==="fl")fl=e.target.value;if(e.target.id==="ft")ft=e.target.value;draw()});
+fetch("data/galeri.json").then(r=>r.json()).then(j=>{D=j.foto||[];const h=location.hash.slice(1);if(M.some(m=>m[0]===h))cur=h;draw()}).catch(()=>{$("gn").hidden=false});
 </script>
 </body></html>

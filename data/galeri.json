@@ -1,47 +1,65 @@
 {
-  "_petunjuk": "Isi 'member' dengan: minji, hanni, haerin, hyein, grup, atau belum. Isi kredit, sumber (URL asli), dan izin: ada/belum.",
+  "_petunjuk": "Isi member: minji, hanni, haerin, hyein, danielle, grup. jenis: konser, fansign, teaser, mv, candid, fanart, lainnya. lisensi: cc-by, cc-by-sa, izin-kreator, izin-agensi, domain-publik. tahun: angka, misalnya 2026. kredit dan sumber (https://) wajib diisi. Foto hanya tampil jika izin = \"ada\".",
   "foto": [
     {
       "file": "foto-1.jpg",
       "member": "haerin",
       "kredit": "",
       "sumber": "",
-      "izin": "belum"
+      "izin": "belum",
+      "jenis": "",
+      "lisensi": "",
+      "tahun": ""
     },
     {
       "file": "foto-2.jpg",
       "member": "hyein",
       "kredit": "",
       "sumber": "",
-      "izin": "belum"
+      "izin": "belum",
+      "jenis": "",
+      "lisensi": "",
+      "tahun": ""
     },
     {
       "file": "foto-3.jpg",
       "member": "hanni",
       "kredit": "",
       "sumber": "",
-      "izin": "belum"
+      "izin": "belum",
+      "jenis": "",
+      "lisensi": "",
+      "tahun": ""
     },
     {
       "file": "foto-4.jpg",
       "member": "minji",
       "kredit": "",
       "sumber": "",
-      "izin": "belum"
+      "izin": "belum",
+      "jenis": "",
+      "lisensi": "",
+      "tahun": ""
     },
     {
       "file": "foto-5.jpg",
       "member": "grup",
       "kredit": "Scan majalah (watermark w.a.)",
       "sumber": "",
-      "izin": "belum"
+      "izin": "belum",
+      "jenis": "",
+      "lisensi": "",
+      "tahun": ""
     },
     {
       "file": "foto-6.jpg",
       "member": "danielle",
       "kredit": "@8unn1es (ilustrasi penggemar)",
       "sumber": "https://x.com/8unn1es",
-      "izin": "belum"
+      "izin": "belum",
+      "jenis": "",
+      "lisensi": "",
+      "tahun": ""
     }
   ]
 }
