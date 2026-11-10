@@ -1,7 +1,7 @@
 /* Halaman hasil pencarian: search_all / search_news + autocomplete + log_search. */
-const TABS = [["", "Semua", "all"], ["blog", "Blog", "blog"], ["tanya", "Tanya Jawab", "question"]];
-const KIND = {post:"Blog", question:"Tanya Jawab"};
-const KMAP = {"":null, blog:"post", tanya:"question"};
+const TABS = [["", "Semua", "all"], ["kabar", "Kabar", "all"], ["member", "Member", "all"], ["blog", "Blog", "blog"], ["tanya", "Tanya Jawab", "question"]];
+const KIND = {kabar:"Kabar", member:"Member", post:"Blog", question:"Tanya Jawab"};
+const KMAP = {"":null, kabar:"kabar", member:"member", blog:"post", tanya:"question"};
 const params = new URLSearchParams(location.search);
 let Q = (params.get("q") || "").trim().slice(0, 100);
 let T = TABS.some(t => t[0] === params.get("t")) ? params.get("t") : "";
@@ -48,7 +48,39 @@ async function searchTable(table, kind, q){
 }
 const searchQuestions = q => searchTable("questions", "question", q), searchPosts = q => searchTable("posts", "post", q);
 
-const ART = {post:"blog", question:"tanya"};
+/* v44: Kabar (data/kabar.json) dan Member (member.html) ikut dicari. Berkasnya statis, jadi dicari di browser tanpa Supabase. */
+const MEMBER_NAMA = {grup:"NewJeans grup", minji:"Minji", hanni:"Hanni", danielle:"Danielle", haerin:"Haerin", hyein:"Hyein"};
+function rank(list, q){
+  const nq = normalizeQuery(q); if(!nq.flat.some(v => v.length >= 2)) return [];
+  const phrase = low(q).replace(/\s+/g, " ").trim();
+  return list.map((x, i) => ({x, i, sc:score(x, nq, phrase.includes(" ") ? phrase : "")})).filter(o => o.sc > 0)
+    .sort((a, b) => b.sc - a.sc || a.i - b.i).slice(0, 30).map(o => o.x);
+}
+async function searchKabar(q){
+  try{
+    const r = await fetch("data/kabar.json"); if(!r.ok) return [];
+    const j = await r.json();
+    const rows = (j.kabar || []).slice().sort((a, b) => b.tanggal.localeCompare(a.tanggal)).map(k => ({
+      title:k.judul, body:k.ringkasan + " " + (MEMBER_NAMA[k.member] || "") + " " + (k.sumber_nama || ""),
+      r:{kind:"kabar", title:k.judul, snippet:k.ringkasan, url:k.sumber_url, source:(MEMBER_NAMA[k.member] || "Grup") + " · " + (k.sumber_nama || ""), published_at:k.tanggal + "T00:00:00"}
+    }));
+    return rank(rows, q).map(o => o.r);
+  }catch(e){ return []; }
+}
+async function searchMember(q){
+  try{
+    const r = await fetch("member.html"); if(!r.ok) return [];
+    const doc = new DOMParser().parseFromString(await r.text(), "text/html");
+    const rows = [...doc.querySelectorAll("article.mc")].map(a => {
+      const h = a.querySelector("h2"), nm = h ? (h.childNodes[0] ? h.childNodes[0].textContent.trim() : "") : a.id;
+      const tag = (a.querySelector(".mc-tag") || {}).textContent || "", bio = (a.querySelector(".mc-bio p") || {}).textContent || "";
+      return {title:nm, body:a.textContent.replace(/\s+/g, " "), r:{kind:"member", title:nm, snippet:(tag + ". " + bio).slice(0, 200), href:"member#" + a.id, source:"Profil member"}};
+    });
+    return rank(rows, q).map(o => o.r);
+  }catch(e){ return []; }
+}
+
+const ART = {kabar:"berita", member:"komunitas", post:"blog", question:"tanya"};
 function item(r, i){
   const url = safeUrl(r.url), img = safeUrl(r.image_url);
   const bg = img ? `background-image:url('${esc(img)}'),linear-gradient(135deg,var(--a),var(--b));${grad(i)}` : grad(i);
@@ -68,8 +100,8 @@ function view(){
   }).join("");
   $("sinfo").textContent = (list.length ? `${list.length} hasil untuk “${Q}”` : "");
   const sec = (title, arr) => arr.length ? `<h2 class="sgh">${title} <small>${arr.length}</small></h2>` + arr.map(item).join("") : "";
-  $("sres").innerHTML = !list.length ? empty("Belum ada yang cocok", "Coba kata kunci lain, lebih singkat, atau jadilah yang pertama menulis di Blog atau Tanya Jawab.") :
-    k ? list.map(item).join("") : sec("Blog", list.filter(r => r.kind === "post")) + sec("Tanya Jawab", list.filter(r => r.kind === "question"));
+  $("sres").innerHTML = !list.length ? empty("Belum ada yang cocok", "Coba kata kunci lain, lebih singkat, atau coba juga cari nama member, atau jadilah yang pertama menulis di Blog atau Tanya Jawab.") :
+    k ? list.map(item).join("") : sec("Kabar", list.filter(r => r.kind === "kabar")) + sec("Member", list.filter(r => r.kind === "member")) + sec("Blog", list.filter(r => r.kind === "post")) + sec("Tanya Jawab", list.filter(r => r.kind === "question"));
   $("more").hidden = true;
 }
 async function run(){
@@ -80,7 +112,9 @@ async function run(){
     if(!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("no config");
     if(T === "blog") ALL = await searchPosts(Q);
     else if(T === "tanya") ALL = await searchQuestions(Q);
-    else{ const [a, q] = await Promise.all([searchPosts(Q), searchQuestions(Q)]); ALL = a.concat(q); }
+    else if(T === "kabar") ALL = await searchKabar(Q);
+    else if(T === "member") ALL = await searchMember(Q);
+    else{ const [k, m, a, q] = await Promise.all([searchKabar(Q), searchMember(Q), searchPosts(Q), searchQuestions(Q)]); ALL = k.concat(m, a, q); }
     rpc("log_search", {p_query:Q, p_scope:(TABS.find(t => t[0] === T) || TABS[0])[2]}).catch(() => {});
   }catch(e){
     $("stabs").innerHTML = ""; $("sinfo").textContent = ""; $("sres").innerHTML = empty("Gagal memuat hasil", "Periksa koneksi internetmu lalu coba lagi.", true); return;
