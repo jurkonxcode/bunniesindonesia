@@ -58,3 +58,9 @@ footer .fbot a{text-decoration:underline}
   .mc:nth-child(even) .mc-photo{order:2}
 }
 @media(prefers-reduced-motion:reduce){.mh .deco{animation:none}}
+
+.mc-cr{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 8px;font-size:10.5px;line-height:1.4;color:#fff;background:linear-gradient(transparent,rgba(15,27,51,.72))}
+.mc-cr a{color:#fff;text-decoration:underline}
+.mcred{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.6}
+.mcred li{padding:6px 0;border-top:1px solid var(--sky-2)}.mcred li:first-child{border-top:0}
+.mcred a{text-decoration:underline;word-break:break-word}
