@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="css/nav.css?v=40">
 <link rel="stylesheet" href="css/asia.css?v=40">
 <link rel="stylesheet" href="css/brand-skin.css?v=40"><link rel="stylesheet" href="css/modern.css?v=40"><link rel="stylesheet" href="css/padat.css?v=40"><link rel="stylesheet" href="css/fokus.css?v=40"><link rel="stylesheet" href="css/kit.css?v=40">
+<link rel="stylesheet" href="css/chart.css?v=2">
 </head>
 <body>
 <div class="ticker"><div class="wrap" id="ticker"></div></div>
@@ -75,6 +76,7 @@
     <aside class="side" aria-label="Akun dan alat harian">
       <section class="card login" id="acct"></section>
       <section class="card sidem" aria-label="Kenalan member"><div class="sh"><h2>Kenalan member</h2><a href="member">Semua ›</a></div><ul class="mlist"><li><a href="member#minji"><i style="--bc:#e0488a"></i>Minji<span>Profil ›</span></a></li><li><a href="member#hanni"><i style="--bc:#f0873a"></i>Hanni<span>Profil ›</span></a></li><li><a href="member#danielle"><i style="--bc:#2f9ed8"></i>Danielle<span>Profil ›</span></a></li><li><a href="member#haerin"><i style="--bc:#2aa87a"></i>Haerin<span>Profil ›</span></a></li><li><a href="member#hyein"><i style="--bc:#8c6fd8"></i>Hyein<span>Profil ›</span></a></li></ul><a class="mlink" href="galeri">Lihat Galeri Bunnies ›</a></section>
+      <section class="card sidem cc" id="cc" aria-label="Chart YouTube" hidden><div class="sh"><h2>Chart YouTube</h2><a href="chart">Semua ›</a></div><ol class="cl" id="ccl"></ol><p class="cn" id="ccn"></p></section>
       <div class="mini" id="mini"></div>
       <section class="card wg" id="wx" aria-label="Cuaca"></section>
       <section class="card wg" id="cal" aria-label="Kalender"></section>
@@ -125,5 +127,16 @@
 <script src="js/musik.js?v=40"></script>
 <script src="js/exam.js?v=40"></script>
 <script src="js/suggest.js?v=40"></script>
+<script>
+fetch("data/youtube.json").then(r=>r.json()).then(j=>{
+ const m={};j.video.forEach(x=>{m[x.lagu]=(m[x.lagu]||0)+x.views});
+ const L=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,5),top=L[0][1];
+ const f=n=>n>=1e6?(n/1e6).toFixed(1).replace(".",",")+" jt":n.toLocaleString("id-ID");
+ const e=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ document.getElementById("ccl").innerHTML=L.map(([t,n],i)=>`<li><a href="chart"><span class="r">${i+1}</span><span class="b"><span class="t"><b>${e(t)}</b></span><i style="width:${Math.max(3,n/top*100)}%"></i></span><span class="v">${f(n)}</span></a></li>`).join("");
+ document.getElementById("ccn").textContent="Tayangan YouTube per lagu. Sumber: "+j.sumber+".";
+ document.getElementById("cc").hidden=false;
+}).catch(()=>{});
+</script>
 </body>
 </html>
