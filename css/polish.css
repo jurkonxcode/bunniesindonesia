@@ -1,0 +1,23 @@
+/* v57 polish: dimuat paling akhir di semua halaman. Hapus baris <link> ini untuk kembali ke v56. */
+
+/* Hero: hiasan tidak lagi menimpa judul di HP */
+@media (max-width:720px){
+  .wedge{padding-top:40px}
+  .wedge .deco.d1{left:12px;top:12px}
+  .wedge .deco.d3{right:12px;top:12px}
+  .wedge .deco.d4{display:none}
+}
+
+/* Footer: maskot tidak menimpa teks, tombol TOP tidak menutup baris terakhir */
+footer{position:relative;overflow:hidden}
+footer::after{opacity:.08;z-index:0}
+footer .wrap{position:relative;z-index:1}
+@media (max-width:720px){
+  footer::after{display:none}
+  footer{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+}
+
+/* Sentuhan: area ketuk nyaman, fokus keyboard jelas, gulir halus tetap hormati preferensi */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
