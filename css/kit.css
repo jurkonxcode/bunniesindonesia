@@ -9,3 +9,5 @@
 .tpls img{width:100%;height:auto;border-radius:16px;border:1.5px solid #d6e5ff;display:block}
 .tpls figcaption{font-size:12px;color:var(--muted);margin-top:4px}
 .tpls figure{margin:0}
+
+.musik .musik-p + .musik-n + .musik-p{margin-top:12px}

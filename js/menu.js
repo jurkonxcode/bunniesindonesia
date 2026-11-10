@@ -69,6 +69,6 @@
     e.preventDefault();
     const v = hq.value.trim(); if(!v) return;
     if(goTool(v)) return;
-    location.href = "search?q=" + encodeURIComponent(v);
+    window.bunGo ? bunGo("search?q=" + encodeURIComponent(v)) : (location.href = "search?q=" + encodeURIComponent(v));
   });
 })();

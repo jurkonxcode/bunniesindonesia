@@ -5,15 +5,15 @@
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=43"><link rel="stylesheet" href="css/base.css?v=43"><link rel="stylesheet" href="css/identity.css?v=43"><link rel="stylesheet" href="css/search.css?v=43"><link rel="stylesheet" href="css/tanya.css?v=43"><link rel="stylesheet" href="css/admin.css?v=43">
-<link rel="stylesheet" href="css/nav.css?v=43"><link rel="stylesheet" href="css/komentar.css?v=43">
-<link rel="stylesheet" href="css/brand-skin.css?v=43"><link rel="stylesheet" href="css/modern.css?v=43"><link rel="stylesheet" href="css/padat.css?v=43"><link rel="stylesheet" href="css/masuk.css?v=43"><link rel="stylesheet" href="css/fokus.css?v=43">
-</head><body class="sp">
+<link rel="stylesheet" href="css/tokens.css?v=45"><link rel="stylesheet" href="css/base.css?v=45"><link rel="stylesheet" href="css/identity.css?v=45"><link rel="stylesheet" href="css/search.css?v=45"><link rel="stylesheet" href="css/tanya.css?v=45"><link rel="stylesheet" href="css/admin.css?v=45">
+<link rel="stylesheet" href="css/nav.css?v=45"><link rel="stylesheet" href="css/komentar.css?v=45">
+<link rel="stylesheet" href="css/brand-skin.css?v=45"><link rel="stylesheet" href="css/modern.css?v=45"><link rel="stylesheet" href="css/padat.css?v=45"><link rel="stylesheet" href="css/masuk.css?v=45"><link rel="stylesheet" href="css/fokus.css?v=45">
+<script src="js/player.js?v=45"></script></head><body class="sp">
 <header class="sbar"><div class="swrap">
   <a class="logo" href="./" aria-label="Bunnies Indonesia, ke beranda"><img src="assets/brand/logo-mark.svg" alt="" width="32" height="32"><span>bunnies</span></a>
   <div class="hbar" id="hbar"></div>
 </div>
-<script src="js/nav.js?v=43"></script></header>
+<script src="js/nav.js?v=45"></script></header>
 <main class="swrap">
   <section id="gateView"><p class="sinfo">Memuat…</p></section>
   <section id="akunView" hidden>
@@ -35,8 +35,15 @@
     </div>
 
     <div class="box">
+      <h2>Riwayat dengar lagu</h2>
+      <p>Lagu yang kamu putar di pemutar Bunnies dihitung setelah didengar sekitar 30 detik. Hanya kamu yang bisa melihatnya.</p>
+      <div id="histBody" class="meta">Memuat…</div>
+      <p class="msg" id="histMsg" role="status"></p><button class="btn" id="histClr" type="button">Hapus riwayat dengar</button>
+    </div>
+
+    <div class="box">
       <h2>Unduh data saya</h2>
-      <p>Berkas JSON berisi profil (termasuk bias), tulisan, pertanyaan, jawaban, dan laporan yang pernah kamu kirim.</p>
+      <p>Berkas JSON berisi profil (termasuk bias), riwayat dengar lagu, tulisan, pertanyaan, jawaban, dan laporan yang pernah kamu kirim.</p>
       <p class="msg" id="dlMsg" role="status"></p><button class="btn" id="dlBtn" type="button">Unduh data</button>
     </div>
 
@@ -57,10 +64,10 @@
     </div>
   </section>
 </main>
-<script src="js/config.js?v=43"></script>
-<script src="js/masuk.js?v=43"></script>
-<script src="js/state.js?v=43"></script>
-<script src="js/bias.js?v=43"></script>
-<script src="js/sesi.js?v=43"></script>
-<script src="js/akun.js?v=43"></script>
+<script src="js/config.js?v=45"></script>
+<script src="js/masuk.js?v=45"></script>
+<script src="js/state.js?v=45"></script>
+<script src="js/bias.js?v=45"></script>
+<script src="js/sesi.js?v=45"></script>
+<script src="js/akun.js?v=45"></script>
 </body></html>

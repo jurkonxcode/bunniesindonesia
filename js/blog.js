@@ -102,7 +102,7 @@ async function publish(){
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Menerbitkan…";
   try{
     const r = await rest("posts", {method:"POST", headers:{Prefer:"return=representation"}, body:JSON.stringify({title:$("wTitle").value.trim(), body:$("wBody").value.trim(), category:$("wCat").value})});
-    location.href = "blog?id=" + r[0].id;
+    window.bunGo ? bunGo("blog?id=" + r[0].id) : (location.href = "blog?id=" + r[0].id);
   }catch(e){ msg.className = "msg err"; msg.textContent = e.message; btn.disabled = false; }
 }
 async function sendReport(){
@@ -132,7 +132,7 @@ document.addEventListener("click", async e => {
   if(t.dataset.c){ cat = t.dataset.c; paintCats(); return loadList(true); }
   if(t.dataset.del){
     if(!confirm("Hapus permanen? Ini tidak bisa dibatalkan.")) return;
-    try{ await rest("posts?id=eq." + (+t.dataset.del), {method:"DELETE"}); location.href = "blog"; }catch(err){ alert("Gagal menghapus: " + err.message); }
+    try{ await rest("posts?id=eq." + (+t.dataset.del), {method:"DELETE"}); window.bunGo ? bunGo("blog") : (location.href = "blog"); }catch(err){ alert("Gagal menghapus: " + err.message); }
   }
 });
 document.addEventListener("submit", async e => {

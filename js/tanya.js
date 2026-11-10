@@ -109,7 +109,7 @@ async function sendQuestion(){
   btn.disabled = true; msg.className = "msg"; msg.textContent = "Mengirim…";
   try{
     const r = await rest("questions", {method:"POST", headers:{Prefer:"return=representation"}, body:JSON.stringify({title:$("aTitle").value.trim(), body:$("aBody").value.trim() || null, category:$("aCat").value})});
-    location.href = "tanya?id=" + r[0].id;
+    window.bunGo ? bunGo("tanya?id=" + r[0].id) : (location.href = "tanya?id=" + r[0].id);
   }catch(e){ msg.className = "msg err"; msg.textContent = e.message; btn.disabled = false; }
 }
 async function sendReport(){
@@ -124,7 +124,7 @@ async function del(type, id){
   if(!confirm("Hapus permanen? Ini tidak bisa dibatalkan.")) return;
   try{
     await rest((type === "q" ? "questions" : "answers") + "?id=eq." + (+id), {method:"DELETE"});
-    type === "q" ? (location.href = "tanya") : location.reload();
+    type === "q" ? (window.bunGo ? bunGo("tanya") : (location.href = "tanya")) : location.reload();
   }catch(e){ alert("Gagal menghapus: " + e.message); }
 }
 

@@ -22,7 +22,7 @@ $("searchForm").addEventListener("submit", e => {
   e.preventDefault();
   const v = $("q").value.trim(); if(!v) return;
   if(goTool(v)) return;
-  location.href = "search?q=" + encodeURIComponent(v);
+  window.bunGo ? bunGo("search?q=" + encodeURIComponent(v)) : (location.href = "search?q=" + encodeURIComponent(v));
 });
 document.addEventListener("click", e => {
   const t = e.target.closest("#loginBtn,#loginTop,#signup,#logoutTop,#logoutBtn,#showSaved,#googleBtn,#authClose,[data-save]");

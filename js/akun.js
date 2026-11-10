@@ -18,6 +18,7 @@ async function download(){
   const btn = $("dlBtn"); btn.disabled = true; say("dlMsg", "Menyiapkan…");
   try{
     const data = await rpc("export_my_data");
+    try{ data.riwayat_lagu = await rpc("riwayat_dengar", {p_limit:1000}); }catch(e){}
     const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:"application/json"}));
     const a = document.createElement("a"); a.href = url; a.download = "bunnies-data-saya.json";
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -61,12 +62,30 @@ async function saveBias(id){
   $("biasPick").querySelectorAll("button").forEach(b => b.disabled = false);
 }
 
+/* ---------- Riwayat dengar (v44) ---------- */
+const durasi = s => s >= 3600 ? Math.floor(s / 3600) + " jam " + Math.round(s % 3600 / 60) + " menit" : Math.max(s ? 1 : 0, Math.round(s / 60)) + " menit";
+async function loadHist(){
+  const box = $("histBody"); if(!box) return;
+  try{
+    const h = await rpc("riwayat_dengar", {p_limit:10});
+    box.innerHTML = `<p><b>${h.total}</b> lagu · ${durasi(h.detik)} · ${h.hari_ini} hari ini</p>` +
+      (h.terakhir.length ? `<ol>${h.terakhir.map(x => `<li>${esc(x.judul || "Lagu")} <span class="meta">· ${ago(x.at)}</span></li>`).join("")}</ol>` : `<p>Belum ada. Tekan "Putar lagu" di beranda, lalu dengarkan sampai habis atau sekitar 30 detik.</p>`);
+  }catch(e){ box.textContent = "Riwayat belum aktif. Jalankan supabase/v45-riwayat-lagu.sql di Supabase."; }
+}
+async function clearHist(){
+  if(!confirm("Hapus semua riwayat dengar lagumu?")) return;
+  say("histMsg", "Menghapus…");
+  try{ await rpc("hapus_riwayat_dengar"); say("histMsg", "Riwayat dihapus."); loadHist(); }catch(e){ say("histMsg", e.message, true); }
+}
+window.addEventListener("bun:dengar", loadHist);
+
 document.addEventListener("click", async e => {
-  const t = e.target.closest("[data-act],[data-bias],#dlBtn,#outBtn,#delBtn"); if(!t) return;
+  const t = e.target.closest("[data-act],[data-bias],#dlBtn,#outBtn,#delBtn,#histClr"); if(!t) return;
   if(t.dataset.bias) return saveBias(t.dataset.bias);
   if(t.dataset.act === "login") return Masuk.open();
   if(t.id === "dlBtn") return download();
-  if(t.id === "outBtn"){ await signOut(); location.href = "./"; return; }
+  if(t.id === "histClr") return clearHist();
+  if(t.id === "outBtn"){ await signOut(); window.bunGo ? bunGo("./") : (location.href = "./"); return; }
   if(t.id === "delBtn") return removeAccount();
 });
 $("nameForm").addEventListener("submit", e => { e.preventDefault(); saveName(); });
@@ -77,6 +96,6 @@ $("delIn").addEventListener("input", () => { $("delBtn").disabled = $("delIn").v
   if(!session){ $("gateView").innerHTML = gate("Masuk dulu untuk mengelola akunmu."); return; }
   $("gateView").hidden = true; $("akunView").hidden = false;
   $("who").textContent = session.user.email || "";
-  loadName(); loadBias();
+  loadName(); loadBias(); loadHist();
   rpc("is_admin").then(v => { $("adminBox").hidden = v !== true; }).catch(() => {});
 })();
