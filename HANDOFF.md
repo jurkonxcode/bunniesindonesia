@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v42.
+Terakhir diperbarui: 9 November 2026, rilis v43.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -284,3 +284,9 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Untuk membatalkan: kembalikan `index.html`, `blog.js`, `tanya.js`, `akun.js`, `admin.js`, `sesi.js`, `auth.js`, `main.js` dari versi v41.
 - **Hati-hati nama kelas:** `.mk` sudah dipakai ikon Bunbun di kotak pencarian (`home.css`), jadi dialog memakai `.mkdlg`. Cek `grep` dulu sebelum memakai nama kelas pendek.
 - Google login tetap kembali ke alamat halaman tanpa query (misalnya `blog`, bukan `blog?id=3`), sama seperti sebelumnya.
+
+## 5j. Ikon platform dan pemutar artis (v43)
+- `assets/icons/platform.svg`: sprite ikon YouTube, Instagram, X, TikTok, Spotify, Apple Music dari **Simple Icons (CC0)**. Weverse digambar sendiri (huruf W) karena tidak ada di set. Dipakai di `info.html` lewat `<use href="assets/icons/platform.svg#p-...">`. Untuk hasil persis resmi, ganti path di sprite dengan berkas dari halaman brand masing-masing platform.
+- Ikon hanya untuk menautkan ke akun resmi. Logo adalah merek pemiliknya. Jangan dipakai seolah situs ini berafiliasi.
+- Info: blok `.musik-p.sp` memuat embed artis Spotify NewJeans saat tombol ditekan. Foto artis **ditampilkan oleh Spotify sendiri** lewat embed, tidak disimpan di repo (hak cipta foto tetap milik pemiliknya).
+- `js/musik.js` kini berlaku untuk semua `.musik-p` (judul dari `data-title`, tinggi dari `data-h`). `privasi.html` disesuaikan.
