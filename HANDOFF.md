@@ -327,3 +327,9 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Klik chip filter dan chip lompat tidak menulis `#` ke bilah alamat (galeri, kabar, member, info memakai `history.replaceState` atau `scrollIntoView`).
 - Tautan mati `#alat` dihapus dari footer dan menu. Item layanan lama (sholat, libur, kurs, cuaca, tersimpan) ditandai "segera" di `js/services.js`.
 - Sisa `#` yang sengaja dibiarkan: `assets/icons/*.svg#id` (sprite ikon, bukan alamat halaman), `#access_token` dari login Google (dikembalikan Supabase lalu langsung dibersihkan oleh `history.replaceState`), dan `#j<id>` di data terstruktur SEO pada `tools/build-static.mjs`.
+
+## 5f. Login di halaman Korea (v50)
+- Penyebab login tidak jalan di `ko/`: halaman Korea statis dan tidak memuat `config.js`, `masuk.js`, `masuk.css`, serta tidak punya tombol Masuk. Sekarang ketiganya ada, plus tombol "로그인" di header (berubah jadi chip akun bila sudah masuk).
+- `js/masuk.js` dua bahasa: membaca `<html lang>`. Bila `ko`: teks Korea (kamus `KO` di atas file) dan aset/tautan memakai awalan `../`. Untuk menambah teks baru, tambahkan pasangan Indonesia→Korea di `KO`.
+- Masuk lewat kode email: tetap di halaman Korea. Masuk lewat Google: kembali ke `akun` (halaman Indonesia, karena token Google dibaca di sana). Halaman Akun, blog, dan tanya masih berbahasa Indonesia.
+- Perlu di Supabase: Redirect URLs sudah memakai `.../**`, jadi tidak ada yang diubah.

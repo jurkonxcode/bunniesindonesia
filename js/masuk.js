@@ -10,6 +10,27 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const hdr = () => ({"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + SUPABASE_ANON_KEY});
   const WHY = {masuk:"Masuk dengan akun yang sudah ada. Tanpa kata sandi.", daftar:"Gratis dan tanpa kata sandi. Username @njz_ dibuat otomatis dan bisa kamu ganti."};
+  /* v50: dialog dua bahasa. Halaman Korea (<html lang="ko">, folder ko/) memakai teks Korea dan awalan "../" untuk aset dan tautan. */
+  const LANG = (document.documentElement.lang || "id").slice(0, 2) === "ko" ? "ko" : "id", BASE = LANG === "ko" ? "../" : "";
+  const KO = {
+    "Masuk":"로그인", "Daftar":"가입", "Masuk atau daftar":"로그인 또는 가입", "Masuk dengan Google":"Google로 로그인", "Daftar dengan Google":"Google로 가입",
+    "atau pakai email":"또는 이메일로", "Email":"이메일", "Kirim kode ke email":"이메일로 코드 받기", "Kode dari email":"이메일로 받은 코드",
+    "Ganti email":"이메일 변경", "Kirim ulang kode":"코드 재전송", "Tutup":"닫기", "Masuk ke Bunnies Indonesia":"버니즈 인도네시아에 로그인", "Daftar jadi Bunnies":"버니즈로 가입하기",
+    "Dengan akun, kamu bisa menulis blog, bertanya, berkomentar, dan memilih bias.":"계정이 있으면 블로그 글쓰기, 질문, 댓글, 최애 멤버 선택을 할 수 있어요.",
+    "Masuk dengan akun yang sudah ada. Tanpa kata sandi.":"기존 계정으로 로그인해요. 비밀번호는 필요 없어요.",
+    "Gratis dan tanpa kata sandi. Username @njz_ dibuat otomatis dan bisa kamu ganti.":"무료이고 비밀번호도 필요 없어요. @njz_ 사용자 이름이 자동으로 만들어지며 나중에 바꿀 수 있어요.",
+    "Mengirim kode…":"코드를 보내는 중…", "Kode baru sudah dikirim.":"새 코드를 보냈어요.", "Memeriksa kode…":"코드를 확인하는 중…",
+    "Centang persetujuan dulu untuk mendaftar.":"가입하려면 먼저 동의에 체크해 주세요.",
+    "Format email belum benar. Contoh: nama@email.com":"이메일 형식이 올바르지 않아요. 예: nama@email.com",
+    "Masukkan kode dari email (6 angka atau lebih).":"이메일로 받은 코드(숫자 6자리 이상)를 입력해 주세요.",
+    "Terlalu sering meminta kode. Tunggu sekitar satu menit, lalu coba lagi.":"코드를 너무 자주 요청했어요. 1분쯤 기다렸다가 다시 시도해 주세요.",
+    "Email ini belum terdaftar. Pilih tab Daftar dulu.":"아직 가입되지 않은 이메일이에요. 먼저 '가입' 탭을 선택해 주세요.",
+    "Kode belum bisa dikirim. Coba lagi sebentar lagi.":"코드를 보내지 못했어요. 잠시 후 다시 시도해 주세요.",
+    "Kode salah atau sudah kedaluwarsa. Periksa lagi, atau minta kode baru.":"코드가 틀렸거나 만료됐어요. 다시 확인하거나 새 코드를 요청해 주세요.",
+    "Tidak bisa terhubung. Cek koneksi internetmu, lalu coba lagi.":"연결할 수 없어요. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.",
+    "Profil Bunnies-mu belum lengkap. Ketuk untuk melengkapinya.":"프로필이 아직 완성되지 않았어요. 눌러서 완성해 주세요."
+  };
+  const t = x => (LANG === "ko" && KO[x]) || x;
   let dlg = null, email = "", busy = false, tick = null, left = 0, mode = "masuk", why0 = "";
 
   const name = s => { const m = (s && s.user && s.user.user_metadata) || {}; return m.name || m.full_name || ((s && s.user && s.user.email) || "").split("@")[0] || "Bunnies"; };
@@ -37,10 +58,10 @@
     return d;
   }
 
-  const msg = (t, kind) => { const m = g("mkMsg"); m.textContent = t || ""; m.className = "mk-msg" + (kind ? " " + kind : ""); };
+  const msg = (x, kind) => { const m = g("mkMsg"); m.textContent = t(x || ""); m.className = "mk-msg" + (kind ? " " + kind : ""); };
   const lock = (id, on) => { const b = g(id); b.disabled = on; b.setAttribute("aria-busy", on ? "true" : "false"); };
   const show = n => { g("mkS1").hidden = n !== 1; g("mkS2").hidden = n !== 2; };
-  const paintLeft = () => { const b = g("mkResend"); b.disabled = left > 0; b.textContent = left > 0 ? "Kirim ulang (" + left + " dtk)" : "Kirim ulang kode"; };
+  const paintLeft = () => { const b = g("mkResend"); b.disabled = left > 0; b.textContent = left > 0 ? (LANG === "ko" ? "재전송 (" + left + "초)" : "Kirim ulang (" + left + " dtk)") : t("Kirim ulang kode"); };
   function countdown(){ clearInterval(tick); left = 30; paintLeft(); tick = setInterval(() => { left--; paintLeft(); if(left <= 0) clearInterval(tick); }, 1000); }
 
   const needTerms = () => {
@@ -75,20 +96,20 @@
   function google(){
     if(dlg && dlg.open && needTerms()) return;
     try{ sessionStorage.setItem(HI, "1"); }catch(e){}
-    location.href = SUPABASE_URL + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(location.origin + location.pathname);
+    location.href = SUPABASE_URL + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(LANG === "ko" ? new URL("../akun", location.href).href : location.origin + location.pathname);
   }
 
   function build(){
     if(dlg) return;
     dlg = document.createElement("dialog"); dlg.id = "masukDlg"; dlg.className = "mkdlg"; dlg.setAttribute("aria-labelledby", "mkTitle");
     dlg.innerHTML = `<div class="mk-in">
-  <div class="mk-hero"><img class="logo" src="assets/brand/logo-mark.svg" alt="" width="54" height="54"><div><h2 id="mkTitle">Masuk ke Bunnies Indonesia</h2><p id="mkWhy"></p></div></div>
+  <div class="mk-hero"><img class="logo" src="${BASE}assets/brand/logo-mark.svg" alt="" width="54" height="54"><div><h2 id="mkTitle">Masuk ke Bunnies Indonesia</h2><p id="mkWhy"></p></div></div>
   <div class="mk-body">
     <div class="mk-tabs" role="tablist" aria-label="Masuk atau daftar"><button type="button" role="tab" id="mkTabIn" data-mk="tab-masuk" aria-selected="true">Masuk</button><button type="button" role="tab" id="mkTabUp" data-mk="tab-daftar" aria-selected="false">Daftar</button></div>
     <div id="mkS1">
       <button class="mk-g" type="button" data-mk="google"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span id="mkGL">Masuk dengan Google</span></button>
       <div class="mk-or"><span>atau pakai email</span></div>
-      <form id="mkEmailF" novalidate><label for="mkEmail">Email</label><input id="mkEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com"><div class="mk-up" id="mkUp" hidden><p class="mk-prev" id="mkPrev" aria-live="polite"></p><label class="mk-chk"><input type="checkbox" id="mkTerms"><span>Saya setuju dengan <a href="syarat">Syarat Layanan</a> dan <a href="privasi">Kebijakan Privasi</a>.</span></label></div><button class="mk-go" id="mkSend">Kirim kode ke email</button></form>
+      <form id="mkEmailF" novalidate><label for="mkEmail">Email</label><input id="mkEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com"><div class="mk-up" id="mkUp" hidden><p class="mk-prev" id="mkPrev" aria-live="polite"></p><label class="mk-chk"><input type="checkbox" id="mkTerms"><span>Saya setuju dengan <a href="${BASE}syarat">Syarat Layanan</a> dan <a href="${BASE}privasi">Kebijakan Privasi</a>.</span></label></div><button class="mk-go" id="mkSend">Kirim kode ke email</button></form>
       <p class="mk-perks">Dengan akun, kamu bisa menulis blog, bertanya, berkomentar, dan memilih bias.</p>
     </div>
     <div id="mkS2" hidden>
@@ -97,10 +118,19 @@
       <div class="mk-row"><button type="button" class="mk-link" data-mk="back">Ganti email</button><button type="button" class="mk-link" id="mkResend" data-mk="resend" disabled>Kirim ulang kode</button></div>
     </div>
     <p class="mk-msg" id="mkMsg" role="status" aria-live="polite"></p>
-    <p class="mk-legal" id="mkLegal">Dengan masuk, kamu setuju dengan <a href="syarat">Syarat Layanan</a> dan <a href="privasi">Kebijakan Privasi</a>.</p>
+    <p class="mk-legal" id="mkLegal">Dengan masuk, kamu setuju dengan <a href="${BASE}syarat">Syarat Layanan</a> dan <a href="${BASE}privasi">Kebijakan Privasi</a>.</p>
   </div>
   <button class="mk-x" type="button" data-mk="close" aria-label="Tutup"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 </div>`;
+    if(LANG === "ko"){
+      const w = document.createTreeWalker(dlg, NodeFilter.SHOW_TEXT);
+      for(let n; (n = w.nextNode());){ const k = n.nodeValue.trim(); if(KO[k]) n.nodeValue = n.nodeValue.replace(k, KO[k]); }
+      dlg.querySelectorAll("[aria-label]").forEach(e => { const k = e.getAttribute("aria-label"); if(KO[k]) e.setAttribute("aria-label", KO[k]); });
+      const A = `<a href="${BASE}syarat">이용약관</a>`, B = `<a href="${BASE}privasi">개인정보처리방침</a>`;
+      dlg.querySelector(".mk-chk span").innerHTML = `${A} 및 ${B}에 동의해요.`;
+      dlg.querySelector("#mkLegal").innerHTML = `로그인하면 ${A} 및 ${B}에 동의하는 것으로 봐요.`;
+      dlg.querySelector(".mk-sent").innerHTML = `<b id="mkTo"></b>(으)로 코드를 보냈어요. 오지 않았다면 스팸함을 확인해 주세요.`;
+    }
     document.body.appendChild(dlg);
     dlg.addEventListener("click", e => {
       if(e.target === dlg) return dlg.close();                                  // klik di luar kartu
@@ -125,15 +155,16 @@
 
   function paintPrev(){
     const v = g("mkEmail").value.trim(), u = /^\S+@\S+/.test(v) ? usul(v) : "";
+    if(LANG === "ko"){ g("mkPrev").textContent = u ? "처음 사용자 이름: @njz_" + u + ". 이메일 이름에서 가져오며 가입 후 바꿀 수 있어요. 이미 사용 중이면 숫자가 붙어요." : "처음 사용자 이름은 @njz_ + 이메일 이름(@ 앞부분)이에요. 가입 후 바꿀 수 있어요."; return; }
     g("mkPrev").textContent = u ? "Username awalmu: @njz_" + u + ". Diambil dari nama emailmu, bisa kamu ganti setelah daftar. Kalau sudah dipakai, kami tambahkan angka." : "Username awalmu akan berupa @njz_ + nama emailmu (bagian sebelum @). Bisa kamu ganti setelah daftar.";
   }
   function setMode(m){
     mode = m; const up = m === "daftar";
     g("mkTabIn").setAttribute("aria-selected", String(!up)); g("mkTabUp").setAttribute("aria-selected", String(up));
-    g("mkTitle").textContent = up ? "Daftar jadi Bunnies" : "Masuk ke Bunnies Indonesia";
-    g("mkWhy").textContent = up ? WHY.daftar : (why0 || WHY.masuk);
-    g("mkGL").textContent = up ? "Daftar dengan Google" : "Masuk dengan Google";
-    g("mkVerify").textContent = up ? "Daftar" : "Masuk";
+    g("mkTitle").textContent = t(up ? "Daftar jadi Bunnies" : "Masuk ke Bunnies Indonesia");
+    g("mkWhy").textContent = t(up ? WHY.daftar : (why0 || WHY.masuk));
+    g("mkGL").textContent = t(up ? "Daftar dengan Google" : "Masuk dengan Google");
+    g("mkVerify").textContent = t(up ? "Daftar" : "Masuk");
     g("mkUp").hidden = !up; g("mkLegal").hidden = up;
     clearInterval(tick); show(1); msg(""); paintPrev();
   }
@@ -144,8 +175,8 @@
     if(window.matchMedia && matchMedia("(pointer:fine)").matches) g("mkEmail").focus();   // di HP jangan langsung memunculkan keyboard
   }
 
-  function toast(t, href){
-    const el = document.createElement(href ? "a" : "div"); el.className = "mk-toast"; el.setAttribute("role", "status"); el.textContent = t;
+  function toast(x, href){
+    const el = document.createElement(href ? "a" : "div"); el.className = "mk-toast"; el.setAttribute("role", "status"); el.textContent = t(x);
     if(href) el.href = href;
     document.body.appendChild(el); setTimeout(() => el.classList.add("out"), 3200); setTimeout(() => el.remove(), 3700);
   }
@@ -157,8 +188,8 @@
       const r = await fetch(SUPABASE_URL + "/rest/v1/rpc/my_profile", {method:"POST", headers:{"Content-Type":"application/json", apikey:SUPABASE_ANON_KEY, Authorization:"Bearer " + s.access_token}, body:"{}"});
       if(!r.ok) return;
       const p = await r.json(); if(!p || p.profil_lengkap) return;
-      if(Date.now() - new Date(p.bergabung) < 15 * 60 * 1000) location.href = "akun?baru=1";
-      else setTimeout(() => toast("Profil Bunnies-mu belum lengkap. Ketuk untuk melengkapinya.", "akun"), 3900);
+      if(Date.now() - new Date(p.bergabung) < 15 * 60 * 1000) location.href = BASE + "akun?baru=1";
+      else setTimeout(() => toast("Profil Bunnies-mu belum lengkap. Ketuk untuk melengkapinya.", BASE + "akun"), 3900);
     }catch(e){}
   }
   function hello(){                                                              // sapaan sekali sesudah masuk (juga sesudah kembali dari Google)
@@ -167,12 +198,12 @@
     let n = 0;
     const t = setInterval(() => {
       const s = readSession(), stop = () => { clearInterval(t); try{ sessionStorage.removeItem(HI); }catch(e){} };
-      if(s && s.user){ stop(); toast("Selamat datang, " + name(s) + "!"); check(s); } else if(++n > 10) stop();
+      if(s && s.user){ stop(); toast(LANG === "ko" ? "환영해요, " + name(s) + "님!" : "Selamat datang, " + name(s) + "!"); check(s); } else if(++n > 10) stop();
     }, 300);
   }
   const chip = s => {
     const n = name(s), i = ([...n.trim()][0] || "B").toUpperCase();
-    return `<a class="uchip" href="akun" aria-label="Akun saya: ${esc(n)}"><span class="av" aria-hidden="true">${esc(i)}</span><span class="un">${esc(n)}</span></a>`;
+    return `<a class="uchip" href="${BASE}akun" aria-label="${LANG === "ko" ? "내 계정" : "Akun saya"}: ${esc(n)}"><span class="av" aria-hidden="true">${esc(i)}</span><span class="un">${esc(n)}</span></a>`;
   };
 
   const api = window.Masuk = {open, daftar:why => open(why, "daftar"), google, chip, name, toast, hello, onDone:null};
