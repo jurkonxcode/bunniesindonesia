@@ -37,7 +37,7 @@ async function initSession(){
     }catch(e){}
   }else{ try{ session = JSON.parse(localStorage.getItem(AUTH_KEY)); }catch(e){ session = null; } }
 }
-const paintHead = () => { $("hbar").innerHTML = session ? `<span class="who">${myName()}</span>` : `<button class="btn green" id="loginBtn" type="button">Masuk</button>`; };
+const paintHead = () => { $("hbar").innerHTML = session ? Masuk.chip(session) : `<button class="btn green" id="loginBtn" type="button">Masuk</button>`; };
 
 const card = p => `<a class="r" href="blog?id=${+p.id}"><div class="tx"><span class="kind">${esc(catLabel(p.category))}</span><h3>${esc(p.title)}</h3><p>${esc((p.body || "").slice(0, 160))}</p><span class="meta">${esc(p.author_name || "Pengguna")} · ${esc(ago(p.created_at))}</span></div></a>`;
 async function loadList(reset){
@@ -61,7 +61,7 @@ const rxBar = (type, id, s) => {
   return `<div class="rx-bar" data-rx="${type}:${+id}">${RX.map(([k,l]) => `<button type="button" class="rx-b" data-react="${type}" data-id="${+id}" data-kind="${k}" aria-pressed="${mine.includes(k)}">${l} <b>${+s[k] || 0}</b></button>`).join("")}</div>`;
 };
 async function react(btn){
-  if(!session){ alert("Masuk dulu untuk bereaksi."); return googleLogin(); }
+  if(!session) return Masuk.open("Masuk untuk memberi reaksi.");
   const type = btn.dataset.react, id = +btn.dataset.id;
   btn.disabled = true;
   try{
@@ -116,8 +116,8 @@ const openReport = (type, id) => { repType = type; repId = id; $("repMsg").textC
 
 document.addEventListener("click", async e => {
   const t = e.target.closest("[data-del],[data-rep],[data-repc],[data-delc],[data-react],[data-c],[data-act],#loginBtn,#writeBtn,#writeCancel,#repCancel,#more"); if(!t) return;
-  if(t.id === "loginBtn" || t.dataset.act === "login"){ e.preventDefault(); return googleLogin(); }
-  if(t.id === "writeBtn"){ if(!session){ alert("Masuk dulu untuk menulis."); return googleLogin(); } $("writeMsg").textContent = ""; $("writeForm").querySelector(".green").disabled = false; return $("writeDlg").showModal(); }
+  if(t.id === "loginBtn" || t.dataset.act === "login"){ e.preventDefault(); return Masuk.open(); }
+  if(t.id === "writeBtn"){ if(!session) return Masuk.open("Masuk untuk menulis blog."); $("writeMsg").textContent = ""; $("writeForm").querySelector(".green").disabled = false; return $("writeDlg").showModal(); }
   if(t.id === "writeCancel") return $("writeDlg").close();
   if(t.id === "repCancel") return $("repDlg").close();
   if(t.dataset.react) return react(t);
@@ -154,4 +154,5 @@ $("repForm").addEventListener("submit", e => { e.preventDefault(); sendReport();
   if(Number.isInteger(id) && id > 0) return showDetail(id);
   { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // ?cat=musik dari beranda (slug v33)
   $("listView").hidden = false; paintCats(); loadList(true);
+  if(new URLSearchParams(location.search).has("tulis")) $("writeBtn").click();      // dari tombol "Tulis blog" di beranda (v42)
 })();

@@ -6,7 +6,7 @@ const TABS = [["laporan","Laporan"], ["tersembunyi","Tersembunyi"], ["terbaru","
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 let view = "laporan", offset = 0, stats = {};
 
-function paintHead(){ $("hbar").innerHTML = session ? `<span class="who">${myName()}</span>` : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
+function paintHead(){ $("hbar").innerHTML = session ? Masuk.chip(session) : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
 function paintStats(){
   const s = stats, n = k => +s[k] || 0;
   $("stats").innerHTML = [["laporan","Laporan baru",1], ["tersembunyi","Tersembunyi",0], ["diblokir","Diblokir",0], ["tulisan","Tulisan",0], ["pertanyaan","Pertanyaan",0], ["jawaban","Jawaban",0], ["pengguna","Pengguna",0]]
@@ -62,7 +62,7 @@ async function act(el, action){
 }
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-act],[data-v],[data-a],#more"); if(!t) return;
-  if(t.dataset.act === "login") return googleLogin();
+  if(t.dataset.act === "login") return Masuk.open();
   if(t.id === "more") return loadList(false);
   if(t.dataset.v){ view = t.dataset.v; paintStats(); return loadList(true); }
   if(t.dataset.a) return act(t, t.dataset.a);

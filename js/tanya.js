@@ -43,9 +43,9 @@ async function initSession(){
   }
 }
 function paintHead(){
-  $("hbar").innerHTML = session ? `<span class="who">${myName()}</span>` : `<button class="btn green" id="loginBtn" type="button">Masuk</button>`;
+  $("hbar").innerHTML = session ? Masuk.chip(session) : `<button class="btn green" id="loginBtn" type="button">Masuk</button>`;
 }
-const gate = txt => `<div class="gate"><p>${txt}</p><button class="btn green" data-act="login" type="button">Masuk dengan Google</button> <p class="meta" style="margin-top:8px">Ingin pakai kode email? Masuk dulu lewat <a href="./">beranda</a>, lalu kembali ke sini.</p></div>`;
+const gate = txt => `<div class="gate"><p>${txt}</p><button class="btn green" data-act="login" type="button">Masuk atau daftar</button></div>`;
 
 /* ---------- Daftar ---------- */
 const card = q => `<a class="r" href="tanya?id=${+q.id}"><div class="tx"><span class="kind">${esc(catLabel(q.category))}</span>${q.best_answer_id ? `<span class="ok">Terjawab</span>` : ""}<h3>${esc(q.title)}</h3>${q.body ? `<p>${esc(q.body)}</p>` : ""}<span class="meta">${esc(q.author_name || "Pengguna")} · ${esc(ago(q.created_at))} · ${+q.answer_count} jawaban</span></div></a>`;
@@ -132,9 +132,9 @@ async function del(type, id){
 document.addEventListener("click", async e => {
   const t = e.target.closest("[data-act],[data-del],[data-rep],[data-best],[data-c],#loginBtn,#askBtn,#askCancel,#repCancel,#more");
   if(!t) return;
-  if(t.dataset.act === "login" || t.id === "loginBtn") return googleLogin();
+  if(t.dataset.act === "login" || t.id === "loginBtn") return Masuk.open();
   if(t.id === "askBtn"){
-    if(!session) return alert("Masuk dulu untuk bertanya."), googleLogin();
+    if(!session) return Masuk.open("Masuk untuk mengajukan pertanyaan.");
     $("askMsg").textContent = ""; $("askForm").querySelector(".green").disabled = false; return $("askDlg").showModal();
   }
   if(t.id === "askCancel") return $("askDlg").close();
@@ -162,4 +162,5 @@ $("qform").addEventListener("submit", e => { e.preventDefault(); qs = $("qin").v
   if(Number.isInteger(id) && id > 0) return showDetail(id);
   { const c0 = new URLSearchParams(location.search).get("cat"); if(CATS.includes(c0)) cat = c0; }       // ?cat=musik (slug v33)
   $("listView").hidden = false; paintCats(); loadList(true);
+  if(new URLSearchParams(location.search).has("tanya")) $("askBtn").click();      // dari tombol "Tanya sesuatu" di beranda (v42)
 })();

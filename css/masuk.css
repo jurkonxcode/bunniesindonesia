@@ -1,0 +1,87 @@
+/* Masuk (v42): dialog login bersama, chip akun di header, kartu akun di beranda, dan toast sapaan.
+   Dimuat sebelum fokus.css. Hapus baris <link> ini dan js/masuk.js bila ingin kembali ke dialog lama (v41). */
+
+/* ---------- dialog ---------- */
+.mkdlg{border:0;padding:0;width:min(94vw,420px);max-width:none;border-radius:24px;background:#fff;color:var(--ink,#0f1b33);overflow:visible;
+  box-shadow:0 30px 80px -24px rgba(15,27,51,.5),0 0 0 1px rgba(47,111,228,.12)}
+.mkdlg::backdrop{background:rgba(15,27,51,.5);backdrop-filter:blur(3px)}
+.mkdlg[open]{animation:mkIn .22s cubic-bezier(.2,.8,.2,1)}
+@keyframes mkIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.mk-in{position:relative}
+.mk-hero{display:flex;gap:14px;align-items:center;padding:22px 56px 18px 22px;border-radius:24px 24px 0 0;
+  background:var(--grad-soft,linear-gradient(165deg,#f4f8ff,#dbe8ff 58%,#c6dcff))}
+.mk-hero .logo{flex:none;width:54px;height:54px;border-radius:15px;box-shadow:0 10px 20px -10px var(--brand,#2f6fe4)}
+.mk-hero h2{margin:0;font:800 19px/1.2 Sora,sans-serif;color:var(--denim,#1f56c2)}
+.mk-hero p{margin:5px 0 0;font-size:13.5px;line-height:1.45;color:#3a4f78}
+.mk-body{padding:18px 22px 20px}
+.mkdlg label{display:block;margin:0 0 6px;font:600 13px/1.2 "Instrument Sans",sans-serif;color:#3a4f78}
+.mkdlg input{width:100%;box-sizing:border-box;min-height:48px;padding:0 14px;border:1.5px solid var(--sky-2,#d6e5ff);border-radius:12px;background:#fff;color:inherit;font:500 16px "Instrument Sans",sans-serif}
+.mkdlg input::placeholder{color:#8a98b4}
+.mkdlg input:focus{outline:0;border-color:var(--brand,#2f6fe4);box-shadow:0 0 0 4px rgba(47,111,228,.16)}
+.mk-g,.mk-go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:48px;border-radius:12px;font:700 15px "Instrument Sans",sans-serif;cursor:pointer}
+.mk-g{border:1.5px solid var(--sky-2,#d6e5ff);background:#fff;color:var(--ink,#0f1b33);transition:background .15s,border-color .15s}
+.mk-g:hover{background:var(--sky-3,#eaf2ff);border-color:var(--sky,#a9c8ff)}
+.mk-go{margin-top:10px;border:0;background:linear-gradient(180deg,#3d7cf0,var(--brand,#2f6fe4));color:#fff;box-shadow:0 8px 18px -10px var(--brand,#2f6fe4);transition:transform .15s}
+.mk-go:hover{transform:translateY(-1px)}
+.mkdlg button:focus-visible,.mkdlg a:focus-visible{outline:3px solid var(--brand,#2f6fe4);outline-offset:2px}
+.mkdlg [aria-busy="true"]{position:relative;color:transparent;pointer-events:none}
+.mkdlg [aria-busy="true"]::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.5);border-top-color:#fff;animation:mkSpin .7s linear infinite}
+@keyframes mkSpin{to{transform:rotate(360deg)}}
+.mkdlg button:disabled:not([aria-busy="true"]){opacity:.55;cursor:not-allowed}
+.mk-or{display:flex;align-items:center;gap:10px;margin:16px 0;font-size:12.5px;color:var(--muted,#5f6f8c)}
+.mk-or::before,.mk-or::after{content:"";flex:1;height:1px;background:var(--line,#dbe4f5)}
+.mk-perks{margin:14px 0 0;font-size:13px;line-height:1.5;color:var(--muted,#5f6f8c)}
+.mk-sent{margin:0 0 14px;font-size:14px;line-height:1.5;color:#3a4f78;overflow-wrap:anywhere}
+.mk-sent b{color:var(--ink,#0f1b33)}
+#mkCode{text-align:center;font:700 26px/1 Sora,sans-serif;letter-spacing:.32em;text-indent:.32em;font-variant-numeric:tabular-nums}
+.mk-row{display:flex;justify-content:space-between;gap:10px;margin-top:6px}
+.mk-link{border:0;background:none;padding:10px 4px;font:600 13.5px "Instrument Sans",sans-serif;color:var(--denim,#1f56c2);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.mk-link:disabled{color:var(--muted,#5f6f8c);text-decoration:none}
+.mk-msg{min-height:20px;margin:10px 0 0;font-size:13px;line-height:1.45;color:var(--muted,#5f6f8c)}
+.mk-msg.err{color:#b4281c}.mk-msg.ok{color:#1d7a46}
+.mk-legal{margin:8px 0 0;font-size:12px;line-height:1.5;color:var(--muted,#5f6f8c)}
+.mk-legal a{color:var(--denim,#1f56c2);text-decoration:underline}
+.mk-x{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.75);color:#3a4f78;cursor:pointer}
+.mk-x:hover{background:#fff}
+
+/* HP: lembar dari bawah, mudah dijangkau jempol */
+@media(max-width:520px){
+  .mkdlg{width:100%;margin:auto 0 0;max-height:92dvh;overflow:auto;border-radius:24px 24px 0 0}
+  .mkdlg[open]{animation:mkUp .26s cubic-bezier(.2,.8,.2,1)}
+  .mk-body{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+}
+@keyframes mkUp{from{opacity:.4;transform:translateY(40px)}to{opacity:1;transform:none}}
+
+/* ---------- chip akun di header ---------- */
+.uchip{display:inline-flex;align-items:center;gap:8px;max-width:180px;padding:3px 12px 3px 3px;border:1.5px solid var(--sky-2,#d6e5ff);border-radius:99px;background:#fff;color:var(--ink,#0f1b33);text-decoration:none;font:600 13.5px/1 "Instrument Sans",sans-serif;transition:box-shadow .15s}
+.uchip:hover{box-shadow:0 0 0 4px rgba(47,111,228,.16)}
+.av{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--brand,#2f6fe4),var(--heart,#ff7fb0));color:#fff;font:800 14px/1 Sora,sans-serif}
+.uchip .un{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:400px){.uchip{padding:3px}.uchip .un{display:none}}
+
+/* ---------- kartu akun di beranda ---------- */
+#acct .ac-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+#acct .av.big{width:46px;height:46px;font-size:20px}
+#acct .ac-h h2{margin:0;font:800 17px/1.2 Sora,sans-serif;color:var(--denim,#1f56c2);overflow-wrap:anywhere}
+#acct .ac-b{margin:3px 0 0;font-size:13px;color:var(--muted,#5f6f8c)}
+.ac-act{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}
+.ac-act a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 10px;border-radius:12px;font:700 14px/1.2 "Instrument Sans",sans-serif;text-align:center;text-decoration:none}
+.ac-act .pri{background:linear-gradient(180deg,#3d7cf0,var(--brand,#2f6fe4));color:#fff}
+.ac-act .sec{background:var(--sky-3,#eaf2ff);color:var(--denim,#1f56c2);border:1px solid var(--sky-2,#d6e5ff)}
+.ac-bias>p{margin:0 0 8px;font-size:13px;color:var(--muted,#5f6f8c)}
+.ac-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ac-chips button{min-height:36px;padding:6px 12px;border:1.5px solid color-mix(in srgb,var(--bc) 45%,#fff);border-radius:99px;background:#fff;color:var(--ink,#0f1b33);font:600 13px "Instrument Sans",sans-serif;cursor:pointer}
+.ac-chips button::before{content:"";display:inline-block;width:8px;height:8px;margin-right:6px;border-radius:50%;background:var(--bc)}
+.ac-chips button[aria-pressed="true"]{background:color-mix(in srgb,var(--bc) 16%,#fff);border-color:var(--bc);font-weight:800}
+.ac-chips button:focus-visible{outline:3px solid var(--brand,#2f6fe4);outline-offset:2px}
+.ac-m{min-height:18px;margin:8px 0 0;font-size:12.5px;color:#1d7a46}
+#acct .links{margin-top:6px}
+
+/* ---------- toast sapaan ---------- */
+.mk-toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:9999;max-width:min(92vw,380px);padding:12px 18px;border-radius:14px;background:#0f1b33;color:#fff;font:600 14px/1.35 "Instrument Sans",sans-serif;box-shadow:0 14px 30px -12px rgba(15,27,51,.6);animation:mkT .25s ease-out}
+.mk-toast.out{opacity:0;transition:opacity .45s}
+@keyframes mkT{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.mkdlg[open],.mk-toast,.mkdlg [aria-busy="true"]::after{animation-duration:.01ms;animation-iteration-count:1}}
+
+/* HP: "Keluar" di header disembunyikan supaya tidak melebar; tetap ada di kartu akun dan halaman Akun saya */
+@media(max-width:520px){header.top .actions #logoutTop{display:none}}

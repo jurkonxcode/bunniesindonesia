@@ -1,6 +1,6 @@
 # Bunnies Indonesia: Dokumen Handoff
 
-Terakhir diperbarui: 9 November 2026, rilis v35.
+Terakhir diperbarui: 9 November 2026, rilis v42.
 Tujuan dokumen: siapa pun (pemilik, developer lain, atau sesi Claude baru) bisa melanjutkan fanpage ini tanpa bertanya ulang. Tempel dokumen ini di awal sesi baru bersama zip repo terbaru.
 
 ---
@@ -275,3 +275,12 @@ Salin ke sesi baru, lalu lampirkan zip repo terbaru:
 - Titik masuk: tab **Info** di `js/nav.js`, kartu "Link resmi" di sidebar beranda, footer semua halaman, dan menu layanan (`js/services.js`).
 - Akun "NJZ" sengaja tidak ditautkan (disengketakan ADOR, sebagian besar privat sejak Des 2025). Daftar link perlu diuji klik tiap beberapa bulan; handle dikumpulkan dari pemberitaan, bukan dibuka langsung.
 - Data tanggal rilis dari Wikipedia/Qobuz/Apple Music. Perbarui bagian "Status terkini" dan linimasa tiap ada pengumuman ADOR. Cache `?v=41`.
+
+## 5i. Login modern dan aksi fan (v42)
+- `js/masuk.js` + `css/masuk.css`: dialog masuk bersama (Google + kode email) untuk **beranda, blog, tanya, akun, dan admin**. Dimuat tepat setelah `config.js`. Mandiri, hanya butuh `SUPABASE_URL` dan `SUPABASE_ANON_KEY`. Dialog dibuat lewat JS saat pertama dibuka. Di HP tampil sebagai lembar dari bawah. API: `Masuk.open("alasan")`, `Masuk.chip(sesi)`, `Masuk.onDone`.
+- Sebelumnya halaman blog, tanya, akun, dan admin hanya bisa masuk lewat Google dan memakai `alert()`. Sekarang semuanya membuka dialog yang sama (kode email juga tersedia). Dialog lama (`#authDlg`) dan fungsi `sendCode`/`verifyCode` di `auth.js` dihapus.
+- Kolom kode: 6 angka atau lebih (maks 10), sengaja tidak auto-kirim supaya tetap cocok jika panjang kode di Supabase diubah.
+- Setelah masuk: chip akun (avatar inisial + nama) di header semua halaman, sapaan "Selamat datang" sekali, kartu akun di beranda berisi **Tulis blog** (`blog?tulis=1`), **Tanya sesuatu** (`tanya?tanya=1`), dan pilihan **bias** satu ketukan (memanggil `set_bias`). Parameter `?tulis=1` dan `?tanya=1` otomatis membuka form (atau dialog masuk bila belum login).
+- Untuk membatalkan: kembalikan `index.html`, `blog.js`, `tanya.js`, `akun.js`, `admin.js`, `sesi.js`, `auth.js`, `main.js` dari versi v41.
+- **Hati-hati nama kelas:** `.mk` sudah dipakai ikon Bunbun di kotak pencarian (`home.css`), jadi dialog memakai `.mkdlg`. Cek `grep` dulu sebelum memakai nama kelas pendek.
+- Google login tetap kembali ke alamat halaman tanpa query (misalnya `blog`, bukan `blog?id=3`), sama seperti sebelumnya.

@@ -1,5 +1,5 @@
 /* Akun saya (v26): ubah nama tampil, unduh data, keluar, hapus akun. v31: pilih bias. Butuh supabase/v26-moderasi.sql dan v31-komentar-reaksi-bias.sql. */
-function paintHead(){ $("hbar").innerHTML = session ? `<span class="who">${myName()}</span>` : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
+function paintHead(){ $("hbar").innerHTML = session ? Masuk.chip(session) : `<button class="btn green" data-act="login" type="button">Masuk</button>`; }
 const say = (id, txt, err) => { const m = $(id); m.className = "msg" + (err ? " err" : ""); m.textContent = txt; };
 
 async function loadName(){
@@ -64,7 +64,7 @@ async function saveBias(id){
 document.addEventListener("click", async e => {
   const t = e.target.closest("[data-act],[data-bias],#dlBtn,#outBtn,#delBtn"); if(!t) return;
   if(t.dataset.bias) return saveBias(t.dataset.bias);
-  if(t.dataset.act === "login") return googleLogin();
+  if(t.dataset.act === "login") return Masuk.open();
   if(t.id === "dlBtn") return download();
   if(t.id === "outBtn"){ await signOut(); location.href = "./"; return; }
   if(t.id === "delBtn") return removeAccount();

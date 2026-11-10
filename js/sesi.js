@@ -44,4 +44,4 @@ async function signOut(){
   keep(null);
   if(t) await fetch(SUPABASE_URL + "/auth/v1/logout", {method:"POST", headers:hdr(t)}).catch(() => {});
 }
-const gate = txt => `<div class="gate"><p>${txt}</p><button class="btn green" data-act="login" type="button">Masuk dengan Google</button><p class="meta" style="margin-top:8px">Ingin pakai kode email? Masuk dulu lewat <a href="./">beranda</a>, lalu kembali ke sini.</p></div>`;
+const gate = txt => `<div class="gate"><p>${txt}</p><button class="btn green" data-act="login" type="button">Masuk atau daftar</button></div>`;

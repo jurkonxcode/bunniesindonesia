@@ -30,10 +30,8 @@ document.addEventListener("click", e => {
   e.preventDefault();
   if(t.dataset.save) return toggleSave(+t.dataset.save);
   ({loginBtn:openAuth, loginTop:openAuth, signup:openAuth, logoutTop:logout, logoutBtn:logout, googleBtn:googleLogin,
-    authClose:() => $("authDlg").close(), showSaved:() => { onlySaved = !onlySaved; tab = "Semua"; renderAuth(); renderFeed(); }})[t.id]();
+    showSaved:() => { onlySaved = !onlySaved; tab = "Semua"; renderAuth(); renderFeed(); }})[t.id]();
 });
-$("emailForm").addEventListener("submit", e => { e.preventDefault(); sendCode($("emailIn").value.trim()); });
-$("codeForm").addEventListener("submit", e => { e.preventDefault(); verifyCode($("codeIn").value.trim()); });
 $("chips").addEventListener("click", e => { const b = e.target.closest("button"); if(b){ $("q").value = b.textContent; $("searchForm").requestSubmit(); } });
 
 renderStatic(); renderTools(); greeting(); tickClocks(); renderFeed();
