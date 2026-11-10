@@ -1,6 +1,6 @@
 {
  "diperbarui": "2026-11-10",
- "sumber": "kworb.net (salinan data YouTube; angka bisa tertinggal beberapa hari)",
+ "sumber": "YouTube Data API (resmi)",
  "total_kanal": 2909709204,
  "video": [
   {
@@ -8,7 +8,7 @@
    "lagu": "OMG",
    "jenis": "mv",
    "label": "Official MV (Performance ver.1)",
-   "views": 432670618,
+   "views": 433572026,
    "rilis": "2023-01"
   },
   {
@@ -16,7 +16,7 @@
    "lagu": "Super Shy",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 303101455,
+   "views": 303471052,
    "rilis": "2023-07"
   },
   {
@@ -24,7 +24,7 @@
    "lagu": "Hype Boy",
    "jenis": "mv",
    "label": "Official MV (Performance ver.1)",
-   "views": 256735092,
+   "views": 256967994,
    "rilis": "2022-08"
   },
   {
@@ -32,7 +32,7 @@
    "lagu": "Ditto",
    "jenis": "perf",
    "label": "Performance Video",
-   "views": 228370282,
+   "views": 228827494,
    "rilis": "2022-12"
   },
   {
@@ -40,7 +40,7 @@
    "lagu": "Cookie",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 148850263,
+   "views": 149116052,
    "rilis": "2022-08"
   },
   {
@@ -48,7 +48,7 @@
    "lagu": "ETA",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 122319339,
+   "views": 122450867,
    "rilis": "2023-07"
   },
   {
@@ -56,7 +56,7 @@
    "lagu": "Supernatural",
    "jenis": "mv",
    "label": "Official MV (Part.1)",
-   "views": 104856399,
+   "views": 105229797,
    "rilis": "2024-06"
   },
   {
@@ -64,7 +64,7 @@
    "lagu": "Attention",
    "jenis": "mv",
    "label": "Official MV (Performance ver.)",
-   "views": 99411542,
+   "views": 99618691,
    "rilis": "2022-07"
   },
   {
@@ -72,7 +72,7 @@
    "lagu": "Bubble Gum",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 88420229,
+   "views": 88491784,
    "rilis": "2024-04"
   },
   {
@@ -80,7 +80,7 @@
    "lagu": "ETA",
    "jenis": "mv",
    "label": "Official MV (Performance ver.)",
-   "views": 87365396,
+   "views": 87522674,
    "rilis": "2023-07"
   },
   {
@@ -88,7 +88,7 @@
    "lagu": "Attention",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 84111781,
+   "views": 84166800,
    "rilis": "2022-07"
   },
   {
@@ -96,7 +96,7 @@
    "lagu": "How Sweet",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 82437667,
+   "views": 82557081,
    "rilis": "2024-05"
   },
   {
@@ -104,7 +104,7 @@
    "lagu": "Ditto",
    "jenis": "mv",
    "label": "Official MV (side A)",
-   "views": 66975168,
+   "views": 67056596,
    "rilis": "2022-12"
   },
   {
@@ -112,7 +112,7 @@
    "lagu": "Hurt",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 60851178,
+   "views": 60930845,
    "rilis": "2022-07"
   },
   {
@@ -120,7 +120,7 @@
    "lagu": "Cool With You",
    "jenis": "mv",
    "label": "Official MV (Performance ver.)",
-   "views": 48062420,
+   "views": 48193817,
    "rilis": "2023-07"
   },
   {
@@ -128,7 +128,7 @@
    "lagu": "New Jeans",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 44187481,
+   "views": 44237353,
    "rilis": "2023-07"
   },
   {
@@ -136,7 +136,7 @@
    "lagu": "OMG",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 43971548,
+   "views": 43996299,
    "rilis": "2023-01"
   },
   {
@@ -144,7 +144,7 @@
    "lagu": "ASAP",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 40431685,
+   "views": 40479312,
    "rilis": "2023-07"
   },
   {
@@ -152,7 +152,7 @@
    "lagu": "Super Shy",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 34733168,
+   "views": 34756377,
    "rilis": "2023-07"
   },
   {
@@ -160,7 +160,7 @@
    "lagu": "Hype Boy",
    "jenis": "mv",
    "label": "Official MV (Performance ver.2)",
-   "views": 33740812,
+   "views": 33754227,
    "rilis": "2022-08"
   },
   {
@@ -168,7 +168,7 @@
    "lagu": "Hype Boy",
    "jenis": "mv",
    "label": "Official MV (Minji ver.)",
-   "views": 33041969,
+   "views": 33081820,
    "rilis": "2022-07"
   },
   {
@@ -176,7 +176,7 @@
    "lagu": "Hype Boy",
    "jenis": "mv",
    "label": "Official MV (Danielle & Haerin ver.)",
-   "views": 31657040,
+   "views": 31667316,
    "rilis": "2022-07"
   },
   {
@@ -184,7 +184,7 @@
    "lagu": "Right Now",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 29234350,
+   "views": 29268824,
    "rilis": "2024-06"
   },
   {
@@ -192,7 +192,7 @@
    "lagu": "How Sweet",
    "jenis": "perf",
    "label": "Performance Video | Coke Studio",
-   "views": 29035146,
+   "views": 29067697,
    "rilis": "2024-05"
   },
   {
@@ -200,7 +200,7 @@
    "lagu": "OMG",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 28210022,
+   "views": 28237286,
    "rilis": "2023-01"
   },
   {
@@ -208,7 +208,7 @@
    "lagu": "Ditto",
    "jenis": "mv",
    "label": "Official MV (side B)",
-   "views": 27044922,
+   "views": 27065868,
    "rilis": "2022-12"
   },
   {
@@ -216,7 +216,7 @@
    "lagu": "Zero",
    "jenis": "mv",
    "label": "Official MV",
-   "views": 23440927,
+   "views": 23451247,
    "rilis": "2023-04"
   },
   {
@@ -224,7 +224,7 @@
    "lagu": "Ditto",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 22568791,
+   "views": 22602256,
    "rilis": "2023-01"
   },
   {
@@ -232,7 +232,7 @@
    "lagu": "Cool With You",
    "jenis": "mv",
    "label": "Official MV (side A)",
-   "views": 21314285,
+   "views": 21324467,
    "rilis": "2023-07"
   },
   {
@@ -240,7 +240,7 @@
    "lagu": "Hype Boy",
    "jenis": "perf",
    "label": "Special Performance Video",
-   "views": 16257887,
+   "views": 16263353,
    "rilis": "2022-08"
   },
   {
@@ -248,7 +248,7 @@
    "lagu": "Hype Boy",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 15827837,
+   "views": 15836829,
    "rilis": "2022-08"
   },
   {
@@ -256,7 +256,7 @@
    "lagu": "Cookie + Hype Boy + Attention",
    "jenis": "dance",
    "label": "2022 MMA Dance Practice",
-   "views": 15166833,
+   "views": 15172143,
    "rilis": "2022-12"
   },
   {
@@ -264,7 +264,7 @@
    "lagu": "Cool With You & Get Up",
    "jenis": "mv",
    "label": "Official MV (side B)",
-   "views": 13266924,
+   "views": 13273200,
    "rilis": "2023-07"
   },
   {
@@ -272,7 +272,7 @@
    "lagu": "Supernatural",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 12021491,
+   "views": 12060407,
    "rilis": "2024-07"
   },
   {
@@ -280,7 +280,7 @@
    "lagu": "Supernatural",
    "jenis": "mv",
    "label": "Official MV (Part.2)",
-   "views": 11673187,
+   "views": 11686590,
    "rilis": "2024-07"
   },
   {
@@ -288,7 +288,7 @@
    "lagu": "How Sweet",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 11638210,
+   "views": 11666844,
    "rilis": "2024-07"
   },
   {
@@ -296,7 +296,7 @@
    "lagu": "Hype Boy",
    "jenis": "mv",
    "label": "Official MV (Hanni ver.)",
-   "views": 11220807,
+   "views": 11224637,
    "rilis": "2022-07"
   },
   {
@@ -304,7 +304,7 @@
    "lagu": "New Jeans",
    "jenis": "dance",
    "label": "Dance Practice",
-   "views": 9696797,
+   "views": 9713684,
    "rilis": "2023-07"
   },
   {
@@ -312,7 +312,7 @@
    "lagu": "Attention",
    "jenis": "dance",
    "label": "Dance Practice (ver.3)",
-   "views": 9600251,
+   "views": 9615766,
    "rilis": "2022-08"
   }
  ]
